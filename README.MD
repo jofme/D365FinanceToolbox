@@ -1,4 +1,4 @@
-# D365 Finance Toolbox
+# D365 Finance Toolbox TEST
 A collection of extensions, enhancements and 'nice-to-haves' for finance and related workloads.
 
 Inspired by the https://github.com/ameyer505/D365FOAdminToolkit project.
