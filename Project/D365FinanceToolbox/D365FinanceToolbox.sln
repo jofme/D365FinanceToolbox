@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "D365FinanceToolbox (USR) [Finance Toolbox]", "D365FinanceToolbox\D365FinanceToolbox.rnrproj", "{5A77BCB9-AFE6-4514-8826-2E7E793E0D08}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A77BCB9-AFE6-4514-8826-2E7E793E0D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A77BCB9-AFE6-4514-8826-2E7E793E0D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B23F77BE-6750-4EA2-8BB1-748E51CB40CB}
+	EndGlobalSection
+EndGlobal

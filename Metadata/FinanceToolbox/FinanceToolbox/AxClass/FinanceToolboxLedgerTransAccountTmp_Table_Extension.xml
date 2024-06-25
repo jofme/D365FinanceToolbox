@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FinanceToolboxLedgerTransAccountTmp_Table_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tableStr(LedgerTransAccountTmp))]
+public final class FinanceToolboxLedgerTransAccountTmp_Table_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>fillFromDimSetBalWithDimRanges</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Coc method that implements opening and closing balances on accounts.
+    /// The standard method does not handle this as it is expected when called from the trial balance form.
+    /// </summary>
+    /// <param name = "_userConnection">TTS User connection</param>
+    /// <param name = "_dimensionSet">Selected dimension set</param>
+    /// <param name = "_dimensionRangeMap">Dimension ranges</param>
+    /// <param name = "_startDate">From date</param>
+    /// <param name = "_endDate">To date</param>
+    /// <returns>True if ledgerTransAccountTmp contains accounts for use in filter, false otherwise</returns>
+    public static server boolean fillFromDimSetBalWithDimRanges(
+        UserConnection _userConnection, 
+        DimensionHierarchy _dimensionSet, 
+        Map _dimensionRangeMap, 
+        TransDate _startDate, 
+        TransDate _endDate)
+    {        
+        Map dimensionRanges = _dimensionRangeMap;
+
+        if (FinanceToolboxTrialBalanceFilterFeature::isEnabled() && FinanceToolboxTrialBalanceAccountFilterContext::current())
+        {
+            dimensionRanges = new Map(Types::Int64, Types::String);
+        }
+
+        boolean ret = next fillFromDimSetBalWithDimRanges(
+            _userConnection,
+            _dimensionSet,
+            dimensionRanges,
+            _startDate,
+            _endDate);
+
+        if (FinanceToolboxTrialBalanceFilterFeature::isEnabled() && FinanceToolboxTrialBalanceAccountFilterContext::current())
+        {   
+            LedgerTransAccountTmp               ledgerTransAccountTmpSearch, ledgerTransAccountTmp;
+            DimensionFocusBalance               dimensionFocusBalance;
+            DimensionAttributeLevelValueView    dimensionAttributeLevelValueView;
+            date                                ledgerPeriodStartDate       = LedgerFiscalCalendar::findOpeningStartDateByDate(Ledger::fiscalCalendar(CompanyInfo::current()), _startDate);
+            date                                ledgerPeriodEndDate         = LedgerFiscalCalendar::findClosingPeriodEndDateByDate(Ledger::fiscalCalendar(CompanyInfo::current()), _endDate);
+            MapEnumerator                       dimensionRangeEnumerator    = _dimensionRangeMap.getEnumerator();
+
+            while (dimensionRangeEnumerator.moveNext())
+            {
+                DimensionAttributeRecId dimensionAttribute  = dimensionRangeEnumerator.currentKey();
+                DimensionValue          dimensionValueRange = dimensionRangeEnumerator.currentValue();
+
+                if ((select firstonly RecId from DimensionHierarchyLevel
+                        where DimensionHierarchyLevel.DimensionHierarchy == _dimensionSet.RecId
+                        &&    DimensionHierarchyLevel.DimensionAttribute == dimensionAttribute).RecId != 0)
+                {
+                    insert_recordset ledgerTransAccountTmp (LedgerDimension)
+                        select FocusLedgerDimension from dimensionFocusBalance
+                            group by FocusLedgerDimension
+                            where dimensionFocusBalance.FocusDimensionHierarchy     == _dimensionSet.RecId
+                            &&    dimensionFocusBalance.Ledger                      == Ledger::current()
+                            &&    dimensionFocusBalance.AccountingDate              >= ledgerPeriodStartDate
+                            &&    dimensionFocusBalance.AccountingDate              <= ledgerPeriodEndDate
+                        exists join dimensionAttributeLevelValueView
+                            where dimensionAttributeLevelValueView.ValueCombinationRecId == dimensionFocusBalance.FocusLedgerDimension
+                            &&    DimensionAttributeLevelValueView.DimensionAttribute    == dimensionattribute
+                            &&    DimensionAttributeLevelValueView.DisplayValue          like(dimensionValueRange)                            
+                        notexists join ledgerTransAccountTmpSearch
+                            where ledgerTransAccountTmpSearch.LedgerDimension       == dimensionFocusBalance.FocusLedgerDimension
+                            &&    ledgerTransAccountTmpSearch.CreatedTransactionId  == appl.curTransactionId();
+
+                    ret = true;
+                }
+            }
+        }
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

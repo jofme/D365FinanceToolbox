@@ -1,0 +1,2 @@
+﻿TrialBalanceFilterFeatureLabel=Finance Toolbox: Trial balance dimension filters
+TrialBalanceFilterFeatureSummary=This feature enables additional dimension filters in the trial balance forms

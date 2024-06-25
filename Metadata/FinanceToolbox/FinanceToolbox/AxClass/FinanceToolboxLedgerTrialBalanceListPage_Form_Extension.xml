@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FinanceToolboxLedgerTrialBalanceListPage_Form_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(formStr(LedgerTrialBalanceListPage))]
+public final class FinanceToolboxLedgerTrialBalanceListPage_Form_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    public void init()
+    {
+        next init();
+
+        FinanceToolboxMainAccountRange.visible(FinanceToolboxTrialBalanceFilterFeature::isEnabled());
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>constructBalances</Name>
+				<Source><![CDATA[
+    public void constructBalances()
+    {
+        using (FinanceToolboxTrialBalanceAccountFilterContext instance = new FinanceToolboxTrialBalanceAccountFilterContext())
+        {
+            instance.mainAccountRange = FinanceToolboxMainAccountRange.text();
+
+            next constructBalances();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

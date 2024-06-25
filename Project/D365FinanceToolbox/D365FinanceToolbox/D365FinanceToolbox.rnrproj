@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>FinanceToolbox</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <RunAppCheckerRules>False</RunAppCheckerRules>
+    <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
+    <DeployOnline>False</DeployOnline>
+    <ProjectGuid>{5a77bcb9-afe6-4514-8826-2e7e793e0d08}</ProjectGuid>
+    <Name>D365FinanceToolbox</Name>
+    <RootNamespace>D365FinanceToolbox</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>
+    </Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Features" />
+    <Folder Include="Labels" />
+    <Folder Include="Trial Balance Filters" />
+    <Folder Include="Trial Balance Filters\Classes" />
+    <Folder Include="Trial Balance Filters\Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\FinanceToolboxLedgerTransAccountTmp_Table_Extension">
+      <SubType>Content</SubType>
+      <Name>FinanceToolboxLedgerTransAccountTmp_Table_Extension</Name>
+      <Link>Trial Balance Filters\Classes\FinanceToolboxLedgerTransAccountTmp_Table_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FinanceToolboxLedgerTrialBalanceContract_Class_Extension">
+      <SubType>Content</SubType>
+      <Name>FinanceToolboxLedgerTrialBalanceContract_Class_Extension</Name>
+      <Link>Trial Balance Filters\Classes\FinanceToolboxLedgerTrialBalanceContract_Class_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FinanceToolboxLedgerTrialBalanceDP_Class_Extension">
+      <SubType>Content</SubType>
+      <Name>FinanceToolboxLedgerTrialBalanceDP_Class_Extension</Name>
+      <Link>Trial Balance Filters\Classes\FinanceToolboxLedgerTrialBalanceDP_Class_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FinanceToolboxLedgerTrialBalanceListPage_Form_Extension">
+      <SubType>Content</SubType>
+      <Name>FinanceToolboxLedgerTrialBalanceListPage_Form_Extension</Name>
+      <Link>Trial Balance Filters\Classes\FinanceToolboxLedgerTrialBalanceListPage_Form_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FinanceToolboxTrialBalanceAccountFilterContext">
+      <SubType>Content</SubType>
+      <Name>FinanceToolboxTrialBalanceAccountFilterContext</Name>
+      <Link>Trial Balance Filters\Classes\FinanceToolboxTrialBalanceAccountFilterContext</Link>
+    </Content>
+    <Content Include="AxClass\FinanceToolboxTrialBalanceFilterFeature">
+      <SubType>Content</SubType>
+      <Name>FinanceToolboxTrialBalanceFilterFeature</Name>
+      <Link>Features\FinanceToolboxTrialBalanceFilterFeature</Link>
+    </Content>
+    <Content Include="AxFormExtension\LedgerTrialBalanceListPage.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>LedgerTrialBalanceListPage.FinanceToolbox</Name>
+      <Link>Trial Balance Filters\Forms\LedgerTrialBalanceListPage.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxLabelFile\FinanceToolbox_en-US">
+      <SubType>Content</SubType>
+      <Name>FinanceToolbox_en-US</Name>
+      <Link>Labels\FinanceToolbox_en-US</Link>
+    </Content>
+    <Content Include="FinanceToolbox.en-US.label.txt">
+      <SubType>Content</SubType>
+      <Name>FinanceToolbox.en-US.label.txt</Name>
+      <DependentUpon>AxLabelFile\FinanceToolbox_en-US</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.17.0.targets" />
+</Project>

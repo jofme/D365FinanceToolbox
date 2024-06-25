@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FinanceToolboxLedgerTrialBalanceContract_Class_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(classStr(LedgerTrialBalanceContract))]
+public final class FinanceToolboxLedgerTrialBalanceContract_Class_Extension
+{
+    private boolean firstDimRangeLookup = true;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>parmDimensionRangeMap</Name>
+				<Source><![CDATA[
+    public Map parmDimensionRangeMap(Map _dimensionRangeMap)
+    {        
+        if (FinanceToolboxTrialBalanceFilterFeature::isEnabled())
+        {
+            if (firstDimRangeLookup
+                && !_dimensionRangeMap
+                && FinanceToolboxTrialBalanceAccountFilterContext::current())
+            {
+                var accountFilterInstance = FinanceToolboxTrialBalanceAccountFilterContext::current();
+
+                if (accountFilterInstance.mainAccountRange)
+                {
+                    Map dimRangeMap = new Map(Types::Int64, Types::String);
+                    dimRangeMap.insert(DimensionAttribute::getWellKnownDimensionAttribute(DimensionAttributeType::MainAccount), accountFilterInstance.mainAccountRange);
+
+                    _dimensionRangeMap = dimRangeMap;
+                }
+            }
+
+            firstDimRangeLookup = false;
+        }
+
+        return next parmDimensionRangeMap(_dimensionRangeMap);
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
