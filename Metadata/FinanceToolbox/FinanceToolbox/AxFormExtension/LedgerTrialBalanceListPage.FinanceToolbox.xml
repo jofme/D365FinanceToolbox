@@ -7,7 +7,7 @@
 			<Name>FormExtensionControl1mxbxav51</Name>
 			<FormControl xmlns=""
 				i:type="AxFormStringControl">
-				<Name>FinanceToolboxMainAccountRange</Name>
+				<Name>FTBXMainAccountRange</Name>
 				<AutoDeclaration>Yes</AutoDeclaration>
 				<Type>String</Type>
 				<FormControlExtension

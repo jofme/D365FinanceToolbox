@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>FinanceToolboxLedgerTrialBalanceDP_Class_Extension</Name>
+	<Name>FTBXLedgerTrialBalanceDP_Class_Extension</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
 [ExtensionOf(classStr(LedgerTrialBalanceDP))]
-public final class FinanceToolboxLedgerTrialBalanceDP_Class_Extension
+public final class FTBXLedgerTrialBalanceDP_Class_Extension
 {
 }
 ]]></Declaration>
@@ -16,7 +16,7 @@ public final class FinanceToolboxLedgerTrialBalanceDP_Class_Extension
     {
         next processReport();
 
-        if (FinanceToolboxTrialBalanceFilterFeature::isEnabled() && FinanceToolboxTrialBalanceAccountFilterContext::current())
+        if (FTBXTrialBalanceFilterFeature::isEnabled() && FTBXTrialBalanceAccountFilterContext::current())
         {
             //Clear account filters after report generation
             LedgerTransAccountTmp::deleteForCreatedTransactionId(appl.curTransactionId());

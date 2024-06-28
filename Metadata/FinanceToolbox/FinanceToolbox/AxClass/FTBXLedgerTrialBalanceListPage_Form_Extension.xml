@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>FinanceToolboxLedgerTrialBalanceListPage_Form_Extension</Name>
+	<Name>FTBXLedgerTrialBalanceListPage_Form_Extension</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
 [ExtensionOf(formStr(LedgerTrialBalanceListPage))]
-public final class FinanceToolboxLedgerTrialBalanceListPage_Form_Extension
+public final class FTBXLedgerTrialBalanceListPage_Form_Extension
 {
 }
 ]]></Declaration>
@@ -16,7 +16,7 @@ public final class FinanceToolboxLedgerTrialBalanceListPage_Form_Extension
     {
         next init();
 
-        FinanceToolboxMainAccountRange.visible(FinanceToolboxTrialBalanceFilterFeature::isEnabled());
+        FTBXMainAccountRange.visible(FTBXTrialBalanceFilterFeature::isEnabled());
     }
 
 ]]></Source>
@@ -26,9 +26,9 @@ public final class FinanceToolboxLedgerTrialBalanceListPage_Form_Extension
 				<Source><![CDATA[
     public void constructBalances()
     {
-        using (FinanceToolboxTrialBalanceAccountFilterContext instance = new FinanceToolboxTrialBalanceAccountFilterContext())
+        using (FTBXTrialBalanceAccountFilterContext instance = new FTBXTrialBalanceAccountFilterContext())
         {
-            instance.mainAccountRange = FinanceToolboxMainAccountRange.text();
+            instance.mainAccountRange = FTBXMainAccountRange.text();
 
             next constructBalances();
         }

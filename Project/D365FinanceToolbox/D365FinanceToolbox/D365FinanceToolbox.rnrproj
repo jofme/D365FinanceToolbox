@@ -32,47 +32,45 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Features" />
     <Folder Include="Labels" />
-    <Folder Include="Trial Balance Filters" />
-    <Folder Include="Trial Balance Filters\Classes" />
-    <Folder Include="Trial Balance Filters\Forms" />
+    <Folder Include="Form Extensions" />
+    <Folder Include="Classses" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AxClass\FinanceToolboxLedgerTransAccountTmp_Table_Extension">
+    <Content Include="AxClass\FTBXLedgerTransAccountTmp_Table_Extension">
       <SubType>Content</SubType>
-      <Name>FinanceToolboxLedgerTransAccountTmp_Table_Extension</Name>
-      <Link>Trial Balance Filters\Classes\FinanceToolboxLedgerTransAccountTmp_Table_Extension</Link>
+      <Name>FTBXLedgerTransAccountTmp_Table_Extension</Name>
+      <Link>Classses\FTBXLedgerTransAccountTmp_Table_Extension</Link>
     </Content>
-    <Content Include="AxClass\FinanceToolboxLedgerTrialBalanceContract_Class_Extension">
+    <Content Include="AxClass\FTBXLedgerTrialBalanceContract_Class_Extension">
       <SubType>Content</SubType>
-      <Name>FinanceToolboxLedgerTrialBalanceContract_Class_Extension</Name>
-      <Link>Trial Balance Filters\Classes\FinanceToolboxLedgerTrialBalanceContract_Class_Extension</Link>
+      <Name>FTBXLedgerTrialBalanceContract_Class_Extension</Name>
+      <Link>Classses\FTBXLedgerTrialBalanceContract_Class_Extension</Link>
     </Content>
-    <Content Include="AxClass\FinanceToolboxLedgerTrialBalanceDP_Class_Extension">
+    <Content Include="AxClass\FTBXLedgerTrialBalanceDP_Class_Extension">
       <SubType>Content</SubType>
-      <Name>FinanceToolboxLedgerTrialBalanceDP_Class_Extension</Name>
-      <Link>Trial Balance Filters\Classes\FinanceToolboxLedgerTrialBalanceDP_Class_Extension</Link>
+      <Name>FTBXLedgerTrialBalanceDP_Class_Extension</Name>
+      <Link>Classses\FTBXLedgerTrialBalanceDP_Class_Extension</Link>
     </Content>
-    <Content Include="AxClass\FinanceToolboxLedgerTrialBalanceListPage_Form_Extension">
+    <Content Include="AxClass\FTBXLedgerTrialBalanceListPage_Form_Extension">
       <SubType>Content</SubType>
-      <Name>FinanceToolboxLedgerTrialBalanceListPage_Form_Extension</Name>
-      <Link>Trial Balance Filters\Classes\FinanceToolboxLedgerTrialBalanceListPage_Form_Extension</Link>
+      <Name>FTBXLedgerTrialBalanceListPage_Form_Extension</Name>
+      <Link>Classses\FTBXLedgerTrialBalanceListPage_Form_Extension</Link>
     </Content>
-    <Content Include="AxClass\FinanceToolboxTrialBalanceAccountFilterContext">
+    <Content Include="AxClass\FTBXTrialBalanceAccountFilterContext">
       <SubType>Content</SubType>
-      <Name>FinanceToolboxTrialBalanceAccountFilterContext</Name>
-      <Link>Trial Balance Filters\Classes\FinanceToolboxTrialBalanceAccountFilterContext</Link>
+      <Name>FTBXTrialBalanceAccountFilterContext</Name>
+      <Link>Classses\FTBXTrialBalanceAccountFilterContext</Link>
     </Content>
-    <Content Include="AxClass\FinanceToolboxTrialBalanceFilterFeature">
+    <Content Include="AxClass\FTBXTrialBalanceFilterFeature">
       <SubType>Content</SubType>
-      <Name>FinanceToolboxTrialBalanceFilterFeature</Name>
-      <Link>Features\FinanceToolboxTrialBalanceFilterFeature</Link>
+      <Name>FTBXTrialBalanceFilterFeature</Name>
+      <Link>Classses\FTBXTrialBalanceFilterFeature</Link>
     </Content>
     <Content Include="AxFormExtension\LedgerTrialBalanceListPage.FinanceToolbox">
       <SubType>Content</SubType>
       <Name>LedgerTrialBalanceListPage.FinanceToolbox</Name>
-      <Link>Trial Balance Filters\Forms\LedgerTrialBalanceListPage.FinanceToolbox</Link>
+      <Link>Form Extensions\LedgerTrialBalanceListPage.FinanceToolbox</Link>
     </Content>
     <Content Include="AxLabelFile\FinanceToolbox_en-US">
       <SubType>Content</SubType>
