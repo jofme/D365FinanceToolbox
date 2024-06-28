@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>FinanceToolboxTrialBalanceFilterFeature</Name>
+	<Name>FTBXTrialBalanceFilterFeature</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
 using System.ComponentModel.Composition;
 using Microsoft.Dynamics.ApplicationPlatform.FeatureExposure;
 
 /// <summary>
-/// The <c>FinanceToolboxTrialBalanceFilterFeature</c> class defines the feature, when enabled, will add additional filters to the trial balance form
+/// The <c>FTBXTrialBalanceFilterFeature</c> class defines the feature, when enabled, will add additional filters to the trial balance form
 /// </summary>
 [ExportAttribute(identifierStr(Microsoft.Dynamics.ApplicationPlatform.FeatureExposure.IFeatureMetadata))]
 [Microsoft.Dynamics.BusinessPlatform.SharedTypes.InternalUseOnlyAttribute]
-internal final class FinanceToolboxTrialBalanceFilterFeature implements IFeatureMetadata
+internal final class FTBXTrialBalanceFilterFeature implements IFeatureMetadata
 {
-    static FinanceToolboxTrialBalanceFilterFeature instance = new FinanceToolboxTrialBalanceFilterFeature();
+    static FTBXTrialBalanceFilterFeature instance = new FTBXTrialBalanceFilterFeature();
 
 }
 ]]></Declaration>
@@ -26,9 +26,9 @@ internal final class FinanceToolboxTrialBalanceFilterFeature implements IFeature
     /// </summary>
     /// <returns>The trial balance filter feature instance</returns>
     [Hookable(false)]
-    public static FinanceToolboxTrialBalanceFilterFeature instance()
+    public static FTBXTrialBalanceFilterFeature instance()
     {
-        return FinanceToolboxTrialBalanceFilterFeature::instance;
+        return FTBXTrialBalanceFilterFeature::instance;
     }
 
 ]]></Source>
@@ -111,7 +111,7 @@ internal final class FinanceToolboxTrialBalanceFilterFeature implements IFeature
         [Hookable(false)]
         public static boolean isEnabled()
         {
-            return Dynamics.AX.Application.FeatureStateProvider::isFeatureEnabled(FinanceToolboxTrialBalanceFilterFeature::instance());
+            return Dynamics.AX.Application.FeatureStateProvider::isFeatureEnabled(FTBXTrialBalanceFilterFeature::instance());
         }
 
 ]]></Source>

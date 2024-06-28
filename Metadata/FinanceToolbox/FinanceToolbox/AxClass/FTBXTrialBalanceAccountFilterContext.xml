@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>FinanceToolboxTrialBalanceAccountFilterContext</Name>
+	<Name>FTBXTrialBalanceAccountFilterContext</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
-public class FinanceToolboxTrialBalanceAccountFilterContext implements System.IDisposable
+public class FTBXTrialBalanceAccountFilterContext implements System.IDisposable
 {
-    static FinanceToolboxTrialBalanceAccountFilterContext instance;
+    static FTBXTrialBalanceAccountFilterContext instance;
     public MainAccountRange mainAccountRange;
 
 }
@@ -16,13 +16,13 @@ public class FinanceToolboxTrialBalanceAccountFilterContext implements System.ID
 				<Source><![CDATA[
     public void new()
     {
-        if (!FinanceToolboxTrialBalanceAccountFilterContext::current())
+        if (!FTBXTrialBalanceAccountFilterContext::current())
         {
             instance = this;
         }
         else
         {
-            instance = FinanceToolboxTrialBalanceAccountFilterContext::current();
+            instance = FTBXTrialBalanceAccountFilterContext::current();
         }
     }
 
@@ -31,7 +31,7 @@ public class FinanceToolboxTrialBalanceAccountFilterContext implements System.ID
 			<Method>
 				<Name>current</Name>
 				<Source><![CDATA[
-    public static FinanceToolboxTrialBalanceAccountFilterContext current()
+    public static FTBXTrialBalanceAccountFilterContext current()
     {
         return instance;
     }
