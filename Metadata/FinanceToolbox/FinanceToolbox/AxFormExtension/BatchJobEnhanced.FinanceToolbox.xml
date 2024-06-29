@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>BatchJobEnhanced.FinanceToolbox</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControl0qpu1hm11</Name>
+			<FormControl xmlns=""
+				i:type="AxFormGroupControl">
+				<Name>FTBXDurationBusinessEvent</Name>
+				<Type>Group</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormCheckBoxControl">
+						<Name>FTBXDurationBusinessEvent_FTBXDurationBusinessEventEmitted</Name>
+						<Type>CheckBox</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FTBXDurationBusinessEventEmitted</DataField>
+						<DataSource>BatchJob</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormDateTimeControl">
+						<Name>FTBXDurationBusinessEvent_FTBXDurationBusinessEventLatestEndTime</Name>
+						<Type>DateTime</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FTBXDurationBusinessEventLatestEndTime</DataField>
+						<DataSource>BatchJob</DataSource>
+					</AxFormControl>
+				</Controls>
+				<DataGroup>FTBXDurationBusinessEvent</DataGroup>
+				<DataSource>BatchJob</DataSource>
+			</FormControl>
+			<Parent>LineViewHeaderDetails</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>Dates_Lines</PreviousSibling>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

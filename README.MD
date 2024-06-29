@@ -9,6 +9,9 @@ All features in the toolbox can be controlled using the built-in feature managem
 - Main account filter in the in the "Trial Balance" inquiry.
    - Feature name: "Finance Toolbox: Trial balance dimension filters"
 
+- Emit business event if batch job takes longer than expected to end.
+   - Feature name: "Finance Toolbox: Long running batch job business events"
+
 # Contact and Contribution
 Want to contribute? We'd **LOVE** to have you! 
 

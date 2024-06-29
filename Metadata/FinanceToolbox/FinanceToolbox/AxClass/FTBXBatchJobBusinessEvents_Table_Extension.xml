@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXBatchJobBusinessEvents_Table_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tableStr(BatchJobBusinessEvents))]
+public final class FTBXBatchJobBusinessEvents_Table_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>ftbxSaveBusinessEvents</Name>
+				<Source><![CDATA[
+    static server void ftbxSaveBusinessEvents(
+        RecId _batchJobId, 
+        NoYes _batchJobDuration,
+        Minutes _batchJobMaxExecutionTime)
+    {        
+        BatchJobBusinessEvents batchJobBusinessEvents;
+
+        ttsbegin;
+
+        select firstonly forupdate batchJobBusinessEvents where
+            batchJobBusinessEvents.BatchJobId == _batchJobId;
+
+        batchJobBusinessEvents.FTBXBatchJobDuration = _batchJobDuration;
+        batchJobBusinessEvents.FTBXBatchJobMaxExecutionTime = _batchJobMaxExecutionTime;
+        batchJobBusinessEvents.BatchJobId = _batchJobId;
+        batchJobBusinessEvents.DataPartition= getcurrentpartition();
+        batchJobBusinessEvents.write();
+        
+        ttscommit;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
