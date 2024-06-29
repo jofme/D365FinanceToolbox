@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxSecurityRole xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXSystemMaintain</Name>
+	<Description>@FinanceToolbox:FinanceToolboxSystemMaintainHelp</Description>
+	<Label>@FinanceToolbox:FinanceToolboxSystemMaintainLabel</Label>
+	<DirectAccessPermissions />
+	<Duties>
+		<AxSecurityDutyReference>
+			<Name>FTBXBatchJobBusinessEventMaintain</Name>
+		</AxSecurityDutyReference>
+	</Duties>
+	<Privileges />
+	<SubRoles />
+</AxSecurityRole>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxModelInfo xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<AppliedUpdates xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+	<Customization>Allow</Customization>
+	<Description></Description>
+	<DisplayName>Finance Toolbox Tests</DisplayName>
+	<Id>896000834</Id>
+	<Description>A collection of extensions, enhancements and 'nice-to-haves' for finance and related workloads&#xD;
+&#xD;
+Website: https://github.com/jofme/D365FinanceToolbox&#xD;
+Blog: https://melgaard.nu&#xD;
+mail: financetoolbox@melgaard.nu</Description>
+	<Description></Description>
+	<DisplayName>Finance Toolbox Tests</DisplayName>
+	<Id>896000834</Id>
+	<InternalsVisibleTo xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+	<Layer>14</Layer>
+	<Locked>false</Locked>
+	<ModelModule>FinanceToolboxTests</ModelModule>
+	<ModelReferences xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+		i:nil="true" />
+	<ModuleReferences xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+		<d2p1:string>ApplicationFoundation</d2p1:string>
+		<d2p1:string>ApplicationPlatform</d2p1:string>
+		<d2p1:string>ApplicationSuite</d2p1:string>
+		<d2p1:string>FinanceToolbox</d2p1:string>
+	</ModuleReferences>
+	<Name>FinanceToolboxTests</Name>
+	<Publisher>The D365 Finance Toolbox Team</Publisher>
+	<SolutionId>00000000-0000-0000-0000-000000000000</SolutionId>
+	<VersionBuild>0</VersionBuild>
+	<VersionMajor>1</VersionMajor>
+	<VersionMinor>0</VersionMinor>
+	<VersionRevision>0</VersionRevision>
+</AxModelInfo>

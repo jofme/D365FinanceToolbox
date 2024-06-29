@@ -32,9 +32,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Labels" />
+    <Folder Include="Label Files" />
     <Folder Include="Form Extensions" />
     <Folder Include="Classses" />
+    <Folder Include="Menu Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AxClass\FTBXLedgerTransAccountTmp_Table_Extension">
@@ -75,7 +76,12 @@
     <Content Include="AxLabelFile\FinanceToolbox_en-US">
       <SubType>Content</SubType>
       <Name>FinanceToolbox_en-US</Name>
-      <Link>Labels\FinanceToolbox_en-US</Link>
+      <Link>Label Files\FinanceToolbox_en-US</Link>
+    </Content>
+    <Content Include="AxMenuExtension\SystemAdministration.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>SystemAdministration.FinanceToolbox</Name>
+      <Link>Menu Extensions\SystemAdministration.FinanceToolbox</Link>
     </Content>
     <Content Include="FinanceToolbox.en-US.label.txt">
       <SubType>Content</SubType>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXBatchJobBusinessEventDurationBatch</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+internal final class FTBXBatchJobBusinessEventDurationBatch extends SysOperationServiceBase
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>doProcessBatchDurationTresholds</Name>
+				<Source><![CDATA[
+    public void doProcessBatchDurationTresholds()
+    {
+        if (FTBXBatchAlertDurationFeature::isEnabled())
+        {
+            if (BusinessEventsConfigurationReader::isBusinessEventEnabled(classStr(FTBXBatchJobBusinessEventDurationEvent)))
+            {
+                BatchJob                batchJob, batchJobUpdate;
+                BatchJobBusinessEvents  batchJobBusinessEvents;
+                utcdatetime             latestEndDate;
+
+                batchJobUpdate.skipAosValidation(true);
+                batchJobUpdate.skipDataMethods(true);
+                batchJobUpdate.skipEvents(true);
+                batchJobUpdate.skipDatabaseLog(true);
+
+                while select batchJob
+                    where batchJob.Status                               == BatchStatus::Executing
+                    &&    batchjob.FTBXDurationBusinessEventRecVersion  != batchJob.RecVersion
+                    join batchJobBusinessEvents
+                        where batchJobBusinessEvents.BatchJobId                     == batchJob.recid
+                        &&    batchJobBusinessEvents.FTBXBatchJobDuration           == NoYes::Yes
+                        &&    batchJobBusinessEvents.FTBXBatchJobMaxExecutionTime   >  0
+                {
+                    latestEndDate = DateTimeUtil::addMinutes(batchJob.StartDateTime, batchJobBusinessEvents.FTBXBatchJobMaxExecutionTime);
+
+                    update_recordset batchJobUpdate
+                        setting FTBXDurationBusinessEventEmitted        = NoYes::No,
+                                FTBXDurationBusinessEventLatestEndTime  = latestEndDate,
+                                FTBXDurationBusinessEventRecVersion     = batchJob.RecVersion
+                        where batchJobUpdate.RecId == batchJob.RecId;
+                }
+
+                while select  batchJob
+                    where batchJob.Status                                   == BatchStatus::Executing
+                    &&    batchJob.FTBXDurationBusinessEventLatestEndTime   > DateTimeUtil::minValue()
+                    &&    batchJob.FTBXDurationBusinessEventLatestEndTime   <= DateTimeUtil::getSystemDateTime()
+                    &&    batchJob.FTBXDurationBusinessEventEmitted         == NoYes::No
+                    join batchJobBusinessEvents
+                        where batchJobBusinessEvents.BatchJobId                     == batchJob.recid
+                        &&    batchJobBusinessEvents.FTBXBatchJobDuration           == NoYes::Yes
+                        &&    batchJobBusinessEvents.FTBXBatchJobMaxExecutionTime   >  0
+                {
+                    warning(strFmt("@FinanceToolbox:BatchAlertDurationTookLongerThanExpected", batchJob.caption));
+
+                    FTBXBatchJobBusinessEventDurationEvent::newFromBatchJobBatchJobBusinessEvents(
+                        batchJob,
+                        batchJobBusinessEvents).send();
+
+                    update_recordset batchJobUpdate
+                        setting FTBXDurationBusinessEventEmitted = NoYes::Yes
+                        where batchJobUpdate.RecId == batchJob.RecId;
+                }
+            }
+            else
+            {
+                warning(strFmt("@FinanceToolbox:BusinessEventHasNotBeenConfigured", "@FinanceToolbox:BatchAlertDurationBusinessEventName"));
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

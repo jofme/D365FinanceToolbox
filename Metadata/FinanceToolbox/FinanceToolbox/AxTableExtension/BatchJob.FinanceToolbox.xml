@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTableExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>BatchJob.FinanceToolbox</Name>
+	<FieldGroupExtensions />
+	<FieldGroups>
+		<AxTableFieldGroup>
+			<Name>FTBXDurationBusinessEvent</Name>
+			<Label>@FinanceToolbox:BatchAlertDurationFieldGroupLabel</Label>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>FTBXDurationBusinessEventEmitted</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FTBXDurationBusinessEventLatestEndTime</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+	</FieldGroups>
+	<FieldModifications />
+	<Fields>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldUtcDateTime">
+			<Name>FTBXDurationBusinessEventLatestEndTime</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<AssetClassification>Customer Content</AssetClassification>
+			<ExtendedDataType>EndDateTime</ExtendedDataType>
+			<FeatureClass>FTBXBatchAlertDurationFeature</FeatureClass>
+			<HelpText>@FinanceToolbox:BatchAlertDurationLatestEndTimeHelp</HelpText>
+			<Label>@FinanceToolbox:BatchAlertDurationLatestEndTimeLabel</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>FTBXDurationBusinessEventEmitted</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>NoYesId</ExtendedDataType>
+			<FeatureClass>FTBXBatchAlertDurationFeature</FeatureClass>
+			<HelpText>@FinanceToolbox:BatchAlertDurationLatestEndTimeEventEmittedHelp</HelpText>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:BatchAlertDurationLatestEndTimeEventEmittedLabel</Label>
+			<EnumType>NoYes</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt64">
+			<Name>FTBXDurationBusinessEventRecVersion</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<FeatureClass>FTBXBatchAlertDurationFeature</FeatureClass>
+			<Visible>No</Visible>
+		</AxTableField>
+	</Fields>
+	<FullTextIndexes />
+	<Indexes>
+		<AxTableIndex>
+			<Name>FTBXBusinessEventsIdx</Name>
+			<AllowDuplicates>Yes</AllowDuplicates>
+			<AllowPageLocks>No</AllowPageLocks>
+			<Fields>
+				<AxTableIndexField>
+					<DataField>FTBXDurationBusinessEventLatestEndTime</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>FTBXDurationBusinessEventEmitted</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>FTBXDurationBusinessEventRecVersion</DataField>
+				</AxTableIndexField>
+			</Fields>
+		</AxTableIndex>
+	</Indexes>
+	<Mappings />
+	<PropertyModifications />
+	<RelationExtensions />
+	<RelationModifications />
+	<Relations />
+</AxTableExtension>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXBatchHeader_Class_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(classStr(BatchHeader))]
+internal final class FTBXBatchHeader_Class_Extension
+{
+    public NoYes ftbxBusinessEventBatchDuration;
+    public Minutes ftbxBusinessEventBatchJobMaxExecutionTime;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>saveHeader</Name>
+				<Source><![CDATA[
+    public void saveHeader(BatchStatus status)
+    {
+        boolean isBusinessEventDirty = businessEventsDirty;
+
+        next saveHeader(status);
+
+        if (isBusinessEventDirty)
+        {
+            BatchJobBusinessEvents::ftbxSaveBusinessEvents(
+                batchHeaderId,
+                ftbxBusinessEventBatchDuration,
+                ftbxBusinessEventBatchJobMaxExecutionTime);
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

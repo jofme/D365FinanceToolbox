@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXTest_BatchAlertsSlowBatchJob</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class FTBXTest_BatchAlertsSlowBatchJob extends RunBaseBatch
+{
+    DialogField dlgDelay;
+    int delaySeconds;
+
+    #define.CurrentVersion(1)
+    #define.Version(1)
+
+    #localmacro.CurrentList
+        delaySeconds
+    #endmacro
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static FTBXTest_BatchAlertsSlowBatchJob construct()
+    {
+        FTBXTest_BatchAlertsSlowBatchJob ftbxTest_BatchAlertsSlowBatchJob = new FTBXTest_BatchAlertsSlowBatchJob();
+        return ftbxTest_BatchAlertsSlowBatchJob;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run()
+    {
+        sleep(delaySeconds * 1000);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>dialog</Name>
+				<Source><![CDATA[
+    public Object dialog()
+    {
+        //Setup the dialog
+        Dialog dialog = super();
+
+        dlgDelay = dialog.addFieldValue(extendedTypeStr(seconds),delaySeconds, "Delay in seconds");
+
+        return dialog;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getFromDialog</Name>
+				<Source><![CDATA[
+    public boolean getFromDialog()
+    {
+        boolean ret;
+        ret = super();
+        
+        delaySeconds = dlgDelay.value();
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>pack</Name>
+				<Source><![CDATA[
+    public container pack()
+    {
+        return [#CurrentVersion, #CurrentList];
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>unpack</Name>
+				<Source><![CDATA[
+    public boolean unpack(container packedClass)
+    {
+        Version version = runbase::getVersion(packedClass);
+        switch (version)
+        {
+            case #CurrentVersion:
+                [version, #CurrentList] = packedClass;
+                break;
+            default:
+                return false;
+        }
+
+        return true;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>runsImpersonated</Name>
+				<Source><![CDATA[
+    public boolean runsImpersonated()
+    {
+        return true;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>canGoBatchJournal</Name>
+				<Source><![CDATA[
+    boolean canGoBatchJournal()
+    {
+        return true;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>description</Name>
+				<Source><![CDATA[
+    private static ClassDescription description()
+    {
+        return 'TEST: Slow RunBase batchjob';
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    public static void main(Args _args)
+    {
+        FTBXTest_BatchAlertsSlowBatchJob ftbxTest_BatchAlertsSlowBatchJob = FTBXTest_BatchAlertsSlowBatchJob::construct();
+
+        if (ftbxTest_BatchAlertsSlowBatchJob.prompt())
+        {
+            ftbxTest_BatchAlertsSlowBatchJob.runOperation();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

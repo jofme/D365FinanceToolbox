@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXBatchJobBusinessEventDurationContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[DataContract]
+internal final class FTBXBatchJobBusinessEventDurationContract extends BusinessEventsContract
+{
+    private BatchCaption    batchCaption;
+    private RecId           batchId;
+    private StartDateTime   startDateTime;
+    private Minutes         maxExecutionTime;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>newFromBatchJobBatchJobBusinessEvents</Name>
+				<Source><![CDATA[
+    public static FTBXBatchJobBusinessEventDurationContract newFromBatchJobBatchJobBusinessEvents(
+        BatchJob                _batchJob,
+        BatchJobBusinessEvents  _batchJobBusinessEvents)
+    {
+        var contract = new FTBXBatchJobBusinessEventDurationContract();
+
+        contract.initFromBatchJob(_batchJob);
+        contract.initFromBatchJobBusinessEvent(_batchJobBusinessEvents);
+
+        return contract;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>initFromBatchJob</Name>
+				<Source><![CDATA[
+    private void initFromBatchJob(BatchJob _batchJob)
+    {
+        batchCaption    = _batchJob.caption;
+        batchId         = _batchJob.recId;
+        startDateTime   = _batchJob.StartDateTime;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>initFromBatchJobBusinessEvent</Name>
+				<Source><![CDATA[
+    private void initFromBatchJobBusinessEvent(BatchJobBusinessEvents _batchJobBusinessEvents)
+    {
+        maxExecutionTime = _batchJobBusinessEvents.FTBXBatchJobMaxExecutionTime;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    protected void new()
+    {
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmBatchCaption</Name>
+				<Source><![CDATA[
+    [DataMember('BatchCaption'), BusinessEventsDataMember('BatchCaption')]
+    public BatchCaption parmBatchCaption(BatchCaption _batchCaption = batchCaption)
+    {
+        batchCaption = _batchCaption;
+        return batchCaption;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmBatchId</Name>
+				<Source><![CDATA[
+    [DataMember('BatchId'), BusinessEventsDataMember('BatchId')]
+    public RecId parmBatchId(RecId _batchId = batchId)
+    {
+        batchId = _batchId;
+        return batchId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmStartDateTim</Name>
+				<Source><![CDATA[
+    [DataMember('StartDateTime'), BusinessEventsDataMember('StartDateTime')]
+    public StartDateTime parmStartDateTim(StartDateTime _startDateTime = startDateTime)
+    {
+        startDateTime = _startDateTime;
+        return startDateTime;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmMaxExecutionTime</Name>
+				<Source><![CDATA[
+    [DataMember('MaxExecutionTime'), BusinessEventsDataMember('MaxExecutionTime')]
+    public Minutes parmMaxExecutionTime(Minutes _maxExecutionTime = maxExecutionTime)
+    {
+        maxExecutionTime = _maxExecutionTime;
+        return maxExecutionTime;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>BatchJobBusinessEvents.FinanceToolbox</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>Copys2htjh0l1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormCheckBoxControl">
+				<Name>chkFTBXBatchJobDuration</Name>
+				<AutoDeclaration>Yes</AutoDeclaration>
+				<ElementPosition>858993458</ElementPosition>
+				<FilterExpression>%1</FilterExpression>
+				<HelpText>@FinanceToolbox:BatchAlertDurationHelp</HelpText>
+				<Type>CheckBox</Type>
+				<VerticalSpacing>-1</VerticalSpacing>
+				<FormControlExtension
+					i:nil="true" />
+				<Label>@FinanceToolbox:BatchAlertDurationLabel</Label>
+			</FormControl>
+			<Parent>BatchEventsGroup</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControl4x5tdrn41</Name>
+			<FormControl xmlns=""
+				i:type="AxFormIntegerControl">
+				<Name>intFTBXBatchJobMaxExecutionTime</Name>
+				<AutoDeclaration>Yes</AutoDeclaration>
+				<HelpText>@FinanceToolbox:BatchAlertDurationLimitHelp</HelpText>
+				<Type>Integer</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<ExtendedDataType>Minutes</ExtendedDataType>
+				<Label>@FinanceToolbox:BatchAlertDurationLimitLabel</Label>
+			</FormControl>
+			<Parent>BatchEventsGroup</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

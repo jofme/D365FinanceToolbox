@@ -3,7 +3,7 @@
 	<Name>FTBXTrialBalanceAccountFilterContext</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
-public class FTBXTrialBalanceAccountFilterContext implements System.IDisposable
+internal final class FTBXTrialBalanceAccountFilterContext implements System.IDisposable
 {
     static FTBXTrialBalanceAccountFilterContext instance;
     public MainAccountRange mainAccountRange;
