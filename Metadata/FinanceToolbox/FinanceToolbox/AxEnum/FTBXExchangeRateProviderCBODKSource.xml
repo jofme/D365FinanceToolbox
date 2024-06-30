@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxEnum xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
 	<Name>FTBXExchangeRateProviderCBODKSource</Name>
-	<UseEnumValue>No</UseEnumValue>
+	<Label>@SYS27472</Label>
 	<EnumValues>
 		<AxEnumValue>
 			<Name>CentralBank</Name>
@@ -14,8 +14,8 @@
 		</AxEnumValue>
 		<AxEnumValue>
 			<Name>Statbank</Name>
+			<Label>@FinanceToolbox:ExchangeRateProviderDenmarkStatbank</Label>
 			<Value>2</Value>
 		</AxEnumValue>
 	</EnumValues>
-	<IsExtensible>true</IsExtensible>
 </AxEnum>

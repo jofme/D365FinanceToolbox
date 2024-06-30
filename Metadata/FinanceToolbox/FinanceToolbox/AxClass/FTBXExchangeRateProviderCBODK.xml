@@ -9,7 +9,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.HttpStatusCode;
 using SysCollections = System.Collections.Generic;
-
 using System.ComponentModel.Composition;
 
 [
@@ -20,7 +19,7 @@ using System.ComponentModel.Composition;
 ]
 internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvider
 {
-    private const ExchangeRateProviderId    providerId  = 'fdf2f821-a580-4fe2-8810-8adc8bbd6149';
+    private const ExchangeRateProviderId providerId  = 'fdf2f821-a580-4fe2-8810-8adc8bbd6149';
 
     private const str currencyDNK       = 'DKK';
     private const str statBankTable     = 'DNVALD';
@@ -36,6 +35,18 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
     private const str statBankDSTMLCurrency = 'currency';
     private const str statBankDSTMLTime     = 'time';
 
+    private const str configNameCentralBankDenmarkEndpoint      = 'Central Bank of Denmark API endpoint';
+    private const str configNameCentralBankDenmarkHistEndpoint  = 'Central Bank of Denmark API endpoint (5 days)';
+    private const str configNameStatistikbankEndpoint           = 'Statistikbank API endpoint';
+    private const str configNameStatistikbankExchangeRateType   = 'Statistikbank exchange rate type';
+    private const str configNameSource                          = 'Source';
+
+    private const str gesmesPathCube    = '/gesmes:Envelope/Cube';
+    private const str gesmesElementCube = 'Cube';
+    private const str gesmesCurrency    = 'currency';
+    private const str gesmesRate        = 'rate';
+    private const str gesmesDate        = 'time';
+
 
     IExchangeRateProviderFrameworkFactory factory;
 
@@ -49,21 +60,28 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
     {
         IExchangeRateProviderConfigDefaults configurationDefaults = factory.CreateExchangeRateProviderConfigDefaults();
 
+        //Only use the endpoint that returns data in GESMES/TS-XML format
+        /*
         configurationDefaults.addNameValueConfigurationPair(
-            "@FinanceToolbox:ExchangeRateProviderDenmarkCentralBankEndpoint", 
+            configNameCentralBankDenmarkEndpoint,
             @'https://www.nationalbanken.dk/api/currencyratesxml');
+        */
 
         configurationDefaults.addNameValueConfigurationPair(
-            "@FinanceToolbox:ExchangeRateProviderStatbankEndpoint",
+            configNameCentralBankDenmarkHistEndpoint,
+            @'https://www.nationalbanken.dk/api/currencyratesxmlhistory');
+
+        configurationDefaults.addNameValueConfigurationPair(
+            configNameStatistikbankEndpoint,
             @'https://api.statbank.dk/v1/data');
 
         configurationDefaults.addNameValueConfigurationPair(
-            "@FinanceToolbox:ExchangeRateProviderStatbankExchangeRateType",
-            @'https://api.statbank.dk/');
+            configNameStatistikbankExchangeRateType,
+            'KBH');
 
         configurationDefaults.AddNameValueConfigurationPair(
-            "Exchange rate sources",
-            'CentralBankStatbank');
+            configNameSource,
+            "1");
 
 
         return configurationDefaults;
@@ -106,13 +124,13 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
 				<Source><![CDATA[
     public IExchangeRateProviderSupportedOptions GetSupportedOptions()
     {
-        IExchangeRateProviderSupportedOptions options = factory.CreateExchangeRateProviderSupportedOptions();
+        ExchangeRateProviderSupportedOptions options = factory.CreateExchangeRateProviderSupportedOptions();
 
         options.set_doesSupportSpecificCurrencyPairs(false);
         options.set_doesSupportSpecificDates(true);
         options.set_fixedBaseIsoCurrency(currencyDnk);
         options.set_doesSupportPreventImportOnNationalHoliday(false);
-        options.set_DoesSupportExchangeRateFromPreviousDay(true);
+        options.set_doesSupportExchangeRateFromPreviousDay(false);
 
         return options;
     }
@@ -122,10 +140,16 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
 			<Method>
 				<Name>ValidateConfigurationDetail</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Validation of configuration values
+    /// No validation has been implemented yet, as only endpoint can be configured. It will fail at the import
+    /// </summary>
+    /// <param name = "_key">Configuration key</param>
+    /// <param name = "_value">Value</param>
+    /// <returns>True if the configured value can be validated</returns>    
     public boolean ValidateConfigurationDetail(ExchangeRateProviderPropertyKey _key, ExchangeRateProviderPropertyValue _value)
     {
-        boolean result = true;
-        return result;
+        return true;
     }
 
 ]]></Source>
@@ -135,19 +159,84 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
 				<Source><![CDATA[
     public str EnumNameForLookup(ExchangeRateProviderPropertyKey _key)
     {
-        if (_key == "Exchange rate sources")
+        switch (_key)
         {
-            return enumStr(FTBXExchangeRateProviderCBODKSource);
+            case configNameSource:  
+                return enumStr(FTBXExchangeRateProviderCBODKSource);
         }
+
         return '';
     }
 
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>addExchangeRateStatbank</Name>
+				<Name>addExchangeRatesCentralBankGESMES</Name>
 				<Source><![CDATA[
-    private void addExchangeRateStatbank(
+    private void addExchangeRatesCentralBankGESMES(
+        ExchangeRateResponse    _response,
+        str                     _apiEndpoint)
+    {
+        var httpClient          = new HttpClient();
+        var httpRequestMessage  = new HttpRequestMessage(new HttpMethod('get'), _apiEndpoint);
+        var responseMessage = httpClient.SendAsync(httpRequestMessage)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
+
+        if (responseMessage && responseMessage.Content)
+        {
+            var nodeListCube = XmlDocument::newXml(
+                responseMessage.Content.ReadAsStringAsync()
+                        .ConfigureAwait(false)
+                        .GetAwaiter()
+                        .GetResult()
+                ).getElementsByTagName('Cube');
+
+            if (nodeListCube.length() > 0)
+            {
+                for(var nodeCube = nodeListCube.item(1); nodeCube; nodeCube = nodeCube.nextSibling())
+                {
+                    var exchDate    = nodeCube.attributes().getNamedItem(gesmesDate).Value();
+                    var parsedDate  = str2Date(exchDate, 321);
+
+                    for (var nodeRate = nodeCube.firstChild(); nodeRate; nodeRate = nodeRate.nextSibling())
+                    {
+                        var exchCurrency    = nodeRate.attributes().getNamedItem(gesmesCurrency).Value();
+                        var exchangeRateStr = nodeRate.attributes().getNamedItem(gesmesRate).Value();
+                        
+                        if (str2numOK(exchangeRateStr))
+                        {
+                            real parsedExchangeRate = str2Num(ExchangeRateStr);
+
+                            if (parsedExchangeRate > 0)
+                            {
+                                var currencyPair = ExchangeRateResponseCurrencyPair::construct();
+                                currencypair.set_fromCurrency(exchCurrency);
+                                currencypair.set_toCurrency(currencyDNK);
+                                currencypair.set_exchangeRateDisplayFactor(ExchangeRateDisplayFactor::Hundred);
+
+                                var exchangeRate = ExchangeRateResponseExchangeRate::construct();
+                                exchangeRate.set_validFrom(parsedDate);
+                                exchangeRate.set_exchangeRate(parsedExchangeRate);
+
+                                currencyPair.addExchangeRate(exchangeRate);
+
+                                _response.addOrUpdateCurrencyPair(currencyPair);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>addExchangeRatesStatbank</Name>
+				<Source><![CDATA[
+    private void addExchangeRatesStatbank(
         ExchangeRateResponse    _response,
         str                     _apiEndpoint,
         str                     _exchangeRateType,
@@ -177,17 +266,19 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
         var exchangeRateDatesVariable = new FTBXExchangeRateProviderCBODKStatbankVariableContract();
         exchangeRateDatesVariable.parmCode(statBankVariableTime);
 
-        date fromDate   = dateStartMth(_fromDate);
-        date toDate     = dateEndMth(_toDate);
-        date curDate    = fromDate;
+        var fromDate   = dateStartMth(_fromDate);
+        var toDate     = dateEndMth(_toDate);
+        var curDate    = fromDate;
 
         do
         {
+            //Filter format example: 2024M06*
+            //This filter will return all values for that month
             exchangeRateDatesVariable.parmValues().addEnd(
                     strFmt(
                         statBankDateTimeFormat, 
                         year(curDate), 
-                        strRFix(int2Str(mthOfYr(curDate)), 2, "0")));
+                        strRFix(int2Str(mthOfYr(curDate)), 2, '0')));
 
             curDate = nextMth(curDate);
         }
@@ -207,75 +298,65 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
 
         if (responseMessage && responseMessage.Content)
         {
-            str responseText = responseMessage.Content.ReadAsStringAsync()
-                        .ConfigureAwait(false)
-                        .GetAwaiter()
-                        .GetResult();
-
-            XmlDocument structureXML = XmlDocument::newXml(
+            var dstmlDocument = XmlDocument::newXml(
                 responseMessage.Content.ReadAsStringAsync()
                         .ConfigureAwait(false)
                         .GetAwaiter()
                         .GetResult());
 
-            var dataNodesVariables = structureXML.getElementsByTagName('Variable');
-
             str dateVariableCode;
             str currencyVariableCode;
-
-            for (int i = 0; i < dataNodesVariables.length(); i++)
+            
+            for (var dataNode = dstmlDocument.getElementsByTagName('Variable').item(0); dataNode; dataNode = dataNode.nextSibling())
             {
-                var dataNode    = dataNodesVariables.item(i);
                 var attributes  = dataNode.attributes();
 
                 switch(attributes.getNamedItem('Text').Value())
                 {
-                    case statBankDSTMLCurrency  : currencyVariableCode  = attributes.getNamedItem('Code').Value(); break;
-                    case statBankDSTMLTime      : dateVariableCode      = attributes.getNamedItem('Code').Value(); break;
+                    case statBankDSTMLCurrency : 
+                        currencyVariableCode = attributes.getNamedItem('Code').Value();
+                        break;
+                    case statBankDSTMLTime : 
+                        dateVariableCode = attributes.getNamedItem('Code').Value(); 
+                        break;
                 }
             }
 
             if (!currencyVariableCode || !dateVariableCode)
             {
-                Error("Statbank returned an unexpected formatted DSTML currency table. Unable to use Statbank");
+                throw Error("@FinanceToolbox:ExchangeRateProviderDSTMLFormatMissingVariable");
             }
 
-            var dataNotesData = structureXML.getElementsByTagName('Data');
-
-            for (int i = 0; i < dataNotesData.length(); i++)
+            for (var rateNode = dstmlDocument.getElementsByTagName('No').item(0); rateNode; rateNode = rateNode.nextSibling())
             {
-                var dataNode = dataNotesData.item(i);
-                var rateList = dataNode.childNodes();
+                var attributes  = rateNode.attributes();
 
-                for (int y = 0; y < rateList.length(); y++)
+                str dateVariableStr     = attributes.getNamedItem(dateVariableCode).Value();
+                str currencyVariableStr = attributes.getNamedItem(currencyVariableCode).Value();
+                str exchangeRateStr     = rateNode.text();
+
+                //Format: 2024M05D01
+                var parsedDate = mkDate(
+                    str2int(substr(dateVariableStr, 9, 2)),     //Day
+                    str2int(substr(dateVariableStr, 6, 2)),     //Month
+                    str2int(substr(dateVariableStr, 1, 4)));    //Year
+
+                if (parsedDate > _toDate)
                 {
-                    var rateNode    = rateList.item(y);
-                    var attributes  = rateNode.attributes();
+                    break;
+                }
 
-                    str dateVariableStr     = attributes.getNamedItem(dateVariableCode).Value();
-                    str currencyVariableStr = attributes.getNamedItem(currencyVariableCode).Value();
-                    str exchangeRateStr     = rateNode.text();
+                if (currencyVariableStr == currencyDNK)
+                {
+                    continue;
+                }
 
-                    //Format: 2024M05D01
-                    date parsedDate = mkDate(
-                        str2int(substr(dateVariableStr, 9, 2)),     //Day
-                        str2int(substr(dateVariableStr, 6, 2)),     //Month
-                        str2int(substr(dateVariableStr, 1, 4)));    //Year
+                if (str2numOK(exchangeRateStr))
+                {
+                    var parsedExchangeRate = str2Num(ExchangeRateStr);
 
-                    if (parsedDate > _toDate)
+                    if (parsedExchangeRate > 0)
                     {
-                        break;
-                    }
-
-                    if (currencyVariableStr == currencyDNK)
-                    {
-                        continue;
-                    }
-
-                    if (str2numOK(exchangeRateStr))
-                    {
-                        real parsedExchangeRate = str2Num(ExchangeRateStr);
-
                         var currencyPair = ExchangeRateResponseCurrencyPair::construct();
                         currencypair.set_fromCurrency(currencyVariableStr);
                         currencypair.set_toCurrency(currencyDNK);
@@ -301,17 +382,43 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
 				<Source><![CDATA[
     public IExchangeRateResponse GetExchangeRates(IExchangeRateRequest _request, IExchangeRateProviderConfig _config)
     {
-        ExchangeRateResponse exchangeRateResponse = ExchangeRateResponse::construct();
+        var                                 exchangeRateResponse    = ExchangeRateResponse::construct();
+        FTBXExchangeRateProviderCBODKSource source                  = str2Int(_config.getPropertyValue(ProviderId, configNameSource));
 
-        //If (Only Statbank or Statbank plus Danmarks Nationalbank)
-        this.addExchangeRateStatbank(
-            exchangeRateResponse,
-            'https://api.statbank.dk/v1/data',
-            'kbh',
-            _request.FromDate,
-            _request.ToDate);
+        try
+        {
+            if (source != FTBXExchangeRateProviderCBODKSource::CentralBank
+                && !(source == FTBXExchangeRateProviderCBODKSource::CentralBankStatbank && _request.ImportDateType == Microsoft.Dynamics.ApplicationSuite.FinancialManagement.Currency.ExchangeRateImportDateType::CurrentDate))
+            {
+                this.addExchangeRatesStatbank(
+                    exchangeRateResponse,
+                    _config.getPropertyValue(ProviderId, configNameStatistikbankEndpoint),
+                    _config.getPropertyValue(ProviderId, configNameStatistikbankExchangeRateType),
+                    _request.FromDate,
+                    _request.ToDate);
+            }
+        }
+        catch
+        {
+            exceptionTextFallThrough();
+        }
 
-        //If (Only Nationalbank or Statbank plus Danmarks Nationalbank)
+        try
+        {
+            //Rates returned by the central bank always takes precedence over rates from Statbank, even though it's the same data owner
+            if (source != FTBXExchangeRateProviderCBODKSource::Statbank)
+            {
+                //Only the GESMES/TS-XML endpoint has been implemented. It returns the same data as the daily export, and since it's only 5 days it could
+                //be considered overkill to implement both formats
+                this.addExchangeRatesCentralBankGESMES( 
+                    exchangeRateResponse, 
+                    _config.getPropertyValue(ProviderId, configNameCentralBankDenmarkHistEndpoint));
+            }
+        }
+        catch
+        {
+            exceptionTextFallThrough();
+        }
 
         return exchangeRateResponse;
     }

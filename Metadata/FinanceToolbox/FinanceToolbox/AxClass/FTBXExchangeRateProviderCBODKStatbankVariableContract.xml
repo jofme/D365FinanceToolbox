@@ -10,7 +10,6 @@ class FTBXExchangeRateProviderCBODKStatbankVariableContract
     List values;
 
 }
-
 ]]></Declaration>
 		<Methods>
 			<Method>
