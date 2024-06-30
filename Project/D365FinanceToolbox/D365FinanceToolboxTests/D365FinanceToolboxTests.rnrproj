@@ -15,7 +15,10 @@
     <ProjectGuid>{072373e1-81d5-4ec1-9be8-6452be9fd081}</ProjectGuid>
     <Name>D365FinanceToolboxTests</Name>
     <RootNamespace>D365FinanceToolboxTests</RootNamespace>
-    <StartupType>Class</StartupType>
+    <StartupType>
+    </StartupType>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>FinanceToolbox</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <RunAppCheckerRules>False</RunAppCheckerRules>
+    <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
+    <DeployOnline>False</DeployOnline>
+    <ProjectGuid>{f0b03e64-da02-4189-836b-97670d67c7dc}</ProjectGuid>
+    <Name>D365FinanceToolbox_ExchangeRateProviders</Name>
+    <RootNamespace>D365FinanceToolbox_ExchangeRateProviders</RootNamespace>
+    <StartupType>Class</StartupType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>
+    </Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Base Enum Extensions\" />
+    <Folder Include="Base Enums\" />
+    <Folder Include="Classes\" />
+    <Folder Include="EDT Enums\" />
+    <Folder Include="Label Files\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\FTBXExchangeRateProviderCBODK">
+      <SubType>Content</SubType>
+      <Name>FTBXExchangeRateProviderCBODK</Name>
+      <Link>Classes\FTBXExchangeRateProviderCBODK</Link>
+    </Content>
+    <Content Include="AxClass\FTBXExchangeRateProviderCBODKStatbankRequestContract">
+      <SubType>Content</SubType>
+      <Name>FTBXExchangeRateProviderCBODKStatbankRequestContract</Name>
+      <Link>Classes\FTBXExchangeRateProviderCBODKStatbankRequestContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXExchangeRateProviderCBODKStatbankVariableContract">
+      <SubType>Content</SubType>
+      <Name>FTBXExchangeRateProviderCBODKStatbankVariableContract</Name>
+      <Link>Classes\FTBXExchangeRateProviderCBODKStatbankVariableContract</Link>
+    </Content>
+    <Content Include="AxEnumExtension\ExchangeRateProvider.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>ExchangeRateProvider.FinanceToolbox</Name>
+      <Link>Base Enum Extensions\ExchangeRateProvider.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxEnum\FTBXExchangeRateProviderCBODKSource">
+      <SubType>Content</SubType>
+      <Name>FTBXExchangeRateProviderCBODKSource</Name>
+      <Link>Base Enums\FTBXExchangeRateProviderCBODKSource</Link>
+    </Content>
+    <Content Include="AxLabelFile\FinanceToolbox_en-US">
+      <SubType>Content</SubType>
+      <Name>FinanceToolbox_en-US</Name>
+      <Link>Label Files\FinanceToolbox_en-US</Link>
+    </Content>
+    <Content Include="FinanceToolbox.en-US.label.txt">
+      <SubType>Content</SubType>
+      <Name>FinanceToolbox.en-US.label.txt</Name>
+      <DependentUpon>AxLabelFile\FinanceToolbox_en-US</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.17.0.targets" />
+</Project>
