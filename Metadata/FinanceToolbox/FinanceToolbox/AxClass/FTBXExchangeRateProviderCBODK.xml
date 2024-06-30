@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXExchangeRateProviderCBODK</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+using Microsoft.Dynamics.ApplicationSuite.FinancialManagement.Currency.Framework;
+using System.Collections;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.HttpStatusCode;
+using SysCollections = System.Collections.Generic;
+
+using System.ComponentModel.Composition;
+
+[
+    ExportMetadataAttribute(
+        enumStr(ExchangeRateProvider), 
+        ExchangeRateProvider::FTBXCentralBankOfDenmark), 
+    ExportAttribute('Microsoft.Dynamics.ApplicationSuite.FinancialManagement.Currency.Framework.IExchangeRateProvider')
+]
+internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvider
+{
+    private const ExchangeRateProviderId    providerId  = 'fdf2f821-a580-4fe2-8810-8adc8bbd6149';
+
+    private const str currencyDNK       = 'DKK';
+    private const str statBankTable     = 'DNVALD';
+    private const str statBankFormat    = 'DSTML';
+    private const str statBankOrder     = 'Ascending';
+    private const str statBankLanguage  = 'en';
+
+    private const str statBankVariableCurrency  = 'VALUTA';
+    private const str statBankVariableTime      = 'TID';
+    private const str statBankVariableType      = 'KURTYP';
+    private const str statBankDateTimeFormat    = '%1M%2*';
+
+    private const str statBankDSTMLCurrency = 'currency';
+    private const str statBankDSTMLTime     = 'time';
+
+
+    IExchangeRateProviderFrameworkFactory factory;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>GetConfigurationDefaults</Name>
+				<Source><![CDATA[
+    public IExchangeRateProviderConfigDefaults GetConfigurationDefaults()
+    {
+        IExchangeRateProviderConfigDefaults configurationDefaults = factory.CreateExchangeRateProviderConfigDefaults();
+
+        configurationDefaults.addNameValueConfigurationPair(
+            "@FinanceToolbox:ExchangeRateProviderDenmarkCentralBankEndpoint", 
+            @'https://www.nationalbanken.dk/api/currencyratesxml');
+
+        configurationDefaults.addNameValueConfigurationPair(
+            "@FinanceToolbox:ExchangeRateProviderStatbankEndpoint",
+            @'https://api.statbank.dk/v1/data');
+
+        configurationDefaults.addNameValueConfigurationPair(
+            "@FinanceToolbox:ExchangeRateProviderStatbankExchangeRateType",
+            @'https://api.statbank.dk/');
+
+        configurationDefaults.AddNameValueConfigurationPair(
+            "Exchange rate sources",
+            'CentralBankStatbank');
+
+
+        return configurationDefaults;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>get_Name</Name>
+				<Source><![CDATA[
+    public ExchangeRateProviderName get_Name()
+    {
+        return "@FinanceToolbox:ExchangeRateProviderCentralBankOfDenmark";
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>get_Id</Name>
+				<Source><![CDATA[
+    public ExchangeRateProviderId get_Id()
+    {
+        return ProviderId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>set_Factory</Name>
+				<Source><![CDATA[
+    public void set_Factory(IExchangeRateProviderFrameworkFactory _factory)
+    {
+        factory = _factory;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>GetSupportedOptions</Name>
+				<Source><![CDATA[
+    public IExchangeRateProviderSupportedOptions GetSupportedOptions()
+    {
+        IExchangeRateProviderSupportedOptions options = factory.CreateExchangeRateProviderSupportedOptions();
+
+        options.set_doesSupportSpecificCurrencyPairs(false);
+        options.set_doesSupportSpecificDates(true);
+        options.set_fixedBaseIsoCurrency(currencyDnk);
+        options.set_doesSupportPreventImportOnNationalHoliday(false);
+        options.set_DoesSupportExchangeRateFromPreviousDay(true);
+
+        return options;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>ValidateConfigurationDetail</Name>
+				<Source><![CDATA[
+    public boolean ValidateConfigurationDetail(ExchangeRateProviderPropertyKey _key, ExchangeRateProviderPropertyValue _value)
+    {
+        boolean result = true;
+        return result;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>EnumNameForLookup</Name>
+				<Source><![CDATA[
+    public str EnumNameForLookup(ExchangeRateProviderPropertyKey _key)
+    {
+        if (_key == "Exchange rate sources")
+        {
+            return enumStr(FTBXExchangeRateProviderCBODKSource);
+        }
+        return '';
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>addExchangeRateStatbank</Name>
+				<Source><![CDATA[
+    private void addExchangeRateStatbank(
+        ExchangeRateResponse    _response,
+        str                     _apiEndpoint,
+        str                     _exchangeRateType,
+        FromDate                _fromDate,
+        ToDate                  _toDate)
+    {
+        var httpClient          = new HttpClient();
+        var httpRequestMessage  = new HttpRequestMessage(new HttpMethod('post'), _apiEndpoint);
+
+        var statbankRequest = new FTBXExchangeRateProviderCBODKStatbankRequestContract();
+        statbankRequest.parmLang(statBankLanguage);
+        statbankRequest.parmTable(statBankTable);
+        statbankRequest.parmFormat(statBankFormat);
+        statbankRequest.parmTimeOrder(statBankOrder);
+
+        var currencyVariable = new FTBXExchangeRateProviderCBODKStatbankVariableContract();
+        
+        currencyVariable.parmCode(statBankVariableCurrency);
+        currencyVariable.parmValues().addEnd('*');
+        statbankRequest.parmVariables().addEnd(currencyVariable);
+
+        var exchangeRateTypeVariable = new FTBXExchangeRateProviderCBODKStatbankVariableContract();
+        exchangeRateTypeVariable.parmCode(statBankVariableType);
+        exchangeRateTypeVariable.parmValues().addEnd(_exchangeRateType);
+        statbankRequest.parmVariables().addEnd(exchangeRateTypeVariable);
+
+        var exchangeRateDatesVariable = new FTBXExchangeRateProviderCBODKStatbankVariableContract();
+        exchangeRateDatesVariable.parmCode(statBankVariableTime);
+
+        date fromDate   = dateStartMth(_fromDate);
+        date toDate     = dateEndMth(_toDate);
+        date curDate    = fromDate;
+
+        do
+        {
+            exchangeRateDatesVariable.parmValues().addEnd(
+                    strFmt(
+                        statBankDateTimeFormat, 
+                        year(curDate), 
+                        strRFix(int2Str(mthOfYr(curDate)), 2, "0")));
+
+            curDate = nextMth(curDate);
+        }
+        while (curDate <= toDate);
+
+        statbankRequest.parmVariables().addEnd(exchangeRateDatesVariable);
+
+        httpRequestMessage.Content = new StringContent(
+            FormJsonSerializer::serializeClass(statbankRequest),
+            System.Text.Encoding::UTF8, 
+            'application/json');
+        
+        var responseMessage = httpClient.SendAsync(httpRequestMessage)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
+
+        if (responseMessage && responseMessage.Content)
+        {
+            str responseText = responseMessage.Content.ReadAsStringAsync()
+                        .ConfigureAwait(false)
+                        .GetAwaiter()
+                        .GetResult();
+
+            XmlDocument structureXML = XmlDocument::newXml(
+                responseMessage.Content.ReadAsStringAsync()
+                        .ConfigureAwait(false)
+                        .GetAwaiter()
+                        .GetResult());
+
+            var dataNodesVariables = structureXML.getElementsByTagName('Variable');
+
+            str dateVariableCode;
+            str currencyVariableCode;
+
+            for (int i = 0; i < dataNodesVariables.length(); i++)
+            {
+                var dataNode    = dataNodesVariables.item(i);
+                var attributes  = dataNode.attributes();
+
+                switch(attributes.getNamedItem('Text').Value())
+                {
+                    case statBankDSTMLCurrency  : currencyVariableCode  = attributes.getNamedItem('Code').Value(); break;
+                    case statBankDSTMLTime      : dateVariableCode      = attributes.getNamedItem('Code').Value(); break;
+                }
+            }
+
+            if (!currencyVariableCode || !dateVariableCode)
+            {
+                Error("Statbank returned an unexpected formatted DSTML currency table. Unable to use Statbank");
+            }
+
+            var dataNotesData = structureXML.getElementsByTagName('Data');
+
+            for (int i = 0; i < dataNotesData.length(); i++)
+            {
+                var dataNode = dataNotesData.item(i);
+                var rateList = dataNode.childNodes();
+
+                for (int y = 0; y < rateList.length(); y++)
+                {
+                    var rateNode    = rateList.item(y);
+                    var attributes  = rateNode.attributes();
+
+                    str dateVariableStr     = attributes.getNamedItem(dateVariableCode).Value();
+                    str currencyVariableStr = attributes.getNamedItem(currencyVariableCode).Value();
+                    str exchangeRateStr     = rateNode.text();
+
+                    //Format: 2024M05D01
+                    date parsedDate = mkDate(
+                        str2int(substr(dateVariableStr, 9, 2)),     //Day
+                        str2int(substr(dateVariableStr, 6, 2)),     //Month
+                        str2int(substr(dateVariableStr, 1, 4)));    //Year
+
+                    if (parsedDate > _toDate)
+                    {
+                        break;
+                    }
+
+                    if (currencyVariableStr == currencyDNK)
+                    {
+                        continue;
+                    }
+
+                    if (str2numOK(exchangeRateStr))
+                    {
+                        real parsedExchangeRate = str2Num(ExchangeRateStr);
+
+                        var currencyPair = ExchangeRateResponseCurrencyPair::construct();
+                        currencypair.set_fromCurrency(currencyVariableStr);
+                        currencypair.set_toCurrency(currencyDNK);
+                        currencypair.set_exchangeRateDisplayFactor(ExchangeRateDisplayFactor::Hundred);
+
+                        var exchangeRate = ExchangeRateResponseExchangeRate::construct();
+                        exchangeRate.set_validFrom(parsedDate);
+                        exchangeRate.set_exchangeRate(parsedExchangeRate);
+
+                        currencyPair.addExchangeRate(exchangeRate);
+
+                        _response.addOrUpdateCurrencyPair(currencyPair);
+                    }
+                }
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>GetExchangeRates</Name>
+				<Source><![CDATA[
+    public IExchangeRateResponse GetExchangeRates(IExchangeRateRequest _request, IExchangeRateProviderConfig _config)
+    {
+        ExchangeRateResponse exchangeRateResponse = ExchangeRateResponse::construct();
+
+        //If (Only Statbank or Statbank plus Danmarks Nationalbank)
+        this.addExchangeRateStatbank(
+            exchangeRateResponse,
+            'https://api.statbank.dk/v1/data',
+            'kbh',
+            _request.FromDate,
+            _request.ToDate);
+
+        //If (Only Nationalbank or Statbank plus Danmarks Nationalbank)
+
+        return exchangeRateResponse;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

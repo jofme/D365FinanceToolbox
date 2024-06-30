@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXExchangeRateProviderCBODKStatbankVariableContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[DataContractAttribute]
+class FTBXExchangeRateProviderCBODKStatbankVariableContract
+{
+    str code;
+    List values;
+
+}
+
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    public void new()
+    {
+        this.values = new List(Types::String);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmCode</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute('Code')]
+    public str parmCode(str _code = code)
+    {
+        code = _code;
+        return code;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmValues</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute('Values')]
+    public List parmValues(List _values = values)
+    {
+        values = _values;
+        return values;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

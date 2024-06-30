@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxEnum xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXExchangeRateProviderCBODKSource</Name>
+	<UseEnumValue>No</UseEnumValue>
+	<EnumValues>
+		<AxEnumValue>
+			<Name>CentralBank</Name>
+			<Label>@FinanceToolbox:ExchangeRateProviderCentralBankOfDenmark</Label>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>CentralBankStatbank</Name>
+			<Label>@FinanceToolbox:ExchangeRateProviderCentralBankOfDenmarkStatbank</Label>
+			<Value>1</Value>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>Statbank</Name>
+			<Value>2</Value>
+		</AxEnumValue>
+	</EnumValues>
+	<IsExtensible>true</IsExtensible>
+</AxEnum>

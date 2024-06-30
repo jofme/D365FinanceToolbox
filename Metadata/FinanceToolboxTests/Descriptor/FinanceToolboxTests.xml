@@ -5,14 +5,6 @@
 	<Description></Description>
 	<DisplayName>Finance Toolbox Tests</DisplayName>
 	<Id>896000834</Id>
-	<Description>A collection of extensions, enhancements and 'nice-to-haves' for finance and related workloads&#xD;
-&#xD;
-Website: https://github.com/jofme/D365FinanceToolbox&#xD;
-Blog: https://melgaard.nu&#xD;
-mail: financetoolbox@melgaard.nu</Description>
-	<Description></Description>
-	<DisplayName>Finance Toolbox Tests</DisplayName>
-	<Id>896000834</Id>
 	<InternalsVisibleTo xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
 	<Layer>14</Layer>
 	<Locked>false</Locked>
