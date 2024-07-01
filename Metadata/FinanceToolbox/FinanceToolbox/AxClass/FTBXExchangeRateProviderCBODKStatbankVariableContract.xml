@@ -6,6 +6,8 @@
 [DataContractAttribute]
 class FTBXExchangeRateProviderCBODKStatbankVariableContract
 {
+    private const str statBankDateTimeFormat = '%1M%2*';
+
     str code;
     List values;
 
@@ -42,6 +44,58 @@ class FTBXExchangeRateProviderCBODKStatbankVariableContract
     {
         values = _values;
         return values;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setCode</Name>
+				<Source><![CDATA[
+    public FTBXExchangeRateProviderCBODKStatbankVariableContract setCode(str _code)
+    {
+        code = _code;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>addValue</Name>
+				<Source><![CDATA[
+    public FTBXExchangeRateProviderCBODKStatbankVariableContract addValue(str _value)
+    {
+        values.addEnd(_value);
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>addDateRange</Name>
+				<Source><![CDATA[
+    public FTBXExchangeRateProviderCBODKStatbankVariableContract addDateRange(
+        FromDate _fromDate, 
+        ToDate _toDate)
+    {
+        var fromDate   = dateStartMth(_fromDate);
+        var toDate     = dateEndMth(_toDate);
+        var curDate    = fromDate;
+
+        do
+        {
+            //Filter format example: 2024M06*
+            //This filter will return all values for that month
+            values.addEnd(
+                    strFmt(
+                        statBankDateTimeFormat,
+                        year(curDate),
+                        strRFix(int2Str(mthOfYr(curDate)), 2, '0')));
+
+            curDate = nextMth(curDate);
+        }
+        while (curDate <= toDate);
+
+        return this;
     }
 
 ]]></Source>
