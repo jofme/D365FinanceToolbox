@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>FTBXLedgerTransAccountTmp_Table_Extension</Name>
+	<Name>FTBELedgerTransAccountTmp_Table_Extension</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
 [ExtensionOf(tableStr(LedgerTransAccountTmp))]
-public final class FTBXLedgerTransAccountTmp_Table_Extension
+public final class FTBELedgerTransAccountTmp_Table_Extension
 {
 }
 ]]></Declaration>
@@ -31,7 +31,7 @@ public final class FTBXLedgerTransAccountTmp_Table_Extension
     {        
         Map dimensionRanges = _dimensionRangeMap;
 
-        if (FTBXTrialBalanceFilterFeature::isEnabled() && FTBXTrialBalanceAccountFilterContext::current())
+        if (FTBETrialBalanceFilterFeature::isEnabled() && FTBETrialBalanceAccountFilterContext::current())
         {
             dimensionRanges = new Map(Types::Int64, Types::String);
         }
@@ -43,7 +43,7 @@ public final class FTBXLedgerTransAccountTmp_Table_Extension
             _startDate,
             _endDate);
 
-        if (FTBXTrialBalanceFilterFeature::isEnabled() && FTBXTrialBalanceAccountFilterContext::current())
+        if (FTBETrialBalanceFilterFeature::isEnabled() && FTBETrialBalanceAccountFilterContext::current())
         {   
             LedgerTransAccountTmp               ledgerTransAccountTmpSearch, ledgerTransAccountTmp;
             DimensionFocusBalance               dimensionFocusBalance;

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>FTBXTrialBalanceAccountFilterContext</Name>
+	<Name>FTBETrialBalanceAccountFilterContext</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
-internal final class FTBXTrialBalanceAccountFilterContext implements System.IDisposable
+internal final class FTBETrialBalanceAccountFilterContext implements System.IDisposable
 {
-    static FTBXTrialBalanceAccountFilterContext instance;
+    static FTBETrialBalanceAccountFilterContext instance;
     public MainAccountRange mainAccountRange;
 
 }
@@ -16,13 +16,13 @@ internal final class FTBXTrialBalanceAccountFilterContext implements System.IDis
 				<Source><![CDATA[
     public void new()
     {
-        if (!FTBXTrialBalanceAccountFilterContext::current())
+        if (!FTBETrialBalanceAccountFilterContext::current())
         {
             instance = this;
         }
         else
         {
-            instance = FTBXTrialBalanceAccountFilterContext::current();
+            instance = FTBETrialBalanceAccountFilterContext::current();
         }
     }
 
@@ -31,7 +31,7 @@ internal final class FTBXTrialBalanceAccountFilterContext implements System.IDis
 			<Method>
 				<Name>current</Name>
 				<Source><![CDATA[
-    public static FTBXTrialBalanceAccountFilterContext current()
+    public static FTBETrialBalanceAccountFilterContext current()
     {
         return instance;
     }
