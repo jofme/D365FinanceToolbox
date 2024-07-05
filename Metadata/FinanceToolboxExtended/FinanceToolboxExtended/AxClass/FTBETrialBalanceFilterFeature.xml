@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>FTBXTrialBalanceFilterFeature</Name>
+	<Name>FTBETrialBalanceFilterFeature</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
 using System.ComponentModel.Composition;
 using Microsoft.Dynamics.ApplicationPlatform.FeatureExposure;
 
 /// <summary>
-/// The <c>FTBXTrialBalanceFilterFeature</c> class defines the feature, when enabled, will add additional filters to the trial balance form
+/// The <c>FTBETrialBalanceFilterFeature</c> class defines the feature, when enabled, will add additional filters to the trial balance form
 /// </summary>
 [ExportAttribute(identifierStr(Microsoft.Dynamics.ApplicationPlatform.FeatureExposure.IFeatureMetadata))]
 [Microsoft.Dynamics.BusinessPlatform.SharedTypes.InternalUseOnlyAttribute]
-internal final class FTBXTrialBalanceFilterFeature implements IFeatureMetadata
+internal final class FTBETrialBalanceFilterFeature implements IFeatureMetadata
 {
-    static FTBXTrialBalanceFilterFeature instance = new FTBXTrialBalanceFilterFeature();
+    static FTBETrialBalanceFilterFeature instance = new FTBETrialBalanceFilterFeature();
 
 }
 ]]></Declaration>
@@ -26,9 +26,9 @@ internal final class FTBXTrialBalanceFilterFeature implements IFeatureMetadata
     /// </summary>
     /// <returns>The trial balance filter feature instance</returns>
     [Hookable(false)]
-    public static FTBXTrialBalanceFilterFeature instance()
+    public static FTBETrialBalanceFilterFeature instance()
     {
-        return FTBXTrialBalanceFilterFeature::instance;
+        return FTBETrialBalanceFilterFeature::instance;
     }
 
 ]]></Source>
@@ -39,7 +39,7 @@ internal final class FTBXTrialBalanceFilterFeature implements IFeatureMetadata
     [Hookable(false)]
     public FeatureLabelId label()
     {
-        return literalStr("@FinanceToolbox:TrialBalanceFilterFeatureLabel");
+        return literalStr("@FinanceToolboxExtended:TrialBalanceFilterFeatureLabel");
     }
 
 ]]></Source>
@@ -61,7 +61,7 @@ internal final class FTBXTrialBalanceFilterFeature implements IFeatureMetadata
     [Hookable(false)]
     public FeatureLabelId summary()
     {
-        return literalStr("@FinanceToolbox:TrialBalanceFilterFeatureSummary");
+        return literalStr("@FinanceToolboxExtended:TrialBalanceFilterFeatureSummary");
     }
 
 ]]></Source>
@@ -111,7 +111,7 @@ internal final class FTBXTrialBalanceFilterFeature implements IFeatureMetadata
         [Hookable(false)]
         public static boolean isEnabled()
         {
-            return Dynamics.AX.Application.FeatureStateProvider::isFeatureEnabled(FTBXTrialBalanceFilterFeature::instance());
+            return Dynamics.AX.Application.FeatureStateProvider::isFeatureEnabled(FTBETrialBalanceFilterFeature::instance());
         }
 
 ]]></Source>

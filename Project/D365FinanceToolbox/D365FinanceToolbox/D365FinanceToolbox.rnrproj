@@ -38,41 +38,6 @@
     <Folder Include="Menu Extensions\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AxClass\FTBXLedgerTransAccountTmp_Table_Extension">
-      <SubType>Content</SubType>
-      <Name>FTBXLedgerTransAccountTmp_Table_Extension</Name>
-      <Link>Classses\FTBXLedgerTransAccountTmp_Table_Extension</Link>
-    </Content>
-    <Content Include="AxClass\FTBXLedgerTrialBalanceContract_Class_Extension">
-      <SubType>Content</SubType>
-      <Name>FTBXLedgerTrialBalanceContract_Class_Extension</Name>
-      <Link>Classses\FTBXLedgerTrialBalanceContract_Class_Extension</Link>
-    </Content>
-    <Content Include="AxClass\FTBXLedgerTrialBalanceDP_Class_Extension">
-      <SubType>Content</SubType>
-      <Name>FTBXLedgerTrialBalanceDP_Class_Extension</Name>
-      <Link>Classses\FTBXLedgerTrialBalanceDP_Class_Extension</Link>
-    </Content>
-    <Content Include="AxClass\FTBXLedgerTrialBalanceListPage_Form_Extension">
-      <SubType>Content</SubType>
-      <Name>FTBXLedgerTrialBalanceListPage_Form_Extension</Name>
-      <Link>Classses\FTBXLedgerTrialBalanceListPage_Form_Extension</Link>
-    </Content>
-    <Content Include="AxClass\FTBXTrialBalanceAccountFilterContext">
-      <SubType>Content</SubType>
-      <Name>FTBXTrialBalanceAccountFilterContext</Name>
-      <Link>Classses\FTBXTrialBalanceAccountFilterContext</Link>
-    </Content>
-    <Content Include="AxClass\FTBXTrialBalanceFilterFeature">
-      <SubType>Content</SubType>
-      <Name>FTBXTrialBalanceFilterFeature</Name>
-      <Link>Classses\FTBXTrialBalanceFilterFeature</Link>
-    </Content>
-    <Content Include="AxFormExtension\LedgerTrialBalanceListPage.FinanceToolbox">
-      <SubType>Content</SubType>
-      <Name>LedgerTrialBalanceListPage.FinanceToolbox</Name>
-      <Link>Form Extensions\LedgerTrialBalanceListPage.FinanceToolbox</Link>
-    </Content>
     <Content Include="AxLabelFile\FinanceToolbox_en-US">
       <SubType>Content</SubType>
       <Name>FinanceToolbox_en-US</Name>
