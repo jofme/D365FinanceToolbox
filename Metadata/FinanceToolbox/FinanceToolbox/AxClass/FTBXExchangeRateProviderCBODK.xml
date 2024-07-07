@@ -30,7 +30,6 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
     private const str statBankVariableCurrency  = 'VALUTA';
     private const str statBankVariableTime      = 'TID';
     private const str statBankVariableType      = 'KURTYP';
-    private const str statBankDateTimeFormat    = '%1M%2*';
 
     private const str statBankDSTMLCurrency = 'currency';
     private const str statBankDSTMLTime     = 'time';
@@ -46,7 +45,6 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
     private const str gesmesCurrency    = 'currency';
     private const str gesmesRate        = 'rate';
     private const str gesmesDate        = 'time';
-
 
     IExchangeRateProviderFrameworkFactory factory;
 
@@ -246,48 +244,22 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
         var httpClient          = new HttpClient();
         var httpRequestMessage  = new HttpRequestMessage(new HttpMethod('post'), _apiEndpoint);
 
-        var statbankRequest = new FTBXExchangeRateProviderCBODKStatbankRequestContract();
-        statbankRequest.parmLang(statBankLanguage);
-        statbankRequest.parmTable(statBankTable);
-        statbankRequest.parmFormat(statBankFormat);
-        statbankRequest.parmTimeOrder(statBankOrder);
-
-        var currencyVariable = new FTBXExchangeRateProviderCBODKStatbankVariableContract();
-        
-        currencyVariable.parmCode(statBankVariableCurrency);
-        currencyVariable.parmValues().addEnd('*');
-        statbankRequest.parmVariables().addEnd(currencyVariable);
-
-        var exchangeRateTypeVariable = new FTBXExchangeRateProviderCBODKStatbankVariableContract();
-        exchangeRateTypeVariable.parmCode(statBankVariableType);
-        exchangeRateTypeVariable.parmValues().addEnd(_exchangeRateType);
-        statbankRequest.parmVariables().addEnd(exchangeRateTypeVariable);
-
-        var exchangeRateDatesVariable = new FTBXExchangeRateProviderCBODKStatbankVariableContract();
-        exchangeRateDatesVariable.parmCode(statBankVariableTime);
-
-        var fromDate   = dateStartMth(_fromDate);
-        var toDate     = dateEndMth(_toDate);
-        var curDate    = fromDate;
-
-        do
-        {
-            //Filter format example: 2024M06*
-            //This filter will return all values for that month
-            exchangeRateDatesVariable.parmValues().addEnd(
-                    strFmt(
-                        statBankDateTimeFormat, 
-                        year(curDate), 
-                        strRFix(int2Str(mthOfYr(curDate)), 2, '0')));
-
-            curDate = nextMth(curDate);
-        }
-        while (curDate <= toDate);
-
-        statbankRequest.parmVariables().addEnd(exchangeRateDatesVariable);
-
         httpRequestMessage.Content = new StringContent(
-            FormJsonSerializer::serializeClass(statbankRequest),
+            FormJsonSerializer::serializeClass(
+                new FTBXExchangeRateProviderCBODKStatbankRequestContract()
+                    .setLang(statBankLanguage)
+                    .setTable(statBankTable)
+                    .setFormat(statBankFormat)
+                    .setTimeOrder(statBankOrder)
+                    .addVariable(new FTBXExchangeRateProviderCBODKStatbankVariableContract()
+                        .setCode(statBankVariableCurrency)
+                        .addValue('*'))
+                    .addVariable(new FTBXExchangeRateProviderCBODKStatbankVariableContract()
+                        .setCode(statBankVariableType)
+                        .addValue(_exchangeRateType))
+                    .addVariable(new FTBXExchangeRateProviderCBODKStatbankVariableContract()
+                        .setCode(statBankVariableTime)
+                        .addDateRange(_fromDate, _toDate))),
             System.Text.Encoding::UTF8, 
             'application/json');
         

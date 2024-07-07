@@ -28,3 +28,9 @@ Feel free to reach out to financetoolbox@melgaard.nu for any questions or featur
 
 # Legal
 All features are considered 'as-is', and is provided without support or waranty of any kind.
+
+# Build Action
+The GitHub build action is based on [FSC-PS for GitHub](https://github.com/fscpscollaborative/fscps).
+
+# Build Status
+[![(BUILD)](../../actions/workflows/build.yml/badge.svg)](../../actions/workflows/build.yml)
