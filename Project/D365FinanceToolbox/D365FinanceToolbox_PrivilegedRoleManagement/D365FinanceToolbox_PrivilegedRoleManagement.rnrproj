@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Base Enum Extensions\" />
+    <Folder Include="Base Enums\" />
     <Folder Include="Classes\" />
     <Folder Include="Display Menu Items\" />
     <Folder Include="EDT Strings\" />
@@ -99,10 +100,25 @@
       <Name>FTBXPRMSelfServiceRoleRequestId</Name>
       <Link>EDT Strings\FTBXPRMSelfServiceRoleRequestId</Link>
     </Content>
+    <Content Include="AxEdt\FTBXRPMSelfServiceRoleRequestReference">
+      <SubType>Content</SubType>
+      <Name>FTBXRPMSelfServiceRoleRequestReference</Name>
+      <Link>EDT Strings\FTBXRPMSelfServiceRoleRequestReference</Link>
+    </Content>
     <Content Include="AxEnumExtension\NumberSeqModule.FinanceToolbox">
       <SubType>Content</SubType>
       <Name>NumberSeqModule.FinanceToolbox</Name>
       <Link>Base Enum Extensions\NumberSeqModule.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxEnum\FTBXPRMSelfServiceRoleRequestReferenceType">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestReferenceType</Name>
+      <Link>Base Enums\FTBXPRMSelfServiceRoleRequestReferenceType</Link>
+    </Content>
+    <Content Include="AxEnum\FTBXPRMSelfServiceRoleRequestStatus">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestStatus</Name>
+      <Link>Base Enums\FTBXPRMSelfServiceRoleRequestStatus</Link>
     </Content>
     <Content Include="AxFormExtension\SysSecRolesEditUsers.FinanceToolbox">
       <SubType>Content</SubType>
@@ -113,6 +129,11 @@
       <SubType>Content</SubType>
       <Name>FTBXPrivilegedRoleManagementParameters</Name>
       <Link>Forms\FTBXPrivilegedRoleManagementParameters</Link>
+    </Content>
+    <Content Include="AxForm\FTBXPRMSelfServiceRoleRequests">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequests</Name>
+      <Link>Forms\FTBXPRMSelfServiceRoleRequests</Link>
     </Content>
     <Content Include="AxLabelFile\FinanceToolbox_en-US">
       <SubType>Content</SubType>
@@ -129,6 +150,11 @@
       <Name>FTBXPrivilegedRoleManagementParameters</Name>
       <Link>Display Menu Items\FTBXPrivilegedRoleManagementParameters</Link>
     </Content>
+    <Content Include="AxMenuItemDisplay\FTBXPRMSelfServiceRoleRequests">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequests</Name>
+      <Link>Display Menu Items\FTBXPRMSelfServiceRoleRequests</Link>
+    </Content>
     <Content Include="AxTable\FTBXPrivilegedRoleManagementParameters">
       <SubType>Content</SubType>
       <Name>FTBXPrivilegedRoleManagementParameters</Name>
@@ -143,6 +169,21 @@
       <SubType>Content</SubType>
       <Name>FTBXPRMSelfServiceRoleAssignments</Name>
       <Link>Tables\FTBXPRMSelfServiceRoleAssignments</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPRMSelfServiceRoleRequestNotes">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestNotes</Name>
+      <Link>Tables\FTBXPRMSelfServiceRoleRequestNotes</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPRMSelfServiceRoleRequestReferences">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestReferences</Name>
+      <Link>Tables\FTBXPRMSelfServiceRoleRequestReferences</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPRMSelfServiceRoleRequests">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequests</Name>
+      <Link>Tables\FTBXPRMSelfServiceRoleRequests</Link>
     </Content>
     <Content Include="FinanceToolbox.en-US.label.txt">
       <SubType>Content</SubType>

@@ -64,11 +64,31 @@ public class FTBXPrivilegedRoleManagementParameters extends common
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>initValue</Name>
+				<Name>numRefFTBXPRMSelfServiceRoleAssignmentId</Name>
 				<Source><![CDATA[
-    public void initValue()
+    public static NumberSequenceReference numRefFTBXPRMSelfServiceRoleAssignmentId()
     {
-        super();
+        return NumberSeqReference::findReference(extendedTypeNum(FTBXPRMSelfServiceRoleAssignmentId));
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>numRefFTBXPRMSelfServiceRoleEligibilityId</Name>
+				<Source><![CDATA[
+    public static NumberSequenceReference numRefFTBXPRMSelfServiceRoleEligibilityId()
+    {
+        return NumberSeqReference::findReference(extendedTypeNum(FTBXPRMSelfServiceRoleEligibilityId));
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>numRefFTBXPRMSelfServiceRoleRequestId</Name>
+				<Source><![CDATA[
+    public static NumberSequenceReference numRefFTBXPRMSelfServiceRoleRequestId()
+    {
+        return NumberSeqReference::findReference(extendedTypeNum(FTBXPRMSelfServiceRoleRequestId));
     }
 
 ]]></Source>

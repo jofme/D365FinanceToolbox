@@ -18,35 +18,39 @@ public class FTBXNumberSeqModulePrivilegedRoleManagement extends NumberSeqApplic
         datatype.parmDatatypeId(extendedtypenum(FTBXPRMSelfServiceRoleEligibilityId));
         datatype.parmReferenceLabel(literalstr("@FinanceToolbox:SelfServiceRoleEligibilityIdLabel"));
         datatype.parmReferenceHelp(literalstr("@FinanceToolbox:SelfServiceRoleEligibilityIdHelp"));
-        datatype.parmWizardIsContinuous(true);
+        datatype.parmWizardIsContinuous(false);
         datatype.parmWizardIsManual(NoYes::No);
         datatype.parmWizardIsChangeDownAllowed(NoYes::No);
         datatype.parmWizardIsChangeUpAllowed(NoYes::No);
         datatype.parmWizardLowest(1);
         datatype.parmSortField(1);
-
+        datatype.parmWizardHighest(99999999);
         this.create(datatype);
         
         datatype.parmDatatypeId(extendedtypenum(FTBXPRMSelfServiceRoleRequestId));
         datatype.parmReferenceLabel(literalstr("@FinanceToolbox:SelfServiceRoleRequestIdLabel"));
         datatype.parmReferenceHelp(literalstr("@FinanceToolbox:SelfServiceRoleRequestIdHelp"));
-        datatype.parmWizardIsContinuous(true);
+        datatype.parmWizardIsContinuous(false);
         datatype.parmWizardIsManual(NoYes::No);
         datatype.parmWizardIsChangeDownAllowed(NoYes::No);
         datatype.parmWizardIsChangeUpAllowed(NoYes::No);
-        datatype.parmWizardLowest(2);
+        datatype.parmWizardLowest(1);
+        datatype.parmWizardHighest(99999999);
+
         datatype.parmSortField(2);
+        
 
         this.create(datatype);
         
         datatype.parmDatatypeId(extendedtypenum(FTBXPRMSelfServiceRoleAssignmentId));
         datatype.parmReferenceLabel(literalstr("@FinanceToolbox:SelfServiceRoleAssignmentIdLabel"));
         datatype.parmReferenceHelp(literalstr("@FinanceToolbox:SelfServiceRoleAssignmentIdHelp"));
-        datatype.parmWizardIsContinuous(true);
+        datatype.parmWizardIsContinuous(false);
         datatype.parmWizardIsManual(NoYes::No);
         datatype.parmWizardIsChangeDownAllowed(NoYes::No);
         datatype.parmWizardIsChangeUpAllowed(NoYes::No);
-        datatype.parmWizardLowest(3);
+        datatype.parmWizardLowest(1);
+        datatype.parmWizardHighest(99999999);
         datatype.parmSortField(3);
 
         this.create(datatype);

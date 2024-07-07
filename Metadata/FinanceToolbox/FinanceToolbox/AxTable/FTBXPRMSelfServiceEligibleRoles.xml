@@ -89,6 +89,51 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
 
 ]]></Source>
 			</Method>
+			<Method>
+				<Name>initValue</Name>
+				<Source><![CDATA[
+    public void initValue()
+    {
+        NumberSequenceReference numSeqRefEligibility = FTBXPrivilegedRoleManagementParameters::numRefFTBXPRMSelfServiceRoleEligibilityId();
+
+        if (numSeqRefEligibility && numSeqRefEligibility.NumberSequenceId)
+        {
+            this.RoleEligibilityId = NumberSeq::newGetNum(numSeqRefEligibility).num();
+        }
+        else
+        {
+            throw error(strfmt("@SYS53912"));
+        }
+
+        super();
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>deactivate</Name>
+				<Source><![CDATA[
+    private void deactivate()
+    {
+        this.selectForUpdate(true);
+        this.validTimeStateUpdateMode(ValidTimeStateUpdate::Correction);
+        this.ValidTo = DateTimeUtil::addSeconds(DateTimeUtil::getSystemDateTime(), -2);
+        this.update();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>delete</Name>
+				<Source><![CDATA[
+    public void delete()
+    {
+        this.deactivate();
+    }
+
+]]></Source>
+			</Method>
 		</Methods>
 	</SourceCode>
 	<Label>@FinanceToolbox:SelfServiceEligibleRoles</Label>
@@ -256,6 +301,7 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
 			i:type="AxTableFieldString">
 			<Name>RoleEligibilityId</Name>
 			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<ExtendedDataType>FTBXPRMSelfServiceRoleEligibilityId</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Mandatory>Yes</Mandatory>

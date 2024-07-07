@@ -24,7 +24,7 @@
 			<Parent>Setup</Parent>
 			<MenuElement xmlns=""
 				i:type="AxMenuElementSubMenu">
-				<Name>FTBXPrivilegedRoleManagementFeature</Name>
+				<Name>FTBXPrivilegedRoleManagementFeatureSetup</Name>
 				<FeatureClass>FTBXPrivilegedRoleManagementFeature</FeatureClass>
 				<Label>@FinanceToolbox:PrivilegedRoleManagement</Label>
 				<Elements>
@@ -32,6 +32,21 @@
 						i:type="AxMenuElementMenuItem">
 						<Name>FTBXPrivilegedRoleManagementParameters</Name>
 						<MenuItemName>FTBXPrivilegedRoleManagementParameters</MenuItemName>
+					</AxMenuElement>
+				</Elements>
+			</MenuElement>
+		</AxMenuExtensionElement>
+		<AxMenuExtensionElement xmlns="">
+			<Parent>Inquiries</Parent>
+			<MenuElement xmlns=""
+				i:type="AxMenuElementSubMenu">
+				<Name>FTBXPrivilegedRoleManagementFeatureInquiries</Name>
+				<Label>@FinanceToolbox:PrivilegedRoleManagement</Label>
+				<Elements>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPRMSelfServiceRoleRequests</Name>
+						<MenuItemName>FTBXPRMSelfServiceRoleRequests</MenuItemName>
 					</AxMenuElement>
 				</Elements>
 			</MenuElement>
