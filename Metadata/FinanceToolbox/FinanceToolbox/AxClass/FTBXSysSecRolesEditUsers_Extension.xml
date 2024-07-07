@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXSysSecRolesEditUsers_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(formStr(SysSecRolesEditUsers))]
+final class FTBXSysSecRolesEditUsers_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>ftbxUpdateControls</Name>
+				<Source><![CDATA[
+    public void ftbxUpdateControls()
+    {
+        FormDataSource  eligbleRolesDs  = FTBXPRMSelfServiceEligibleRoles_ds;
+        FormDataObject  userValueDataObj = eligbleRolesDs.object(fieldNum(FTBXPRMSelfServiceEligibleRoles, Uservalue));
+
+        userValueDataObj.mandatory(FTBXPRMSelfServiceEligibleRoles.UserCode != TableGroupAll::All);
+        userValueDataObj.enabled(FTBXPRMSelfServiceEligibleRoles.UserCode != TableGroupAll::All);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    public void init()
+    {
+        next init();
+
+        FTBXPRMSelfServiceEligibleRolesTab.visible(FTBXPrivilegedRoleManagementFeature::isEnabled());
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

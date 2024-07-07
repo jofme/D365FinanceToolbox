@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXSysSecRolesEditUsers_treeRoleSel_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(formControlStr(SysSecRolesEditUsers, treeRoleSel))]
+final class FTBXSysSecRolesEditUsers_treeRoleSel_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>selectionChanged</Name>
+				<Source><![CDATA[
+    public void selectionChanged(FormTreeItem _oldItem, FormTreeItem _newItem, FormTreeSelect _how)
+    {
+        next selectionChanged(_oldItem, _newItem, _how);
+
+        if (FTBXPrivilegedRoleManagementFeature::isEnabled())
+        {
+            QueryBuildRange selectedRoleRange =
+                SysQuery::findOrCreateRange(
+                    element.FTBXPRMSelfServiceEligibleRoles_ds.queryBuildDataSource(),
+                    fieldNum(FTBXPRMSelfServiceEligibleRoles, SysSecurityRoleRecId));
+
+            selectedRoleRange.value(queryValue(element.selectedRole.recid));
+            selectedRoleRange.status(RangeStatus::Locked);
+
+            var formDataSource = element.FTBXPRMSelfServiceEligibleRoles_ds;
+            formDataSource.executeQuery();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

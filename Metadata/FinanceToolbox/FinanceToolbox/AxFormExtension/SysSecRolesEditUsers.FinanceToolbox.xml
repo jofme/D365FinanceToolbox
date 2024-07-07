@@ -8,6 +8,7 @@
 			<FormControl xmlns=""
 				i:type="AxFormTabPageControl">
 				<Name>FTBXPRMSelfServiceEligibleRolesTab</Name>
+				<AutoDeclaration>Yes</AutoDeclaration>
 				<Pattern>ToolbarList</Pattern>
 				<PatternVersion>1.2</PatternVersion>
 				<Type>TabPage</Type>
@@ -27,7 +28,27 @@
 								<Type>ButtonGroup</Type>
 								<FormControlExtension
 									i:nil="true" />
-								<Controls />
+								<Controls>
+									<AxFormControl xmlns=""
+										i:type="AxFormButtonControl">
+										<Name>FTBXPRMSelfServiceEligibleRolesTabActionPaneNewBtn</Name>
+										<Type>Button</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Text>@SYS2055</Text>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormCommandButtonControl">
+										<Name>FTBXPRMSelfServiceEligibleRolesTabActionPaneRemoveCmdBtn</Name>
+										<Type>CommandButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Command>DeleteRecord</Command>
+										<MultiSelect>Yes</MultiSelect>
+										<NeedsRecord>Yes</NeedsRecord>
+									</AxFormControl>
+								</Controls>
+								<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
 							</AxFormControl>
 						</Controls>
 						<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
@@ -82,8 +103,9 @@
 						<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
 					</AxFormControl>
 				</Controls>
-				<Caption>Self service assignments</Caption>
+				<Caption>@FinanceToolbox:SelfServiceAssignmentEligibility</Caption>
 				<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+				<FastTabExpanded>Always</FastTabExpanded>
 			</FormControl>
 			<Parent>FastTab</Parent>
 		</AxFormExtensionControl>
@@ -124,7 +146,6 @@
 				</AxFormDataSourceField>
 			</Fields>
 			<ReferencedDataSources />
-			<JoinSource>selectedRole</JoinSource>
 			<InsertAtEnd>No</InsertAtEnd>
 			<InsertIfEmpty>No</InsertIfEmpty>
 			<DataSourceLinks />

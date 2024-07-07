@@ -17,6 +17,7 @@ EndProject
 Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "D365FinanceToolboxExtended_TrialBalanceFilters (USR) [Finance Toolbox Extended]", "D365FinanceToolboxExtended_TrialBalanceFilters\D365FinanceToolboxExtended_TrialBalanceFilters.rnrproj", "{78349FBD-D2BA-4E67-90D1-02A0E1A1E0E1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6FE42B03-55BF-4A5D-8046-5BF20CD07C7F} = {6FE42B03-55BF-4A5D-8046-5BF20CD07C7F}
+		{73B53744-4734-4B31-8FC6-517A58A15628} = {73B53744-4734-4B31-8FC6-517A58A15628}
 		{F0B03E64-DA02-4189-836B-97670D67C7DC} = {F0B03E64-DA02-4189-836B-97670D67C7DC}
 	EndProjectSection
 EndProject
