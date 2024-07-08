@@ -62,6 +62,15 @@
 							i:nil="true" />
 						<Controls>
 							<AxFormControl xmlns=""
+								i:type="AxFormStringControl">
+								<Name>FTBXPRMSelfServiceEligibleRolesTabGrid_RoleEligibilityId</Name>
+								<Type>String</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>RoleEligibilityId</DataField>
+								<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+							</AxFormControl>
+							<AxFormControl xmlns=""
 								i:type="AxFormComboBoxControl">
 								<Name>FTBXPRMSelfServiceEligibleRolesTab_UserCode</Name>
 								<Type>ComboBox</Type>

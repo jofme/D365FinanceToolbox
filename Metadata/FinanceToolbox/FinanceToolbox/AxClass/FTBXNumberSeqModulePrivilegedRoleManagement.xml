@@ -42,7 +42,7 @@ public class FTBXNumberSeqModulePrivilegedRoleManagement extends NumberSeqApplic
 
         this.create(datatype);
         
-        datatype.parmDatatypeId(extendedtypenum(FTBXPRMSelfServiceRoleAssignmentId));
+        datatype.parmDatatypeId(extendedtypenum(FTBXPRMRoleAssignmentId));
         datatype.parmReferenceLabel(literalstr("@FinanceToolbox:SelfServiceRoleAssignmentIdLabel"));
         datatype.parmReferenceHelp(literalstr("@FinanceToolbox:SelfServiceRoleAssignmentIdHelp"));
         datatype.parmWizardIsContinuous(false);

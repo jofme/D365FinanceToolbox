@@ -55,6 +55,31 @@
       <Name>FTBXPrivilegedRoleManagementFeature</Name>
       <Link>Classes\FTBXPrivilegedRoleManagementFeature</Link>
     </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceRoleRequest">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequest</Name>
+      <Link>Classes\FTBXPRMSelfServiceRoleRequest</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceRoleRequestState">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestState</Name>
+      <Link>Classes\FTBXPRMSelfServiceRoleRequestState</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceRoleRequestStateAttribute">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestStateAttribute</Name>
+      <Link>Classes\FTBXPRMSelfServiceRoleRequestStateAttribute</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceRoleRequestState_Approved">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestState_Approved</Name>
+      <Link>Classes\FTBXPRMSelfServiceRoleRequestState_Approved</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceRoleRequestState_Assigned">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestState_Assigned</Name>
+      <Link>Classes\FTBXPRMSelfServiceRoleRequestState_Assigned</Link>
+    </Content>
     <Content Include="AxClass\FTBXSysSecRolesEditUsers_Extension">
       <SubType>Content</SubType>
       <Name>FTBXSysSecRolesEditUsers_Extension</Name>
@@ -85,10 +110,10 @@
       <Name>FTBXSysSecRolesEditUsers_treeRoleSel_Extension</Name>
       <Link>Classes\FTBXSysSecRolesEditUsers_treeRoleSel_Extension</Link>
     </Content>
-    <Content Include="AxEdt\FTBXPRMSelfServiceRoleAssignmentId">
+    <Content Include="AxEdt\FTBXPRMRoleAssignmentId">
       <SubType>Content</SubType>
-      <Name>FTBXPRMSelfServiceRoleAssignmentId</Name>
-      <Link>EDT Strings\FTBXPRMSelfServiceRoleAssignmentId</Link>
+      <Name>FTBXPRMRoleAssignmentId</Name>
+      <Link>EDT Strings\FTBXPRMRoleAssignmentId</Link>
     </Content>
     <Content Include="AxEdt\FTBXPRMSelfServiceRoleEligibilityId">
       <SubType>Content</SubType>
@@ -125,6 +150,11 @@
       <Name>SysSecRolesEditUsers.FinanceToolbox</Name>
       <Link>Form Extensions\SysSecRolesEditUsers.FinanceToolbox</Link>
     </Content>
+    <Content Include="AxFormExtension\SysUserSetup.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>SysUserSetup.FinanceToolbox</Name>
+      <Link>Form Extensions\SysUserSetup.FinanceToolbox</Link>
+    </Content>
     <Content Include="AxForm\FTBXPrivilegedRoleManagementParameters">
       <SubType>Content</SubType>
       <Name>FTBXPrivilegedRoleManagementParameters</Name>
@@ -160,15 +190,15 @@
       <Name>FTBXPrivilegedRoleManagementParameters</Name>
       <Link>Tables\FTBXPrivilegedRoleManagementParameters</Link>
     </Content>
+    <Content Include="AxTable\FTBXPRMRoleAssignments">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMRoleAssignments</Name>
+      <Link>Tables\FTBXPRMRoleAssignments</Link>
+    </Content>
     <Content Include="AxTable\FTBXPRMSelfServiceEligibleRoles">
       <SubType>Content</SubType>
       <Name>FTBXPRMSelfServiceEligibleRoles</Name>
       <Link>Tables\FTBXPRMSelfServiceEligibleRoles</Link>
-    </Content>
-    <Content Include="AxTable\FTBXPRMSelfServiceRoleAssignments">
-      <SubType>Content</SubType>
-      <Name>FTBXPRMSelfServiceRoleAssignments</Name>
-      <Link>Tables\FTBXPRMSelfServiceRoleAssignments</Link>
     </Content>
     <Content Include="AxTable\FTBXPRMSelfServiceRoleRequestNotes">
       <SubType>Content</SubType>

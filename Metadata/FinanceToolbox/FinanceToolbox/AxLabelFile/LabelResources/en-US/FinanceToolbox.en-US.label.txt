@@ -66,5 +66,6 @@ SelfServiceRoleRequestsOutcomeReasonHelp=Reason for the outcome of the request
 SelfServiceRoleRequestsOutcomeReasonLabel=Outcome reason
 SelfServiceRoleRequestStatus=Request status
 SelfServiceRoleRequestStatusForApproval=For approval
+SelfServiceRoleRequestSubmittedToWorkflow=Submitted to workflow
 SelfServiceRoleRequireApprovalHelp=Require approval of self service role requests
 SelfServiceRoleRequireApprovalLabel=Require approval

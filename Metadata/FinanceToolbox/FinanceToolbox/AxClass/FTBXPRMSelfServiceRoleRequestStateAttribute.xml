@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMSelfServiceRoleRequestStateAttribute</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+internal final class FTBXPRMSelfServiceRoleRequestStateAttribute extends SysAttribute
+{
+    FTBXPRMSelfServiceRoleRequestStatus requestStatus;
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    public void new(FTBXPRMSelfServiceRoleRequestStatus _paymentRequestStatus)
+    {
+        super();
+        this.parmRequestStatus(_paymentRequestStatus);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmRequestStatus</Name>
+				<Source><![CDATA[
+    public FTBXPRMSelfServiceRoleRequestStatus  parmRequestStatus(FTBXPRMSelfServiceRoleRequestStatus _requestStatus = requestStatus)
+    {
+        requestStatus = _requestStatus;
+
+        return requestStatus;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

@@ -260,6 +260,37 @@ public class FTBXPRMSelfServiceRoleRequests extends FormRun
 						</FormControlExtension>
 					</AxFormControl>
 					<AxFormControl xmlns=""
+						i:type="AxFormGroupControl">
+						<Name>CustomFilterGrp</Name>
+						<Type>Group</Type>
+						<WidthMode>SizeToAvailable</WidthMode>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls>
+							<AxFormControl xmlns=""
+								i:type="AxFormCheckBoxControl">
+								<Name>OnlyShowOpenChkBox</Name>
+								<Type>CheckBox</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Label>Only show open</Label>
+								<Value>1</Value>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormCheckBoxControl">
+								<Name>OnlyShowMineChkBox</Name>
+								<Type>CheckBox</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Label>Only show mine</Label>
+								<Value>1</Value>
+							</AxFormControl>
+						</Controls>
+						<FrameType>None</FrameType>
+						<Style>CustomFilter</Style>
+						<ViewEditMode>Edit</ViewEditMode>
+					</AxFormControl>
+					<AxFormControl xmlns=""
 						i:type="AxFormGridControl">
 						<Name>Grid</Name>
 						<AllowEdit>No</AllowEdit>
@@ -275,7 +306,7 @@ public class FTBXPRMSelfServiceRoleRequests extends FormRun
 								<FormControlExtension
 									i:nil="true" />
 								<DataField>UserId</DataField>
-								<DataSource>FTBXPRMSelfServiceRoleRequestHistory</DataSource>
+								<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
 							</AxFormControl>
 							<AxFormControl xmlns=""
 								i:type="AxFormComboBoxControl">
@@ -284,21 +315,30 @@ public class FTBXPRMSelfServiceRoleRequests extends FormRun
 								<FormControlExtension
 									i:nil="true" />
 								<DataField>RequestStatus</DataField>
-								<DataSource>FTBXPRMSelfServiceRoleRequestHistory</DataSource>
+								<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
 								<Items />
 							</AxFormControl>
 							<AxFormControl xmlns=""
 								i:type="AxFormReferenceGroupControl">
-								<Name>Role</Name>
+								<Name>RoleGrid</Name>
 								<Type>ReferenceGroup</Type>
 								<FormControlExtension
 									i:nil="true" />
 								<Controls />
-								<DataSource>FTBXPRMSelfServiceRoleRequestHistory</DataSource>
+								<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
 								<ReferenceField>SysSecurityRoleRecId</ReferenceField>
 							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormDateTimeControl">
+								<Name>CreatedDateTimeGrid</Name>
+								<Type>DateTime</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>CreatedDateTime</DataField>
+								<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
+							</AxFormControl>
 						</Controls>
-						<DataSource>FTBXPRMSelfServiceRoleRequestHistory</DataSource>
+						<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
 						<MultiSelect>No</MultiSelect>
 						<ShowRowLabels>No</ShowRowLabels>
 						<Style>List</Style>

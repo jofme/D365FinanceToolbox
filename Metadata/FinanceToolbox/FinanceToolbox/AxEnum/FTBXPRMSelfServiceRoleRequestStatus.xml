@@ -14,6 +14,11 @@
 			<Value>1</Value>
 		</AxEnumValue>
 		<AxEnumValue>
+			<Name>SubmittedToWorkflow</Name>
+			<Label>@FinanceToolbox:SelfServiceRoleRequestSubmittedToWorkflow</Label>
+			<Value>6</Value>
+		</AxEnumValue>
+		<AxEnumValue>
 			<Name>Approved</Name>
 			<Label>@SYS10158</Label>
 			<Value>2</Value>
@@ -27,6 +32,11 @@
 			<Name>Assigned</Name>
 			<Label>@SYS32340</Label>
 			<Value>4</Value>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>Expired</Name>
+			<Label>@SYS107504</Label>
+			<Value>5</Value>
 		</AxEnumValue>
 	</EnumValues>
 	<IsExtensible>true</IsExtensible>

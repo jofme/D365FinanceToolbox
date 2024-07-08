@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMSelfServiceRoleRequestState_Approved</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[FTBXPRMSelfServiceRoleRequestStateAttribute(FTBXPRMSelfServiceRoleRequestStatus::Approved)]
+internal final class FTBXPRMSelfServiceRoleRequestState_Approved extends FTBXPRMSelfServiceRoleRequestState
+{    
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>changeState</Name>
+				<Source><![CDATA[
+    public void changeState()
+    {
+        super();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

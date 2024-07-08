@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMSelfServiceRoleRequestState_Assigned</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[FTBXPRMSelfServiceRoleRequestStateAttribute(FTBXPRMSelfServiceRoleRequestStatus::Assigned)]
+internal final class FTBXPRMSelfServiceRoleRequestState_Assigned extends FTBXPRMSelfServiceRoleRequestState
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>createAssignment</Name>
+				<Source><![CDATA[
+    private void createAssignment(UserId _userId, SysSecurityRoleRecId _securityRole)
+    {
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>changeState</Name>
+				<Source><![CDATA[
+    public void changeState()
+    {
+        this.createAssignment(request.roleRequest.UserId, request.roleRequest.SysSecurityRoleRecId);
+
+        super();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
