@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxForm xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>FTBXPRMSelfServiceRoleRequestsListView</Name>
+	<SourceCode>
+		<Methods xmlns="">
+			<Method>
+				<Name>classDeclaration</Name>
+				<Source><![CDATA[
+[Form]
+public class FTBXPRMSelfServiceRoleRequestsListView extends FormRun
+{
+}
+]]></Source>
+			</Method>
+		</Methods>
+		<DataSources xmlns="" />
+		<DataControls xmlns="" />
+		<Members xmlns="" />
+	</SourceCode>
+	<DataSources>
+		<AxFormDataSource xmlns="">
+			<Name>FTBXPRMSelfServiceRoleRequests</Name>
+			<Table>FTBXPRMSelfServiceRoleRequests</Table>
+			<Fields>
+				<AxFormDataSourceField>
+					<DataField>CreatedBy</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>CreatedDateTime</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>EligibilityId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>FromDateTime</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Partition</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>RecId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>RequestId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>RequestStatus</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>TableId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ToDateTime</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>UserId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ValidFrom</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ValidTo</DataField>
+				</AxFormDataSourceField>
+			</Fields>
+			<ReferencedDataSources />
+			<AllowCreate>No</AllowCreate>
+			<AllowEdit>No</AllowEdit>
+			<DataSourceLinks />
+			<DerivedDataSources />
+		</AxFormDataSource>
+	</DataSources>
+	<Design>
+		<Pattern xmlns="">SimpleList</Pattern>
+		<PatternVersion xmlns="">1.1</PatternVersion>
+		<ShowNewButton xmlns="">No</ShowNewButton>
+		<Style xmlns="">SimpleList</Style>
+		<Controls xmlns="">
+			<AxFormControl xmlns=""
+				i:type="AxFormActionPaneControl">
+				<Name>ActionPane</Name>
+				<Type>ActionPane</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls />
+			</AxFormControl>
+			<AxFormControl xmlns=""
+				i:type="AxFormGroupControl">
+				<Name>QuickFilterGrp</Name>
+				<Pattern>CustomAndQuickFilters</Pattern>
+				<PatternVersion>1.1</PatternVersion>
+				<Type>Group</Type>
+				<WidthMode>SizeToAvailable</WidthMode>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl>
+						<Name>Quickfilter</Name>
+						<FormControlExtension>
+							<Name>QuickFilterControl</Name>
+							<ExtensionComponents />
+							<ExtensionProperties>
+								<AxFormControlExtensionProperty>
+									<Name>targetControlName</Name>
+									<Type>String</Type>
+									<Value>Grid</Value>
+								</AxFormControlExtensionProperty>
+								<AxFormControlExtensionProperty>
+									<Name>placeholderText</Name>
+									<Type>String</Type>
+								</AxFormControlExtensionProperty>
+								<AxFormControlExtensionProperty>
+									<Name>defaultColumnName</Name>
+									<Type>String</Type>
+									<Value>FTBXPRMSelfServiceRoleRequests_UserId</Value>
+								</AxFormControlExtensionProperty>
+							</ExtensionProperties>
+						</FormControlExtension>
+					</AxFormControl>
+				</Controls>
+				<ArrangeMethod>HorizontalLeft</ArrangeMethod>
+				<FrameType>None</FrameType>
+				<Style>CustomFilter</Style>
+				<ViewEditMode>Edit</ViewEditMode>
+			</AxFormControl>
+			<AxFormControl xmlns=""
+				i:type="AxFormGridControl">
+				<Name>Grid</Name>
+				<Type>Grid</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormStringControl">
+						<Name>FTBXPRMSelfServiceRoleRequests_RequestId</Name>
+						<Type>String</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>RequestId</DataField>
+						<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormComboBoxControl">
+						<Name>FTBXPRMSelfServiceRoleRequests_RequestStatus</Name>
+						<Type>ComboBox</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>RequestStatus</DataField>
+						<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
+						<Items />
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormStringControl">
+						<Name>FTBXPRMSelfServiceRoleRequests_UserId</Name>
+						<Type>String</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>UserId</DataField>
+						<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormReferenceGroupControl">
+						<Name>FTBXPRMSelfServiceRoleRequests_SysSecurityRoleRecId</Name>
+						<Type>ReferenceGroup</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls />
+						<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
+						<ReferenceField>SysSecurityRoleRecId</ReferenceField>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormDateTimeControl">
+						<Name>FTBXPRMSelfServiceRoleRequests_FromDateTime</Name>
+						<Type>DateTime</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FromDateTime</DataField>
+						<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormDateTimeControl">
+						<Name>FTBXPRMSelfServiceRoleRequests_ToDateTime</Name>
+						<Type>DateTime</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>ToDateTime</DataField>
+						<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormDateTimeControl">
+						<Name>FTBXPRMSelfServiceRoleRequests_ValidFrom</Name>
+						<Type>DateTime</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>ValidFrom</DataField>
+						<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormDateTimeControl">
+						<Name>FTBXPRMSelfServiceRoleRequests_ValidTo</Name>
+						<Type>DateTime</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>ValidTo</DataField>
+						<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
+					</AxFormControl>
+				</Controls>
+				<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
+				<Style>Tabular</Style>
+			</AxFormControl>
+		</Controls>
+	</Design>
+	<Parts />
+</AxForm>

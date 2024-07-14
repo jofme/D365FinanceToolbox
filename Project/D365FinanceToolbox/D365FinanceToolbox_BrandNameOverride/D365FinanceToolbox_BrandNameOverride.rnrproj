@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
-    <Model>FinanceToolboxTests</Model>
+    <Model>FleetManagement</Model>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <OutputPath>bin</OutputPath>
     <SchemaVersion>2.0</SchemaVersion>
@@ -12,11 +12,9 @@
     <RunAppCheckerRules>False</RunAppCheckerRules>
     <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
     <DeployOnline>False</DeployOnline>
-    <ProjectGuid>{072373e1-81d5-4ec1-9be8-6452be9fd081}</ProjectGuid>
-    <Name>D365FinanceToolboxTests</Name>
-    <RootNamespace>D365FinanceToolboxTests</RootNamespace>
-    <StartupType>Class</StartupType>
-    <StartupObject>FTBXText_FindEligibleRoles</StartupObject>
+    <ProjectGuid>{3de6f62d-0003-4d32-9b03-e07df6c52e93}</ProjectGuid>
+    <Name>D365FinanceToolbox_BrandNameOverride</Name>
+    <RootNamespace>D365FinanceToolbox_BrandNameOverride</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
@@ -33,38 +31,6 @@
     <DebugSymbols>true</DebugSymbols>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Action Menu Items\" />
-    <Folder Include="Classes\" />
-    <Folder Include="Menu Extensions\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="AxClass\FTBXTest_BatchAlertsSlowBatchJob">
-      <SubType>Content</SubType>
-      <Name>FTBXTest_BatchAlertsSlowBatchJob</Name>
-      <Link>Classes\FTBXTest_BatchAlertsSlowBatchJob</Link>
-    </Content>
-    <Content Include="AxClass\FTBXTest_CreateRoleRequest">
-      <SubType>Content</SubType>
-      <Name>FTBXTest_CreateRoleRequest</Name>
-      <Link>Classes\FTBXTest_CreateRoleRequest</Link>
-    </Content>
-    <Content Include="AxClass\FTBXText_FindEligibleRoles">
-      <SubType>Content</SubType>
-      <Name>FTBXText_FindEligibleRoles</Name>
-      <Link>Classes\FTBXText_FindEligibleRoles</Link>
-    </Content>
-    <Content Include="AxMenuExtension\SystemAdministration.FinanceToolboxTests">
-      <SubType>Content</SubType>
-      <Name>SystemAdministration.FinanceToolboxTests</Name>
-      <Link>Menu Extensions\SystemAdministration.FinanceToolboxTests</Link>
-    </Content>
-    <Content Include="AxMenuItemAction\FTBXTest_BatchAlertsSlowBatchJob">
-      <SubType>Content</SubType>
-      <Name>FTBXTest_BatchAlertsSlowBatchJob</Name>
-      <Link>Action Menu Items\FTBXTest_BatchAlertsSlowBatchJob</Link>
-    </Content>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
   <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.17.0.targets" />
 </Project>

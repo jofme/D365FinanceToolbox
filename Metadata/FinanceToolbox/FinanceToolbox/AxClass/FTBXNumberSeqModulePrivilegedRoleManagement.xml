@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXNumberSeqModulePrivilegedRoleManagement</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class FTBXNumberSeqModulePrivilegedRoleManagement extends NumberSeqApplicationModule
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>loadModule</Name>
+				<Source><![CDATA[
+    protected void loadModule()
+    {
+        NumberSeqDatatype datatype = NumberSeqDatatype::construct();
+
+        datatype.parmDatatypeId(extendedtypenum(FTBXPRMSelfServiceRoleEligibilityId));
+        datatype.parmReferenceLabel(literalstr("@FinanceToolbox:SelfServiceRoleEligibilityIdLabel"));
+        datatype.parmReferenceHelp(literalstr("@FinanceToolbox:SelfServiceRoleEligibilityIdHelp"));
+        datatype.parmWizardIsContinuous(false);
+        datatype.parmWizardIsManual(NoYes::No);
+        datatype.parmWizardIsChangeDownAllowed(NoYes::No);
+        datatype.parmWizardIsChangeUpAllowed(NoYes::No);
+        datatype.parmWizardLowest(1);
+        datatype.parmSortField(1);
+        datatype.parmWizardHighest(99999999);
+        this.create(datatype);
+        
+        datatype.parmDatatypeId(extendedtypenum(FTBXPRMSelfServiceRoleRequestId));
+        datatype.parmReferenceLabel(literalstr("@FinanceToolbox:SelfServiceRoleRequestIdLabel"));
+        datatype.parmReferenceHelp(literalstr("@FinanceToolbox:SelfServiceRoleRequestIdHelp"));
+        datatype.parmWizardIsContinuous(false);
+        datatype.parmWizardIsManual(NoYes::No);
+        datatype.parmWizardIsChangeDownAllowed(NoYes::No);
+        datatype.parmWizardIsChangeUpAllowed(NoYes::No);
+        datatype.parmWizardLowest(1);
+        datatype.parmWizardHighest(99999999);
+
+        datatype.parmSortField(2);
+        
+
+        this.create(datatype);
+        
+        datatype.parmDatatypeId(extendedtypenum(FTBXPRMRoleAssignmentId));
+        datatype.parmReferenceLabel(literalstr("@FinanceToolbox:SelfServiceRoleAssignmentIdLabel"));
+        datatype.parmReferenceHelp(literalstr("@FinanceToolbox:SelfServiceRoleAssignmentIdHelp"));
+        datatype.parmWizardIsContinuous(false);
+        datatype.parmWizardIsManual(NoYes::No);
+        datatype.parmWizardIsChangeDownAllowed(NoYes::No);
+        datatype.parmWizardIsChangeUpAllowed(NoYes::No);
+        datatype.parmWizardLowest(1);
+        datatype.parmWizardHighest(99999999);
+        datatype.parmSortField(3);
+
+        this.create(datatype);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>numberSeqModule</Name>
+				<Source><![CDATA[
+    public NumberSeqModule numberSeqModule()
+    {
+        return NumberSeqModule::FTBXPrivilegedRoleManagement;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>buildModulesMapSubsciber</Name>
+				<Source><![CDATA[
+    [SubscribesTo(classstr(NumberSeqGlobal),delegatestr(NumberSeqGlobal,buildModulesMapDelegate))]
+    static void buildModulesMapSubsciber(Map numberSeqModuleNamesMap)
+    {
+        NumberSeqGlobal::addModuleToMap(classnum(FTBXNumberSeqModulePrivilegedRoleManagement), numberSeqModuleNamesMap);
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

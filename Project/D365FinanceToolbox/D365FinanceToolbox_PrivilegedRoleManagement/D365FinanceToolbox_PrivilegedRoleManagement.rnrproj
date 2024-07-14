@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>FinanceToolbox</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <RunAppCheckerRules>False</RunAppCheckerRules>
+    <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
+    <DeployOnline>False</DeployOnline>
+    <ProjectGuid>{73b53744-4734-4b31-8fc6-517a58a15628}</ProjectGuid>
+    <Name>D365FinanceToolbox_PrivilegedRoleManagement</Name>
+    <RootNamespace>D365FinanceToolbox_PrivilegedRoleManagement</RootNamespace>
+    <StartupType>Class</StartupType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>
+    </Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Base Enum Extensions\" />
+    <Folder Include="Base Enums\" />
+    <Folder Include="Classes\" />
+    <Folder Include="Display Menu Items\" />
+    <Folder Include="EDT Strings\" />
+    <Folder Include="Form Extensions\" />
+    <Folder Include="Forms\" />
+    <Folder Include="Label Files\" />
+    <Folder Include="Menu Extensions\" />
+    <Folder Include="Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\FTBXNumberSeqModulePrivilegedRoleManagement">
+      <SubType>Content</SubType>
+      <Name>FTBXNumberSeqModulePrivilegedRoleManagement</Name>
+      <Link>Classes\FTBXNumberSeqModulePrivilegedRoleManagement</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPrivilegedRoleManagementFeature">
+      <SubType>Content</SubType>
+      <Name>FTBXPrivilegedRoleManagementFeature</Name>
+      <Link>Classes\FTBXPrivilegedRoleManagementFeature</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceRoleRequest">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequest</Name>
+      <Link>Classes\FTBXPRMSelfServiceRoleRequest</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceRoleRequestsFormHelper">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestsFormHelper</Name>
+      <Link>Classes\FTBXPRMSelfServiceRoleRequestsFormHelper</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceRoleRequestState">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestState</Name>
+      <Link>Classes\FTBXPRMSelfServiceRoleRequestState</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceRoleRequestStateAttribute">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestStateAttribute</Name>
+      <Link>Classes\FTBXPRMSelfServiceRoleRequestStateAttribute</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceRoleRequestState_Approved">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestState_Approved</Name>
+      <Link>Classes\FTBXPRMSelfServiceRoleRequestState_Approved</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceRoleRequestState_Assigned">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestState_Assigned</Name>
+      <Link>Classes\FTBXPRMSelfServiceRoleRequestState_Assigned</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceUserEligibleRole">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceUserEligibleRole</Name>
+      <Link>Classes\FTBXPRMSelfServiceUserEligibleRole</Link>
+    </Content>
+    <Content Include="AxClass\FTBXSysSecRolesEditUsers_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXSysSecRolesEditUsers_Extension</Name>
+      <Link>Classes\FTBXSysSecRolesEditUsers_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FTBXSysSecRolesEditUsers_SelfServiceActionPaneAddBtn_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXSysSecRolesEditUsers_SelfServiceActionPaneAddBtn_Extension</Name>
+      <Link>Classes\FTBXSysSecRolesEditUsers_SelfServiceActionPaneAddBtn_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FTBXSysSecRolesEditUsers_SelfServiceActionPaneRemoveBtn_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXSysSecRolesEditUsers_SelfServiceActionPaneRemoveBtn_Extension</Name>
+      <Link>Classes\FTBXSysSecRolesEditUsers_SelfServiceActionPaneRemoveBtn_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_Extension</Name>
+      <Link>Classes\FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_UserCode_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_UserCode_Extension</Name>
+      <Link>Classes\FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_UserCode_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FTBXSysSecRolesEditUsers_treeRoleSel_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXSysSecRolesEditUsers_treeRoleSel_Extension</Name>
+      <Link>Classes\FTBXSysSecRolesEditUsers_treeRoleSel_Extension</Link>
+    </Content>
+    <Content Include="AxEdt\FTBXPRMRoleAssignmentId">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMRoleAssignmentId</Name>
+      <Link>EDT Strings\FTBXPRMRoleAssignmentId</Link>
+    </Content>
+    <Content Include="AxEdt\FTBXPRMSelfServiceRoleEligibilityId">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleEligibilityId</Name>
+      <Link>EDT Strings\FTBXPRMSelfServiceRoleEligibilityId</Link>
+    </Content>
+    <Content Include="AxEdt\FTBXPRMSelfServiceRoleRequestId">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestId</Name>
+      <Link>EDT Strings\FTBXPRMSelfServiceRoleRequestId</Link>
+    </Content>
+    <Content Include="AxEdt\FTBXRPMSelfServiceRoleRequestReference">
+      <SubType>Content</SubType>
+      <Name>FTBXRPMSelfServiceRoleRequestReference</Name>
+      <Link>EDT Strings\FTBXRPMSelfServiceRoleRequestReference</Link>
+    </Content>
+    <Content Include="AxEnumExtension\NumberSeqModule.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>NumberSeqModule.FinanceToolbox</Name>
+      <Link>Base Enum Extensions\NumberSeqModule.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxEnum\FTBXPRMSelfServiceRoleRequestReferenceType">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestReferenceType</Name>
+      <Link>Base Enums\FTBXPRMSelfServiceRoleRequestReferenceType</Link>
+    </Content>
+    <Content Include="AxEnum\FTBXPRMSelfServiceRoleRequestsMode">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestsMode</Name>
+      <Link>Base Enums\FTBXPRMSelfServiceRoleRequestsMode</Link>
+    </Content>
+    <Content Include="AxEnum\FTBXPRMSelfServiceRoleRequestStatus">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestStatus</Name>
+      <Link>Base Enums\FTBXPRMSelfServiceRoleRequestStatus</Link>
+    </Content>
+    <Content Include="AxFormExtension\SysSecRolesEditUsers.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>SysSecRolesEditUsers.FinanceToolbox</Name>
+      <Link>Form Extensions\SysSecRolesEditUsers.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxFormExtension\SysUserSetup.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>SysUserSetup.FinanceToolbox</Name>
+      <Link>Form Extensions\SysUserSetup.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxForm\FTBXPrivilegedRoleManagementParameters">
+      <SubType>Content</SubType>
+      <Name>FTBXPrivilegedRoleManagementParameters</Name>
+      <Link>Forms\FTBXPrivilegedRoleManagementParameters</Link>
+    </Content>
+    <Content Include="AxForm\FTBXPRMCreateSelfServiceRoleRequests">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMCreateSelfServiceRoleRequests</Name>
+      <Link>Forms\FTBXPRMCreateSelfServiceRoleRequests</Link>
+    </Content>
+    <Content Include="AxForm\FTBXPRMSelfServiceRoleRequests">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequests</Name>
+      <Link>Forms\FTBXPRMSelfServiceRoleRequests</Link>
+    </Content>
+    <Content Include="AxForm\FTBXPRMSelfServiceRoleRequestsListView">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestsListView</Name>
+      <Link>Forms\FTBXPRMSelfServiceRoleRequestsListView</Link>
+    </Content>
+    <Content Include="AxLabelFile\FinanceToolbox_en-US">
+      <SubType>Content</SubType>
+      <Name>FinanceToolbox_en-US</Name>
+      <Link>Label Files\FinanceToolbox_en-US</Link>
+    </Content>
+    <Content Include="AxMenuExtension\SystemAdministration.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>SystemAdministration.FinanceToolbox</Name>
+      <Link>Menu Extensions\SystemAdministration.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\FTBXPrivilegedRoleManagementParameters">
+      <SubType>Content</SubType>
+      <Name>FTBXPrivilegedRoleManagementParameters</Name>
+      <Link>Display Menu Items\FTBXPrivilegedRoleManagementParameters</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\FTBXPRMCreateSelfServiceRoleRequests">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMCreateSelfServiceRoleRequests</Name>
+      <Link>Display Menu Items\FTBXPRMCreateSelfServiceRoleRequests</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\FTBXPRMSelfServiceRoleRequests">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequests</Name>
+      <Link>Display Menu Items\FTBXPRMSelfServiceRoleRequests</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\FTBXPRMSelfServiceRoleRequestsListView">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestsListView</Name>
+      <Link>Display Menu Items\FTBXPRMSelfServiceRoleRequestsListView</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPrivilegedRoleManagementParameters">
+      <SubType>Content</SubType>
+      <Name>FTBXPrivilegedRoleManagementParameters</Name>
+      <Link>Tables\FTBXPrivilegedRoleManagementParameters</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPRMRoleAssignments">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMRoleAssignments</Name>
+      <Link>Tables\FTBXPRMRoleAssignments</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPRMSelfServiceEligibleRoles">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceEligibleRoles</Name>
+      <Link>Tables\FTBXPRMSelfServiceEligibleRoles</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPRMSelfServiceRoleRequestNotes">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestNotes</Name>
+      <Link>Tables\FTBXPRMSelfServiceRoleRequestNotes</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPRMSelfServiceRoleRequestReferences">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestReferences</Name>
+      <Link>Tables\FTBXPRMSelfServiceRoleRequestReferences</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPRMSelfServiceRoleRequests">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequests</Name>
+      <Link>Tables\FTBXPRMSelfServiceRoleRequests</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPRMTmpReferences">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMTmpReferences</Name>
+      <Link>Tables\FTBXPRMTmpReferences</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPRMTmpSelectedRoles">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMTmpSelectedRoles</Name>
+      <Link>Tables\FTBXPRMTmpSelectedRoles</Link>
+    </Content>
+    <Content Include="FinanceToolbox.en-US.label.txt">
+      <SubType>Content</SubType>
+      <Name>FinanceToolbox.en-US.label.txt</Name>
+      <DependentUpon>AxLabelFile\FinanceToolbox_en-US</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.17.0.targets" />
+</Project>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Diagnostics
+  GenerationTime="2024-07-08T05:59:48.0015295+00:00">
+  <Items>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Class/FTBXPRMSelfServiceRoleRequest</Path>
+      <ElementType>Class</ElementType>
+      <Moniker>ModelElementWithUnparsableSource</Moniker>
+      <Line>0</Line>
+      <Column>0</Column>
+      <Message>The model element was saved with unparsable source code and cannot be used. Please edit the element in Visual Studio to fix the errors.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Fatal</Severity>
+      <Path>dynamics://Class/FTBXPRMSelfServiceRoleRequest</Path>
+      <ElementType>Class</ElementType>
+      <Moniker>ExpectedToken</Moniker>
+      <Line>54</Line>
+      <Column>64</Column>
+      <EndLine>54</EndLine>
+      <EndColumn>65</EndColumn>
+      <Message>'{' expected.</Message>
+    </Diagnostic>
+  </Items>
+  <Aliases />
+</Diagnostics>

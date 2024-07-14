@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMSelfServiceRoleRequestsFormHelper</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+internal final class FTBXPRMSelfServiceRoleRequestsFormHelper
+{
+    FormRun formRun;
+
+    FTBXPRMSelfServiceRoleRequestsMode mode;
+
+    FormDataSource          fdsSelfServiceRoleRequest;
+    QueryBuildDataSource    qbdsSelfServiceRoleRequest;
+    QueryBuildRange         qbrSelfServiceUserRange;
+    QueryBuildRange         qbrSelfServiceStatusRange;
+
+    FormCheckBoxControl     fcbcOnlyShowOpen;
+    FormCheckBoxControl     fcbcOnlyShowMine;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>updateDesign</Name>
+				<Source><![CDATA[
+    public void updateDesign()
+    {
+        switch (mode)
+        {
+            case FTBXPRMSelfServiceRoleRequestsMode::EligibleRolesOwnUser:
+                fcbcOnlyShowOpen.visible(true);
+                fcbcOnlyShowMine.visible(false);
+                break;
+            case FTBXPRMSelfServiceRoleRequestsMode::EligibleRolesAllUsers:
+            case FTBXPRMSelfServiceRoleRequestsMode::AllRolesAllUsers:
+                fcbcOnlyShowOpen.visible(true);
+                fcbcOnlyShowMine.visible(true);
+                break;
+        }
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>updateQuery</Name>
+				<Source><![CDATA[
+    public void updateQuery(boolean _executeQuery = true)
+    {
+        if (fcbcOnlyShowMine.checked())
+        {
+            qbrSelfServiceUserRange.value(queryValue(curUserId()));
+        }
+        else
+        {
+            qbrSelfServiceUserRange.value(SysQuery::valueUnlimited());
+        }
+
+        if (fcbcOnlyShowOpen.checked())
+        {
+            qbrSelfServiceStatusRange.value(SysQuery::range(FTBXPRMSelfServiceRoleRequestStatus::Created, FTBXPRMSelfServiceRoleRequestStatus::Approved));
+        }
+        else
+        {
+            qbrSelfServiceUserRange.value(SysQuery::valueUnlimited());
+        }
+
+        if (_executeQuery)
+        {
+            fdsSelfServiceRoleRequest.executeQuery();
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>onRequestCreated</Name>
+				<Source><![CDATA[
+    public void onRequestCreated()
+    {
+        fdsSelfServiceRoleRequest.research(true);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    protected void new(FormRun _formRun, FTBXPRMSelfServiceRoleRequestsMode _mode)
+    {
+        formRun     = _formRun;
+        mode        = _mode;
+
+        this.initFromFormRun();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static FTBXPRMSelfServiceRoleRequestsFormHelper construct(FormRun _formRun, FTBXPRMSelfServiceRoleRequestsMode _mode)
+    {
+        return new FTBXPRMSelfServiceRoleRequestsFormHelper(_formRun, _mode);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>initFromFormRun</Name>
+				<Source><![CDATA[
+    private void initFromFormRun()
+    {
+        fdsSelfServiceRoleRequest   = formRun.findFirstFormDataSource(tableNum(FTBXPRMSelfServiceRoleRequests));
+        qbdsSelfServiceRoleRequest  = fdsSelfServiceRoleRequest.queryBuildDataSource();
+
+        fcbcOnlyShowOpen = formRun.control(formRun.controlId(formControlStr(FTBXPRMSelfServiceRoleRequests, OnlyShowOpenChkBox)));
+        fcbcOnlyShowMine = formRun.control(formRun.controlId(formControlStr(FTBXPRMSelfServiceRoleRequests, OnlyShowMineChkBox)));
+
+        qbrSelfServiceUserRange = SysQuery::findOrCreateRange(qbdsSelfServiceRoleRequest, fieldNum(FTBXPRMSelfServiceRoleRequests, UserId));
+        qbrSelfServiceUserRange.status(RangeStatus::Locked);
+
+        qbrSelfServiceStatusRange = SysQuery::findOrCreateRange(qbdsSelfServiceRoleRequest, fieldNum(FTBXPRMSelfServiceRoleRequests, RequestStatus));
+        qbrSelfServiceStatusRange.status(RangeStatus::Locked);
+
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

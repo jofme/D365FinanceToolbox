@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTable xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMTmpSelectedRoles</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class FTBXPRMTmpSelectedRoles extends common
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>initFromSet</Name>
+				<Source><![CDATA[
+    public void initFromSet(Set _eligibleRoleSet)
+    {
+        SetEnumerator enumerator = _eligibleRoleSet.getEnumerator();
+
+        while (enumerator.moveNext())
+        {
+            FTBXPRMSelfServiceUserEligibleRole eligibleRole = enumerator.current();
+
+            if (eligibleRole.roleEligibilityId)
+            {
+                this.clear();
+                this.initFromEligibleRole(eligibleRole);
+                this.insert();
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>initFromEligibleRole</Name>
+				<Source><![CDATA[
+    public void initFromEligibleRole(FTBXPRMSelfServiceUserEligibleRole _eligibleRole)
+    {
+        this.EligibilityId          = _eligibleRole.roleEligibilityId;
+        this.SysSecurityRoleRecId   = _eligibleRole.roleId;
+        this.ValidFromDateTime      = _eligibleRole.fromDateTime;
+        this.ValidToDateTime        = _eligibleRole.toDateTime;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+	<Label>@FinanceToolbox:SelfServiceTmpSelectedRoleLabel</Label>
+	<SubscriberAccessLevel>
+		<Read>Allow</Read>
+	</SubscriberAccessLevel>
+	<TitleField1>EligibilityId</TitleField1>
+	<TitleField2>SysSecurityRoleRecId</TitleField2>
+	<ClusteredIndex>EligibilityIdx</ClusteredIndex>
+	<SaveDataPerCompany>No</SaveDataPerCompany>
+	<TableType>TempDB</TableType>
+	<DeleteActions />
+	<FieldGroups>
+		<AxTableFieldGroup>
+			<Name>AutoReport</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoLookup</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoIdentification</Name>
+			<AutoPopulate>Yes</AutoPopulate>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoSummary</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoBrowse</Name>
+			<Fields />
+		</AxTableFieldGroup>
+	</FieldGroups>
+	<Fields>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>EligibilityId</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>FTBXPRMSelfServiceRoleEligibilityId</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldUtcDateTime">
+			<Name>FromDateTime</Name>
+			<ExtendedDataType>FromDateTime</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
+			<Name>Duration</Name>
+			<ExtendedDataType>Hours</ExtendedDataType>
+			<HelpText>@FinanceToolbox:SelfServiceRoleMaxTimeHelp</HelpText>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:SelfServiceRoleMaxTimeLabel</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldUtcDateTime">
+			<Name>ToDateTime</Name>
+			<ExtendedDataType>ToDateTime</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt64">
+			<Name>SysSecurityRoleRecId</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>SysSecurityRoleRecId</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Mandatory>Yes</Mandatory>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldUtcDateTime">
+			<Name>ValidFromDateTime</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<Visible>No</Visible>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldUtcDateTime">
+			<Name>ValidToDateTime</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<Visible>No</Visible>
+		</AxTableField>
+	</Fields>
+	<FullTextIndexes />
+	<Indexes>
+		<AxTableIndex>
+			<Name>EligibilityIdx</Name>
+			<AlternateKey>Yes</AlternateKey>
+			<Fields>
+				<AxTableIndexField>
+					<DataField>EligibilityId</DataField>
+				</AxTableIndexField>
+			</Fields>
+		</AxTableIndex>
+	</Indexes>
+	<Mappings />
+	<Relations>
+		<AxTableRelation xmlns=""
+			i:type="AxTableRelationForeignKey">
+			<Name>SecurityRole</Name>
+			<Cardinality>ZeroMore</Cardinality>
+			<CreateNavigationPropertyMethods>Yes</CreateNavigationPropertyMethods>
+			<OnDelete>Cascade</OnDelete>
+			<RelatedTable>SecurityRole</RelatedTable>
+			<RelatedTableCardinality>ZeroOne</RelatedTableCardinality>
+			<RelationshipType>Association</RelationshipType>
+			<Constraints>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>SysSecurityRoleRecId</Name>
+					<Field>SysSecurityRoleRecId</Field>
+					<RelatedField>RecId</RelatedField>
+				</AxTableRelationConstraint>
+			</Constraints>
+		</AxTableRelation>
+	</Relations>
+	<StateMachines />
+</AxTable>

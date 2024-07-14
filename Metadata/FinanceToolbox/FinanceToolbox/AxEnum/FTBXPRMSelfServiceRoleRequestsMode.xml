@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxEnum xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMSelfServiceRoleRequestsMode</Name>
+	<Label>@SYS76631</Label>
+	<EnumValues>
+		<AxEnumValue>
+			<Name>EligibleRolesOwnUser</Name>
+			<Label>@FinanceToolbox:SelfServiceRequestModeOwnUser</Label>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>EligibleRolesAllUsers</Name>
+			<Label>@FinanceToolbox:SelfServiceRequestModeAllUsers</Label>
+			<Value>1</Value>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>AllRolesAllUsers</Name>
+			<Label>@FinanceToolbox:SelfServiceRequestModeAllUsersAllRoles</Label>
+			<Value>2</Value>
+		</AxEnumValue>
+	</EnumValues>
+</AxEnum>

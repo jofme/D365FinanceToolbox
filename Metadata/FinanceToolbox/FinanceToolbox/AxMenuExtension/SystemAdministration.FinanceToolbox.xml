@@ -20,6 +20,42 @@
 				</Elements>
 			</MenuElement>
 		</AxMenuExtensionElement>
+		<AxMenuExtensionElement xmlns="">
+			<Parent>Setup</Parent>
+			<MenuElement xmlns=""
+				i:type="AxMenuElementSubMenu">
+				<Name>FTBXPrivilegedRoleManagementFeatureSetup</Name>
+				<FeatureClass>FTBXPrivilegedRoleManagementFeature</FeatureClass>
+				<Label>@FinanceToolbox:PrivilegedRoleManagement</Label>
+				<Elements>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPrivilegedRoleManagementParameters</Name>
+						<MenuItemName>FTBXPrivilegedRoleManagementParameters</MenuItemName>
+					</AxMenuElement>
+				</Elements>
+			</MenuElement>
+		</AxMenuExtensionElement>
+		<AxMenuExtensionElement xmlns="">
+			<Parent>Inquiries</Parent>
+			<MenuElement xmlns=""
+				i:type="AxMenuElementSubMenu">
+				<Name>FTBXPrivilegedRoleManagementFeatureInquiries</Name>
+				<Label>@FinanceToolbox:PrivilegedRoleManagement</Label>
+				<Elements>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPRMSelfServiceRoleRequests</Name>
+						<MenuItemName>FTBXPRMSelfServiceRoleRequests</MenuItemName>
+					</AxMenuElement>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPRMSelfServiceRoleRequestsListView</Name>
+						<MenuItemName>FTBXPRMSelfServiceRoleRequestsListView</MenuItemName>
+					</AxMenuElement>
+				</Elements>
+			</MenuElement>
+		</AxMenuExtensionElement>
 	</Elements>
 	<MenuElementModifications />
 	<PropertyModifications />
