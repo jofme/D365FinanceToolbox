@@ -16,7 +16,7 @@
     <Name>D365FinanceToolboxTests</Name>
     <RootNamespace>D365FinanceToolboxTests</RootNamespace>
     <StartupType>Class</StartupType>
-    <StartupObject>FTBXTest_CreateRoleRequest</StartupObject>
+    <StartupObject>FTBXText_FindEligibleRoles</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
@@ -48,6 +48,11 @@
       <SubType>Content</SubType>
       <Name>FTBXTest_CreateRoleRequest</Name>
       <Link>Classes\FTBXTest_CreateRoleRequest</Link>
+    </Content>
+    <Content Include="AxClass\FTBXText_FindEligibleRoles">
+      <SubType>Content</SubType>
+      <Name>FTBXText_FindEligibleRoles</Name>
+      <Link>Classes\FTBXText_FindEligibleRoles</Link>
     </Content>
     <Content Include="AxMenuExtension\SystemAdministration.FinanceToolboxTests">
       <SubType>Content</SubType>

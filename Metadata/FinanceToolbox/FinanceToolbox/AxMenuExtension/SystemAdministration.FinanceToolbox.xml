@@ -48,6 +48,11 @@
 						<Name>FTBXPRMSelfServiceRoleRequests</Name>
 						<MenuItemName>FTBXPRMSelfServiceRoleRequests</MenuItemName>
 					</AxMenuElement>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPRMSelfServiceRoleRequestsListView</Name>
+						<MenuItemName>FTBXPRMSelfServiceRoleRequestsListView</MenuItemName>
+					</AxMenuElement>
 				</Elements>
 			</MenuElement>
 		</AxMenuExtensionElement>

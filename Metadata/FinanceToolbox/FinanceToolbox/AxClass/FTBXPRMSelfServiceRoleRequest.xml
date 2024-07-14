@@ -7,7 +7,7 @@ public final class FTBXPRMSelfServiceRoleRequest
 {
     public FTBXPRMSelfServiceRoleRequests           roleRequest;
     public FTBXPRMSelfServiceRoleRequestNotes       roleRequestsNote;
-    public FTBXPRMSelfServiceRoleRequestReferences  tmpRoleReferences;
+    public FTBXPRMTmpReferences                     tmpRoleReferences;
 
     NumberSeq numberSeq;
 
@@ -21,8 +21,6 @@ public final class FTBXPRMSelfServiceRoleRequest
 				<Source><![CDATA[
     public void new(FTBXPRMSelfServiceRoleRequestId _requestId = '')
     {
-        tmpRoleReferences.setTempDB();
-
         if (_requestId)
         {
             select firstonly roleRequest

@@ -60,6 +60,11 @@
       <Name>FTBXPRMSelfServiceRoleRequest</Name>
       <Link>Classes\FTBXPRMSelfServiceRoleRequest</Link>
     </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceRoleRequestsFormHelper">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestsFormHelper</Name>
+      <Link>Classes\FTBXPRMSelfServiceRoleRequestsFormHelper</Link>
+    </Content>
     <Content Include="AxClass\FTBXPRMSelfServiceRoleRequestState">
       <SubType>Content</SubType>
       <Name>FTBXPRMSelfServiceRoleRequestState</Name>
@@ -79,6 +84,11 @@
       <SubType>Content</SubType>
       <Name>FTBXPRMSelfServiceRoleRequestState_Assigned</Name>
       <Link>Classes\FTBXPRMSelfServiceRoleRequestState_Assigned</Link>
+    </Content>
+    <Content Include="AxClass\FTBXPRMSelfServiceUserEligibleRole">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceUserEligibleRole</Name>
+      <Link>Classes\FTBXPRMSelfServiceUserEligibleRole</Link>
     </Content>
     <Content Include="AxClass\FTBXSysSecRolesEditUsers_Extension">
       <SubType>Content</SubType>
@@ -140,6 +150,11 @@
       <Name>FTBXPRMSelfServiceRoleRequestReferenceType</Name>
       <Link>Base Enums\FTBXPRMSelfServiceRoleRequestReferenceType</Link>
     </Content>
+    <Content Include="AxEnum\FTBXPRMSelfServiceRoleRequestsMode">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestsMode</Name>
+      <Link>Base Enums\FTBXPRMSelfServiceRoleRequestsMode</Link>
+    </Content>
     <Content Include="AxEnum\FTBXPRMSelfServiceRoleRequestStatus">
       <SubType>Content</SubType>
       <Name>FTBXPRMSelfServiceRoleRequestStatus</Name>
@@ -160,10 +175,20 @@
       <Name>FTBXPrivilegedRoleManagementParameters</Name>
       <Link>Forms\FTBXPrivilegedRoleManagementParameters</Link>
     </Content>
+    <Content Include="AxForm\FTBXPRMCreateSelfServiceRoleRequests">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMCreateSelfServiceRoleRequests</Name>
+      <Link>Forms\FTBXPRMCreateSelfServiceRoleRequests</Link>
+    </Content>
     <Content Include="AxForm\FTBXPRMSelfServiceRoleRequests">
       <SubType>Content</SubType>
       <Name>FTBXPRMSelfServiceRoleRequests</Name>
       <Link>Forms\FTBXPRMSelfServiceRoleRequests</Link>
+    </Content>
+    <Content Include="AxForm\FTBXPRMSelfServiceRoleRequestsListView">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestsListView</Name>
+      <Link>Forms\FTBXPRMSelfServiceRoleRequestsListView</Link>
     </Content>
     <Content Include="AxLabelFile\FinanceToolbox_en-US">
       <SubType>Content</SubType>
@@ -180,10 +205,20 @@
       <Name>FTBXPrivilegedRoleManagementParameters</Name>
       <Link>Display Menu Items\FTBXPrivilegedRoleManagementParameters</Link>
     </Content>
+    <Content Include="AxMenuItemDisplay\FTBXPRMCreateSelfServiceRoleRequests">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMCreateSelfServiceRoleRequests</Name>
+      <Link>Display Menu Items\FTBXPRMCreateSelfServiceRoleRequests</Link>
+    </Content>
     <Content Include="AxMenuItemDisplay\FTBXPRMSelfServiceRoleRequests">
       <SubType>Content</SubType>
       <Name>FTBXPRMSelfServiceRoleRequests</Name>
       <Link>Display Menu Items\FTBXPRMSelfServiceRoleRequests</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\FTBXPRMSelfServiceRoleRequestsListView">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestsListView</Name>
+      <Link>Display Menu Items\FTBXPRMSelfServiceRoleRequestsListView</Link>
     </Content>
     <Content Include="AxTable\FTBXPrivilegedRoleManagementParameters">
       <SubType>Content</SubType>
@@ -214,6 +249,16 @@
       <SubType>Content</SubType>
       <Name>FTBXPRMSelfServiceRoleRequests</Name>
       <Link>Tables\FTBXPRMSelfServiceRoleRequests</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPRMTmpReferences">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMTmpReferences</Name>
+      <Link>Tables\FTBXPRMTmpReferences</Link>
+    </Content>
+    <Content Include="AxTable\FTBXPRMTmpSelectedRoles">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMTmpSelectedRoles</Name>
+      <Link>Tables\FTBXPRMTmpSelectedRoles</Link>
     </Content>
     <Content Include="FinanceToolbox.en-US.label.txt">
       <SubType>Content</SubType>

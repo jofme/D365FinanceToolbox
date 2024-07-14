@@ -9,12 +9,89 @@
 [Form]
 public class FTBXPRMSelfServiceRoleRequests extends FormRun
 {
+    FTBXPRMSelfServiceRoleRequestsFormHelper formHelper;
+    
 }
+]]></Source>
+			</Method>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    public void init()
+    {
+        if (!element.args()
+            && !element.args().parmEnumType())
+        {
+            throw error(error::missingParameter(this));
+        }
+
+        if (element.args().parmEnumType() != enumNum(FTBXPRMSelfServiceRoleRequestsMode))
+        {
+            throw error(error::wrongUseOfFunction(funcName()));
+        }
+
+        super();
+
+        formHelper = FTBXPRMSelfServiceRoleRequestsFormHelper::construct(this, this.args().parmEnum());
+        formHelper.updateQuery(false);
+        formHelper.updateDesign();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getHelper</Name>
+				<Source><![CDATA[
+    public FTBXPRMSelfServiceRoleRequestsFormHelper getHelper()
+    {
+        return formHelper;
+    }
+
 ]]></Source>
 			</Method>
 		</Methods>
 		<DataSources xmlns="" />
-		<DataControls xmlns="" />
+		<DataControls xmlns="">
+			<Control>
+				<Name>FTBXPRMCreateSelfServiceRoleRequests</Name>
+				<Type>MenuFunctionButton</Type>
+				<Methods>
+					<Method>
+						<Name>clicked</Name>
+						<Source><![CDATA[
+        /// <summary>
+        ///
+        /// </summary>
+        public void clicked()
+        {
+            super();
+        }
+
+]]></Source>
+					</Method>
+				</Methods>
+			</Control>
+			<Control>
+				<Name>OnlyShowMineChkBox</Name>
+				<Type>CheckBox</Type>
+				<Methods>
+					<Method>
+						<Name>modified</Name>
+						<Source><![CDATA[
+        public boolean modified()
+        {
+            boolean ret = super();
+
+            formHelper.updateQuery();
+        
+            return ret;
+        }
+
+]]></Source>
+					</Method>
+				</Methods>
+			</Control>
+		</DataControls>
 		<Members xmlns="" />
 	</SourceCode>
 	<DataSources>
@@ -225,7 +302,27 @@ public class FTBXPRMSelfServiceRoleRequests extends FormRun
 				<Type>ActionPane</Type>
 				<FormControlExtension
 					i:nil="true" />
-				<Controls />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormButtonGroupControl">
+						<Name>BtnGrp</Name>
+						<Type>ButtonGroup</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls>
+							<AxFormControl xmlns=""
+								i:type="AxFormMenuFunctionButtonControl">
+								<Name>FTBXPRMCreateSelfServiceRoleRequests</Name>
+								<Type>MenuFunctionButton</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<AutoRefreshData>Yes</AutoRefreshData>
+								<DataSource>FTBXPRMSelfServiceRoleRequests</DataSource>
+								<MenuItemName>FTBXPRMCreateSelfServiceRoleRequests</MenuItemName>
+							</AxFormControl>
+						</Controls>
+					</AxFormControl>
+				</Controls>
 			</AxFormControl>
 			<AxFormControl xmlns=""
 				i:type="AxFormGroupControl">
@@ -270,6 +367,7 @@ public class FTBXPRMSelfServiceRoleRequests extends FormRun
 							<AxFormControl xmlns=""
 								i:type="AxFormCheckBoxControl">
 								<Name>OnlyShowOpenChkBox</Name>
+								<AutoDeclaration>Yes</AutoDeclaration>
 								<Type>CheckBox</Type>
 								<FormControlExtension
 									i:nil="true" />
@@ -279,6 +377,7 @@ public class FTBXPRMSelfServiceRoleRequests extends FormRun
 							<AxFormControl xmlns=""
 								i:type="AxFormCheckBoxControl">
 								<Name>OnlyShowMineChkBox</Name>
+								<AutoDeclaration>Yes</AutoDeclaration>
 								<Type>CheckBox</Type>
 								<FormControlExtension
 									i:nil="true" />

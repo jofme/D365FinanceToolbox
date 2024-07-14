@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMSelfServiceUserEligibleRole</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public final class FTBXPRMSelfServiceUserEligibleRole
+{
+    public System.String                        userId;
+    public RefRecId                             roleId;
+    public str                                  roleEligibilityId;
+    public FromDateTime                         fromDateTime;
+    public ToDateTime                           toDateTime;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    public void new(
+        UserId                  _userId, 
+        SysSecurityRoleRecId    _roleId)
+    {
+        userId  = _userId;
+        roleId  = _roleId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setUserEligibilityRecord</Name>
+				<Source><![CDATA[
+    public FTBXPRMSelfServiceUserEligibleRole setUserEligibilityRecord(FTBXPRMSelfServiceEligibleRoles _eligibleRole)
+    {
+        roleEligibilityId   = _eligibleRole.RoleEligibilityId;
+        fromDateTime        = _eligibleRole.FromDateTime;
+        toDateTime          = _eligibleRole.ToDateTime;
+
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>appendToSetIfNotExists</Name>
+				<Source><![CDATA[
+    public FTBXPRMSelfServiceUserEligibleRole appendToSetIfNotExists(Set _set)
+    {
+        if (!_set.in(this))
+        {
+            _set.add(this);
+        }
+
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getHashCode</Name>
+				<Source><![CDATA[
+    public int getHashCode()
+    {
+        return userId.GetHashCode() ^ roleId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>Equals</Name>
+				<Source><![CDATA[
+    public boolean Equals(System.Object _obj)
+    {
+        FTBXPRMSelfServiceUserEligibleRole contract = _obj;
+
+        return this.userId == contract.userId
+            && this.roleId == contract.roleId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>findEligibleRolesForUser</Name>
+				<Source><![CDATA[
+    public static Set findEligibleRolesForUser(UserId _userId)
+    {
+        FTBXPRMSelfServiceEligibleRoles eligibleRoles;
+        UserGroupList                   userGroupList;
+
+        Set roleSet = new Set(Types::Class);
+
+        while select * from eligibleRoles
+            where eligibleRoles.UserCode        == TableGroupAll::Table
+            &&    eligibleRoles.UserValue       == _userId
+            &&    eligibleRoles.FromDateTime    <= DateTimeUtil::getSystemDateTime()
+            &&   (eligibleRoles.ToDateTime      >= DateTimeUtil::getSystemDateTime() || eligibleRoles.ToDateTime == DateTimeUtil::minValue())
+        {
+            new FTBXPRMSelfServiceUserEligibleRole(_userId, eligibleRoles.SysSecurityRoleRecId)
+                .setUserEligibilityRecord(eligibleRoles)
+                .appendToSetIfNotExists(roleSet);
+        }
+
+        while select * from eligibleRoles
+            where eligibleRoles.UserCode        == TableGroupAll::GroupId
+            &&    eligibleRoles.FromDateTime    <= DateTimeUtil::getSystemDateTime()
+            &&   (eligibleRoles.ToDateTime      >= DateTimeUtil::getSystemDateTime() || eligibleRoles.ToDateTime == DateTimeUtil::minValue())
+            exists join userGroupList
+                where userGroupList.groupId == eligibleRoles.UserValue
+                &&    userGroupList.userId  == _userId
+        {
+            new FTBXPRMSelfServiceUserEligibleRole(_userId, eligibleRoles.SysSecurityRoleRecId)
+                .setUserEligibilityRecord(eligibleRoles)
+                .appendToSetIfNotExists(roleSet);
+        }
+
+        while select * from eligibleRoles
+            where eligibleRoles.UserCode        == TableGroupAll::All
+            &&    eligibleRoles.FromDateTime    <= DateTimeUtil::getSystemDateTime()
+            &&   (eligibleRoles.ToDateTime      >= DateTimeUtil::getSystemDateTime() || eligibleRoles.ToDateTime == DateTimeUtil::minValue())
+        {
+            new FTBXPRMSelfServiceUserEligibleRole(_userId, eligibleRoles.SysSecurityRoleRecId)
+                .setUserEligibilityRecord(eligibleRoles)
+                .appendToSetIfNotExists(roleSet);
+        }
+
+        return roleSet;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

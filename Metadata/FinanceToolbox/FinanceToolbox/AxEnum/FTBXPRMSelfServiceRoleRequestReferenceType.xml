@@ -3,7 +3,6 @@
 	<Name>FTBXPRMSelfServiceRoleRequestReferenceType</Name>
 	<Help>@FinanceToolbox:SelfServiceRoleRequestReferenceTypeHelp</Help>
 	<Label>@FinanceToolbox:SelfServiceRoleRequestReferenceTypeLabel</Label>
-	<UseEnumValue>No</UseEnumValue>
 	<EnumValues>
 		<AxEnumValue>
 			<Name>Reference</Name>
@@ -35,5 +34,4 @@
 			<Value>4</Value>
 		</AxEnumValue>
 	</EnumValues>
-	<IsExtensible>true</IsExtensible>
 </AxEnum>

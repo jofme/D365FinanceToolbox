@@ -2,7 +2,6 @@
 <AxEnum xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
 	<Name>FTBXPRMSelfServiceRoleRequestStatus</Name>
 	<Label>@FinanceToolbox:SelfServiceRoleRequestStatus</Label>
-	<UseEnumValue>No</UseEnumValue>
 	<EnumValues>
 		<AxEnumValue>
 			<Name>Created</Name>
@@ -39,5 +38,4 @@
 			<Value>5</Value>
 		</AxEnumValue>
 	</EnumValues>
-	<IsExtensible>true</IsExtensible>
 </AxEnum>
