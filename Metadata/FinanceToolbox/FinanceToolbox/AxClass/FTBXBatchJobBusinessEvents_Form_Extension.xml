@@ -32,7 +32,7 @@ internal final class FTBXBatchJobBusinessEvents_Form_Extension
         {
             BatchJobBusinessEvents batchJobBusinessEvents;
 
-            select FTBXBatchJobDuration, FTBXBatchJobMaxExecutionTime
+            select firstonly FTBXBatchJobDuration, FTBXBatchJobMaxExecutionTime
                 from batchJobBusinessEvents
                 where batchJobBusinessEvents.BatchJobId == openedForBatchJobId;
 

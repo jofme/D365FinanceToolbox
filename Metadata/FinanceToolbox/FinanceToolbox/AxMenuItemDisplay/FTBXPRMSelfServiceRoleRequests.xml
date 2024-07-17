@@ -3,6 +3,7 @@
 	<Name>FTBXPRMSelfServiceRoleRequests</Name>
 	<EnumParameter>EligibleRolesAllUsers</EnumParameter>
 	<EnumTypeParameter>FTBXPRMSelfServiceRoleRequestsMode</EnumTypeParameter>
+	<FeatureClass>FTBXPrivilegedRoleManagementFeature</FeatureClass>
 	<HelpText>@FinanceToolbox:SelfServiceRoleRequestsHelp</HelpText>
 	<Label>@FinanceToolbox:SelfServiceRoleRequests</Label>
 	<Object>FTBXPRMSelfServiceRoleRequests</Object>

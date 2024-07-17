@@ -107,6 +107,15 @@
 								<DataField>ToDateTime</DataField>
 								<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
 							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormRealControl">
+								<Name>FTBXPRMSelfServiceEligibleRolesTabGrid_MaxDuration</Name>
+								<Type>Real</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>MaxDuration</DataField>
+								<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+							</AxFormControl>
 						</Controls>
 						<DataGroup>Grid</DataGroup>
 						<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>

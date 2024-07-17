@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxWorkflowTemplate xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V2">
+	<Name>FTBXPRMSelfServiceRoleRequestType</Name>
+	<AssociationType>Global</AssociationType>
+	<CancelMenuItem>FTBXPRMSelfServiceRoleRequestTypeCancelMenuItem</CancelMenuItem>
+	<CanceledEventHandler>FTBXPRMSelfServiceRoleRequestTypeEventHandler</CanceledEventHandler>
+	<Category>SysUserManagement</Category>
+	<CompletedEventHandler>FTBXPRMSelfServiceRoleRequestTypeEventHandler</CompletedEventHandler>
+	<Document>FTBXPRMSelfServiceRoleRequestTypeDocument</Document>
+	<DocumentMenuItem>FTBXPRMSelfServiceRoleRequests</DocumentMenuItem>
+	<HelpText>@FinanceToolbox:SelfServiceRoleRequestWorkflowTypeHelp</HelpText>
+	<Label>@FinanceToolbox:SelfServiceRoleRequestWorkflowTypeLabel</Label>
+	<StartedEventHandler>FTBXPRMSelfServiceRoleRequestTypeEventHandler</StartedEventHandler>
+	<SubmitToWorkflowMenuItem>FTBXPRMSelfServiceRoleRequestTypeSubmitMenuItem</SubmitToWorkflowMenuItem>
+	<LineItemWorkflows />
+	<SupportedElements>
+		<AxWorkflowElementReference xmlns="">
+			<Name>RequestApproval</Name>
+			<ElementName>FTBXPRMSelfServiceRoleRequestApproval</ElementName>
+		</AxWorkflowElementReference>
+		<AxWorkflowElementReference xmlns="">
+			<Name>AutoTaskApprove</Name>
+			<ElementName>FTBXPRMSelfServiceRoleRequestAutoTaskApprove</ElementName>
+			<Type>AutomatedTask</Type>
+		</AxWorkflowElementReference>
+		<AxWorkflowElementReference xmlns="">
+			<Name>AutoTaskDeny</Name>
+			<ElementName>FTBXPRMSelfServiceRoleRequestAutoTaskDeny</ElementName>
+			<Type>AutomatedTask</Type>
+		</AxWorkflowElementReference>
+	</SupportedElements>
+</AxWorkflowTemplate>

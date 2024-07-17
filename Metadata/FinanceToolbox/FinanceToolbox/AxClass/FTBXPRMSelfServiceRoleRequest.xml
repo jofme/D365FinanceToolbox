@@ -3,15 +3,11 @@
 	<Name>FTBXPRMSelfServiceRoleRequest</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
-public final class FTBXPRMSelfServiceRoleRequest
+public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 {
-    public FTBXPRMSelfServiceRoleRequests           roleRequest;
-    public FTBXPRMSelfServiceRoleRequestNotes       roleRequestsNote;
-    public FTBXPRMTmpReferences                     tmpRoleReferences;
-
-    NumberSeq numberSeq;
-
-    private boolean isDirty;
+    public  FTBXPRMSelfServiceRoleRequests           roleRequest;
+    public  FTBXPRMSelfServiceRoleRequestNotes       roleRequestsNote;
+    public  FTBXPRMTmpReferences                     tmpRoleReferences;
 
 }
 ]]></Declaration>
@@ -105,6 +101,17 @@ public final class FTBXPRMSelfServiceRoleRequest
 ]]></Source>
 			</Method>
 			<Method>
+				<Name>setDuration</Name>
+				<Source><![CDATA[
+    public FTBXPRMSelfServiceRoleRequest setDuration(FTBXPRMSelfServiceDuration _duration)
+    {
+        roleRequest.Duration = _duration;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
 				<Name>addReference</Name>
 				<Source><![CDATA[
     public FTBXPRMSelfServiceRoleRequest addReference(
@@ -121,15 +128,27 @@ public final class FTBXPRMSelfServiceRoleRequest
 ]]></Source>
 			</Method>
 			<Method>
+				<Name>reload</Name>
+				<Source><![CDATA[
+    public void reload()
+    {
+        super();
+
+        roleRequest.reread();
+        roleRequestsNote.reread();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
 				<Name>setStatus</Name>
 				<Source><![CDATA[
-    public FTBXPRMSelfServiceRoleRequest setStatus(FTBXPRMSelfServiceRoleRequestStatus _status, Notes _outcomeReason = "")
+    public FTBXPRMSelfServiceRoleRequest setStatus(FTBXPRMSelfServiceRoleRequestStatus _status)
     {
         roleRequest.RequestStatus = _status;
 
-        roleRequestsNote.OutcomeReason = _outcomeReason;
-
         this.isDirty = true;
+        this.statusChanged = true;
 
         return this;
     }
@@ -157,114 +176,78 @@ public final class FTBXPRMSelfServiceRoleRequest
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>saveRoleRequest</Name>
+				<Name>submitToWorkflow</Name>
 				<Source><![CDATA[
-    public FTBXPRMSelfServiceRoleRequest saveRoleRequest()
+    public void submitToWorkflow()
     {
-        #OCCRETRYCOUNT
-
-        try
+        if (roleRequest.canSubmitToWorkflow()
+            && Workflow::findWorkflowConfigToActivateForType(workflowTypeStr(FTBXPRMSelfServiceRoleRequestType),roleRequest.RecId, roleRequest.TableId))
         {
-            ttsbegin;
+            this.setStatus(FTBXPRMSelfServiceRoleRequestStatus::Submitted)
+                .commit();
+        }
+        else if (!FTBXPrivilegedRoleManagementParameters::find().RoleRequestRequireApprovals)
+        {
+            this.setStatus(FTBXPRMSelfServiceRoleRequestStatus::Approved)
+                .commit();
 
-            if (!roleRequest.RecId)
+            this.setStatus(FTBXPRMSelfServiceRoleRequestStatus::Assigned)
+                .commit();            
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>commitInternal</Name>
+				<Source><![CDATA[
+    protected void commitInternal()
+    {
+        if (!roleRequest.RecId)
+        {
+            this.setNumSeq();
+
+            if (roleRequest.validateWrite())
             {
-                this.setNumSeq();
+                roleRequest.insert();
+                roleRequestsNote.RequestId  = roleRequest.RequestId;
+                roleRequestsNote.insert();
 
-                if (roleRequest.validateWrite())
+                if (tmpRoleReferences)
                 {
-                    Info("Insert");
-                    
-                    roleRequest.ValidFrom = DateTimeUtil::getSystemDateTime();
-                    roleRequest.ValidTo = DateTimeUtil::maxValue();
-                    roleRequest.insert();                    
+                    FTBXPRMSelfServiceRoleRequestReferences references;
+                    FTBXPRMSelfServiceRoleRequestId         curRequestId = roleRequest.RequestId;
 
-                    roleRequestsNote.ValidFrom  = DateTimeUtil::getSystemDateTime();
-                    roleRequestsNote.ValidTo    = DateTimeUtil::maxValue();
-                    roleRequestsNote.RequestId  = roleRequest.RequestId;
-                    roleRequestsNote.insert();
-
-                    if (tmpRoleReferences)
-                    {
-                        FTBXPRMSelfServiceRoleRequestReferences references;
-                        FTBXPRMSelfServiceRoleRequestId         curRequestId = roleRequest.RequestId;
-
-                        insert_recordset references (RequestId, Reference, ReferenceType)
+                    insert_recordset references (RequestId, Reference, ReferenceType)
                             select curRequestId, Reference, ReferenceType from tmpRoleReferences;
-                    }
-
-                    numberSeq.used();
                 }
-            }
-            else if (isDirty)
-            {
-                if (roleRequest.validateWrite())
-                {
-                    roleRequest.validTimeStateUpdateMode(ValidTimeStateUpdate::CreateNewTimePeriod);
-                    roleRequest.selectForUpdate(true);
-                    roleRequest.update();
-                    roleRequest.selectForUpdate(false);
 
-                    if (roleRequestsNote.OutcomeReason != roleRequestsNote.orig().OutcomeReason)
-                    {
-                        roleRequestsNote.validTimeStateUpdateMode(ValidTimeStateUpdate::CreateNewTimePeriod);
-                        roleRequestsNote.selectForUpdate(true);
-                        roleRequestsNote.update();
-                        roleRequestsNote.selectForUpdate(false);
-                    }
+                numberSeq.used();
+
+                isDirty         = false;
+                statusChanged   = false;
+
+                this.submitToWorkflow();
+            }
+        }
+        else if (isDirty)
+        {
+            isDirty = false;
+
+            if (roleRequest.validateWrite())
+            {
+                roleRequest.selectForUpdate(true);
+                roleRequest.update();
+                roleRequest.selectForUpdate(false);
+
+                if (statusChanged)
+                {   
+                    statusChanged = false;
 
                     FTBXPRMSelfServiceRoleRequestState::construct(this, roleRequest.RequestStatus).changeState();
                 }
             }
-
-            ttscommit;
         }
-        catch (Exception::Deadlock)
-        {
-            // retry on deadlock
-            retry;
-        }
-        catch (Exception::UpdateConflict)
-        {
-            // try to resolve update conflict
-            if (appl.ttsLevel() == 0)
-            {
-                if (xSession::currentRetryCount() >= #RetryNum)
-                {
-                    throw Exception::UpdateConflictNotRecovered;
-                    
-                }
-                else
-                {
-                    retry;
-                }
-            }
-            else
-            {
-                throw Exception::UpdateConflict;
-            }
-        }
-        catch(Exception::DuplicateKeyException)
-        {
-            // retry in case of an duplicate key conflict
-            if (appl.ttsLevel() == 0)
-            {
-                if (xSession::currentRetryCount() >= #RetryNum)
-                {
-                    throw Exception::DuplicateKeyExceptionNotRecovered;
-                }
-                else
-                {
-                    retry;
-                }
-            }
-            else
-            {
-                throw Exception::DuplicateKeyException;
-            }
-        }
-
-        return this;
     }
 
 ]]></Source>

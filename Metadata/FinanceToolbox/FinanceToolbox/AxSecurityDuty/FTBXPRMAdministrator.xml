@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxSecurityDuty xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMAdministrator</Name>
+	<Description>@FinanceToolbox:FinanceToolboxPRMAdministratorDescription</Description>
+	<Label>@FinanceToolbox:FinanceToolboxPRMAdministratorLabel</Label>
+	<Privileges>
+		<AxSecurityPrivilegeReference>
+			<Name>FTBXPRMAdministrator</Name>
+		</AxSecurityPrivilegeReference>
+		<AxSecurityPrivilegeReference>
+			<Name>FTBXPRMProcessingServiceInvoke</Name>
+		</AxSecurityPrivilegeReference>
+		<AxSecurityPrivilegeReference>
+			<Name>FTBXPRMSelfServiceRoleRequestEndUser</Name>
+		</AxSecurityPrivilegeReference>
+		<AxSecurityPrivilegeReference>
+			<Name>FTBXPRMSelfServiceRoleRequestManager</Name>
+		</AxSecurityPrivilegeReference>
+		<AxSecurityPrivilegeReference>
+			<Name>FTBXPRMSelfServiceRoleRequestWorkflowUser</Name>
+		</AxSecurityPrivilegeReference>
+		<AxSecurityPrivilegeReference>
+			<Name>FTBXPRMSelfServiceRoleRequestsEntityView</Name>
+		</AxSecurityPrivilegeReference>
+		<AxSecurityPrivilegeReference>
+			<Name>FTBXPRMRoleAssignmentsEntityView</Name>
+		</AxSecurityPrivilegeReference>
+	</Privileges>
+</AxSecurityDuty>

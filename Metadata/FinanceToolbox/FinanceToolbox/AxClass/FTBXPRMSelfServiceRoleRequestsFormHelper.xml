@@ -37,7 +37,16 @@ internal final class FTBXPRMSelfServiceRoleRequestsFormHelper
                 fcbcOnlyShowMine.visible(true);
                 break;
         }
+    }
 
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getMode</Name>
+				<Source><![CDATA[
+    public FTBXPRMSelfServiceRoleRequestsMode getMode()
+    {
+        return mode;
     }
 
 ]]></Source>
@@ -58,11 +67,11 @@ internal final class FTBXPRMSelfServiceRoleRequestsFormHelper
 
         if (fcbcOnlyShowOpen.checked())
         {
-            qbrSelfServiceStatusRange.value(SysQuery::range(FTBXPRMSelfServiceRoleRequestStatus::Created, FTBXPRMSelfServiceRoleRequestStatus::Approved));
+            qbrSelfServiceStatusRange.value(SysQuery::range(FTBXPRMSelfServiceRoleRequestStatus::Created, FTBXPRMSelfServiceRoleRequestStatus::Assigned));
         }
         else
         {
-            qbrSelfServiceUserRange.value(SysQuery::valueUnlimited());
+            qbrSelfServiceStatusRange.value(SysQuery::valueUnlimited());
         }
 
         if (_executeQuery)

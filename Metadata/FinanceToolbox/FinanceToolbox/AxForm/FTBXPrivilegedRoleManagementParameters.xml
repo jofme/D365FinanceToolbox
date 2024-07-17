@@ -455,11 +455,11 @@ public class FTBXPrivilegedRoleManagementParameters extends FormRun
 									</AxFormControl>
 									<AxFormControl xmlns=""
 										i:type="AxFormRealControl">
-										<Name>RoleRequests_RoleRequestsMaxTime</Name>
+										<Name>RoleRequests_RoleRequestsMaxDuration</Name>
 										<Type>Real</Type>
 										<FormControlExtension
 											i:nil="true" />
-										<DataField>RoleRequestsMaxTime</DataField>
+										<DataField>RoleRequestsMaxDuration</DataField>
 										<DataSource>FTBXPrivilegedRoleManagementParameters</DataSource>
 									</AxFormControl>
 								</Controls>

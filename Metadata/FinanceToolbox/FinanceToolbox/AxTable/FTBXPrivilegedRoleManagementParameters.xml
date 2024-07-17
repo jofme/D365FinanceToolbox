@@ -95,10 +95,13 @@ public class FTBXPrivilegedRoleManagementParameters extends common
 			</Method>
 		</Methods>
 	</SourceCode>
+	<Label>@FinanceToolbox:PrivilegedRoleManagementParametersLabel</Label>
 	<SubscriberAccessLevel>
 		<Read>Allow</Read>
 	</SubscriberAccessLevel>
 	<TableGroup>Parameter</TableGroup>
+	<TitleField1>Key</TitleField1>
+	<TitleField2>RecId</TitleField2>
 	<AllowRowVersionChangeTracking>Yes</AllowRowVersionChangeTracking>
 	<CacheLookup>Found</CacheLookup>
 	<ClusteredIndex>KeyIdx</ClusteredIndex>
@@ -137,7 +140,10 @@ public class FTBXPrivilegedRoleManagementParameters extends common
 					<DataField>RoleRequestsAllowAllRoles</DataField>
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
-					<DataField>RoleRequestsMaxTime</DataField>
+					<DataField>RoleRequestsMaxDuration</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>RoleRequestsAllowOverlappingRoles</DataField>
 				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
@@ -167,15 +173,25 @@ public class FTBXPrivilegedRoleManagementParameters extends common
 			<HelpText>@FinanceToolbox:SelfServiceRoleAllowAllRolesHelp</HelpText>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Label>@FinanceToolbox:SelfServiceRoleAllowAllRolesLabel</Label>
+			<Visible>No</Visible>
 			<EnumType>NoYes</EnumType>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldReal">
-			<Name>RoleRequestsMaxTime</Name>
-			<ExtendedDataType>Hours</ExtendedDataType>
+			<Name>RoleRequestsMaxDuration</Name>
+			<ExtendedDataType>FTBXPRMSelfServiceMaxDuration</ExtendedDataType>
 			<HelpText>@FinanceToolbox:SelfServiceRoleMaxTimeHelp</HelpText>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Label>@FinanceToolbox:SelfServiceRoleMaxTimeLabel</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>RoleRequestsAllowOverlappingRoles</Name>
+			<ExtendedDataType>NoYesId</ExtendedDataType>
+			<HelpText>@FinanceToolbox:SelfServiceRoleAllowOverlapHelp</HelpText>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:SelfServiceRoleAllowOverlapLabel</Label>
+			<EnumType>NoYes</EnumType>
 		</AxTableField>
 	</Fields>
 	<FullTextIndexes />

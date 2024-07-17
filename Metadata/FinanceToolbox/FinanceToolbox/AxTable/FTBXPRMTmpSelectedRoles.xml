@@ -35,10 +35,181 @@ public class FTBXPRMTmpSelectedRoles extends common
 				<Source><![CDATA[
     public void initFromEligibleRole(FTBXPRMSelfServiceUserEligibleRole _eligibleRole)
     {
-        this.EligibilityId          = _eligibleRole.roleEligibilityId;
         this.SysSecurityRoleRecId   = _eligibleRole.roleId;
-        this.ValidFromDateTime      = _eligibleRole.fromDateTime;
-        this.ValidToDateTime        = _eligibleRole.toDateTime;
+        this.ToDateTime             = _eligibleRole.toDateTime;
+        this.MaxDuration            = _eligibleRole.maxDuration;
+        this.FromDateTime           = _eligibleRole.fromDateTime;
+        this.EarliestStartDateTime  = _eligibleRole.fromDateTime;
+        this.EligibilityId          = _eligibleRole.roleEligibilityId;
+
+        this.updateDuration();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>updateDuration</Name>
+				<Source><![CDATA[
+    public void updateDuration()
+    {
+        if (this.FromDateTime && this.ToDateTime)
+        {
+            this.Duration = DateTimeUtil::getDifference(this.ToDateTime, this.FromDateTime) / 3600;
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>updateToDate</Name>
+				<Source><![CDATA[
+    private void updateToDate()
+    {
+        if (!this.FromDateTime && this.ToDateTime)
+        {
+            if (this.MaxDuration)
+            {
+                this.FromDateTime = DateTimeUtil::addHours(this.ToDateTime, -this.MaxDuration);
+            }
+            else
+            {
+                this.FromDateTime = this.EarliestStartDateTime;
+            }
+        }
+        else if (this.MaxDuration)
+        {
+            int64 difference = DateTimeUtil::getDifference(this.FromDateTime, this.ToDateTime);
+
+            if (difference >= any2Int(this.MaxDuration) * 3600)
+            {
+                int64 differenceOrig = DateTimeUtil::getDifference(this.FromDateTime, this.orig().FromDateTime);
+
+                if (differenceOrig)
+                {
+                    this.ToDateTime = max(DateTimeUtil::addSeconds(this.orig().ToDateTime, difference), this.EarliestStartDateTime);
+                }
+            }
+        }
+
+        this.updateDuration();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>updateFromDate</Name>
+				<Source><![CDATA[
+    private void updateFromDate()
+    {
+        if (!this.toDateTime && this.FromDateTime)
+        {
+            if (this.MaxDuration)
+            {
+                this.ToDateTime = DateTimeUtil::addHours(this.FromDateTime, this.MaxDuration);
+            }
+            else
+            {
+                this.ToDateTime = DateTimeUtil::minValue();
+            }
+        }
+        else if (this.MaxDuration)
+        {
+            int64 difference = DateTimeUtil::getDifference(this.ToDateTime, this.FromDateTime);
+
+            if (difference >= any2Int(this.MaxDuration) * 3600)
+            {
+                int64 differenceOrig = DateTimeUtil::getDifference(this.ToDateTime, this.orig().ToDateTime);
+
+                if (differenceOrig)
+                {
+                    this.FromDateTime = max(DateTimeUtil::addSeconds(this.FromDateTime, differenceOrig), this.EarliestStartDateTime);
+                }
+            }
+        }
+
+        this.updateDuration();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>modifiedField</Name>
+				<Source><![CDATA[
+    public void modifiedField(int _fieldId)
+    {   
+        super(_fieldId);
+
+        switch(_fieldId)
+        {
+            case fieldNum(FTBXPRMTmpSelectedRoles, FromDateTime):
+                this.updateToDate();
+                break;
+            case fieldNum(FTBXPRMTmpSelectedRoles, ToDateTime):
+                this.updateFromDate();
+                break;
+            case fieldNum(FTBXPRMTmpSelectedRoles, Duration):
+                if (this.Duration)
+                {
+                    if (this.FromDateTime)
+                    {
+                        if (this.MaxDuration)
+                        {
+                            this.ToDateTime = DateTimeUtil::addHours(this.FromDateTime, min(this.MaxDuration, this.Duration));
+                        }
+                        else
+                        {
+                            this.ToDateTime = DateTimeUtil::addHours(this.FromDateTime, this.Duration);
+                        }                        
+                    }
+                }                
+                break;
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>validateField</Name>
+				<Source><![CDATA[
+    public boolean validateField(FieldId _fieldId)
+    {
+        boolean ret = super(_fieldId);
+
+        if (ret)
+        {
+            switch(_fieldId)
+            {
+                case fieldNum(FTBXPRMTmpSelectedRoles, FromDateTime):
+                case fieldNum(FTBXPRMTmpSelectedRoles, ToDateTime):
+                    if (this.FromDateTime > this.EarliestStartDateTime)
+                    {
+                        ret = checkFailed(strFmt("@FinanceToolbox:SelfServiceTmpSelectedRoleDateTimeCannotBeBefore", this.EarliestStartDateTime));
+                    }
+                    else if (this.ToDateTime && this.ToDateTime <= this.FromDateTime)
+                    {
+                        ret = checkFailed("@FinanceToolbox:SelfServiceTmpSelectedRoleToDateBeforeFromDate");
+                    }
+                    else if (this.FromDateTime 
+                        && this.ToDateTime
+                        && DateTimeUtil::getDifference(this.ToDateTime, this.FromDateTime) / 3600 > this.MaxDuration)
+                    {
+                        ret = checkFailed("@FinanceToolbox:SelfServiceTmpSelectedRoleMaxDuration");
+                    }
+                    break;
+                case fieldNum(FTBXPRMTmpSelectedRoles, Duration):
+                    if (this.MaxDuration && this.Duration > this.MaxDuration)
+                    {
+                        ret = checkFailed("@FinanceToolbox:SelfServiceTmpSelectedRoleDurationGreaterThanMaxDuration");
+                    }
+                    else if (this.Duration < 0)
+                    {
+                        ret = checkFailed("@FinanceToolbox:SelfServiceTmpSelectedRoleDurationNegative");
+                    }
+                    break;                    
+            }
+        }
+
+        return ret;
     }
 
 ]]></Source>
@@ -86,20 +257,13 @@ public class FTBXPRMTmpSelectedRoles extends common
 			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<ExtendedDataType>FTBXPRMSelfServiceRoleEligibilityId</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Mandatory>Yes</Mandatory>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldUtcDateTime">
 			<Name>FromDateTime</Name>
 			<ExtendedDataType>FromDateTime</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldReal">
-			<Name>Duration</Name>
-			<ExtendedDataType>Hours</ExtendedDataType>
-			<HelpText>@FinanceToolbox:SelfServiceRoleMaxTimeHelp</HelpText>
-			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-			<Label>@FinanceToolbox:SelfServiceRoleMaxTimeLabel</Label>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldUtcDateTime">
@@ -117,17 +281,26 @@ public class FTBXPRMTmpSelectedRoles extends common
 			<Mandatory>Yes</Mandatory>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldUtcDateTime">
-			<Name>ValidFromDateTime</Name>
+			i:type="AxTableFieldReal">
+			<Name>Duration</Name>
+			<ExtendedDataType>FTBXPRMSelfServiceDuration</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
+			<Name>MaxDuration</Name>
 			<AllowEdit>No</AllowEdit>
 			<AllowEditOnCreate>No</AllowEditOnCreate>
-			<Visible>No</Visible>
+			<ExtendedDataType>FTBXPRMSelfServiceMaxDuration</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldUtcDateTime">
-			<Name>ValidToDateTime</Name>
+			<Name>EarliestStartDateTime</Name>
 			<AllowEdit>No</AllowEdit>
 			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>FromDateTime</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Visible>No</Visible>
 		</AxTableField>
 	</Fields>
