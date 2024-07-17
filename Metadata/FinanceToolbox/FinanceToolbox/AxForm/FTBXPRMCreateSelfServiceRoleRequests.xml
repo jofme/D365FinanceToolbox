@@ -15,20 +15,6 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>setFieldsEnabled</Name>
-				<Source><![CDATA[
-    public void setFieldsEnabled()
-    {
-        FTBXPRMTmpSelectedRoles_ds.object(fieldNum(FTBXPRMTmpSelectedRoles, ToDateTime)).visible(MaxEligibleTimeChkBox.checked() == NoYes::No);
-        FTBXPRMTmpSelectedRoles_ds.object(fieldNum(FTBXPRMTmpSelectedRoles, ToDateTime)).mandatory(MaxEligibleTimeChkBox.checked() == NoYes::No);
-
-        FTBXPRMTmpSelectedRoles_ds.object(fieldNum(FTBXPRMTmpSelectedRoles, FromDateTime)).visible(FromDateTime.getUtcDateTime() == DateTimeUtil::minValue());
-        FTBXPRMTmpSelectedRoles_ds.object(fieldNum(FTBXPRMTmpSelectedRoles, FromDateTime)).mandatory(FromDateTime.getUtcDateTime() == DateTimeUtil::minValue());
-    }
-
-]]></Source>
-			</Method>
-			<Method>
 				<Name>init</Name>
 				<Source><![CDATA[
     public void init()
@@ -45,9 +31,30 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
             {
                 formHelper = formRunCaller.getHelper();
             }
-        }       
- 
-        element.setFieldsEnabled();
+        }
+
+        this.updateDesign();
+        this.updateEligibleRoles();        
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>updateDesign</Name>
+				<Source><![CDATA[
+    private void updateDesign()
+    {
+        switch (formHelper.getMode())
+        {
+            case FTBXPRMSelfServiceRoleRequestsMode::AllRolesAllUsers:
+            case FTBXPRMSelfServiceRoleRequestsMode::EligibleRolesAllUsers:
+                SelectedUserTxt.enabled(true);
+                break;
+            case FTBXPRMSelfServiceRoleRequestsMode::EligibleRolesOwnUser:
+                SelectedUserTxt.enabled(false);
+                SelectedUserTxt.text(curUserId());
+                break;
+        }
     }
 
 ]]></Source>
@@ -61,17 +68,16 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
         {
             if (SysUserInfo::find(SelectedUserTxt.valueStr()))
             {
-
                 delete_from FTBXPRMTmpSelectedRoles;
 
                 FTBXPRMTmpSelectedRoles.initFromSet(
-                FTBXPRMSelfServiceUserEligibleRole::findEligibleRolesForUser(SelectedUserTxt.valueStr()));
+                    FTBXPRMSelfServiceUserEligibleRole::findEligibleRolesForUser(SelectedUserTxt.valueStr()));
 
                 FTBXPRMTmpSelectedRoles_ds.research();
             }
             else
             {
-                Error(strFmt("User %1 does not exist"));
+                Error("@FinanceToolbox:SelfServiceRoleRequestCreateUserNotExists");
             }
         }
     }
@@ -101,7 +107,7 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
 
                 if (!tmpSelectedRoled)
                 {
-                    ret = checkFailed("No roles selected");
+                    ret = checkFailed("@FinanceToolbox:SelfServiceRoleRequestCreateNoRolesSelected");
                 }
                 else
                 {
@@ -113,7 +119,8 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
                             .setJustification(JustificationTxt.valueStr())
                             .setEligibilityId(tmpSelectedRoled.EligibilityId)
                             .setFromDateTime(tmpSelectedRoled.FromDateTime)
-                            .setToDateTime(tmpSelectedRoled.ToDateTime);
+                            .setToDateTime(tmpSelectedRoled.ToDateTime)
+                            .setDuration(tmpSelectedRoled.Duration);
 
                         FTBXPRMTmpReferences tmpReferences;
                         tmpReferences.linkPhysicalTableInstance(FTBXPRMTmpReferences);
@@ -125,7 +132,7 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
                                 tmpReferences.Reference);
                         }
 
-                        request.saveRoleRequest();
+                        request.commit();
 
                         tmpSelectedRoled = multiSelectionHelper.getNext();
                     }
@@ -176,54 +183,6 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
 					</Method>
 				</Methods>
 			</Control>
-			<Control>
-				<Name>MaxEligibleTimeChkBox</Name>
-				<Type>CheckBox</Type>
-				<Methods>
-					<Method>
-						<Name>modified</Name>
-						<Source><![CDATA[
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        public boolean modified()
-        {
-            boolean ret = super();
-
-            element.setFieldsEnabled();
-    
-            return ret;
-        }
-
-]]></Source>
-					</Method>
-				</Methods>
-			</Control>
-			<Control>
-				<Name>FromDateTime</Name>
-				<Type>DateTime</Type>
-				<Methods>
-					<Method>
-						<Name>modified</Name>
-						<Source><![CDATA[
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        public boolean modified()
-        {
-            boolean ret = super();
-
-            element.setFieldsEnabled();
-    
-            return ret;
-        }
-
-]]></Source>
-					</Method>
-				</Methods>
-			</Control>
 		</DataControls>
 		<Members xmlns="" />
 	</SourceCode>
@@ -242,13 +201,13 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
 					<DataField>FromDateTime</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
+					<DataField>MaxDuration</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
 					<DataField>Partition</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
 					<DataField>RecId</DataField>
-				</AxFormDataSourceField>
-				<AxFormDataSourceField>
-					<DataField>Selected</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
 					<DataField>SysSecurityRoleRecId</DataField>
@@ -258,12 +217,6 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
 					<DataField>ToDateTime</DataField>
-				</AxFormDataSourceField>
-				<AxFormDataSourceField>
-					<DataField>ValidFromDateTime</DataField>
-				</AxFormDataSourceField>
-				<AxFormDataSourceField>
-					<DataField>ValidToDateTime</DataField>
 				</AxFormDataSourceField>
 			</Fields>
 			<ReferencedDataSources />
@@ -300,7 +253,7 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
 		</AxFormDataSource>
 	</DataSources>
 	<Design>
-		<Caption xmlns="">Create new role request</Caption>
+		<Caption xmlns="">@FinanceToolbox:SelfServiceRoleCreateNewRequest</Caption>
 		<DialogSize xmlns="">Full</DialogSize>
 		<Pattern xmlns="">DialogFastTabs</Pattern>
 		<PatternVersion xmlns="">1.0</PatternVersion>
@@ -359,51 +312,6 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
 							i:nil="true" />
 						<Controls>
 							<AxFormControl xmlns=""
-								i:type="AxFormGroupControl">
-								<Name>SelectedRolesFilterGrp</Name>
-								<Pattern>CustomFilters</Pattern>
-								<PatternVersion>1.1</PatternVersion>
-								<Type>Group</Type>
-								<WidthMode>SizeToAvailable</WidthMode>
-								<FormControlExtension
-									i:nil="true" />
-								<Controls>
-									<AxFormControl xmlns=""
-										i:type="AxFormGroupControl">
-										<Name>SelectedRolesFilterGrpTime</Name>
-										<Type>Group</Type>
-										<FormControlExtension
-											i:nil="true" />
-										<Controls>
-											<AxFormControl xmlns=""
-												i:type="AxFormCheckBoxControl">
-												<Name>MaxEligibleTimeChkBox</Name>
-												<AutoDeclaration>Yes</AutoDeclaration>
-												<Type>CheckBox</Type>
-												<FormControlExtension
-													i:nil="true" />
-												<Label>@FinanceToolbox:SelfServiceCreateRequestMaxEligibleTime</Label>
-											</AxFormControl>
-											<AxFormControl xmlns=""
-												i:type="AxFormDateTimeControl">
-												<Name>FromDateTime</Name>
-												<AutoDeclaration>Yes</AutoDeclaration>
-												<Type>DateTime</Type>
-												<FormControlExtension
-													i:nil="true" />
-												<ExtendedDataType>FromDateTime</ExtendedDataType>
-											</AxFormControl>
-										</Controls>
-										<Caption>Time parameters</Caption>
-									</AxFormControl>
-								</Controls>
-								<ArrangeMethod>HorizontalLeft</ArrangeMethod>
-								<Breakable>No</Breakable>
-								<FrameType>None</FrameType>
-								<Style>CustomFilter</Style>
-								<ViewEditMode>Edit</ViewEditMode>
-							</AxFormControl>
-							<AxFormControl xmlns=""
 								i:type="AxFormGridControl">
 								<Name>TmpSelectedRolesGrd</Name>
 								<Type>Grid</Type>
@@ -436,6 +344,15 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
 										<FormControlExtension
 											i:nil="true" />
 										<DataField>Duration</DataField>
+										<DataSource>FTBXPRMTmpSelectedRoles</DataSource>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormRealControl">
+										<Name>FTBXPRMTmpSelectedRoles_MaxDuration</Name>
+										<Type>Real</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<DataField>MaxDuration</DataField>
 										<DataSource>FTBXPRMTmpSelectedRoles</DataSource>
 									</AxFormControl>
 									<AxFormControl xmlns=""

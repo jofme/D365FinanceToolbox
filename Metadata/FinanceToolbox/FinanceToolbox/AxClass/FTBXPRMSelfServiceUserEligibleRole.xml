@@ -10,6 +10,9 @@ public final class FTBXPRMSelfServiceUserEligibleRole
     public str                                  roleEligibilityId;
     public FromDateTime                         fromDateTime;
     public ToDateTime                           toDateTime;
+    public FTBXPRMSelfServiceMaxDuration        maxDuration;
+
+    FTBXPrivilegedRoleManagementParameters parameters;
 
 }
 ]]></Declaration>
@@ -23,6 +26,8 @@ public final class FTBXPRMSelfServiceUserEligibleRole
     {
         userId  = _userId;
         roleId  = _roleId;
+
+        parameters = FTBXPrivilegedRoleManagementParameters::find();
     }
 
 ]]></Source>
@@ -33,10 +38,49 @@ public final class FTBXPRMSelfServiceUserEligibleRole
     public FTBXPRMSelfServiceUserEligibleRole setUserEligibilityRecord(FTBXPRMSelfServiceEligibleRoles _eligibleRole)
     {
         roleEligibilityId   = _eligibleRole.RoleEligibilityId;
-        fromDateTime        = _eligibleRole.FromDateTime;
-        toDateTime          = _eligibleRole.ToDateTime;
+        fromDateTime        = max(DateTimeUtil::getSystemDateTime(), FTBXPRMSelfServiceUserEligibleRole::getEarliestStartDate(userId, roleId));
+
+        maxDuration         = parameters.RoleRequestsMaxDuration    ? parameters.RoleRequestsMaxDuration                : _eligibleRole.MaxDuration;        
+        toDateTime          = maxDuration && FromDateTime           ? DateTimeUtil::addHours(fromDateTime, maxDuration) : DateTimeUtil::minValue();
 
         return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getEarliestStartDate</Name>
+				<Source><![CDATA[
+    public static utcdatetime getEarliestStartDate(UserId _userId, SysSecurityRoleRecId _roleId)
+    {
+        utcdatetime                     ret;
+        FTBXPRMSelfServiceRoleRequests  roleRequests;
+        FTBXPRMRoleAssignments          roleAssignments;        
+
+        select firstonly ToDateTime from roleRequests
+            order by roleRequests.ToDateTime desc
+            where roleRequests.UserId == _userId
+            &&    roleRequests.SysSecurityRoleRecId == _roleId
+            &&    roleRequests.RequestStatus != FTBXPRMSelfServiceRoleRequestStatus::Expired
+            &&    roleRequests.RequestStatus != FTBXPRMSelfServiceRoleRequestStatus::Rejected
+            &&    roleRequests.ToDateTime != DateTimeUtil::minValue();
+
+        ret = roleRequests.ToDateTime;
+
+        select firstonly ToDateTime from roleAssignments
+            order by roleAssignments.ToDateTime desc
+            where roleAssignments.UserId                == _userId
+            &&    roleAssignments.SysSecurityRoleRecId  == _roleId
+            &&    roleAssignments.RequestId             == ''
+            &&    roleAssignments.ToDateTime            != DateTimeUtil::maxValue();
+
+        if (roleAssignments.ToDateTime != DateTimeUtil::minValue()
+            && roleAssignments.ToDateTime > ret)
+        {
+            ret = roleAssignments.ToDateTime;
+        }
+
+        return ret;
     }
 
 ]]></Source>
@@ -46,11 +90,15 @@ public final class FTBXPRMSelfServiceUserEligibleRole
 				<Source><![CDATA[
     public FTBXPRMSelfServiceUserEligibleRole appendToSetIfNotExists(Set _set)
     {
-        if (!_set.in(this))
+        if (!(!parameters.RoleRequestsAllowOverlappingRoles
+            && FTBXPRMSelfServiceRoleRequests::existsOpenUserRole(this.userId, this.roleId)))
         {
-            _set.add(this);
+            if (!_set.in(this))
+            {
+                _set.add(this);
+            }
         }
-
+        
         return this;
     }
 
@@ -84,8 +132,8 @@ public final class FTBXPRMSelfServiceUserEligibleRole
 				<Source><![CDATA[
     public static Set findEligibleRolesForUser(UserId _userId)
     {
-        FTBXPRMSelfServiceEligibleRoles eligibleRoles;
         UserGroupList                   userGroupList;
+        FTBXPRMSelfServiceEligibleRoles eligibleRoles;        
 
         Set roleSet = new Set(Types::Class);
 

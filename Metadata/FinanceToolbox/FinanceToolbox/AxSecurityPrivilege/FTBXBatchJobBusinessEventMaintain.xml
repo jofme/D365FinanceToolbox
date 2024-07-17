@@ -8,6 +8,13 @@
 	<EntryPoints>
 		<AxSecurityEntryPointReference>
 			<Name>FTBXBatchJobBusinessEventDurationBatch</Name>
+			<Grant>
+				<Correct>Allow</Correct>
+				<Create>Allow</Create>
+				<Delete>Allow</Delete>
+				<Read>Allow</Read>
+				<Update>Allow</Update>
+			</Grant>
 			<ObjectName>FTBXBatchJobBusinessEventDurationBatch</ObjectName>
 			<ObjectType>MenuItemAction</ObjectType>
 			<Forms />

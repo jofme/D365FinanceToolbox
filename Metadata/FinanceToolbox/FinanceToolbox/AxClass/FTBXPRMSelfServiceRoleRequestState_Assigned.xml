@@ -10,22 +10,22 @@ internal final class FTBXPRMSelfServiceRoleRequestState_Assigned extends FTBXPRM
 ]]></Declaration>
 		<Methods>
 			<Method>
-				<Name>createAssignment</Name>
+				<Name>changeStateInternal</Name>
 				<Source><![CDATA[
-    private void createAssignment(UserId _userId, SysSecurityRoleRecId _securityRole)
-    {
-    }
+    protected void changeStateInternal()
+    {       
+        FTBXPRMRoleAssignment assignment = new FTBXPRMRoleAssignment()
+            .setRequestId(request.roleRequest.RequestId)
+            .setRole(request.roleRequest.SysSecurityRoleRecId)
+            .setUserId(request.roleRequest.UserId)
+            .setFromDateTime(request.roleRequest.FromDateTime)
+            .setToDateTime(request.roleRequest.ToDateTime)
+            .commit();
 
-]]></Source>
-			</Method>
-			<Method>
-				<Name>changeState</Name>
-				<Source><![CDATA[
-    public void changeState()
-    {
-        this.createAssignment(request.roleRequest.UserId, request.roleRequest.SysSecurityRoleRecId);
+        assignment.addRoleToUser(false)
+            .commit();
 
-        super();
+        request.reload();
     }
 
 ]]></Source>

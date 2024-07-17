@@ -7,15 +7,33 @@ public class FTBXPRMRoleAssignments extends common
 {
 }
 ]]></Declaration>
-		<Methods />
+		<Methods>
+			<Method>
+				<Name>aosValidateDelete</Name>
+				<Source><![CDATA[
+    public boolean aosValidateDelete()
+    {
+        boolean ret = super();
+
+        ret = false;
+    
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
 	</SourceCode>
+	<Label>@FinanceToolbox:RoleAssignmentsLabel</Label>
 	<SubscriberAccessLevel>
 		<Read>Allow</Read>
 	</SubscriberAccessLevel>
 	<TableGroup>Transaction</TableGroup>
+	<TitleField1>AssignmentId</TitleField1>
+	<TitleField2>UserId</TitleField2>
 	<AllowRowVersionChangeTracking>Yes</AllowRowVersionChangeTracking>
 	<CacheLookup>FoundAndEmpty</CacheLookup>
-	<ClusteredIndex>DateIdx</ClusteredIndex>
+	<ClusteredIndex>UserSecurityRoleIdx</ClusteredIndex>
 	<CreatedBy>Yes</CreatedBy>
 	<CreatedDateTime>Yes</CreatedDateTime>
 	<ModifiedBy>Yes</ModifiedBy>
@@ -120,6 +138,22 @@ public class FTBXPRMRoleAssignments extends common
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Mandatory>Yes</Mandatory>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>UserId</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>SysUserId</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
+			<Name>Duration</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>FTBXPRMSelfServiceDuration</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes>
@@ -136,21 +170,18 @@ public class FTBXPRMRoleAssignments extends common
 			</Fields>
 		</AxTableIndex>
 		<AxTableIndex>
-			<Name>SecurityRoleIdx</Name>
+			<Name>UserSecurityRoleIdx</Name>
 			<AllowDuplicates>Yes</AllowDuplicates>
 			<Fields>
+				<AxTableIndexField>
+					<DataField>UserId</DataField>
+				</AxTableIndexField>
 				<AxTableIndexField>
 					<DataField>SecurityUserRoleRecId</DataField>
 				</AxTableIndexField>
 				<AxTableIndexField>
 					<DataField>SysSecurityRoleRecId</DataField>
 				</AxTableIndexField>
-			</Fields>
-		</AxTableIndex>
-		<AxTableIndex>
-			<Name>DateIdx</Name>
-			<AllowDuplicates>Yes</AllowDuplicates>
-			<Fields>
 				<AxTableIndexField>
 					<DataField>FromDateTime</DataField>
 				</AxTableIndexField>

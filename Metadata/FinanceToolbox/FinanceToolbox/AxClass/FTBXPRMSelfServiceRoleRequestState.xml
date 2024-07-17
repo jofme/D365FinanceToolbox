@@ -6,7 +6,6 @@
 internal class FTBXPRMSelfServiceRoleRequestState
 {
     FTBXPRMSelfServiceRoleRequest request;
-
 }
 ]]></Declaration>
 		<Methods>
@@ -17,17 +16,23 @@ internal class FTBXPRMSelfServiceRoleRequestState
     {
         FTBXPRMSelfServiceRoleRequestState state;
 
-        //TODO: Change this before release
+        state = SysExtensionAppClassFactory::getClassFromSysAttribute(
+            classStr(FTBXPRMSelfServiceRoleRequestState),
+            new FTBXPRMSelfServiceRoleRequestStateAttribute(_status));
 
-        switch(_status)
+        if (!state)
         {
-            case (FTBXPRMSelfServiceRoleRequestStatus::Approved):
-                state = new FTBXPRMSelfServiceRoleRequestState_Approved();
-            case (FTBXPRMSelfServiceRoleRequestStatus::Assigned):
-                state = new FTBXPRMSelfServiceRoleRequestState_Assigned();
-                break;
-            default:
-                state = new FTBXPRMSelfServiceRoleRequestState();
+            switch(_status)
+            {
+                case (FTBXPRMSelfServiceRoleRequestStatus::Submitted):
+                    state = new FTBXPRMSelfServiceRoleRequestState_Submitted();
+                    break;
+                case (FTBXPRMSelfServiceRoleRequestStatus::Assigned):
+                    state = new FTBXPRMSelfServiceRoleRequestState_Assigned();
+                    break;
+                default:
+                    state = new FTBXPRMSelfServiceRoleRequestState();
+            }
         }
 
         state.init(_request);
@@ -59,9 +64,19 @@ internal class FTBXPRMSelfServiceRoleRequestState
 			<Method>
 				<Name>changeState</Name>
 				<Source><![CDATA[
-    public void changeState()
+    public final void changeState()
     {
+        this.changeStateInternal();
 
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>changeStateInternal</Name>
+				<Source><![CDATA[
+    protected void changeStateInternal()
+    {
     }
 
 ]]></Source>

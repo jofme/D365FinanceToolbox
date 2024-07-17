@@ -23,6 +23,32 @@ final class FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_Extension
 
 ]]></Source>
 			</Method>
+			<Method>
+				<Name>create</Name>
+				<Source><![CDATA[
+    public void create(boolean _append)
+    {
+        element.ftbxNumberSeqFormHandler().formMethodDataSourceCreatePre();
+
+        next create(_append);
+        
+        element.ftbxNumberSeqFormHandler().formMethodDataSourceCreate();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>write</Name>
+				<Source><![CDATA[
+    public void write()
+    {
+        element.ftbxNumberSeqFormHandler().formMethodDataSourceWrite();
+
+        next Write();
+    }
+
+]]></Source>
+			</Method>
 		</Methods>
 	</SourceCode>
 </AxClass>

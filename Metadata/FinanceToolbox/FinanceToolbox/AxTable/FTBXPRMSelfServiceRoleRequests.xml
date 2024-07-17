@@ -9,63 +9,87 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 ]]></Declaration>
 		<Methods>
 			<Method>
-				<Name>initValue</Name>
+				<Name>canSubmitToWorkflow</Name>
 				<Source><![CDATA[
-    public void initValue()
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name = "_workflowType"></param>
+    /// <returns></returns>
+    public boolean canSubmitToWorkflow(str _workflowType = '')
     {
-        NumberSequenceReference numSeqRefRequest = FTBXPrivilegedRoleManagementParameters::numRefFTBXPRMSelfServiceRoleRequestId();
-
-        if (numSeqRefRequest && numSeqRefRequest.NumberSequenceId)
-        {
-            this.RequestId = NumberSeq::newGetNum(numSeqRefRequest).num();
-        }
-        else
-        {
-            throw error(strfmt("@SYS53912"));
-        }
-
-        super();
-
+        return this.RequestStatus == FTBXPRMSelfServiceRoleRequestStatus::Created 
+            && FTBXPrivilegedRoleManagementParameters::find().RoleRequestRequireApprovals;
     }
 
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>deactivate</Name>
+				<Name>findRecId</Name>
 				<Source><![CDATA[
-    private void deactivate()
+    public static FTBXPRMSelfServiceRoleRequests findRecId(RecId _recId, boolean _forUpdate = false)
     {
-        this.selectForUpdate(true);
-        this.validTimeStateUpdateMode(ValidTimeStateUpdate::Correction);
-        this.ValidTo = DateTimeUtil::addSeconds(DateTimeUtil::getSystemDateTime(), -2);
-        this.update();
+        FTBXPRMSelfServiceRoleRequests roleRequests;
+
+        roleRequests.selectForUpdate(_forUpdate);
+
+        if (_recId)
+        {
+            select firstonly roleRequests
+                where roleRequests.RecId == _recId;
+        }
+
+        return roleRequests;
     }
 
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>delete</Name>
+				<Name>aosValidateDelete</Name>
 				<Source><![CDATA[
-    public void delete()
+    public boolean aosValidateDelete()
     {
-        this.deactivate();
+        boolean ret = super();
+
+        ret = false;
+    
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>existsOpenUserRole</Name>
+				<Source><![CDATA[
+    public static boolean existsOpenUserRole(UserId _userId, SysSecurityRoleRecId _roleId)
+    {
+        return _userId
+            && _roleId
+            && (select firstonly RecId from FTBXPRMSelfServiceRoleRequests
+                    where FTBXPRMSelfServiceRoleRequests.UserId                 == _userId
+                    &&    FTBXPRMSelfServiceRoleRequests.SysSecurityRoleRecId   == _roleId
+                    &&    FTBXPRMSelfServiceRoleRequests.RequestStatus          <= FTBXPRMSelfServiceRoleRequestStatus::Assigned).RecId;
     }
 
 ]]></Source>
 			</Method>
 		</Methods>
 	</SourceCode>
+	<FormRef>FTBXPRMSelfServiceRoleRequests</FormRef>
 	<Label>@FinanceToolbox:SelfServiceRoleRequests</Label>
 	<SubscriberAccessLevel>
 		<Read>Allow</Read>
 	</SubscriberAccessLevel>
+	<TableGroup>Main</TableGroup>
 	<TitleField1>RequestId</TitleField1>
 	<TitleField2>UserId</TitleField2>
 	<AllowRowVersionChangeTracking>Yes</AllowRowVersionChangeTracking>
+	<CacheLookup>FoundAndEmpty</CacheLookup>
+	<ClusteredIndex>StatusIdx</ClusteredIndex>
 	<CreatedBy>Yes</CreatedBy>
 	<CreatedDateTime>Yes</CreatedDateTime>
+	<ReplacementKey>RoleRequestIdx</ReplacementKey>
 	<SaveDataPerCompany>No</SaveDataPerCompany>
-	<ValidTimeStateFieldType>UtcDateTime</ValidTimeStateFieldType>
 	<DeleteActions />
 	<FieldGroups>
 		<AxTableFieldGroup>
@@ -79,7 +103,11 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 		<AxTableFieldGroup>
 			<Name>AutoIdentification</Name>
 			<AutoPopulate>Yes</AutoPopulate>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>RequestId</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoSummary</Name>
@@ -130,12 +158,15 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 			i:type="AxTableFieldString">
 			<Name>UserId</Name>
 			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<ExtendedDataType>SysUserId</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldInt64">
 			<Name>SysSecurityRoleRecId</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<ExtendedDataType>SysSecurityRoleRecId</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Mandatory>Yes</Mandatory>
@@ -149,20 +180,9 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldUtcDateTime">
-			<Name>ValidTo</Name>
-			<ExtendedDataType>ValidToDateTime</ExtendedDataType>
-			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldUtcDateTime">
-			<Name>ValidFrom</Name>
-			<ExtendedDataType>ValidFromDateTime</ExtendedDataType>
-			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldUtcDateTime">
 			<Name>FromDateTime</Name>
 			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<ExtendedDataType>FromDateTime</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 		</AxTableField>
@@ -170,7 +190,16 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 			i:type="AxTableFieldUtcDateTime">
 			<Name>ToDateTime</Name>
 			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<ExtendedDataType>ToDateTime</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
+			<Name>Duration</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>FTBXPRMSelfServiceDuration</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 		</AxTableField>
 	</Fields>
@@ -179,16 +208,9 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 		<AxTableIndex>
 			<Name>RoleRequestIdx</Name>
 			<AlternateKey>Yes</AlternateKey>
-			<ValidTimeStateKey>Yes</ValidTimeStateKey>
 			<Fields>
 				<AxTableIndexField>
 					<DataField>RequestId</DataField>
-				</AxTableIndexField>
-				<AxTableIndexField>
-					<DataField>ValidFrom</DataField>
-				</AxTableIndexField>
-				<AxTableIndexField>
-					<DataField>ValidTo</DataField>
 				</AxTableIndexField>
 			</Fields>
 		</AxTableIndex>
@@ -197,7 +219,19 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 			<AllowDuplicates>Yes</AllowDuplicates>
 			<Fields>
 				<AxTableIndexField>
+					<DataField>UserId</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
 					<DataField>RequestStatus</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>FromDateTime</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>ToDateTime</DataField>
 				</AxTableIndexField>
 			</Fields>
 		</AxTableIndex>

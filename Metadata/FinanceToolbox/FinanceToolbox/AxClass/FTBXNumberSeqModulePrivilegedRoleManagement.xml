@@ -30,7 +30,7 @@ public class FTBXNumberSeqModulePrivilegedRoleManagement extends NumberSeqApplic
         datatype.parmDatatypeId(extendedtypenum(FTBXPRMSelfServiceRoleRequestId));
         datatype.parmReferenceLabel(literalstr("@FinanceToolbox:SelfServiceRoleRequestIdLabel"));
         datatype.parmReferenceHelp(literalstr("@FinanceToolbox:SelfServiceRoleRequestIdHelp"));
-        datatype.parmWizardIsContinuous(false);
+        datatype.parmWizardIsContinuous(true);
         datatype.parmWizardIsManual(NoYes::No);
         datatype.parmWizardIsChangeDownAllowed(NoYes::No);
         datatype.parmWizardIsChangeUpAllowed(NoYes::No);
@@ -45,7 +45,7 @@ public class FTBXNumberSeqModulePrivilegedRoleManagement extends NumberSeqApplic
         datatype.parmDatatypeId(extendedtypenum(FTBXPRMRoleAssignmentId));
         datatype.parmReferenceLabel(literalstr("@FinanceToolbox:SelfServiceRoleAssignmentIdLabel"));
         datatype.parmReferenceHelp(literalstr("@FinanceToolbox:SelfServiceRoleAssignmentIdHelp"));
-        datatype.parmWizardIsContinuous(false);
+        datatype.parmWizardIsContinuous(true);
         datatype.parmWizardIsManual(NoYes::No);
         datatype.parmWizardIsChangeDownAllowed(NoYes::No);
         datatype.parmWizardIsChangeUpAllowed(NoYes::No);

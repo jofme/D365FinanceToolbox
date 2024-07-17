@@ -8,23 +8,18 @@
 			<Label>@SYS11408</Label>
 		</AxEnumValue>
 		<AxEnumValue>
-			<Name>ForApproval</Name>
-			<Label>@FinanceToolbox:SelfServiceRoleRequestStatusForApproval</Label>
+			<Name>Submitted</Name>
+			<Label>@SYS107952</Label>
 			<Value>1</Value>
 		</AxEnumValue>
 		<AxEnumValue>
-			<Name>SubmittedToWorkflow</Name>
-			<Label>@FinanceToolbox:SelfServiceRoleRequestSubmittedToWorkflow</Label>
-			<Value>6</Value>
+			<Name>ForApproval</Name>
+			<Label>@FinanceToolbox:SelfServiceRoleRequestStatusForApproval</Label>
+			<Value>2</Value>
 		</AxEnumValue>
 		<AxEnumValue>
 			<Name>Approved</Name>
 			<Label>@SYS10158</Label>
-			<Value>2</Value>
-		</AxEnumValue>
-		<AxEnumValue>
-			<Name>Rejected</Name>
-			<Label>@SYS784</Label>
 			<Value>3</Value>
 		</AxEnumValue>
 		<AxEnumValue>
@@ -33,9 +28,14 @@
 			<Value>4</Value>
 		</AxEnumValue>
 		<AxEnumValue>
+			<Name>Rejected</Name>
+			<Label>@SYS784</Label>
+			<Value>5</Value>
+		</AxEnumValue>
+		<AxEnumValue>
 			<Name>Expired</Name>
 			<Label>@SYS107504</Label>
-			<Value>5</Value>
+			<Value>6</Value>
 		</AxEnumValue>
 	</EnumValues>
 </AxEnum>

@@ -41,6 +41,7 @@
 			<MenuElement xmlns=""
 				i:type="AxMenuElementSubMenu">
 				<Name>FTBXPrivilegedRoleManagementFeatureInquiries</Name>
+				<FeatureClass>FTBXPrivilegedRoleManagementFeature</FeatureClass>
 				<Label>@FinanceToolbox:PrivilegedRoleManagement</Label>
 				<Elements>
 					<AxMenuElement xmlns=""
@@ -48,10 +49,22 @@
 						<Name>FTBXPRMSelfServiceRoleRequests</Name>
 						<MenuItemName>FTBXPRMSelfServiceRoleRequests</MenuItemName>
 					</AxMenuElement>
+				</Elements>
+			</MenuElement>
+		</AxMenuExtensionElement>
+		<AxMenuExtensionElement xmlns="">
+			<Parent>Periodic</Parent>
+			<MenuElement xmlns=""
+				i:type="AxMenuElementSubMenu">
+				<Name>FTBXPrivilegedRoleManagementFeaturePeriodic</Name>
+				<FeatureClass>FTBXPrivilegedRoleManagementFeature</FeatureClass>
+				<Label>@FinanceToolbox:PrivilegedRoleManagement</Label>
+				<Elements>
 					<AxMenuElement xmlns=""
 						i:type="AxMenuElementMenuItem">
-						<Name>FTBXPRMSelfServiceRoleRequestsListView</Name>
-						<MenuItemName>FTBXPRMSelfServiceRoleRequestsListView</MenuItemName>
+						<Name>FTBXPRMProcessingService</Name>
+						<MenuItemName>FTBXPRMProcessingService</MenuItemName>
+						<MenuItemType>Action</MenuItemType>
 					</AxMenuElement>
 				</Elements>
 			</MenuElement>

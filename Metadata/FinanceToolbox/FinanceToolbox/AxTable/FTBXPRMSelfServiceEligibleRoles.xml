@@ -20,7 +20,6 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
             case fieldNum(FTBXPRMSelfServiceEligibleRoles, UserCode):
                 this.UserValue = '';
                 break;
-
         }
     }
 
@@ -78,35 +77,13 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
     {
         boolean ret = true;
 
-        if (this.UserValue == ""
+        if (this.UserValue == ''
             && this.UserCode != TableGroupAll::All)
         {
             ret = checkFailed("@FinanceToolbox:SelfServiceEligibleRolesUserValueNotSpecified");
         }
 
         return ret;
-    }
-
-]]></Source>
-			</Method>
-			<Method>
-				<Name>initValue</Name>
-				<Source><![CDATA[
-    public void initValue()
-    {
-        NumberSequenceReference numSeqRefEligibility = FTBXPrivilegedRoleManagementParameters::numRefFTBXPRMSelfServiceRoleEligibilityId();
-
-        if (numSeqRefEligibility && numSeqRefEligibility.NumberSequenceId)
-        {
-            this.RoleEligibilityId = NumberSeq::newGetNum(numSeqRefEligibility).num();
-        }
-        else
-        {
-            throw error(strfmt("@SYS53912"));
-        }
-
-        super();
-
     }
 
 ]]></Source>
@@ -144,7 +121,7 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
 	<TitleField1>UserValue</TitleField1>
 	<TitleField2>SysSecurityRoleRecId</TitleField2>
 	<CacheLookup>FoundAndEmpty</CacheLookup>
-	<ClusteredIndex>RoleAssignmentIdx</ClusteredIndex>
+	<ClusteredIndex>UserIdx</ClusteredIndex>
 	<CreatedBy>Yes</CreatedBy>
 	<CreatedDateTime>Yes</CreatedDateTime>
 	<ModifiedBy>Yes</ModifiedBy>
@@ -246,6 +223,9 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
 				<AxTableFieldGroupField>
 					<DataField>ToDateTime</DataField>
 				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>MaxDuration</DataField>
+				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
 	</FieldGroups>
@@ -306,6 +286,12 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Mandatory>Yes</Mandatory>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
+			<Name>MaxDuration</Name>
+			<ExtendedDataType>FTBXPRMSelfServiceMaxDuration</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes>
@@ -322,6 +308,24 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
 				</AxTableIndexField>
 				<AxTableIndexField>
 					<DataField>ValidTo</DataField>
+				</AxTableIndexField>
+			</Fields>
+		</AxTableIndex>
+		<AxTableIndex>
+			<Name>UserIdx</Name>
+			<AllowDuplicates>Yes</AllowDuplicates>
+			<Fields>
+				<AxTableIndexField>
+					<DataField>UserCode</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>UserValue</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>FromDateTime</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>ToDateTime</DataField>
 				</AxTableIndexField>
 			</Fields>
 		</AxTableIndex>

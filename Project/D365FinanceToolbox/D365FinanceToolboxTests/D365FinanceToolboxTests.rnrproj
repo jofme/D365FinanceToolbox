@@ -49,6 +49,11 @@
       <Name>FTBXTest_CreateRoleRequest</Name>
       <Link>Classes\FTBXTest_CreateRoleRequest</Link>
     </Content>
+    <Content Include="AxClass\FTBXTest_RoleProcessingJob">
+      <SubType>Content</SubType>
+      <Name>FTBXTest_RoleProcessingJob</Name>
+      <Link>Classes\FTBXTest_RoleProcessingJob</Link>
+    </Content>
     <Content Include="AxClass\FTBXText_FindEligibleRoles">
       <SubType>Content</SubType>
       <Name>FTBXText_FindEligibleRoles</Name>

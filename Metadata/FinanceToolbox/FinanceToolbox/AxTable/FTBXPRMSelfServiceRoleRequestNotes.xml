@@ -7,44 +7,22 @@ public class FTBXPRMSelfServiceRoleRequestNotes extends common
 {
 }
 ]]></Declaration>
-		<Methods>
-			<Method>
-				<Name>deactivate</Name>
-				<Source><![CDATA[
-    private void deactivate()
-    {
-        this.selectForUpdate(true);
-        this.validTimeStateUpdateMode(ValidTimeStateUpdate::Correction);
-        this.ValidTo = DateTimeUtil::addSeconds(DateTimeUtil::getSystemDateTime(), -2);
-        this.update();
-    }
-
-]]></Source>
-			</Method>
-			<Method>
-				<Name>delete</Name>
-				<Source><![CDATA[
-    public void delete()
-    {
-        this.deactivate();
-    }
-
-]]></Source>
-			</Method>
-		</Methods>
+		<Methods />
 	</SourceCode>
 	<Label>@SYS70989</Label>
 	<SubscriberAccessLevel>
 		<Read>Allow</Read>
 	</SubscriberAccessLevel>
 	<TitleField1>RequestId</TitleField1>
-	<TitleField2>ValidFrom</TitleField2>
 	<AllowRowVersionChangeTracking>Yes</AllowRowVersionChangeTracking>
+	<CacheLookup>FoundAndEmpty</CacheLookup>
 	<ClusteredIndex>RequestIdx</ClusteredIndex>
 	<CreatedBy>Yes</CreatedBy>
 	<CreatedDateTime>Yes</CreatedDateTime>
+	<ModifiedBy>Yes</ModifiedBy>
+	<ModifiedDateTime>Yes</ModifiedDateTime>
+	<ReplacementKey>RequestIdx</ReplacementKey>
 	<SaveDataPerCompany>No</SaveDataPerCompany>
-	<ValidTimeStateFieldType>UtcDateTime</ValidTimeStateFieldType>
 	<DeleteActions />
 	<FieldGroups>
 		<AxTableFieldGroup>
@@ -58,7 +36,11 @@ public class FTBXPRMSelfServiceRoleRequestNotes extends common
 		<AxTableFieldGroup>
 			<Name>AutoIdentification</Name>
 			<AutoPopulate>Yes</AutoPopulate>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>RequestId</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoSummary</Name>
@@ -74,9 +56,6 @@ public class FTBXPRMSelfServiceRoleRequestNotes extends common
 			<Fields>
 				<AxTableFieldGroupField>
 					<DataField>Justification</DataField>
-				</AxTableFieldGroupField>
-				<AxTableFieldGroupField>
-					<DataField>OutcomeReason</DataField>
 				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
@@ -99,42 +78,15 @@ public class FTBXPRMSelfServiceRoleRequestNotes extends common
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Label>@FinanceToolbox:SelfServiceRoleRequestsJustificationLabel</Label>
 		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldString">
-			<Name>OutcomeReason</Name>
-			<ExtendedDataType>Notes</ExtendedDataType>
-			<HelpText>@FinanceToolbox:SelfServiceRoleRequestsOutcomeReasonHelp</HelpText>
-			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-			<Label>@FinanceToolbox:SelfServiceRoleRequestsOutcomeReasonLabel</Label>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldUtcDateTime">
-			<Name>ValidFrom</Name>
-			<ExtendedDataType>ValidFromDateTime</ExtendedDataType>
-			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldUtcDateTime">
-			<Name>ValidTo</Name>
-			<ExtendedDataType>ValidToDateTime</ExtendedDataType>
-			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes>
 		<AxTableIndex>
 			<Name>RequestIdx</Name>
 			<AlternateKey>Yes</AlternateKey>
-			<ValidTimeStateKey>Yes</ValidTimeStateKey>
 			<Fields>
 				<AxTableIndexField>
 					<DataField>RequestId</DataField>
-				</AxTableIndexField>
-				<AxTableIndexField>
-					<DataField>ValidFrom</DataField>
-				</AxTableIndexField>
-				<AxTableIndexField>
-					<DataField>ValidTo</DataField>
 				</AxTableIndexField>
 			</Fields>
 		</AxTableIndex>
