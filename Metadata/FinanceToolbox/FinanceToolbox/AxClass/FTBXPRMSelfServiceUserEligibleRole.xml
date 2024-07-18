@@ -59,11 +59,11 @@ public final class FTBXPRMSelfServiceUserEligibleRole
 
         select firstonly ToDateTime from roleRequests
             order by roleRequests.ToDateTime desc
-            where roleRequests.UserId == _userId
+            where roleRequests.UserId               == _userId
             &&    roleRequests.SysSecurityRoleRecId == _roleId
-            &&    roleRequests.RequestStatus != FTBXPRMSelfServiceRoleRequestStatus::Expired
-            &&    roleRequests.RequestStatus != FTBXPRMSelfServiceRoleRequestStatus::Rejected
-            &&    roleRequests.ToDateTime != DateTimeUtil::minValue();
+            &&    roleRequests.RequestStatus        != FTBXPRMSelfServiceRoleRequestStatus::Expired
+            &&    roleRequests.RequestStatus        != FTBXPRMSelfServiceRoleRequestStatus::Rejected
+            &&    roleRequests.ToDateTime           != DateTimeUtil::maxValue();
 
         ret = roleRequests.ToDateTime;
 

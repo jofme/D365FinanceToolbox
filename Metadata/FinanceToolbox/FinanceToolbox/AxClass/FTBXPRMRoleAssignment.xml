@@ -7,6 +7,7 @@ public final class FTBXPRMRoleAssignment extends FTBXPRMInterfaceBase
 {
     private FTBXPRMRoleAssignments roleAssignment;
     boolean userRoleChanged;
+    boolean dateChanged;
 
 }
 ]]></Declaration>
@@ -41,6 +42,9 @@ public final class FTBXPRMRoleAssignment extends FTBXPRMInterfaceBase
 				<Source><![CDATA[
     public FTBXPRMRoleAssignment setFromDateTime(FromDateTime _fromDateTime)
     {
+        dateChanged = dateChanged || roleAssignment.RecId;
+        isDirty     = isDirty || dateChanged;
+
         roleAssignment.FromDateTime = _fromDateTime;
         return this;
     }
@@ -52,6 +56,9 @@ public final class FTBXPRMRoleAssignment extends FTBXPRMInterfaceBase
 				<Source><![CDATA[
     public FTBXPRMRoleAssignment setToDateTime(ToDateTime _toDateTime)
     {
+        dateChanged = dateChanged || roleAssignment.RecId;
+        isDirty     = isDirty || dateChanged;
+
         roleAssignment.ToDateTime = _toDateTime;
         return this;
     }
@@ -85,8 +92,40 @@ public final class FTBXPRMRoleAssignment extends FTBXPRMInterfaceBase
 				<Source><![CDATA[
     public FTBXPRMRoleAssignment setRole(SysSecurityRoleRecId _sysSecurityRoleId)
     {
+        userRoleChanged = userRoleChanged || roleAssignment.RecId;
+        isDirty         = isDirty || userRoleChanged;
+
         roleAssignment.SysSecurityRoleRecId = _sysSecurityRoleId;
         return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setUserRole</Name>
+				<Source><![CDATA[
+    public FTBXPRMRoleAssignment setUserRole(RefRecId _userRoleId)
+    {
+        userRoleChanged = userRoleChanged || roleAssignment.RecId;
+        isDirty         = isDirty || userRoleChanged;
+
+        roleAssignment.SecurityUserRoleRecId= _userRoleId;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>checkAssignmentDateActive</Name>
+				<Source><![CDATA[
+    public boolean checkAssignmentDateActive()
+    {
+        boolean ret;
+
+        ret = roleAssignment.FromDateTime <= DateTimeUtil::getSystemDateTime()
+           && roleAssignment.ToDateTime >=  DateTimeUtil::getSystemDateTime();
+
+        return ret;
     }
 
 ]]></Source>
@@ -98,8 +137,7 @@ public final class FTBXPRMRoleAssignment extends FTBXPRMInterfaceBase
     {
         SecurityUserRole securityUserRole;
 
-        if (roleAssignment.FromDateTime < DateTimeUtil::getSystemDateTime()
-            || roleAssignment.ToDateTime > DateTimeUtil::getSystemDateTime())
+        if (this.checkAssignmentDateActive())
         {
             select firstonly securityUserRole
                 where securityUserRole.User             == roleAssignment.UserId
@@ -110,7 +148,6 @@ public final class FTBXPRMRoleAssignment extends FTBXPRMInterfaceBase
                 if (securityUserRole.AssignmentStatus == RoleAssignmentStatus::Disabled)
                 {
                     securityUserRole.AssignmentStatus = RoleAssignmentStatus::Enabled;
-                    roleAssignment.SecurityUserRoleRecId = securityUserRole.recId;
 
                     securityUserRole.selectForUpdate(true);
                     securityUserRole.update();
@@ -122,16 +159,15 @@ public final class FTBXPRMRoleAssignment extends FTBXPRMInterfaceBase
                 securityUserRole.User = roleAssignment.UserId;
                 securityUserRole.SecurityRole = roleAssignment.SysSecurityRoleRecId;
                 securityUserRole.insert();
-
-                roleAssignment.SecurityUserRoleRecId = securityUserRole.recId;
             }
-            
-            isDirty         = true;
-            userRoleChanged = true;
-        }
-        else if (_throwOnError)
-        {
-            throw error("@FinanceToolbox:RoleAssignmentRoleCannotBeAssignedToUser");
+
+            roleAssignment.SecurityUserRoleRecId = securityUserRole.recId;
+
+            if (roleAssignment.SecurityUserRoleRecId != roleAssignment.orig().SecurityUserRoleRecId)
+            {
+                isDirty         = true;
+                userRoleChanged = true;
+            }
         }
 
         return this;
@@ -147,7 +183,7 @@ public final class FTBXPRMRoleAssignment extends FTBXPRMInterfaceBase
         SecurityUserRole securityUserRole;
 
         delete_from securityUserRole
-            where securityUserRole.RecID == roleAssignment.RecId;
+            where securityUserRole.RecID == roleAssignment.SecurityUserRoleRecId;
 
         roleAssignment.SecurityUserRoleRecId = 0;
         isDirty         = true;
@@ -179,45 +215,35 @@ public final class FTBXPRMRoleAssignment extends FTBXPRMInterfaceBase
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>checkSetDates</Name>
+				<Name>fixDates</Name>
 				<Source><![CDATA[
     /// <summary>
-    /// Set from and to dates based on the role request
+    /// Corrects for any unexpected date/time values
+    /// The flag "dateChanged" will be set to true if it happens. Then a write back to the original request will happen
     /// </summary>
-    /// <returns>Boolean value indicating if the date has already expired</returns>
-    private boolean checkSetDates()
+    private void fixDates()
     {
-        boolean ret = true;
-
-        if (roleAssignment.FromDateTime     > DateTimeUtil::getSystemDateTime()
-            && roleAssignment.ToDateTime    != DateTimeUtil::minValue())
+        //This must only be called before a role get's created
+        if (!roleAssignment.SecurityUserRoleRecId)
         {
-            if (roleAssignment.ToDateTime > DateTimeUtil::getSystemDateTime())
+            //If called with an older from date, update the from date to the current system date
+            if (roleAssignment.FromDateTime <= DateTimeUtil::getSystemDateTime())
             {
                 roleAssignment.FromDateTime = DateTimeUtil::getSystemDateTime();
+                dateChanged = true;
             }
-            else
+
+            if (roleAssignment.Duration && !roleAssignment.ToDateTime)
             {
-                ret = false;
+                roleAssignment.ToDateTime = DateTimeUtil::addMinutes(roleAssignment.FromDateTime, roleAssignment.Duration * 60);
+                dateChanged = true;
+            }
+            else if (roleAssignment.ToDateTime == DateTimeUtil::minValue())
+            {
+                roleAssignment.ToDateTime = DateTimeUtil::maxValue();
+                dateChanged = true;
             }
         }
-
-        if (!roleAssignment.FromDateTime)
-        {
-            roleAssignment.FromDateTime = DateTimeUtil::getSystemDateTime();
-        }
-
-        if (roleAssignment.Duration && !roleAssignment.ToDateTime)
-        {
-            roleAssignment.ToDateTime = DateTimeUtil::addMinutes(roleAssignment.FromDateTime, roleAssignment.Duration * 60);
-        }
-
-        if (!roleAssignment.ToDateTime)
-        {
-            roleAssignment.ToDateTime = DateTimeUtil::maxValue();
-        }
-
-        return ret;
     }
 
 ]]></Source>
@@ -229,14 +255,16 @@ public final class FTBXPRMRoleAssignment extends FTBXPRMInterfaceBase
     {
         FTBXPRMRoleAssignments roleAssignmentSearch;
 
-        while select forupdate roleAssignmentSearch
+        while select AssignmentId from roleAssignmentSearch
             where roleAssignmentSearch.SysSecurityRoleRecId     == roleAssignment.SysSecurityRoleRecId
             &&    roleAssignmentSearch.UserId                   == roleAssignment.UserId
             &&    roleAssignmentSearch.SecurityUserRoleRecId    != 0
-            &&    roleAssignmentSearch.FromDateTime             <= roleAssignment.FromDateTime
+            &&    roleAssignmentSearch.ToDateTime               >= roleAssignment.FromDateTime
         {
-            roleAssignmentSearch.ToDateTime = DateTimeUtil::addSeconds(roleAssignment.FromDateTime, -1);
-            roleAssignmentSearch.update();
+            new FTBXPRMRoleAssignment(roleAssignmentSearch.AssignmentId)
+                .setToDateTime(DateTimeUtil::addSeconds(roleAssignment.FromDateTime, -1))
+                .setUserRole(0)
+                .commit();
         }
     }
 
@@ -247,26 +275,34 @@ public final class FTBXPRMRoleAssignment extends FTBXPRMInterfaceBase
 				<Source><![CDATA[
     protected void commitInternal()
     {
-        isDirty = false;
-
         if (!roleAssignment.RecId)
         {
-            if (this.checkSetDates())
-            {
-                this.setNumSeq();            
+            this.fixDates();
+            this.setNumSeq();            
 
-                if (roleAssignment.validateWrite())
+            if (roleAssignment.validateWrite())
+            {   
+                if (roleAssignment.RequestId && roleAssignment.ToDateTime <= DateTimeUtil::getSystemDateTime())
+                {
+                    new FTBXPRMSelfServiceRoleRequest(roleAssignment.RequestId)
+                        .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Expired)
+                        .commit();
+                }
+                else
                 {
                     roleAssignment.insert();
+                 
                     this.checkFixOverlap();
                     numberSeq.used();
+
+                    if (roleAssignment.RequestId && dateChanged)
+                    {
+                        new FTBXPRMSelfServiceRoleRequest(roleAssignment.RequestId)
+                            .setFromDateTime(roleAssignment.FromDateTime)
+                            .setToDateTime(roleAssignment.ToDateTime)
+                            .commit();
+                    }
                 }
-            }
-            else
-            {
-                new FTBXPRMSelfServiceRoleRequest(roleAssignment.RequestId)
-                    .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Expired)
-                    .commit();
             }
         }
         else if (isDirty)
@@ -275,17 +311,39 @@ public final class FTBXPRMRoleAssignment extends FTBXPRMInterfaceBase
             roleAssignment.update();
             roleAssignment.selectForUpdate(false);
 
-            if (userRoleChanged)
+            if (roleAssignment.RequestId)
             {
-                if (!roleAssignment.SecurityUserRoleRecId)
+                var request = new FTBXPRMSelfServiceRoleRequest(roleAssignment.RequestId);
+
+                if (dateChanged)
                 {
-                    new FTBXPRMSelfServiceRoleRequest(roleAssignment.RequestId)
-                        .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Expired)
-                        .commit();
+                    request
+                        .setFromDateTime(roleAssignment.FromDateTime)
+                        .setToDateTime(roleAssignment.ToDateTime);
+                }
+            
+                if (userRoleChanged)
+                {
+                    if (roleAssignment.ToDateTime <= DateTimeUtil::getSystemDateTime())
+                    {
+                        request
+                            .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Expired)
+                            .commit();
+                    }
+                    else
+                    {
+                        request
+                            .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Assigned)
+                            .commit();
+                    }
                 }
 
+                request.commit();
             }
         }
+
+        isDirty = false;
+        userRoleChanged = false;
     }
 
 ]]></Source>

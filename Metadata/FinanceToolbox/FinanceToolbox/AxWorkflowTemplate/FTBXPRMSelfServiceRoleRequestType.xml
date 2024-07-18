@@ -7,7 +7,7 @@
 	<Category>SysUserManagement</Category>
 	<CompletedEventHandler>FTBXPRMSelfServiceRoleRequestTypeEventHandler</CompletedEventHandler>
 	<Document>FTBXPRMSelfServiceRoleRequestTypeDocument</Document>
-	<DocumentMenuItem>FTBXPRMSelfServiceRoleRequests</DocumentMenuItem>
+	<DocumentMenuItem>FTBXPRMSelfServiceRoleRequestsOverviewAssignedToMe</DocumentMenuItem>
 	<HelpText>@FinanceToolbox:SelfServiceRoleRequestWorkflowTypeHelp</HelpText>
 	<Label>@FinanceToolbox:SelfServiceRoleRequestWorkflowTypeLabel</Label>
 	<StartedEventHandler>FTBXPRMSelfServiceRoleRequestTypeEventHandler</StartedEventHandler>

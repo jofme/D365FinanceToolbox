@@ -154,11 +154,11 @@ public class FTBXPRMTmpSelectedRoles extends common
                     {
                         if (this.MaxDuration)
                         {
-                            this.ToDateTime = DateTimeUtil::addHours(this.FromDateTime, min(this.MaxDuration, this.Duration));
+                            this.ToDateTime = DateTimeUtil::addMinutes(this.FromDateTime, min(this.MaxDuration * 60, this.Duration * 60));
                         }
                         else
                         {
-                            this.ToDateTime = DateTimeUtil::addHours(this.FromDateTime, this.Duration);
+                            this.ToDateTime = DateTimeUtil::addMinutes(this.FromDateTime, this.Duration * 60);
                         }                        
                     }
                 }                
@@ -181,7 +181,7 @@ public class FTBXPRMTmpSelectedRoles extends common
             {
                 case fieldNum(FTBXPRMTmpSelectedRoles, FromDateTime):
                 case fieldNum(FTBXPRMTmpSelectedRoles, ToDateTime):
-                    if (this.FromDateTime > this.EarliestStartDateTime)
+                    if (this.FromDateTime < this.EarliestStartDateTime)
                     {
                         ret = checkFailed(strFmt("@FinanceToolbox:SelfServiceTmpSelectedRoleDateTimeCannotBeBefore", this.EarliestStartDateTime));
                     }
@@ -189,7 +189,8 @@ public class FTBXPRMTmpSelectedRoles extends common
                     {
                         ret = checkFailed("@FinanceToolbox:SelfServiceTmpSelectedRoleToDateBeforeFromDate");
                     }
-                    else if (this.FromDateTime 
+                    else if (this.MaxDuration
+                        && this.FromDateTime 
                         && this.ToDateTime
                         && DateTimeUtil::getDifference(this.ToDateTime, this.FromDateTime) / 3600 > this.MaxDuration)
                     {

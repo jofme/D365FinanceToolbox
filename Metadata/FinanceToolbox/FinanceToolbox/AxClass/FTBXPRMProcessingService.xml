@@ -26,8 +26,8 @@ public final class FTBXPRMProcessingService
     public void doProcess()
     {
         this.doProcessRoleRequests();
-        this.doProcessRoleExpirations();
         this.doProcessRoleAssignments();
+        this.doProcessRoleExpirations();
     }
 
 ]]></Source>
@@ -41,30 +41,14 @@ public final class FTBXPRMProcessingService
     /// </summary>
     private void doProcessRoleRequests()
     {
-        FTBXPRMSelfServiceRoleRequests roleRequests; 
+        FTBXPRMSelfServiceRoleRequests  roleRequests; 
+        FTBXPRMRoleAssignments          roleAssignments;
 
-        if (parameters.RoleRequestRequireApprovals)
+        if (!parameters.RoleRequestRequireApprovals)
         {
             while select roleRequests
                 where roleRequests.RequestStatus == FTBXPRMSelfServiceRoleRequestStatus::Created
-            {
-                if (!parameters.RoleRequestRequireApprovals)
-                {
-                    try
-                    {
-                        new FTBXPRMSelfServiceRoleRequest(roleRequests.RequestId)
-                            .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Assigned)
-                            .commit();
-                    }
-                    catch
-                    {
-                        exceptionTextFallThrough();
-                    }
-                }
-            }
-
-            while select roleRequests
-                where roleRequests.RequestStatus == FTBXPRMSelfServiceRoleRequestStatus::Approved
+                ||    roleRequests.RequestStatus == FTBXPRMSelfServiceRoleRequestStatus::Approved
             {
                 try
                 {
@@ -76,6 +60,52 @@ public final class FTBXPRMProcessingService
                 {
                     exceptionTextFallThrough();
                 }
+            }
+        }
+        else
+        {
+            while select RequestId from roleRequests
+                where roleRequests.RequestStatus    == FTBXPRMSelfServiceRoleRequestStatus::Approved
+                &&   (roleRequests.ToDateTime       <=  DateTimeUtil::getSystemDateTime() && roleRequests.ToDateTime != DateTimeUtil::minValue())
+                notexists join roleAssignments
+                    where roleAssignments.SecurityUserRoleRecId != 0
+                    &&    roleAssignments.RequestId             == roleRequests.RequestId
+            {
+                new FTBXPRMSelfServiceRoleRequest(roleRequests.RequestId)
+                    .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Expired)
+                    .commit();
+            }
+
+            while select RequestId from roleRequests
+                where roleRequests.RequestStatus == FTBXPRMSelfServiceRoleRequestStatus::Approved
+                &&    roleRequests.FromDateTime  <=  DateTimeUtil::getSystemDateTime()
+                &&   (roleRequests.ToDateTime    >=  DateTimeUtil::getSystemDateTime() || roleRequests.ToDateTime == DateTimeUtil::minValue())
+                notexists join roleAssignments
+                    where roleAssignments.SecurityUserRoleRecId != 0
+                    &&    roleAssignments.RequestId             == roleRequests.RequestId
+            {
+                new FTBXPRMSelfServiceRoleRequest(roleRequests.RequestId)
+                    .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Assigned)
+                    .commit();
+            }
+        }
+
+        while select AssignmentId, RequestId from roleAssignments
+            where roleAssignments.SecurityUserRoleRecId == 0
+            &&    roleAssignments.ToDateTime            <= DateTimeUtil::getSystemDateTime()
+            exists join roleRequests
+                where roleRequests.RequestId        == roleAssignments.requestId
+                &&    roleRequests.RequestStatus    == FTBXPRMSelfServiceRoleRequestStatus::Assigned
+        {
+            try
+            {
+                new FTBXPRMSelfServiceRoleRequest(roleAssignments.RequestId)
+                    .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Expired)
+                    .commit();
+            }
+            catch
+            {
+                exceptionTextFallThrough();
             }
         }
     }
@@ -95,7 +125,7 @@ public final class FTBXPRMProcessingService
         while select AssignmentId from roleAssignments
             where roleAssignments.SecurityUserRoleRecId == 0
             &&    roleAssignments.FromDateTime <= DateTimeUtil::getSystemDateTime()
-            &&   (roleAssignments.ToDateTime >= DateTimeUtil::getSystemDateTime() || roleAssignments.ToDateTime == DateTimeUtil::minValue())
+            &&   (roleAssignments.ToDateTime >= DateTimeUtil::getSystemDateTime() || roleAssignments.ToDateTime == DateTimeUtil::maxValue())
         {
             try
             {
@@ -124,8 +154,7 @@ public final class FTBXPRMProcessingService
 
         while select AssignmentId from roleAssignments
             where roleAssignments.SecurityUserRoleRecId != 0
-            &&    roleAssignments.ToDateTime            <= DateTimeUtil::getSystemDateTime() 
-            &&    roleAssignments.ToDateTime            != DateTimeUtil::minValue()
+            &&    roleAssignments.ToDateTime            <= DateTimeUtil::getSystemDateTime()
         {
             try
             {

@@ -17,5 +17,10 @@
 			<Label>@FinanceToolbox:SelfServiceRequestModeAllUsersAllRoles</Label>
 			<Value>2</Value>
 		</AxEnumValue>
+		<AxEnumValue>
+			<Name>AssignedToMe</Name>
+			<Label>@SYS110440</Label>
+			<Value>3</Value>
+		</AxEnumValue>
 	</EnumValues>
 </AxEnum>

@@ -61,6 +61,8 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 				<Source><![CDATA[
     public FTBXPRMSelfServiceRoleRequest setFromDateTime(FromDateTime _validFrom)
     {
+        isDirty = true;
+
         roleRequest.FromDateTime = _validFrom;
         return this;
     }
@@ -72,6 +74,8 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 				<Source><![CDATA[
     public FTBXPRMSelfServiceRoleRequest setToDateTime(ToDateTime _validTo)
     {
+        isDirty = true;
+
         roleRequest.ToDateTime = _validTo;
         return this;
     }
@@ -145,10 +149,13 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 				<Source><![CDATA[
     public FTBXPRMSelfServiceRoleRequest setStatus(FTBXPRMSelfServiceRoleRequestStatus _status)
     {
-        roleRequest.RequestStatus = _status;
+        if (roleRequest.RequestStatus != _status)
+        {
+            roleRequest.RequestStatus = _status;
 
-        this.isDirty = true;
-        this.statusChanged = true;
+            this.isDirty = true;
+            this.statusChanged = true;
+        }
 
         return this;
     }
@@ -193,6 +200,25 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 
             this.setStatus(FTBXPRMSelfServiceRoleRequestStatus::Assigned)
                 .commit();            
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>expireAssignments</Name>
+				<Source><![CDATA[
+    public void expireAssignments()
+    {
+        FTBXPRMRoleAssignments roleAssignments;
+
+        while select roleAssignments
+            where roleAssignments.RequestId == roleRequest.RequestId
+        {
+            new FTBXPRMRoleAssignment(roleAssignments.AssignmentId)
+                .removeRoleFromUser()
+                .setToDateTime(DateTimeUtil::addSeconds(DateTimeUtil::getSystemDateTime(), -1))
+                .commit();
         }
     }
 

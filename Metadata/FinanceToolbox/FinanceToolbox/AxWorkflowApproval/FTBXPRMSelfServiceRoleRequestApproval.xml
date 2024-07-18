@@ -4,7 +4,7 @@
 	<CanceledEventHandler>FTBXPRMSelfServiceRoleRequestApprovalEventHandler</CanceledEventHandler>
 	<DelegateMenuItem>FTBXPRMSelfServiceRoleRequestApprovalDelegateMenuItem</DelegateMenuItem>
 	<Document>FTBXPRMSelfServiceRoleRequestTypeDocument</Document>
-	<DocumentMenuItem>FTBXPRMCreateSelfServiceRoleRequests</DocumentMenuItem>
+	<DocumentMenuItem>FTBXPRMSelfServiceRoleRequestsOverviewAssignedToMe</DocumentMenuItem>
 	<DocumentPreviewFieldGroup>Grid</DocumentPreviewFieldGroup>
 	<HelpText>@FinanceToolbox:SelfServiceRoleRequestWorkflowRequestApprovalHelp</HelpText>
 	<Label>@FinanceToolbox:SelfServiceRoleRequestWorkflowRequestApprovalLabel</Label>

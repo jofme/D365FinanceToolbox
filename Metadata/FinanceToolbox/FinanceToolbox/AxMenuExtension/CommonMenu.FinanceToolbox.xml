@@ -16,6 +16,16 @@
 						<Name>FTBXPRMSelfServiceRoleRequestsOwnUser</Name>
 						<MenuItemName>FTBXPRMSelfServiceRoleRequestsOwnUser</MenuItemName>
 					</AxMenuElement>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPRMSelfServiceRoleRequests</Name>
+						<MenuItemName>FTBXPRMSelfServiceRoleRequests</MenuItemName>
+					</AxMenuElement>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPRMSelfServiceRoleRequestsOverviewAssignedToMe</Name>
+						<MenuItemName>FTBXPRMSelfServiceRoleRequestsOverviewAssignedToMe</MenuItemName>
+					</AxMenuElement>
 				</Elements>
 			</MenuElement>
 		</AxMenuExtensionElement>
