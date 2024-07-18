@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxEdt xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns=""
+	i:type="AxEdtReal">
+	<Name>FTBXPRMSelfServiceDuration</Name>
+	<Extends>Hours</Extends>
+	<HelpText>@FinanceToolbox:SelfServiceRoleRequestDurationHelp</HelpText>
+	<Label>@FinanceToolbox:SelfServiceRoleRequestDurationLabel</Label>
+	<ArrayElements />
+	<Relations />
+	<TableReferences />
+	<AllowNegative>No</AllowNegative>
+</AxEdt>

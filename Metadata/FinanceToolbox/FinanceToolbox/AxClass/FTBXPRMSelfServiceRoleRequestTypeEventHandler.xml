@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMSelfServiceRoleRequestTypeEventHandler</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// The FTBXPRMSelfServiceRoleRequestTypeEventHandler workflow event handler.
+/// </summary>
+public class  FTBXPRMSelfServiceRoleRequestTypeEventHandler implements WorkflowCanceledEventHandler,  
+	WorkflowCompletedEventHandler,
+	WorkflowStartedEventHandler
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>started</Name>
+				<Source><![CDATA[
+    public void started(WorkflowEventArgs _workflowEventArgs)
+	{
+        new FTBXPRMSelfServiceRoleRequest(FTBXPRMSelfServiceRoleRequests::findRecId(_workflowEventArgs.parmWorkflowContext().parmRecId()).RequestId)
+            .setStatus(FTBXPRMSelfServiceRoleRequestStatus::ForApproval)
+            .commit();
+	}
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>canceled</Name>
+				<Source><![CDATA[
+    public void canceled(WorkflowEventArgs _workflowEventArgs)
+	{
+        new FTBXPRMSelfServiceRoleRequest(FTBXPRMSelfServiceRoleRequests::findRecId(_workflowEventArgs.parmWorkflowContext().parmRecId()).RequestId)
+            .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Rejected)
+            .commit();
+	}
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>completed</Name>
+				<Source><![CDATA[
+    public void completed(WorkflowEventArgs _workflowEventArgs)
+	{
+        var request     = FTBXPRMSelfServiceRoleRequests::findRecId(_workflowEventArgs.parmWorkflowContext().parmRecId());        
+        var newStatus   = request.RequestStatus;
+
+        switch (request.RequestStatus)
+        {
+            case FTBXPRMSelfServiceRoleRequestStatus::ForApproval:
+                newStatus = FTBXPRMSelfServiceRoleRequestStatus::Created;
+                break;
+            case FTBXPRMSelfServiceRoleRequestStatus::Approved:
+                if (request.FromDateTime <= DateTimeUtil::getSystemDateTime())
+                {
+                    newStatus = FTBXPRMSelfServiceRoleRequestStatus::Assigned;
+                }
+                break;
+        }
+
+        if (newStatus != request.RequestStatus)
+        {
+            new FTBXPRMSelfServiceRoleRequest(request.RequestId)
+                .setStatus(newStatus)
+                .commit();
+        }
+	}
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

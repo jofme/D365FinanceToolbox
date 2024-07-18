@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxSecurityDuty xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXBatchJobBusinessEventMaintain</Name>
+	<Description>@FinanceToolbox:BatchJobBusinessEventMaintainHelp</Description>
+	<Label>@FinanceToolbox:BatchJobBusinessEventMaintainLabel</Label>
+	<Privileges>
+		<AxSecurityPrivilegeReference>
+			<Name>FTBXBatchJobBusinessEventMaintain</Name>
+		</AxSecurityPrivilegeReference>
+	</Privileges>
+</AxSecurityDuty>

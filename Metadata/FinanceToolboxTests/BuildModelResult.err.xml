@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Diagnostics
+  GenerationTime="2024-07-17T00:48:09.6852476+03:00">
+  <Items>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Class/FTBXTest_RoleProcessingJob/Method/main</Path>
+      <ElementType>Class Method</ElementType>
+      <Moniker>PrivateMethodInaccessible</Moniker>
+      <Line>7</Line>
+      <Column>9</Column>
+      <EndLine>7</EndLine>
+      <EndColumn>50</EndColumn>
+      <Message>Method 'doProcessRoleRequests' is private and can be called only from methods in 'FTBXPRMProcessingService'.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Class/FTBXTest_RoleProcessingJob/Method/main</Path>
+      <ElementType>Class Method</ElementType>
+      <Moniker>PrivateMethodInaccessible</Moniker>
+      <Line>8</Line>
+      <Column>9</Column>
+      <EndLine>8</EndLine>
+      <EndColumn>53</EndColumn>
+      <Message>Method 'doProcessRoleAssignments' is private and can be called only from methods in 'FTBXPRMProcessingService'.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Class/FTBXTest_RoleProcessingJob/Method/main</Path>
+      <ElementType>Class Method</ElementType>
+      <Moniker>PrivateMethodInaccessible</Moniker>
+      <Line>9</Line>
+      <Column>9</Column>
+      <EndLine>9</EndLine>
+      <EndColumn>53</EndColumn>
+      <Message>Method 'doProcessRoleExpirations' is private and can be called only from methods in 'FTBXPRMProcessingService'.</Message>
+    </Diagnostic>
+  </Items>
+  <Aliases />
+</Diagnostics>

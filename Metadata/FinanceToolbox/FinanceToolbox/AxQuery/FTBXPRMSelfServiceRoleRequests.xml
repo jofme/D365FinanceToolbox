@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxQuery xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns=""
+	i:type="AxQuerySimple">
+	<Name>FTBXPRMSelfServiceRoleRequests</Name>
+	<SourceCode>
+		<Methods>
+			<Method>
+				<Name>classDeclaration</Name>
+				<Source><![CDATA[
+[Query]
+public class FTBXPRMSelfServiceRoleRequests extends QueryRun
+{
+}
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+	<Title>@FinanceToolbox:SelfServiceRoleRequests</Title>
+	<DataSources>
+		<AxQuerySimpleRootDataSource>
+			<Name>FTBXPRMSelfServiceRoleRequests</Name>
+			<DynamicFields>Yes</DynamicFields>
+			<Table>FTBXPRMSelfServiceRoleRequests</Table>
+			<DataSources>
+				<AxQuerySimpleEmbeddedDataSource>
+					<Name>FTBXPRMSelfServiceRoleRequestNotes</Name>
+					<DynamicFields>Yes</DynamicFields>
+					<Table>FTBXPRMSelfServiceRoleRequestNotes</Table>
+					<DataSources />
+					<DerivedDataSources />
+					<Fields />
+					<Ranges />
+					<JoinMode>OuterJoin</JoinMode>
+					<UseRelations>Yes</UseRelations>
+					<Relations />
+				</AxQuerySimpleEmbeddedDataSource>
+				<AxQuerySimpleEmbeddedDataSource>
+					<Name>FTBXPRMSelfServiceRoleRequestReferences</Name>
+					<DynamicFields>Yes</DynamicFields>
+					<Table>FTBXPRMSelfServiceRoleRequestReferences</Table>
+					<DataSources />
+					<DerivedDataSources />
+					<Fields />
+					<Ranges />
+					<JoinMode>OuterJoin</JoinMode>
+					<UseRelations>Yes</UseRelations>
+					<Relations />
+				</AxQuerySimpleEmbeddedDataSource>
+			</DataSources>
+			<DerivedDataSources />
+			<Fields />
+			<Ranges />
+			<GroupBy />
+			<Having />
+			<OrderBy />
+		</AxQuerySimpleRootDataSource>
+	</DataSources>
+</AxQuery>

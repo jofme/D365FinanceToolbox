@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxWorkflowApproval xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V2">
+	<Name>FTBXPRMSelfServiceRoleRequestApproval</Name>
+	<CanceledEventHandler>FTBXPRMSelfServiceRoleRequestApprovalEventHandler</CanceledEventHandler>
+	<DelegateMenuItem>FTBXPRMSelfServiceRoleRequestApprovalDelegateMenuItem</DelegateMenuItem>
+	<Document>FTBXPRMSelfServiceRoleRequestTypeDocument</Document>
+	<DocumentMenuItem>FTBXPRMSelfServiceRoleRequestsOverviewAssignedToMe</DocumentMenuItem>
+	<DocumentPreviewFieldGroup>Grid</DocumentPreviewFieldGroup>
+	<HelpText>@FinanceToolbox:SelfServiceRoleRequestWorkflowRequestApprovalHelp</HelpText>
+	<Label>@FinanceToolbox:SelfServiceRoleRequestWorkflowRequestApprovalLabel</Label>
+	<ResubmitMenuItem>FTBXPRMSelfServiceRoleRequestApprovalResubmitMenuItem</ResubmitMenuItem>
+	<StartedEventHandler>FTBXPRMSelfServiceRoleRequestApprovalEventHandler</StartedEventHandler>
+	<WorkItemsCreatedEventHandler>FTBXPRMSelfServiceRoleRequestApprovalEventHandler</WorkItemsCreatedEventHandler>
+	<Approve>
+		<Name xmlns="">Approve</Name>
+		<ActionMenuItem xmlns="">FTBXPRMSelfServiceRoleRequestApprovalApprove</ActionMenuItem>
+		<EventHandler xmlns="">FTBXPRMSelfServiceRoleRequestApprovalEventHandler</EventHandler>
+	</Approve>
+	<Deny>
+		<Name xmlns="">Deny</Name>
+		<ActionMenuItem xmlns="">FTBXPRMSelfServiceRoleRequestApprovalDeny</ActionMenuItem>
+		<EventHandler xmlns="">FTBXPRMSelfServiceRoleRequestApprovalEventHandler</EventHandler>
+		<Type xmlns="">Deny</Type>
+	</Deny>
+	<Reject>
+		<Name xmlns="">Reject</Name>
+		<Enabled xmlns="">No</Enabled>
+		<Type xmlns="">Return</Type>
+	</Reject>
+	<RequestChange>
+		<Name xmlns="">RequestChange</Name>
+		<Enabled xmlns="">No</Enabled>
+		<Type xmlns="">RequestChange</Type>
+	</RequestChange>
+</AxWorkflowApproval>

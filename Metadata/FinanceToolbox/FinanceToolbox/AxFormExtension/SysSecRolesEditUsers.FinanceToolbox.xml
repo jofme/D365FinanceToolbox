@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>SysSecRolesEditUsers.FinanceToolbox</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControltiiu0eyy1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormTabPageControl">
+				<Name>FTBXPRMSelfServiceEligibleRolesTab</Name>
+				<AutoDeclaration>Yes</AutoDeclaration>
+				<Pattern>ToolbarList</Pattern>
+				<PatternVersion>1.2</PatternVersion>
+				<Type>TabPage</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormActionPaneControl">
+						<Name>FTBXPRMSelfServiceEligibleRolesTabsActionPane</Name>
+						<Type>ActionPane</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls>
+							<AxFormControl xmlns=""
+								i:type="AxFormButtonGroupControl">
+								<Name>FTBXPRMSelfServiceEligibleRolesTabActionPaneBtnGrp</Name>
+								<Type>ButtonGroup</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Controls>
+									<AxFormControl xmlns=""
+										i:type="AxFormButtonControl">
+										<Name>FTBXPRMSelfServiceEligibleRolesTabActionPaneNewBtn</Name>
+										<Type>Button</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Text>@SYS2055</Text>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormCommandButtonControl">
+										<Name>FTBXPRMSelfServiceEligibleRolesTabActionPaneRemoveCmdBtn</Name>
+										<Type>CommandButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Command>DeleteRecord</Command>
+										<MultiSelect>Yes</MultiSelect>
+										<NeedsRecord>Yes</NeedsRecord>
+									</AxFormControl>
+								</Controls>
+								<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+							</AxFormControl>
+						</Controls>
+						<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+						<Style>Strip</Style>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormGridControl">
+						<Name>FTBXPRMSelfServiceEligibleRolesTabGrid</Name>
+						<Type>Grid</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls>
+							<AxFormControl xmlns=""
+								i:type="AxFormStringControl">
+								<Name>FTBXPRMSelfServiceEligibleRolesTabGrid_RoleEligibilityId</Name>
+								<Type>String</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>RoleEligibilityId</DataField>
+								<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormComboBoxControl">
+								<Name>FTBXPRMSelfServiceEligibleRolesTab_UserCode</Name>
+								<Type>ComboBox</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>UserCode</DataField>
+								<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+								<Items />
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormStringControl">
+								<Name>FTBXPRMSelfServiceEligibleRolesTab_UserValue</Name>
+								<Type>String</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>UserValue</DataField>
+								<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormDateTimeControl">
+								<Name>FTBXPRMSelfServiceEligibleRolesTab_FromDateTime</Name>
+								<Type>DateTime</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>FromDateTime</DataField>
+								<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormDateTimeControl">
+								<Name>FTBXPRMSelfServiceEligibleRolesTab_ToDateTime</Name>
+								<Type>DateTime</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>ToDateTime</DataField>
+								<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormRealControl">
+								<Name>FTBXPRMSelfServiceEligibleRolesTabGrid_MaxDuration</Name>
+								<Type>Real</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>MaxDuration</DataField>
+								<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+							</AxFormControl>
+						</Controls>
+						<DataGroup>Grid</DataGroup>
+						<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+					</AxFormControl>
+				</Controls>
+				<Caption>@FinanceToolbox:SelfServiceAssignmentEligibility</Caption>
+				<DataSource>FTBXPRMSelfServiceEligibleRoles</DataSource>
+				<FastTabExpanded>Always</FastTabExpanded>
+			</FormControl>
+			<Parent>FastTab</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources>
+		<AxFormDataSource xmlns="">
+			<Name>FTBXPRMSelfServiceEligibleRoles</Name>
+			<Table>FTBXPRMSelfServiceEligibleRoles</Table>
+			<Fields>
+				<AxFormDataSourceField>
+					<DataField>DataAreaId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>FromDateTime</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Partition</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>RecId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>TableId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ToDateTime</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>UserCode</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>UserValue</DataField>
+				</AxFormDataSourceField>
+			</Fields>
+			<ReferencedDataSources />
+			<InsertAtEnd>No</InsertAtEnd>
+			<InsertIfEmpty>No</InsertIfEmpty>
+			<DataSourceLinks />
+			<DerivedDataSources />
+		</AxFormDataSource>
+	</DataSources>
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

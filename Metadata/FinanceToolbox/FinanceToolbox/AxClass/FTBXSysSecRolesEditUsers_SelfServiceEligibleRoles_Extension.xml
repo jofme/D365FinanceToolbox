@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(formDataSourceStr(SysSecRolesEditUsers, FTBXPRMSelfServiceEligibleRoles))]
+final class FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>active</Name>
+				<Source><![CDATA[
+    public int active()
+    {
+        int ret = next active();
+
+        element.ftbxUpdateControls();
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>create</Name>
+				<Source><![CDATA[
+    public void create(boolean _append)
+    {
+        element.ftbxNumberSeqFormHandler().formMethodDataSourceCreatePre();
+
+        next create(_append);
+        
+        element.ftbxNumberSeqFormHandler().formMethodDataSourceCreate();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>write</Name>
+				<Source><![CDATA[
+    public void write()
+    {
+        element.ftbxNumberSeqFormHandler().formMethodDataSourceWrite();
+
+        next Write();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxMenuItemDisplay xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V1">
+	<Name>FTBXPRMCreateSelfServiceRoleRequests</Name>
+	<FeatureClass>FTBXPrivilegedRoleManagementFeature</FeatureClass>
+	<HelpText>@FinanceToolbox:CreateSelfServiceRoleRequestsHelps</HelpText>
+	<Label>@FinanceToolbox:CreateSelfServiceRoleRequestsLabel</Label>
+	<Object>FTBXPRMCreateSelfServiceRoleRequests</Object>
+	<SubscriberAccessLevel>
+		<Read xmlns="">Allow</Read>
+	</SubscriberAccessLevel>
+</AxMenuItemDisplay>

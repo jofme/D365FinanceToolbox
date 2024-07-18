@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMInterfaceBase</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public abstract class FTBXPRMInterfaceBase
+{    
+    protected NumberSeq numberSeq;
+
+    protected boolean isDirty;
+    protected boolean statusChanged;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>reload</Name>
+				<Source><![CDATA[
+    protected void reload()
+    {
+        isDirty         = false;
+        statusChanged   = false;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>commitInternal</Name>
+				<Source><![CDATA[
+    protected abstract void commitInternal()
+    {
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>commit</Name>
+				<Source><![CDATA[
+    public FTBXPRMInterfaceBase commit()
+    {
+        #OCCRETRYCOUNT
+
+        try
+        {
+            ttsbegin;
+
+            this.commitInternal();
+
+            ttscommit;
+        }
+        catch (Exception::Deadlock)
+        {
+            // retry on deadlock
+            retry;
+        }
+        catch (Exception::UpdateConflict)
+        {
+            // try to resolve update conflict
+            if (appl.ttsLevel() == 0)
+            {
+                if (xSession::currentRetryCount() >= #RetryNum)
+                {
+                    throw Exception::UpdateConflictNotRecovered;
+                    
+                }
+                else
+                {
+                    retry;
+                }
+            }
+            else
+            {
+                throw Exception::UpdateConflict;
+            }
+        }
+        catch(Exception::DuplicateKeyException)
+        {
+            // retry in case of an duplicate key conflict
+            if (appl.ttsLevel() == 0)
+            {
+                if (xSession::currentRetryCount() >= #RetryNum)
+                {
+                    throw Exception::DuplicateKeyExceptionNotRecovered;
+                }
+                else
+                {
+                    retry;
+                }
+            }
+            else
+            {
+                throw Exception::DuplicateKeyException;
+            }
+        }
+
+        return this;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

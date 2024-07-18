@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxMenuExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V1">
+	<Name>SystemAdministration.FinanceToolbox</Name>
+	<Customizations />
+	<Elements>
+		<AxMenuExtensionElement xmlns="">
+			<Parent>Periodic</Parent>
+			<MenuElement xmlns=""
+				i:type="AxMenuElementSubMenu">
+				<Name>FTBXBusinessEvents</Name>
+				<Label>@BusinessEvents:BusinessEvents</Label>
+				<Elements>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXBatchJobBusinessEventDurationBatch</Name>
+						<MenuItemName>FTBXBatchJobBusinessEventDurationBatch</MenuItemName>
+						<MenuItemType>Action</MenuItemType>
+						<Parameters>FTBXBatchJobBusinessEventDurationBatch.doProcessBatchDurationTresholds</Parameters>
+					</AxMenuElement>
+				</Elements>
+			</MenuElement>
+		</AxMenuExtensionElement>
+		<AxMenuExtensionElement xmlns="">
+			<Parent>Setup</Parent>
+			<MenuElement xmlns=""
+				i:type="AxMenuElementSubMenu">
+				<Name>FTBXPrivilegedRoleManagementFeatureSetup</Name>
+				<FeatureClass>FTBXPrivilegedRoleManagementFeature</FeatureClass>
+				<Label>@FinanceToolbox:PrivilegedRoleManagement</Label>
+				<Elements>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPrivilegedRoleManagementParameters</Name>
+						<MenuItemName>FTBXPrivilegedRoleManagementParameters</MenuItemName>
+					</AxMenuElement>
+				</Elements>
+			</MenuElement>
+		</AxMenuExtensionElement>
+		<AxMenuExtensionElement xmlns="">
+			<Parent>Inquiries</Parent>
+			<MenuElement xmlns=""
+				i:type="AxMenuElementSubMenu">
+				<Name>FTBXPrivilegedRoleManagementFeatureInquiries</Name>
+				<FeatureClass>FTBXPrivilegedRoleManagementFeature</FeatureClass>
+				<Label>@FinanceToolbox:PrivilegedRoleManagement</Label>
+				<Elements>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPRMSelfServiceRoleRequestsOverview</Name>
+						<MenuItemName>FTBXPRMSelfServiceRoleRequestsOverview</MenuItemName>
+					</AxMenuElement>
+				</Elements>
+			</MenuElement>
+		</AxMenuExtensionElement>
+		<AxMenuExtensionElement xmlns="">
+			<Parent>Periodic</Parent>
+			<MenuElement xmlns=""
+				i:type="AxMenuElementSubMenu">
+				<Name>FTBXPrivilegedRoleManagementFeaturePeriodic</Name>
+				<FeatureClass>FTBXPrivilegedRoleManagementFeature</FeatureClass>
+				<Label>@FinanceToolbox:PrivilegedRoleManagement</Label>
+				<Elements>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPRMProcessingService</Name>
+						<MenuItemName>FTBXPRMProcessingService</MenuItemName>
+						<MenuItemType>Action</MenuItemType>
+					</AxMenuElement>
+				</Elements>
+			</MenuElement>
+		</AxMenuExtensionElement>
+	</Elements>
+	<MenuElementModifications />
+	<PropertyModifications />
+</AxMenuExtension>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxMenuExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V1">
+	<Name>CommonMenu.FinanceToolbox</Name>
+	<Customizations />
+	<Elements>
+		<AxMenuExtensionElement xmlns="">
+			<Parent>Common</Parent>
+			<MenuElement xmlns=""
+				i:type="AxMenuElementSubMenu">
+				<Name>FTBXPrivilegedRoleManagementFeatureCommon</Name>
+				<FeatureClass>FTBXPrivilegedRoleManagementFeature</FeatureClass>
+				<Label>@FinanceToolbox:PrivilegedRoleManagement</Label>
+				<Elements>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPRMSelfServiceRoleRequestsOwnUser</Name>
+						<MenuItemName>FTBXPRMSelfServiceRoleRequestsOwnUser</MenuItemName>
+					</AxMenuElement>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPRMSelfServiceRoleRequests</Name>
+						<MenuItemName>FTBXPRMSelfServiceRoleRequests</MenuItemName>
+					</AxMenuElement>
+					<AxMenuElement xmlns=""
+						i:type="AxMenuElementMenuItem">
+						<Name>FTBXPRMSelfServiceRoleRequestsOverviewAssignedToMe</Name>
+						<MenuItemName>FTBXPRMSelfServiceRoleRequestsOverviewAssignedToMe</MenuItemName>
+					</AxMenuElement>
+				</Elements>
+			</MenuElement>
+		</AxMenuExtensionElement>
+	</Elements>
+	<MenuElementModifications />
+	<PropertyModifications />
+</AxMenuExtension>

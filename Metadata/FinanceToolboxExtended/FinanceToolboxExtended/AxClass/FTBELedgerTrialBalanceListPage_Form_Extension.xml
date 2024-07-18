@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBELedgerTrialBalanceListPage_Form_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(formStr(LedgerTrialBalanceListPage))]
+public final class FTBELedgerTrialBalanceListPage_Form_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    public void init()
+    {
+        next init();
+
+        FTBEMainAccountRange.visible(FTBETrialBalanceFilterFeature::isEnabled());
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>constructBalances</Name>
+				<Source><![CDATA[
+    public void constructBalances()
+    {
+        using (FTBETrialBalanceAccountFilterContext instance = new FTBETrialBalanceAccountFilterContext())
+        {
+            instance.mainAccountRange = FTBEMainAccountRange.text();
+
+            next constructBalances();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

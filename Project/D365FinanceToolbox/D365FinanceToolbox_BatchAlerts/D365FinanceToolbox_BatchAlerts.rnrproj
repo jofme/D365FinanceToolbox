@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>FinanceToolbox</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <RunAppCheckerRules>False</RunAppCheckerRules>
+    <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
+    <DeployOnline>False</DeployOnline>
+    <ProjectGuid>{6fe42b03-55bf-4a5d-8046-5bf20cd07c7f}</ProjectGuid>
+    <Name>D365FinanceToolbox_BatchAlerts</Name>
+    <RootNamespace>D365FinanceToolbox_BatchAlerts</RootNamespace>
+    <StartupType>Class</StartupType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>
+    </Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Action Menu Items\" />
+    <Folder Include="Classes\" />
+    <Folder Include="Form Extensions\" />
+    <Folder Include="Label Files\" />
+    <Folder Include="Menu Extensions\" />
+    <Folder Include="Security Duties\" />
+    <Folder Include="Security Privileges\" />
+    <Folder Include="Security Roles\" />
+    <Folder Include="Table Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\FTBXBatchAlertDurationFeature">
+      <SubType>Content</SubType>
+      <Name>FTBXBatchAlertDurationFeature</Name>
+      <Link>Classes\FTBXBatchAlertDurationFeature</Link>
+    </Content>
+    <Content Include="AxClass\FTBXBatchHeader_Class_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXBatchHeader_Class_Extension</Name>
+      <Link>Classes\FTBXBatchHeader_Class_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FTBXBatchJobBusinessEventDurationBatch">
+      <SubType>Content</SubType>
+      <Name>FTBXBatchJobBusinessEventDurationBatch</Name>
+      <Link>Classes\FTBXBatchJobBusinessEventDurationBatch</Link>
+    </Content>
+    <Content Include="AxClass\FTBXBatchJobBusinessEventDurationContract">
+      <SubType>Content</SubType>
+      <Name>FTBXBatchJobBusinessEventDurationContract</Name>
+      <Link>Classes\FTBXBatchJobBusinessEventDurationContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXBatchJobBusinessEventDurationEvent">
+      <SubType>Content</SubType>
+      <Name>FTBXBatchJobBusinessEventDurationEvent</Name>
+      <Link>Classes\FTBXBatchJobBusinessEventDurationEvent</Link>
+    </Content>
+    <Content Include="AxClass\FTBXBatchJobBusinessEvents_Form_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXBatchJobBusinessEvents_Form_Extension</Name>
+      <Link>Classes\FTBXBatchJobBusinessEvents_Form_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FTBXBatchJobBusinessEvents_Table_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXBatchJobBusinessEvents_Table_Extension</Name>
+      <Link>Classes\FTBXBatchJobBusinessEvents_Table_Extension</Link>
+    </Content>
+    <Content Include="AxFormExtension\BatchJobBusinessEvents.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>BatchJobBusinessEvents.FinanceToolbox</Name>
+      <Link>Form Extensions\BatchJobBusinessEvents.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxFormExtension\BatchJobEnhanced.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>BatchJobEnhanced.FinanceToolbox</Name>
+      <Link>Form Extensions\BatchJobEnhanced.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxLabelFile\FinanceToolbox_en-US">
+      <SubType>Content</SubType>
+      <Name>FinanceToolbox_en-US</Name>
+      <Link>Label Files\FinanceToolbox_en-US</Link>
+    </Content>
+    <Content Include="AxMenuExtension\SystemAdministration.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>SystemAdministration.FinanceToolbox</Name>
+      <Link>Menu Extensions\SystemAdministration.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\FTBXBatchJobBusinessEventDurationBatch">
+      <SubType>Content</SubType>
+      <Name>FTBXBatchJobBusinessEventDurationBatch</Name>
+      <Link>Action Menu Items\FTBXBatchJobBusinessEventDurationBatch</Link>
+    </Content>
+    <Content Include="AxSecurityDuty\FTBXBatchJobBusinessEventMaintain">
+      <SubType>Content</SubType>
+      <Name>FTBXBatchJobBusinessEventMaintain</Name>
+      <Link>Security Duties\FTBXBatchJobBusinessEventMaintain</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\FTBXBatchJobBusinessEventMaintain">
+      <SubType>Content</SubType>
+      <Name>FTBXBatchJobBusinessEventMaintain</Name>
+      <Link>Security Privileges\FTBXBatchJobBusinessEventMaintain</Link>
+    </Content>
+    <Content Include="AxSecurityRole\FTBXSystemMaintain">
+      <SubType>Content</SubType>
+      <Name>FTBXSystemMaintain</Name>
+      <Link>Security Roles\FTBXSystemMaintain</Link>
+    </Content>
+    <Content Include="AxTableExtension\BatchJob.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>BatchJob.FinanceToolbox</Name>
+      <Link>Table Extensions\BatchJob.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxTableExtension\BatchJobBusinessEvents.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>BatchJobBusinessEvents.FinanceToolbox</Name>
+      <Link>Table Extensions\BatchJobBusinessEvents.FinanceToolbox</Link>
+    </Content>
+    <Content Include="FinanceToolbox.en-US.label.txt">
+      <SubType>Content</SubType>
+      <Name>FinanceToolbox.en-US.label.txt</Name>
+      <DependentUpon>AxLabelFile\FinanceToolbox_en-US</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.17.0.targets" />
+</Project>

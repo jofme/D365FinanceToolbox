@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMSelfServiceRoleRequestState_Submitted</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[FTBXPRMSelfServiceRoleRequestStateAttribute(FTBXPRMSelfServiceRoleRequestStatus::Submitted)]
+internal final class FTBXPRMSelfServiceRoleRequestState_Submitted extends FTBXPRMSelfServiceRoleRequestState
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>changeStateInternal</Name>
+				<Source><![CDATA[
+    protected void changeStateInternal()
+    {
+        Workflow::activateFromWorkflowType(workflowTypeStr(FTBXPRMSelfServiceRoleRequestType),
+            request.roleRequest.RecId,
+            request.roleRequestsNote.Justification,
+            NoYes::No,
+            request.roleRequest.CreatedBy);
+
+        request.reload();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

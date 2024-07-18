@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMSelfServiceRoleRequestState</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+internal class FTBXPRMSelfServiceRoleRequestState
+{
+    FTBXPRMSelfServiceRoleRequest request;
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static FTBXPRMSelfServiceRoleRequestState construct(FTBXPRMSelfServiceRoleRequest _request, FTBXPRMSelfServiceRoleRequestStatus _status)
+    {
+        FTBXPRMSelfServiceRoleRequestState state;
+
+        state = SysExtensionAppClassFactory::getClassFromSysAttribute(
+            classStr(FTBXPRMSelfServiceRoleRequestState),
+            new FTBXPRMSelfServiceRoleRequestStateAttribute(_status));
+
+        if (!state)
+        {
+            switch(_status)
+            {
+                case (FTBXPRMSelfServiceRoleRequestStatus::Submitted):
+                    state = new FTBXPRMSelfServiceRoleRequestState_Submitted();
+                    break;
+                case (FTBXPRMSelfServiceRoleRequestStatus::Assigned):
+                    state = new FTBXPRMSelfServiceRoleRequestState_Assigned();
+                    break;
+                default:
+                    state = new FTBXPRMSelfServiceRoleRequestState();
+            }
+        }
+
+        state.init(_request);
+
+        return state;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    protected void new()
+    {
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    public void init(FTBXPRMSelfServiceRoleRequest _request)
+    {
+        request = _request;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>changeState</Name>
+				<Source><![CDATA[
+    public final void changeState()
+    {
+        this.changeStateInternal();
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>changeStateInternal</Name>
+				<Source><![CDATA[
+    protected void changeStateInternal()
+    {
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

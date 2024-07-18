@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXBatchJobBusinessEvents_Form_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(formStr(BatchJobBusinessEvents))]
+internal final class FTBXBatchJobBusinessEvents_Form_Extension
+{
+    private boolean ftbxBusinessEventBatchDurationEnabled;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    public void init()
+    {
+        ftbxBusinessEventBatchDurationEnabled = FTBXBatchAlertDurationFeature::isEnabled();
+
+        next init();
+
+        chkFTBXBatchJobDuration.visible(ftbxBusinessEventBatchDurationEnabled);
+        intFTBXBatchJobMaxExecutionTime.visible(ftbxBusinessEventBatchDurationEnabled);
+
+        if (header)
+        {
+            chkFTBXBatchJobDuration.value(header.ftbxBusinessEventBatchDuration);
+            intFTBXBatchJobMaxExecutionTime.value(header.ftbxBusinessEventBatchJobMaxExecutionTime);
+        }
+        else if (openedForBatchJobId)
+        {
+            BatchJobBusinessEvents batchJobBusinessEvents;
+
+            select firstonly FTBXBatchJobDuration, FTBXBatchJobMaxExecutionTime
+                from batchJobBusinessEvents
+                where batchJobBusinessEvents.BatchJobId == openedForBatchJobId;
+
+            chkFTBXBatchJobDuration.value(batchJobBusinessEvents.FTBXBatchJobDuration);
+            intFTBXBatchJobMaxExecutionTime.value(batchJobBusinessEvents.FTBXBatchJobMaxExecutionTime);
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>closeOk</Name>
+				<Source><![CDATA[
+    public void closeOk()
+    {
+        if (!openedForBatchJobId)
+        {
+            header.ftbxBusinessEventBatchDuration = chkFTBXBatchJobDuration.value();
+            header.ftbxBusinessEventBatchJobMaxExecutionTime = intFTBXBatchJobMaxExecutionTime.value();
+        }
+
+        next closeOk();
+
+        if(openedForBatchJobId)
+        {
+            BatchJobBusinessEvents::ftbxSaveBusinessEvents(
+                openedForBatchJobId, 
+                chkFTBXBatchJobDuration.value(),
+                intFTBXBatchJobMaxExecutionTime.value());
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

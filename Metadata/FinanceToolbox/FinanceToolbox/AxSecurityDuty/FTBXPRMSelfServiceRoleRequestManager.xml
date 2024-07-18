@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxSecurityDuty xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMSelfServiceRoleRequestManager</Name>
+	<Description>@FinanceToolbox:FinanceToolboxPRMRequestManagerDescription</Description>
+	<Label>@FinanceToolbox:FinanceToolboxPRMRequestManagerLabel</Label>
+	<Privileges>
+		<AxSecurityPrivilegeReference>
+			<Name>FTBXPRMSelfServiceRoleRequestManager</Name>
+		</AxSecurityPrivilegeReference>
+		<AxSecurityPrivilegeReference>
+			<Name>FTBXPRMSelfServiceRoleRequestWorkflowUser</Name>
+		</AxSecurityPrivilegeReference>
+	</Privileges>
+</AxSecurityDuty>

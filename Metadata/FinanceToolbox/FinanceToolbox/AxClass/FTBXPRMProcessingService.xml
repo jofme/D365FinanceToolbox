@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMProcessingService</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public final class FTBXPRMProcessingService
+{
+    FTBXPrivilegedRoleManagementParameters parameters;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    public void new()
+    {
+        parameters = FTBXPrivilegedRoleManagementParameters::find();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>doProcess</Name>
+				<Source><![CDATA[
+    public void doProcess()
+    {
+        this.doProcessRoleRequests();
+        this.doProcessRoleAssignments();
+        this.doProcessRoleExpirations();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>doProcessRoleRequests</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Perform approval automation for scenarios where requests are not in an expected state
+    /// (e.g., requests that are created when the workflow was enabled, but subsequently disabled)
+    /// </summary>
+    private void doProcessRoleRequests()
+    {
+        FTBXPRMSelfServiceRoleRequests  roleRequests; 
+        FTBXPRMRoleAssignments          roleAssignments;
+
+        if (!parameters.RoleRequestRequireApprovals)
+        {
+            while select roleRequests
+                where roleRequests.RequestStatus == FTBXPRMSelfServiceRoleRequestStatus::Created
+                ||    roleRequests.RequestStatus == FTBXPRMSelfServiceRoleRequestStatus::Approved
+            {
+                try
+                {
+                    new FTBXPRMSelfServiceRoleRequest(roleRequests.RequestId)
+                        .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Assigned)
+                        .commit();
+                }
+                catch
+                {
+                    exceptionTextFallThrough();
+                }
+            }
+        }
+        else
+        {
+            while select RequestId from roleRequests
+                where roleRequests.RequestStatus    == FTBXPRMSelfServiceRoleRequestStatus::Approved
+                &&   (roleRequests.ToDateTime       <=  DateTimeUtil::getSystemDateTime() && roleRequests.ToDateTime != DateTimeUtil::minValue())
+                notexists join roleAssignments
+                    where roleAssignments.SecurityUserRoleRecId != 0
+                    &&    roleAssignments.RequestId             == roleRequests.RequestId
+            {
+                new FTBXPRMSelfServiceRoleRequest(roleRequests.RequestId)
+                    .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Expired)
+                    .commit();
+            }
+
+            while select RequestId from roleRequests
+                where roleRequests.RequestStatus == FTBXPRMSelfServiceRoleRequestStatus::Approved
+                &&    roleRequests.FromDateTime  <=  DateTimeUtil::getSystemDateTime()
+                &&   (roleRequests.ToDateTime    >=  DateTimeUtil::getSystemDateTime() || roleRequests.ToDateTime == DateTimeUtil::minValue())
+                notexists join roleAssignments
+                    where roleAssignments.SecurityUserRoleRecId != 0
+                    &&    roleAssignments.RequestId             == roleRequests.RequestId
+            {
+                new FTBXPRMSelfServiceRoleRequest(roleRequests.RequestId)
+                    .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Assigned)
+                    .commit();
+            }
+        }
+
+        while select AssignmentId, RequestId from roleAssignments
+            where roleAssignments.SecurityUserRoleRecId == 0
+            &&    roleAssignments.ToDateTime            <= DateTimeUtil::getSystemDateTime()
+            exists join roleRequests
+                where roleRequests.RequestId        == roleAssignments.requestId
+                &&    roleRequests.RequestStatus    == FTBXPRMSelfServiceRoleRequestStatus::Assigned
+        {
+            try
+            {
+                new FTBXPRMSelfServiceRoleRequest(roleAssignments.RequestId)
+                    .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Expired)
+                    .commit();
+            }
+            catch
+            {
+                exceptionTextFallThrough();
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>doProcessRoleAssignments</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Create roles for assignments that are active
+    /// </summary>
+    private void doProcessRoleAssignments()
+    {
+        FTBXPRMRoleAssignments roleAssignments;
+
+        while select AssignmentId from roleAssignments
+            where roleAssignments.SecurityUserRoleRecId == 0
+            &&    roleAssignments.FromDateTime <= DateTimeUtil::getSystemDateTime()
+            &&   (roleAssignments.ToDateTime >= DateTimeUtil::getSystemDateTime() || roleAssignments.ToDateTime == DateTimeUtil::maxValue())
+        {
+            try
+            {
+                new FTBXPRMRoleAssignment(roleAssignments.AssignmentId)
+                    .addRoleToUser()
+                    .commit();                
+            }
+            catch
+            {
+                exceptionTextFallThrough();
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>doProcessRoleExpirations</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Remove expired role assignments
+    /// </summary>
+    private void doProcessRoleExpirations()
+    {
+        FTBXPRMRoleAssignments roleAssignments;
+
+        while select AssignmentId from roleAssignments
+            where roleAssignments.SecurityUserRoleRecId != 0
+            &&    roleAssignments.ToDateTime            <= DateTimeUtil::getSystemDateTime()
+        {
+            try
+            {
+                new FTBXPRMRoleAssignment(roleAssignments.AssignmentId)
+                    .removeRoleFromUser()
+                    .commit();
+            }
+            catch
+            {
+                exceptionTextFallThrough();
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

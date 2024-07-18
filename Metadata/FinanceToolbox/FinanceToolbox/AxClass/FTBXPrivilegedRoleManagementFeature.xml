@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPrivilegedRoleManagementFeature</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+using System.ComponentModel.Composition;
+using Microsoft.Dynamics.ApplicationPlatform.FeatureExposure;
+
+/// <summary>
+/// The <c>FTBXPrivilegedRoleManagementFeature</c> class defines the feature, when enabled, will enable privileged role management
+/// </summary>
+[ExportAttribute(identifierStr(Microsoft.Dynamics.ApplicationPlatform.FeatureExposure.IFeatureMetadata))]
+[Microsoft.Dynamics.BusinessPlatform.SharedTypes.InternalUseOnlyAttribute]
+internal final class FTBXPrivilegedRoleManagementFeature implements IFeatureMetadata
+{
+    static FTBXPrivilegedRoleManagementFeature instance = new FTBXPrivilegedRoleManagementFeature();
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>instance</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Gets the trial balance filter feature instance
+    /// </summary>
+    /// <returns>The trial balance filter feature instance</returns>
+    [Hookable(false)]
+    public static FTBXPrivilegedRoleManagementFeature instance()
+    {
+        return FTBXPrivilegedRoleManagementFeature::instance;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>label</Name>
+				<Source><![CDATA[
+    [Hookable(false)]
+    public FeatureLabelId label()
+    {
+        return literalStr("@FinanceToolbox:PrivilegedRoleManagementFeatureLabel");
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>module</Name>
+				<Source><![CDATA[
+    [Hookable(false)]
+    public int module()
+    {
+        return FeatureModuleV0::ISV;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>summary</Name>
+				<Source><![CDATA[
+    [Hookable(false)]
+    public FeatureLabelId summary()
+    {
+        return literalStr("@FinanceToolbox:PrivilegedRoleManagementFeatureSummary");
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>learnMoreUrl</Name>
+				<Source><![CDATA[
+    [Hookable(false)]
+    public WebSiteURL learnMoreUrl()
+    {
+        return 'https://github.com/jofme/D365FinanceToolbox';
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>isEnabledByDefault</Name>
+				<Source><![CDATA[
+    [Hookable(false)]
+    public boolean isEnabledByDefault()
+    {
+        return false;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>canDisable</Name>
+				<Source><![CDATA[
+    [Hookable(false)]
+    public boolean canDisable()
+    {
+        return true;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>isEnabled</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Determines whether the feature is enabled.
+    /// </summary>
+    /// <returns>
+    /// Returns true if the feature in Feature Management is enabled; otherwise, false.
+    /// </returns>
+    [Hookable(false)]
+    public static boolean isEnabled()
+    {
+        return Dynamics.AX.Application.FeatureStateProvider::isFeatureEnabled(FTBXPrivilegedRoleManagementFeature::instance());
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

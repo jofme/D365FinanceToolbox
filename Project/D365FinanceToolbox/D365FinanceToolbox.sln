@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "D365FinanceToolbox_BatchAlerts (USR) [Finance Toolbox]", "D365FinanceToolbox_BatchAlerts\D365FinanceToolbox_BatchAlerts.rnrproj", "{6FE42B03-55BF-4A5D-8046-5BF20CD07C7F}"
+EndProject
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "D365FinanceToolboxTests (USR) [Finance Toolbox Tests]", "D365FinanceToolboxTests\D365FinanceToolboxTests.rnrproj", "{072373E1-81D5-4EC1-9BE8-6452BE9FD081}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6FE42B03-55BF-4A5D-8046-5BF20CD07C7F} = {6FE42B03-55BF-4A5D-8046-5BF20CD07C7F}
+		{73B53744-4734-4B31-8FC6-517A58A15628} = {73B53744-4734-4B31-8FC6-517A58A15628}
+		{F0B03E64-DA02-4189-836B-97670D67C7DC} = {F0B03E64-DA02-4189-836B-97670D67C7DC}
+	EndProjectSection
+EndProject
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "D365FinanceToolbox_ExchangeRateProviders (USR) [Finance Toolbox]", "D365FinanceToolbox_ExchangeRateProviders\D365FinanceToolbox_ExchangeRateProviders.rnrproj", "{F0B03E64-DA02-4189-836B-97670D67C7DC}"
+EndProject
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "D365FinanceToolboxExtended_TrialBalanceFilters (USR) [Finance Toolbox Extended]", "D365FinanceToolboxExtended_TrialBalanceFilters\D365FinanceToolboxExtended_TrialBalanceFilters.rnrproj", "{78349FBD-D2BA-4E67-90D1-02A0E1A1E0E1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6FE42B03-55BF-4A5D-8046-5BF20CD07C7F} = {6FE42B03-55BF-4A5D-8046-5BF20CD07C7F}
+		{73B53744-4734-4B31-8FC6-517A58A15628} = {73B53744-4734-4B31-8FC6-517A58A15628}
+		{F0B03E64-DA02-4189-836B-97670D67C7DC} = {F0B03E64-DA02-4189-836B-97670D67C7DC}
+	EndProjectSection
+EndProject
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "D365FinanceToolbox_PrivilegedRoleManagement (USR) [Finance Toolbox]", "D365FinanceToolbox_PrivilegedRoleManagement\D365FinanceToolbox_PrivilegedRoleManagement.rnrproj", "{73B53744-4734-4B31-8FC6-517A58A15628}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6FE42B03-55BF-4A5D-8046-5BF20CD07C7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FE42B03-55BF-4A5D-8046-5BF20CD07C7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{072373E1-81D5-4EC1-9BE8-6452BE9FD081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{072373E1-81D5-4EC1-9BE8-6452BE9FD081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0B03E64-DA02-4189-836B-97670D67C7DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0B03E64-DA02-4189-836B-97670D67C7DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78349FBD-D2BA-4E67-90D1-02A0E1A1E0E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78349FBD-D2BA-4E67-90D1-02A0E1A1E0E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73B53744-4734-4B31-8FC6-517A58A15628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73B53744-4734-4B31-8FC6-517A58A15628}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B23F77BE-6750-4EA2-8BB1-748E51CB40CB}
+	EndGlobalSection
+EndGlobal

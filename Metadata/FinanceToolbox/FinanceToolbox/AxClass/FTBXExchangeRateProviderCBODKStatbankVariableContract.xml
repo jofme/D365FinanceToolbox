@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXExchangeRateProviderCBODKStatbankVariableContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[DataContractAttribute]
+class FTBXExchangeRateProviderCBODKStatbankVariableContract
+{
+    private const str statBankDateTimeFormat = '%1M%2*';
+
+    str code;
+    List values;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    public void new()
+    {
+        this.values = new List(Types::String);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmCode</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute('Code')]
+    public str parmCode(str _code = code)
+    {
+        code = _code;
+        return code;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmValues</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute('Values')]
+    public List parmValues(List _values = values)
+    {
+        values = _values;
+        return values;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setCode</Name>
+				<Source><![CDATA[
+    public FTBXExchangeRateProviderCBODKStatbankVariableContract setCode(str _code)
+    {
+        code = _code;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>addValue</Name>
+				<Source><![CDATA[
+    public FTBXExchangeRateProviderCBODKStatbankVariableContract addValue(str _value)
+    {
+        values.addEnd(_value);
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>addDateRange</Name>
+				<Source><![CDATA[
+    public FTBXExchangeRateProviderCBODKStatbankVariableContract addDateRange(
+        FromDate _fromDate, 
+        ToDate _toDate)
+    {
+        var fromDate   = dateStartMth(_fromDate);
+        var toDate     = dateEndMth(_toDate);
+        var curDate    = fromDate;
+
+        do
+        {
+            //Filter format example: 2024M06*
+            //This filter will return all values for that month
+            values.addEnd(
+                    strFmt(
+                        statBankDateTimeFormat,
+                        year(curDate),
+                        strRFix(int2Str(mthOfYr(curDate)), 2, '0')));
+
+            curDate = nextMth(curDate);
+        }
+        while (curDate <= toDate);
+
+        return this;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

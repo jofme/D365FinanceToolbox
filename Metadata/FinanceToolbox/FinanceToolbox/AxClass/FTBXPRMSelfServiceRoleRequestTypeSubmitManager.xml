@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXPRMSelfServiceRoleRequestTypeSubmitManager</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// The FTBXPRMSelfServiceRoleRequestTypeSubmitManager menu item action event handler.
+/// </summary>
+public class FTBXPRMSelfServiceRoleRequestTypeSubmitManager 
+{
+    protected FTBXPRMSelfServiceRoleRequests    roleRequest;
+    protected WorkflowVersionTable              workflowConfigurationTable;
+    protected WorkflowComment                   workflowComment;
+    protected boolean                           menuItemSubmit;
+    protected WorkflowWorkItemTable             workflowWorkItemTable;
+    protected MenuItemName                      menuItemName;
+    protected WorkflowTypeName                  workflowTemplateName;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>dialogOk</Name>
+				<Source><![CDATA[
+    public boolean dialogOk()
+    {
+        WorkflowSubmitDialog workflowSubmitDialog = WorkflowSubmitDialog::construct(workflowConfigurationTable);
+        workflowSubmitDialog.run();
+        this.workflowComment = workflowComment;
+        return workflowSubmitDialog.parmIsClosedOK();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    public void init(FTBXPRMSelfServiceRoleRequests _documentRecord,
+                     menuItemName                   _menuItemName,
+                     WorkflowVersionTable           _workflowConfigurationTable,
+                     WorkflowWorkItemTable          _workflowWorkItemTable)
+    {
+        this.roleRequest    = _documentRecord;
+        this.menuItemSubmit = _menuItemName == menuitemactionstr(FTBXPRMSelfServiceRoleRequestTypeSubmitMenuItem);
+        this.menuItemName   = _menuItemName;
+        
+        this.workflowConfigurationTable = _workflowConfigurationTable;
+        this.workflowWorkItemTable      = _workflowWorkItemTable;
+        this.workflowTemplateName       = _workflowConfigurationTable.workflowTable().TemplateName;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>submit</Name>
+				<Source><![CDATA[
+    public void submit()
+    {
+        Workflow::activateFromWorkflowType(this.workflowTemplateName,
+            roleRequest.RecId,
+            workflowComment,
+            NoYes::No);
+
+        new FTBXPRMSelfServiceRoleRequest(roleRequest.RequestId)
+            .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Submitted)
+            .commit();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    protected void new()
+    {
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static FTBXPRMSelfServiceRoleRequestTypeSubmitManager construct()
+    {
+        return new FTBXPRMSelfServiceRoleRequestTypeSubmitManager();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>validateArgs</Name>
+				<Source><![CDATA[
+    public boolean validateArgs(Args _args)
+    {
+        boolean ret =
+            _args.caller()
+            && _args.caller() is FormRun
+            && _args.record()
+            && _args.record() is FTBXPRMSelfServiceRoleRequests;
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    public static void main(Args _args)
+	{
+        var manager = FTBXPRMSelfServiceRoleRequestTypeSubmitManager::construct();
+
+        if (manager.validateArgs(_args))
+        {
+            var formRun = _args.caller() as FormRun;
+
+            manager.init(
+                _args.record(),
+                _args.menuItemName(),
+                formRun.getActiveworkflowConfiguration(),
+                formRun.getActiveWorkflowWorkItem());
+
+            if (manager.roleRequest.canSubmitToWorkflow()
+                && manager.dialogOk()
+                && manager.menuItemSubmit)
+            {
+                manager.submit();
+
+                formRun.updateWorkflowControls();
+                formRun.doRefresh();
+            }
+        }
+	}
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXTest_CreateRoleRequest</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+internal final class FTBXTest_CreateRoleRequest
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Class entry point. The system will call this method when a designated menu 
+    /// is selected or when execution starts and this class is set as the startup class.
+    /// </summary>
+    /// <param name = "_args">The specified arguments.</param>
+    public static void main(Args _args)
+    {
+        /*
+        var requestId = new FTBXPRMSelfServiceRoleRequest()
+            .setRole(71)
+            .setUserId('ARNIE')
+            .setEligibilityId('000016')
+            .setFromDateTime(DateTimeUtil::getSystemDateTime())
+            .setToDateTime(DateTimeUtil::addMonths(DateTimeUtil::getSystemDateTime(), 1))
+            .setJustification("Assisting in year closing processes")
+            .addReference(FTBXPRMSelfServiceRoleRequestReferenceType::Ticket,       'SR-001536')
+            .addReference(FTBXPRMSelfServiceRoleRequestReferenceType::Application,  'Finance core')
+            .saveRoleRequest()
+            .roleRequest.requestId;
+
+        sleep(1000);
+
+        new FTBXPRMSelfServiceRoleRequest(requestId)
+            .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Approved, "Test")
+            .saveRoleRequest();
+        */
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

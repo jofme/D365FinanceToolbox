@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXExchangeRateProviderCBODKStatbankRequestContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[DataContractAttribute]
+class FTBXExchangeRateProviderCBODKStatbankRequestContract
+{
+    str lang;
+    str table;
+    str format;
+    str timeOrder;
+    List variables;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    public void new()
+    {
+        this.variables = new List(Types::Class);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmLang</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute('Lang')]
+    public str parmLang(str _lang = lang)
+    {
+        lang = _lang;
+        return lang;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTable</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute('Table')]
+    public str parmTable(str _table = table)
+    {
+        table = _table;
+        return table;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmFormat</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute('Format')]
+    public str parmFormat(str _format = format)
+    {
+        format = _format;
+        return format;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTimeOrder</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute('TimeOrder')]
+    public str parmTimeOrder(str _timeOrder = timeOrder)
+    {
+        timeOrder = _timeOrder;
+        return timeOrder;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmVariables</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute('Variables')]
+    public List parmVariables(List _variables = variables)
+    {
+        variables = _variables;
+        return variables;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setLang</Name>
+				<Source><![CDATA[
+    public FTBXExchangeRateProviderCBODKStatbankRequestContract setLang(Str _lang)
+    {
+        lang = _lang;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setTable</Name>
+				<Source><![CDATA[
+    public FTBXExchangeRateProviderCBODKStatbankRequestContract setTable(Str _table)
+    {
+        table = _table;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setFormat</Name>
+				<Source><![CDATA[
+    public FTBXExchangeRateProviderCBODKStatbankRequestContract setFormat(Str _format)
+    {
+        format = _format;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setTimeOrder</Name>
+				<Source><![CDATA[
+    public FTBXExchangeRateProviderCBODKStatbankRequestContract setTimeOrder(Str _timeOrder)
+    {
+        timeOrder = _timeOrder;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>addVariable</Name>
+				<Source><![CDATA[
+    public FTBXExchangeRateProviderCBODKStatbankRequestContract addVariable(FTBXExchangeRateProviderCBODKStatbankVariableContract _contract)
+    {
+        variables.addEnd(_contract);
+        return this;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

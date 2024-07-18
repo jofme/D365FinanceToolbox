@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>LedgerTrialBalanceListPage.FinanceToolboxExtended</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControl1mxbxav51</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>FTBEMainAccountRange</Name>
+				<AutoDeclaration>Yes</AutoDeclaration>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<ExtendedDataType>MainAccountRange</ExtendedDataType>
+			</FormControl>
+			<Parent>DataToInclude</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

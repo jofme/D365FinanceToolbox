@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXSysSecRolesEditUsers_SelfServiceActionPaneAddBtn_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(formControlStr(SysSecRolesEditUsers, FTBXPRMSelfServiceEligibleRolesTabActionPaneNewBtn))]
+final class FTBXSysSecRolesEditUsers_SelfServiceActionPaneAddBtn_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>clicked</Name>
+				<Source><![CDATA[
+    public void clicked()
+    {
+        next clicked();
+
+        FormDataSource ds = element.FTBXPRMSelfServiceEligibleRoles_ds;
+        ds.create();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

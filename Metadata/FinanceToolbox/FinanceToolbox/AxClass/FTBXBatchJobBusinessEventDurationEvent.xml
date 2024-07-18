@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXBatchJobBusinessEventDurationEvent</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[
+    BusinessEvents(
+        classStr(FTBXBatchJobBusinessEventDurationContract),
+        '@FinanceToolbox:BatchAlertDurationBusinessEventName',
+        '@FinanceToolbox:BatchAlertDurationBusinessEventDescription',
+        ModuleAxapta::SystemAdministration)
+]
+internal final class FTBXBatchJobBusinessEventDurationEvent extends BusinessEventsBase
+{
+    public BatchJob batchJob;
+    public BatchJobBusinessEvents batchJobBusinessEvents;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>newFromBatchJobBatchJobBusinessEvents</Name>
+				<Source><![CDATA[
+    public static FTBXBatchJobBusinessEventDurationEvent newFromBatchJobBatchJobBusinessEvents(
+        BatchJob _batchJob,
+        BatchJobBusinessEvents _batchJobBusinessEvents)
+    {
+        var event = new FTBXBatchJobBusinessEventDurationEvent();
+
+        event.batchJob                  = _batchJob;
+        event.batchJobBusinessEvents    = _batchJobBusinessEvents;
+
+        return event;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>buildcontract</Name>
+				<Source><![CDATA[
+    public BusinessEventsContract buildcontract()
+    {
+        return FTBXBatchJobBusinessEventDurationContract::newFromBatchJobBatchJobBusinessEvents(
+            batchJob,
+            batchJobBusinessEvents);
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
