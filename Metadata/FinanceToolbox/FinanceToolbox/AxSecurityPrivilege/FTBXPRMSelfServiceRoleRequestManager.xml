@@ -44,6 +44,38 @@
 				</AxSecurityEntryPointReferenceForm>
 			</Forms>
 		</AxSecurityEntryPointReference>
+		<AxSecurityEntryPointReference>
+			<Name>FTBXPRMSelfServiceRoleRequestsOverview</Name>
+			<GrantPastData>
+				<Correct>Allow</Correct>
+				<Create>Allow</Create>
+				<Delete>Allow</Delete>
+				<Read>Allow</Read>
+				<Update>Allow</Update>
+			</GrantPastData>
+			<ObjectName>FTBXPRMSelfServiceRoleRequestsOverview</ObjectName>
+			<ObjectType>MenuItemDisplay</ObjectType>
+			<Forms>
+				<AxSecurityEntryPointReferenceForm>
+					<Name>FTBXPRMSelfServiceRoleRequestsOverview</Name>
+					<Controls />
+					<DataSources />
+				</AxSecurityEntryPointReferenceForm>
+			</Forms>
+		</AxSecurityEntryPointReference>
+		<AxSecurityEntryPointReference>
+			<Name>FTBXPRMSelfServiceRoleRequestApprovalDelegateMenuItem</Name>
+			<GrantPastData>
+				<Correct>Allow</Correct>
+				<Create>Allow</Create>
+				<Delete>Allow</Delete>
+				<Read>Allow</Read>
+				<Update>Allow</Update>
+			</GrantPastData>
+			<ObjectName>FTBXPRMSelfServiceRoleRequestApprovalDelegateMenuItem</ObjectName>
+			<ObjectType>MenuItemAction</ObjectType>
+			<Forms />
+		</AxSecurityEntryPointReference>
 	</EntryPoints>
 	<FormControlOverrides />
 </AxSecurityPrivilege>

@@ -14,6 +14,8 @@ internal final class FTBXPRMSelfServiceRoleRequestState_Assigned extends FTBXPRM
 				<Source><![CDATA[
     protected void changeStateInternal()
     {       
+        boolean setStatusApproved;
+
         FTBXPRMRoleAssignment assignment = new FTBXPRMRoleAssignment()
             .setRequestId(request.roleRequest.RequestId)
             .setRole(request.roleRequest.SysSecurityRoleRecId)
@@ -22,8 +24,11 @@ internal final class FTBXPRMSelfServiceRoleRequestState_Assigned extends FTBXPRM
             .setToDateTime(request.roleRequest.ToDateTime)
             .commit();
 
-        assignment.addRoleToUser(false)
-            .commit();
+        if (assignment.checkAssignmentDateActive())
+        {
+            assignment.addRoleToUser(false)
+                .commit();
+        }
 
         request.reload();
     }

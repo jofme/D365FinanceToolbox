@@ -15,7 +15,8 @@
     <ProjectGuid>{73b53744-4734-4b31-8fc6-517a58a15628}</ProjectGuid>
     <Name>D365FinanceToolbox_PrivilegedRoleManagement</Name>
     <RootNamespace>D365FinanceToolbox_PrivilegedRoleManagement</RootNamespace>
-    <StartupType>Class</StartupType>
+    <StartupType>MenuItemDisplay</StartupType>
+    <StartupObject>FTBXPRMSelfServiceRoleRequestsOverview</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
@@ -178,11 +179,6 @@
       <Name>FTBXSysSecRolesEditUsers_treeRoleSel_Extension</Name>
       <Link>Classes\FTBXSysSecRolesEditUsers_treeRoleSel_Extension</Link>
     </Content>
-    <Content Include="AxClass\SysAttributeCopy">
-      <SubType>Content</SubType>
-      <Name>SysAttributeCopy</Name>
-      <Link>Classes\SysAttributeCopy</Link>
-    </Content>
     <Content Include="AxDataEntityView\FTBXPRMRoleAssignmentsEntity">
       <SubType>Content</SubType>
       <Name>FTBXPRMRoleAssignmentsEntity</Name>
@@ -263,6 +259,11 @@
       <Name>FTBXPRMSelfServiceRoleRequests</Name>
       <Link>Forms\FTBXPRMSelfServiceRoleRequests</Link>
     </Content>
+    <Content Include="AxForm\FTBXPRMSelfServiceRoleRequestsOverview">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestsOverview</Name>
+      <Link>Forms\FTBXPRMSelfServiceRoleRequestsOverview</Link>
+    </Content>
     <Content Include="AxLabelFile\FinanceToolbox_en-US">
       <SubType>Content</SubType>
       <Name>FinanceToolbox_en-US</Name>
@@ -327,6 +328,16 @@
       <SubType>Content</SubType>
       <Name>FTBXPRMSelfServiceRoleRequests</Name>
       <Link>Display Menu Items\FTBXPRMSelfServiceRoleRequests</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\FTBXPRMSelfServiceRoleRequestsOverview">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestsOverview</Name>
+      <Link>Display Menu Items\FTBXPRMSelfServiceRoleRequestsOverview</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\FTBXPRMSelfServiceRoleRequestsOverviewAssignedToMe">
+      <SubType>Content</SubType>
+      <Name>FTBXPRMSelfServiceRoleRequestsOverviewAssignedToMe</Name>
+      <Link>Display Menu Items\FTBXPRMSelfServiceRoleRequestsOverviewAssignedToMe</Link>
     </Content>
     <Content Include="AxMenuItemDisplay\FTBXPRMSelfServiceRoleRequestsOwnUser">
       <SubType>Content</SubType>

@@ -46,8 +46,8 @@
 				<Elements>
 					<AxMenuElement xmlns=""
 						i:type="AxMenuElementMenuItem">
-						<Name>FTBXPRMSelfServiceRoleRequests</Name>
-						<MenuItemName>FTBXPRMSelfServiceRoleRequests</MenuItemName>
+						<Name>FTBXPRMSelfServiceRoleRequestsOverview</Name>
+						<MenuItemName>FTBXPRMSelfServiceRoleRequestsOverview</MenuItemName>
 					</AxMenuElement>
 				</Elements>
 			</MenuElement>
