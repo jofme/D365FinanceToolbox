@@ -4,7 +4,7 @@ By the community, for the community!
 
 Inspired by the https://github.com/ameyer505/D365FOAdminToolkit project.
 
-Features and documentation can be found in the wiki.
+Features and documentation can be found [here](https://github.com/jofme/D365FinanceToolbox/wiki)
 
 # Contact and Contribution
 Want to contribute? We'd **LOVE** to have you! 
