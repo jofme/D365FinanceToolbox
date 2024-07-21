@@ -80,7 +80,7 @@ public class FTBXPRMTmpSelectedRoles extends common
         {
             int64 difference = DateTimeUtil::getDifference(this.FromDateTime, this.ToDateTime);
 
-            if (difference >= real2int(this.MaxDuration * 3600))
+            if (difference > real2int(this.MaxDuration * 3600))
             {
                 int64 differenceOrig = DateTimeUtil::getDifference(this.FromDateTime, this.orig().FromDateTime);
 
@@ -116,7 +116,7 @@ public class FTBXPRMTmpSelectedRoles extends common
         {
             int64 difference = DateTimeUtil::getDifference(this.ToDateTime, this.FromDateTime);
 
-            if (difference >= real2int(this.MaxDuration * 3600))
+            if (difference > real2int(this.MaxDuration * 3600))
             {
                 int64 differenceOrig = DateTimeUtil::getDifference(this.ToDateTime, this.orig().ToDateTime);
 
@@ -192,7 +192,7 @@ public class FTBXPRMTmpSelectedRoles extends common
                     else if (this.MaxDuration
                         && this.FromDateTime 
                         && this.ToDateTime
-                        && DateTimeUtil::getDifference(this.ToDateTime, this.FromDateTime) / 3600 > this.MaxDuration)
+                        && DateTimeUtil::getDifference(this.ToDateTime, this.FromDateTime) > real2int(this.MaxDuration * 3600))
                     {
                         ret = checkFailed("@FinanceToolbox:SelfServiceTmpSelectedRoleMaxDuration");
                     }
