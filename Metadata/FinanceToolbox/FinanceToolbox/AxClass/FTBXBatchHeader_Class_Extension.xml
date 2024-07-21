@@ -3,6 +3,9 @@
 	<Name>FTBXBatchHeader_Class_Extension</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// CoC method for the class <c>BatchHeader</c>
+/// </summary>
 [ExtensionOf(classStr(BatchHeader))]
 internal final class FTBXBatchHeader_Class_Extension
 {
@@ -15,6 +18,11 @@ internal final class FTBXBatchHeader_Class_Extension
 			<Method>
 				<Name>saveHeader</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// CoC method for saveHeader
+    /// Saves extended fields on the batch header
+    /// </summary>
+    /// <param name = "status">BatchStatus</param>
     public void saveHeader(BatchStatus status)
     {
         boolean isBusinessEventDirty = businessEventsDirty;

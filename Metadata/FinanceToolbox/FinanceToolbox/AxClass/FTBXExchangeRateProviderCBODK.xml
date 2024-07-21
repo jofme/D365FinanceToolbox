@@ -11,6 +11,9 @@ using System.Net.HttpStatusCode;
 using SysCollections = System.Collections.Generic;
 using System.ComponentModel.Composition;
 
+/// <summary>
+/// Exchage rate provider for Central Bank of Denmark (Danmarks Nationalbank)
+/// </summary>
 [
     ExportMetadataAttribute(
         enumStr(ExchangeRateProvider), 
@@ -79,7 +82,7 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
 
         configurationDefaults.AddNameValueConfigurationPair(
             configNameSource,
-            "1");
+            '1');
 
 
         return configurationDefaults;
@@ -155,6 +158,11 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
 			<Method>
 				<Name>EnumNameForLookup</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Finds the enumerator for each exchange rate provider configuration key
+    /// </summary>
+    /// <param name = "_key">Configuration key</param>
+    /// <returns>If the configuration key has an enumerator behind it, then the enumerator. Otherwise ''</returns>
     public str EnumNameForLookup(ExchangeRateProviderPropertyKey _key)
     {
         switch (_key)
@@ -246,18 +254,18 @@ internal final class FTBXExchangeRateProviderCBODK implements IExchangeRateProvi
 
         httpRequestMessage.Content = new StringContent(
             FormJsonSerializer::serializeClass(
-                new FTBXExchangeRateProviderCBODKStatbankRequestContract()
+                FTBXExchangeRateProviderCBODKStatbankRequestContract::construct()
                     .setLang(statBankLanguage)
                     .setTable(statBankTable)
                     .setFormat(statBankFormat)
                     .setTimeOrder(statBankOrder)
-                    .addVariable(new FTBXExchangeRateProviderCBODKStatbankVariableContract()
+                    .addVariable(FTBXExchangeRateProviderCBODKStatbankVariableContract::construct()
                         .setCode(statBankVariableCurrency)
                         .addValue('*'))
-                    .addVariable(new FTBXExchangeRateProviderCBODKStatbankVariableContract()
+                    .addVariable(FTBXExchangeRateProviderCBODKStatbankVariableContract::construct()
                         .setCode(statBankVariableType)
                         .addValue(_exchangeRateType))
-                    .addVariable(new FTBXExchangeRateProviderCBODKStatbankVariableContract()
+                    .addVariable(FTBXExchangeRateProviderCBODKStatbankVariableContract::construct()
                         .setCode(statBankVariableTime)
                         .addDateRange(_fromDate, _toDate))),
             System.Text.Encoding::UTF8, 

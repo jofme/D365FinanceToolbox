@@ -3,8 +3,11 @@
 	<Name>FTBXSysSecRolesEditUsers_SelfServiceActionPaneAddBtn_Extension</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// CoC class for the FTBXPRMSelfServiceEligibleRolesTabActionPaneNewBtn control on the <c>SysSecRolesEditUsers</c> form
+/// </summary>
 [ExtensionOf(formControlStr(SysSecRolesEditUsers, FTBXPRMSelfServiceEligibleRolesTabActionPaneNewBtn))]
-final class FTBXSysSecRolesEditUsers_SelfServiceActionPaneAddBtn_Extension
+public final class FTBXSysSecRolesEditUsers_SelfServiceActionPaneAddBtn_Extension
 {
 }
 ]]></Declaration>
@@ -12,6 +15,9 @@ final class FTBXSysSecRolesEditUsers_SelfServiceActionPaneAddBtn_Extension
 			<Method>
 				<Name>clicked</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// CoC method for clicked
+    /// </summary>
     public void clicked()
     {
         next clicked();

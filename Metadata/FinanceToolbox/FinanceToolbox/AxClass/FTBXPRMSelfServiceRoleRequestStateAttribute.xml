@@ -3,7 +3,10 @@
 	<Name>FTBXPRMSelfServiceRoleRequestStateAttribute</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
-internal final class FTBXPRMSelfServiceRoleRequestStateAttribute extends SysAttribute
+/// <summary>
+/// Attribute for role request status change classes
+/// </summary>
+public final class FTBXPRMSelfServiceRoleRequestStateAttribute extends SysAttribute
 {
     FTBXPRMSelfServiceRoleRequestStatus requestStatus;
 }
@@ -23,6 +26,11 @@ internal final class FTBXPRMSelfServiceRoleRequestStateAttribute extends SysAttr
 			<Method>
 				<Name>parmRequestStatus</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Type of request change
+    /// </summary>
+    /// <param name = "_requestStatus">Request status to change to</param>
+    /// <returns>The current request status</returns>
     public FTBXPRMSelfServiceRoleRequestStatus  parmRequestStatus(FTBXPRMSelfServiceRoleRequestStatus _requestStatus = requestStatus)
     {
         requestStatus = _requestStatus;

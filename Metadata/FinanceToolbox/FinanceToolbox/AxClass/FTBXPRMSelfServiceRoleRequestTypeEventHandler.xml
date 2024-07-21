@@ -18,7 +18,7 @@ public class  FTBXPRMSelfServiceRoleRequestTypeEventHandler implements WorkflowC
 				<Source><![CDATA[
     public void started(WorkflowEventArgs _workflowEventArgs)
 	{
-        new FTBXPRMSelfServiceRoleRequest(FTBXPRMSelfServiceRoleRequests::findRecId(_workflowEventArgs.parmWorkflowContext().parmRecId()).RequestId)
+        FTBXPRMSelfServiceRoleRequest::construct(FTBXPRMSelfServiceRoleRequests::findRecId(_workflowEventArgs.parmWorkflowContext().parmRecId()).RequestId)
             .setStatus(FTBXPRMSelfServiceRoleRequestStatus::ForApproval)
             .commit();
 	}
@@ -30,7 +30,7 @@ public class  FTBXPRMSelfServiceRoleRequestTypeEventHandler implements WorkflowC
 				<Source><![CDATA[
     public void canceled(WorkflowEventArgs _workflowEventArgs)
 	{
-        new FTBXPRMSelfServiceRoleRequest(FTBXPRMSelfServiceRoleRequests::findRecId(_workflowEventArgs.parmWorkflowContext().parmRecId()).RequestId)
+        FTBXPRMSelfServiceRoleRequest::construct(FTBXPRMSelfServiceRoleRequests::findRecId(_workflowEventArgs.parmWorkflowContext().parmRecId()).RequestId)
             .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Rejected)
             .commit();
 	}
@@ -60,7 +60,7 @@ public class  FTBXPRMSelfServiceRoleRequestTypeEventHandler implements WorkflowC
 
         if (newStatus != request.RequestStatus)
         {
-            new FTBXPRMSelfServiceRoleRequest(request.RequestId)
+            FTBXPRMSelfServiceRoleRequest::construct(request.RequestId)
                 .setStatus(newStatus)
                 .commit();
         }

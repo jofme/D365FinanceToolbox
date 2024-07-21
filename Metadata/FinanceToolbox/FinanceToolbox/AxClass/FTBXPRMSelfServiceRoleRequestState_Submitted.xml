@@ -3,6 +3,10 @@
 	<Name>FTBXPRMSelfServiceRoleRequestState_Submitted</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Implementation of the request status change to submitted
+/// This will trigger a configured workflow
+/// </summary>
 [FTBXPRMSelfServiceRoleRequestStateAttribute(FTBXPRMSelfServiceRoleRequestStatus::Submitted)]
 internal final class FTBXPRMSelfServiceRoleRequestState_Submitted extends FTBXPRMSelfServiceRoleRequestState
 {
@@ -12,6 +16,9 @@ internal final class FTBXPRMSelfServiceRoleRequestState_Submitted extends FTBXPR
 			<Method>
 				<Name>changeStateInternal</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Submits the request to workflow
+    /// </summary>
     protected void changeStateInternal()
     {
         Workflow::activateFromWorkflowType(workflowTypeStr(FTBXPRMSelfServiceRoleRequestType),

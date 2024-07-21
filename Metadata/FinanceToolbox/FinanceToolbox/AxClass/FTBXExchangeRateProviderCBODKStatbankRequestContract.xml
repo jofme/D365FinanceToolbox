@@ -3,8 +3,11 @@
 	<Name>FTBXExchangeRateProviderCBODKStatbankRequestContract</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Data contract for root note of a request to StatBank
+/// </summary>
 [DataContractAttribute]
-class FTBXExchangeRateProviderCBODKStatbankRequestContract
+internal final class FTBXExchangeRateProviderCBODKStatbankRequestContract
 {
     str lang;
     str table;
@@ -18,9 +21,19 @@ class FTBXExchangeRateProviderCBODKStatbankRequestContract
 			<Method>
 				<Name>new</Name>
 				<Source><![CDATA[
-    public void new()
+    protected void new()
     {
         this.variables = new List(Types::Class);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static FTBXExchangeRateProviderCBODKStatbankRequestContract construct()
+    {
+        return new FTBXExchangeRateProviderCBODKStatbankRequestContract();
     }
 
 ]]></Source>
@@ -88,6 +101,11 @@ class FTBXExchangeRateProviderCBODKStatbankRequestContract
 			<Method>
 				<Name>setLang</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the language of the request
+    /// </summary>
+    /// <param name = "_lang">Language</param>
+    /// <returns>This</returns>
     public FTBXExchangeRateProviderCBODKStatbankRequestContract setLang(Str _lang)
     {
         lang = _lang;
@@ -99,6 +117,11 @@ class FTBXExchangeRateProviderCBODKStatbankRequestContract
 			<Method>
 				<Name>setTable</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the table that is being requested
+    /// </summary>
+    /// <param name = "_table">StatBank table identifier</param>
+    /// <returns>This</returns>
     public FTBXExchangeRateProviderCBODKStatbankRequestContract setTable(Str _table)
     {
         table = _table;
@@ -110,6 +133,11 @@ class FTBXExchangeRateProviderCBODKStatbankRequestContract
 			<Method>
 				<Name>setFormat</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the format of the response from StatBank
+    /// </summary>
+    /// <param name = "_format">Response format. Usually this is DSTML</param>
+    /// <returns>This</returns>
     public FTBXExchangeRateProviderCBODKStatbankRequestContract setFormat(Str _format)
     {
         format = _format;
@@ -121,6 +149,11 @@ class FTBXExchangeRateProviderCBODKStatbankRequestContract
 			<Method>
 				<Name>setTimeOrder</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the time order of the values returned by StatBank
+    /// </summary>
+    /// <param name = "_timeOrder">Time order</param>
+    /// <returns>This</returns>
     public FTBXExchangeRateProviderCBODKStatbankRequestContract setTimeOrder(Str _timeOrder)
     {
         timeOrder = _timeOrder;
@@ -132,6 +165,11 @@ class FTBXExchangeRateProviderCBODKStatbankRequestContract
 			<Method>
 				<Name>addVariable</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Appends a variable to the request
+    /// </summary>
+    /// <param name = "_contract">Variable value contract</param>
+    /// <returns>This</returns>
     public FTBXExchangeRateProviderCBODKStatbankRequestContract addVariable(FTBXExchangeRateProviderCBODKStatbankVariableContract _contract)
     {
         variables.addEnd(_contract);

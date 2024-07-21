@@ -3,6 +3,9 @@
 	<Name>FTBXTest_BatchAlertsSlowBatchJob</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Slow batch job, used to test business event that triggers by slow batch jobs
+/// </summary>
 public class FTBXTest_BatchAlertsSlowBatchJob extends RunBaseBatch
 {
     DialogField dlgDelay;

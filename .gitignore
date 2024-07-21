@@ -362,6 +362,9 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
+# GPU Cache
+GPUCache/
+
 # D365 specific
 bin/
 resources/

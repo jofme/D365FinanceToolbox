@@ -3,8 +3,11 @@
 	<Name>FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_Extension</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// CoC class for the datasource FTBXPRMSelfServiceEligibleRoles on the form <c>SysSecrolesEditUsers</c>
+/// </summary>
 [ExtensionOf(formDataSourceStr(SysSecRolesEditUsers, FTBXPRMSelfServiceEligibleRoles))]
-final class FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_Extension
+public final class FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_Extension
 {
 }
 ]]></Declaration>
@@ -12,6 +15,11 @@ final class FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_Extension
 			<Method>
 				<Name>active</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// CoC method for active
+    /// Controls the state of controls on the form
+    /// </summary>
+    /// <returns>The value of the original method</returns>
     public int active()
     {
         int ret = next active();
@@ -26,6 +34,11 @@ final class FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_Extension
 			<Method>
 				<Name>create</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// CoC method for create
+    /// Used for number sequences
+    /// </summary>
+    /// <param name = "_append">Should record be appended</param>
     public void create(boolean _append)
     {
         element.ftbxNumberSeqFormHandler().formMethodDataSourceCreatePre();
@@ -40,6 +53,10 @@ final class FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_Extension
 			<Method>
 				<Name>write</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// CoC method for write
+    /// Used for number sequences
+    /// </summary>
     public void write()
     {
         element.ftbxNumberSeqFormHandler().formMethodDataSourceWrite();

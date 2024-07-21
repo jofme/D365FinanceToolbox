@@ -15,6 +15,7 @@ public class FTBXPRMTmpReferences extends common
 	</SubscriberAccessLevel>
 	<TitleField1>ReferenceType</TitleField1>
 	<TitleField2>Reference</TitleField2>
+	<Visibility>Internal</Visibility>
 	<SaveDataPerCompany>No</SaveDataPerCompany>
 	<TableType>TempDB</TableType>
 	<DeleteActions />
@@ -59,6 +60,7 @@ public class FTBXPRMTmpReferences extends common
 	<Indexes>
 		<AxTableIndex>
 			<Name>ReferenceTypeIdx</Name>
+			<AlternateKey>Yes</AlternateKey>
 			<Fields>
 				<AxTableIndexField>
 					<DataField>ReferenceType</DataField>

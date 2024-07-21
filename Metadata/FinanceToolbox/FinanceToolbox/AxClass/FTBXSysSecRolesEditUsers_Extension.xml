@@ -3,8 +3,11 @@
 	<Name>FTBXSysSecRolesEditUsers_Extension</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Extension class for the <c>SysSecRolesEditUsers</c> form
+/// </summary>
 [ExtensionOf(formStr(SysSecRolesEditUsers))]
-final class FTBXSysSecRolesEditUsers_Extension
+public final class FTBXSysSecRolesEditUsers_Extension
 {
     public NumberSeqFormHandler ftbxNumberSeqFormHandler;
 
@@ -14,6 +17,10 @@ final class FTBXSysSecRolesEditUsers_Extension
 			<Method>
 				<Name>ftbxNumberSeqFormHandler</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Number sequence handlers for Finance Toolbox
+    /// </summary>
+    /// <returns>The number sequence handler</returns>
     public NumberSeqFormHandler ftbxNumberSeqFormHandler()
     {
         if (!ftbxNumberSeqFormHandler)
@@ -32,6 +39,9 @@ final class FTBXSysSecRolesEditUsers_Extension
 			<Method>
 				<Name>ftbxUpdateControls</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Updates controls on form
+    /// </summary>
     public void ftbxUpdateControls()
     {
         FormDataSource  eligbleRolesDs  = FTBXPRMSelfServiceEligibleRoles_ds;
@@ -46,6 +56,10 @@ final class FTBXSysSecRolesEditUsers_Extension
 			<Method>
 				<Name>init</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// CoC on init method
+    /// Controls the visibility of Finance Toolbox features
+    /// </summary>
     public void init()
     {
         next init();

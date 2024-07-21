@@ -3,17 +3,28 @@
 	<Name>FTBXPRMSelfServiceRoleRequestAutoTaskApprove</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+///    The <c>FTBXPRMSelfServiceRoleRequestAutoTaskApprove</c> class is the event handler class, which manages
+///    the workflow automated task execution event.
+/// </summary>
 internal final class FTBXPRMSelfServiceRoleRequestAutoTaskApprove implements WorkflowElementExecutionEventHandler
 {
+    
 }
 ]]></Declaration>
 		<Methods>
 			<Method>
 				<Name>execute</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Handles the execute event for the workflow automated task.
+    /// </summary>
+    /// <param name="_workflowElementEventArgs">
+    /// An instance of the <c>WorkflowElementEventArgs</c> class.
+    /// </param>
     public void execute(WorkflowElementEventArgs _workflowElementEventArgs)
     {
-        new FTBXPRMSelfServiceRoleRequest(
+        FTBXPRMSelfServiceRoleRequest::construct(
                 FTBXPRMSelfServiceRoleRequests::findRecId(_workflowElementEventArgs.parmWorkflowContext().parmRecId()).RequestId)
             .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Approved)
             .commit();

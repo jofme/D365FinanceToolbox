@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IgnoreDiagnostics>
+	<Name>FinanceToolbox_BPSuppressions</Name>
+	<Items>
+		<Diagnostic>
+			<DiagnosticType>BestPractices</DiagnosticType>
+			<Severity>Warning</Severity>
+			<Path>dynamics://Form/FTBXPRMCreateSelfServiceRoleRequests/Method/canClose</Path>
+			<Moniker>BPCheckNestedLoopinCode</Moniker>
+			<Message>Nested data access loop found in canClose method</Message>
+			<Justification>The loop initializes another class by calling a method for each record</Justification>
+		</Diagnostic>
+		<Diagnostic>
+			<DiagnosticType>CodeAnalysis</DiagnosticType>
+			<Severity>Informational</Severity>
+			<Path>dynamics://Form/FTBXPrivilegedRoleManagementParameters</Path>
+			<Moniker>BPCheckInvalidInitFormMethodInfo</Moniker>
+			<Message>Form element statements should not be used before super() in init method of form FTBXPrivilegedRoleManagementParameters(Exception can be granted because call seems to be initializing number sequences by calling the method numberSeqPreInit)</Message>
+			<Justification>The method numberSeqPreInit is called before super() in init method for initializing number sequences which can be granted exception</Justification>
+		</Diagnostic>
+		<Diagnostic>
+			<DiagnosticType>BestPractices</DiagnosticType>
+			<Severity>Warning</Severity>
+			<Path>dynamics://Table/FTBXPRMSelfServiceRoleRequests/TableRelationForeignKey/SecurityRole</Path>
+			<Moniker>BPCheckMissingDeleteActions</Moniker>
+			<Justification>Delete action is not needed for SecurityRole table</Justification>
+		</Diagnostic>
+		<Diagnostic>
+			<DiagnosticType>BestPractices</DiagnosticType>
+			<Severity>Warning</Severity>
+			<Path>dynamics://Class/FTBXBatchAlertDurationFeature/isFeatureEnabled</Path>
+			<Message>Method 'isFeatureEnabled' or type 'FeatureStateProvider' in which it is declared is marked InternalUseOnly and is not accessible from the current module 'FinanceToolbox'</Message>
+			<Moniker>InternalUseOnlyMethodInaccessible</Moniker>
+			<Justification>Using V0 of FeatureStateProvider which is internal use only to limit the initial exposure of the functionality.</Justification>
+		</Diagnostic>
+		<Diagnostic>
+			<DiagnosticType>BestPractices</DiagnosticType>
+			<Severity>Warning</Severity>
+			<Path>dynamics://Class/FTBETrialBalanceFilterFeature/isFeatureEnabled</Path>
+			<Message>Method 'isFeatureEnabled' or type 'FeatureStateProvider' in which it is declared is marked InternalUseOnly and is not accessible from the current module 'FinanceToolbox'</Message>
+			<Moniker>InternalUseOnlyMethodInaccessible</Moniker>
+			<Justification>Using V0 of FeatureStateProvider which is internal use only to limit the initial exposure of the functionality.</Justification>
+		</Diagnostic>
+		<Diagnostic>
+			<DiagnosticType>BestPractices</DiagnosticType>
+			<Severity>Warning</Severity>
+			<Path>dynamics://Class/FTBXPrivilegedRoleManagementFeature/isFeatureEnabled</Path>
+			<Message>Method 'isFeatureEnabled' or type 'FeatureStateProvider' in which it is declared is marked InternalUseOnly and is not accessible from the current module 'FinanceToolbox'</Message>
+			<Moniker>InternalUseOnlyMethodInaccessible</Moniker>
+			<Justification>Using V0 of FeatureStateProvider which is internal use only to limit the initial exposure of the functionality.</Justification>
+		</Diagnostic>
+	</Items>
+</IgnoreDiagnostics>
+

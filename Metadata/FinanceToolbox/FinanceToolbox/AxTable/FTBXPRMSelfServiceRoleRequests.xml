@@ -11,11 +11,6 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 			<Method>
 				<Name>canSubmitToWorkflow</Name>
 				<Source><![CDATA[
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name = "_workflowType"></param>
-    /// <returns></returns>
     public boolean canSubmitToWorkflow(str _workflowType = '')
     {
         return this.RequestStatus == FTBXPRMSelfServiceRoleRequestStatus::Created 
@@ -27,7 +22,7 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 			<Method>
 				<Name>findRecId</Name>
 				<Source><![CDATA[
-    public static FTBXPRMSelfServiceRoleRequests findRecId(RecId _recId, boolean _forUpdate = false)
+    internal static FTBXPRMSelfServiceRoleRequests findRecId(RecId _recId, boolean _forUpdate = false)
     {
         FTBXPRMSelfServiceRoleRequests roleRequests;
 
@@ -45,15 +40,11 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>aosValidateDelete</Name>
+				<Name>delete</Name>
 				<Source><![CDATA[
-    public boolean aosValidateDelete()
+    public void  delete()
     {
-        boolean ret = super();
-
-        ret = false;
-    
-        return ret;
+        throw error("@SYS23721");
     }
 
 ]]></Source>
@@ -61,6 +52,12 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 			<Method>
 				<Name>existsOpenUserRole</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Checks if an existing open role requests exists for user
+    /// </summary>
+    /// <param name = "_userId">User</param>
+    /// <param name = "_roleId">Role</param>
+    /// <returns>True if an open role request exists</returns>
     public static boolean existsOpenUserRole(UserId _userId, SysSecurityRoleRecId _roleId)
     {
         return _userId
@@ -75,6 +72,7 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 			</Method>
 		</Methods>
 	</SourceCode>
+	<DeveloperDocumentation>@FinanceToolbox:PrivilegedRoleManagementRoleRequestDevDoc</DeveloperDocumentation>
 	<FormRef>FTBXPRMSelfServiceRoleRequests</FormRef>
 	<Label>@FinanceToolbox:SelfServiceRoleRequests</Label>
 	<SubscriberAccessLevel>
@@ -83,6 +81,7 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 	<TableGroup>Main</TableGroup>
 	<TitleField1>RequestId</TitleField1>
 	<TitleField2>UserId</TitleField2>
+	<Visibility>Internal</Visibility>
 	<AllowRowVersionChangeTracking>Yes</AllowRowVersionChangeTracking>
 	<CacheLookup>FoundAndEmpty</CacheLookup>
 	<ClusteredIndex>StatusIdx</ClusteredIndex>
@@ -94,11 +93,61 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 	<FieldGroups>
 		<AxTableFieldGroup>
 			<Name>AutoReport</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>RequestId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>EligibilityId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>UserId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>RequestStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FromDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ToDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>Duration</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoLookup</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>RequestId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>EligibilityId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>UserId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>RequestStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FromDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ToDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>Duration</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoIdentification</Name>
@@ -111,11 +160,61 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoSummary</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>RequestId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>EligibilityId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>UserId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>RequestStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FromDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ToDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>Duration</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoBrowse</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>RequestId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>EligibilityId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>UserId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>RequestStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FromDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ToDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>Duration</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>Grid</Name>
@@ -132,6 +231,36 @@ public class FTBXPRMSelfServiceRoleRequests extends common
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
 					<DataField>RequestStatus</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>RequestFields</Name>
+			<Label>@SYS36590</Label>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>RequestId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>EligibilityId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>UserId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>RequestStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FromDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ToDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>Duration</DataField>
 				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>

@@ -33,7 +33,7 @@ public class FTBXPRMTmpSelectedRoles extends common
 			<Method>
 				<Name>initFromEligibleRole</Name>
 				<Source><![CDATA[
-    public void initFromEligibleRole(FTBXPRMSelfServiceUserEligibleRole _eligibleRole)
+    internal void initFromEligibleRole(FTBXPRMSelfServiceUserEligibleRole _eligibleRole)
     {
         this.SysSecurityRoleRecId   = _eligibleRole.roleId;
         this.ToDateTime             = _eligibleRole.toDateTime;
@@ -69,7 +69,7 @@ public class FTBXPRMTmpSelectedRoles extends common
         {
             if (this.MaxDuration)
             {
-                this.FromDateTime = DateTimeUtil::addHours(this.ToDateTime, -this.MaxDuration);
+                this.FromDateTime = DateTimeUtil::addMinutes(this.ToDateTime, -real2int(this.MaxDuration * 60));
             }
             else
             {
@@ -80,7 +80,7 @@ public class FTBXPRMTmpSelectedRoles extends common
         {
             int64 difference = DateTimeUtil::getDifference(this.FromDateTime, this.ToDateTime);
 
-            if (difference >= any2Int(this.MaxDuration) * 3600)
+            if (difference > real2int(this.MaxDuration * 3600))
             {
                 int64 differenceOrig = DateTimeUtil::getDifference(this.FromDateTime, this.orig().FromDateTime);
 
@@ -105,7 +105,7 @@ public class FTBXPRMTmpSelectedRoles extends common
         {
             if (this.MaxDuration)
             {
-                this.ToDateTime = DateTimeUtil::addHours(this.FromDateTime, this.MaxDuration);
+                this.ToDateTime = DateTimeUtil::addMinutes(this.FromDateTime, real2int(this.MaxDuration * 60));
             }
             else
             {
@@ -116,7 +116,7 @@ public class FTBXPRMTmpSelectedRoles extends common
         {
             int64 difference = DateTimeUtil::getDifference(this.ToDateTime, this.FromDateTime);
 
-            if (difference >= any2Int(this.MaxDuration) * 3600)
+            if (difference > real2int(this.MaxDuration * 3600))
             {
                 int64 differenceOrig = DateTimeUtil::getDifference(this.ToDateTime, this.orig().ToDateTime);
 
@@ -154,11 +154,11 @@ public class FTBXPRMTmpSelectedRoles extends common
                     {
                         if (this.MaxDuration)
                         {
-                            this.ToDateTime = DateTimeUtil::addMinutes(this.FromDateTime, min(this.MaxDuration * 60, this.Duration * 60));
+                            this.ToDateTime = DateTimeUtil::addMinutes(this.FromDateTime, min(real2int(this.MaxDuration * 60), real2int(this.Duration * 60)));
                         }
                         else
                         {
-                            this.ToDateTime = DateTimeUtil::addMinutes(this.FromDateTime, this.Duration * 60);
+                            this.ToDateTime = DateTimeUtil::addMinutes(this.FromDateTime, real2int(this.Duration * 60));
                         }                        
                     }
                 }                
@@ -192,7 +192,7 @@ public class FTBXPRMTmpSelectedRoles extends common
                     else if (this.MaxDuration
                         && this.FromDateTime 
                         && this.ToDateTime
-                        && DateTimeUtil::getDifference(this.ToDateTime, this.FromDateTime) / 3600 > this.MaxDuration)
+                        && DateTimeUtil::getDifference(this.ToDateTime, this.FromDateTime) > real2int(this.MaxDuration * 3600))
                     {
                         ret = checkFailed("@FinanceToolbox:SelfServiceTmpSelectedRoleMaxDuration");
                     }
@@ -223,6 +223,7 @@ public class FTBXPRMTmpSelectedRoles extends common
 	</SubscriberAccessLevel>
 	<TitleField1>EligibilityId</TitleField1>
 	<TitleField2>SysSecurityRoleRecId</TitleField2>
+	<Visibility>Internal</Visibility>
 	<ClusteredIndex>EligibilityIdx</ClusteredIndex>
 	<SaveDataPerCompany>No</SaveDataPerCompany>
 	<TableType>TempDB</TableType>

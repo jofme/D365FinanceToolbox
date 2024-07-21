@@ -9,6 +9,7 @@
 	<TableGroup>Staging</TableGroup>
 	<TitleField1>RequestId</TitleField1>
 	<TitleField2>UserId</TitleField2>
+	<Visibility>Internal</Visibility>
 	<PrimaryIndex>StagingIdx</PrimaryIndex>
 	<ReplacementKey>StagingIdx</ReplacementKey>
 	<SaveDataPerCompany>No</SaveDataPerCompany>
