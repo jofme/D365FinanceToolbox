@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESAPICheckVatNumberResponseContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[DataContract]
+internal class FTBXECVIESAPICheckVatNumberResponseContract
+{
+    str countryCode;
+    str vatNumber;
+    utcdatetime requestDate;
+    boolean valid;
+    str requestIdentifier;
+    str name;
+    str address;
+    str traderName;
+    str traderStreet;
+    str traderPostalCode;
+    str traderCity;
+    str traderCompanyType;
+    FTBXECVIESAPIMatchStatus traderNameMatch;
+    FTBXECVIESAPIMatchStatus traderStreetMatch;
+    FTBXECVIESAPIMatchStatus traderPostalCodeMatch;
+    FTBXECVIESAPIMatchStatus traderCityMatch;
+    FTBXECVIESAPIMatchStatus traderCompanyTypeMatch;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>parmCountryCode</Name>
+				<Source><![CDATA[
+    [DataMember('countryCode')]
+    public str parmCountryCode(str _countryCode = countryCode)
+    {
+        countryCode = _countryCode;
+        return countryCode;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmVatNumber</Name>
+				<Source><![CDATA[
+    [DataMember('vatNumber')]
+    public str parmVatNumber(str _vatNumber = vatNumber)
+    {
+        vatNumber = _vatNumber;
+        return vatNumber;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmRequestDate</Name>
+				<Source><![CDATA[
+    [DataMember('requestDate')]
+    public utcdatetime parmRequestDate(utcdatetime _requestDate = requestDate)
+    {
+        requestDate = _requestDate;
+        return requestDate;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmValid</Name>
+				<Source><![CDATA[
+    [DataMember('valid')]
+    public boolean parmValid(boolean _valid = valid)
+    {
+        valid = _valid;
+        return valid;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmRequestIdentifier</Name>
+				<Source><![CDATA[
+    [DataMember('requestIdentifier')]
+    public str parmRequestIdentifier(str _requestIdentifier = requestIdentifier)
+    {
+        requestIdentifier = _requestIdentifier;
+        return requestIdentifier;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmName</Name>
+				<Source><![CDATA[
+    [DataMember('name')]
+    public str parmName(str _name = name)
+    {
+        name = _name;
+        return name;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmAddress</Name>
+				<Source><![CDATA[
+    [DataMember('address')]
+    public str parmAddress(str _address = address)
+    {
+        address = _address;
+        return address;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderName</Name>
+				<Source><![CDATA[
+    [DataMember('traderName')]
+    public str parmTraderName(str _traderName = traderName)
+    {
+        traderName = _traderName;
+        return traderName;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderStreet</Name>
+				<Source><![CDATA[
+    [DataMember('traderStreet')]
+    public str parmTraderStreet(str _traderStreet = traderStreet)
+    {
+        traderStreet = _traderStreet;
+        return traderStreet;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderPostalCode</Name>
+				<Source><![CDATA[
+    [DataMember('traderPostalCode')]
+    public str parmTraderPostalCode(str _traderPostalCode = traderPostalCode)
+    {
+        traderPostalCode = _traderPostalCode;
+        return traderPostalCode;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderCity</Name>
+				<Source><![CDATA[
+    [DataMember('traderCity')]
+    public str parmTraderCity(str _traderCity = traderCity)
+    {
+        traderCity = _traderCity;
+        return traderCity;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderCompanyType</Name>
+				<Source><![CDATA[
+    [DataMember('traderCompanyType')]
+    public str parmTraderCompanyType(str _traderCompanyType = traderCompanyType)
+    {
+        traderCompanyType = _traderCompanyType;
+        return traderCompanyType;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderNameMatch</Name>
+				<Source><![CDATA[
+    [DataMember('traderNameMatch')]
+    public FTBXECVIESAPIMatchStatus parmTraderNameMatch(FTBXECVIESAPIMatchStatus _traderNameMatch = traderNameMatch)
+    {
+        traderNameMatch = _traderNameMatch;
+        return traderNameMatch;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderStreetMatch</Name>
+				<Source><![CDATA[
+    [DataMember('traderStreetMatch')]
+    public FTBXECVIESAPIMatchStatus parmTraderStreetMatch(FTBXECVIESAPIMatchStatus _traderStreetMatch = traderStreetMatch)
+    {
+        traderStreetMatch = _traderStreetMatch;
+        return traderStreetMatch;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderPostalCodeMatch</Name>
+				<Source><![CDATA[
+    [DataMember('traderPostalCodeMatch')]
+    public FTBXECVIESAPIMatchStatus parmTraderPostalCodeMatch(FTBXECVIESAPIMatchStatus _traderPostalCodeMatch = traderPostalCodeMatch)
+    {
+        traderPostalCodeMatch = _traderPostalCodeMatch;
+        return traderPostalCodeMatch;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderCityMatch</Name>
+				<Source><![CDATA[
+    [DataMember('traderCityMatch')]
+    public FTBXECVIESAPIMatchStatus parmTraderCityMatch(FTBXECVIESAPIMatchStatus _traderCityMatch = traderCityMatch)
+    {
+        traderCityMatch = _traderCityMatch;
+        return traderCityMatch;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderCompanyTypeMatch</Name>
+				<Source><![CDATA[
+    [DataMember('traderCompanyTypeMatch')]
+    public FTBXECVIESAPIMatchStatus parmTraderCompanyTypeMatch(FTBXECVIESAPIMatchStatus _traderCompanyTypeMatch = traderCompanyTypeMatch)
+    {
+        traderCompanyTypeMatch = _traderCompanyTypeMatch;
+        return traderCompanyTypeMatch;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

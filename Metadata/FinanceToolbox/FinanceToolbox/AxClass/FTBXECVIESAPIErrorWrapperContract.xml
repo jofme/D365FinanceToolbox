@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESAPIErrorWrapperContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[DataContract]
+internal class FTBXECVIESAPIErrorWrapperContract
+{
+    str error;
+    str message;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>parmError</Name>
+				<Source><![CDATA[
+    [DataMember('error')]
+    public str parmError(str _error = error)
+    {
+        error = _error;
+        return error;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmMessage</Name>
+				<Source><![CDATA[
+    [DataMember('message')]
+    public str parmMessage(str _message = message)
+    {
+        message = _message;
+        return message;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESInterfaceBase</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.HttpStatusCode;
+
+internal abstract class FTBXECVIESInterfaceBase
+{
+    protected   HttpClient              httpClient;
+    protected   FTBXECVIESParameters    parameters;
+    protected   Set                     vatValidationResults;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    protected void new()
+    {
+        parameters              = FTBXECVIESParameters::find();
+        httpClient              = new HttpClient();
+        vatValidationResults    = new Set(Types::Class);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static FTBXECVIESInterfaceBase construct()
+    {
+        return new FTBXECVIESInterfaceSingle();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>addCountry</Name>
+				<Source><![CDATA[
+    public void addCountry(str _country, str _vatnum)
+    {
+        vatValidationResults.add(FTBXECVIESCheckResult::construct(_country, _vatnum));
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>invokeValidation</Name>
+				<Source><![CDATA[
+    public abstract void invokeValidation()
+    {
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>updateAvailableCountries</Name>
+				<Source><![CDATA[
+    public void updateAvailableCountries()
+    {
+        #OCCRETRYCOUNT
+
+        var httpRequestMessage  = new HttpRequestMessage(
+            new HttpMethod('get'), 
+            parameters.VIESAPIURLStatus);
+
+        HttpResponseMessage responseMessage = httpClient.SendAsync(httpRequestMessage)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
+
+        if (responseMessage
+            && responseMessage.StatusCode == 200
+            && responseMessage.Content)
+        {
+            FTBXECVIESAPIMemberCountryStatusContract contract = FormJsonSerializer::deserializeObjectStrict(
+                classNum(FTBXECVIESAPIMemberCountryStatusContract),
+                responseMessage.Content.ReadAsStringAsync()
+                            .ConfigureAwait(false)
+                            .GetAwaiter()
+                            .GetResult());
+
+            if (contract
+                && contract.parmCountries()
+                && contract.parmCountries().elements() > 0)
+            {
+                FTBXECVIESAvailableMemberStates availableMemberStates;
+
+                ListEnumerator countryEnumerator = contract.parmCountries().getEnumerator();
+
+                try
+                {
+                    ttsbegin;
+
+                    while (countryEnumerator.moveNext())
+                    {
+                        FTBXECVIESAPICountryContract countryContract = countryEnumerator.current();
+
+                        availableMemberStates = FTBXECVIESAvailableMemberStates::find(countryContract.parmCountryCode(), true);
+
+                        availableMemberStates.ISOCode = countryContract.parmCountryCode();
+                        availableMemberStates.VIESCountryStatus = countryContract.parmAvailability();
+                        availableMemberStates.write();
+                    }
+
+                    ttscommit;
+                }
+                catch (Exception::Deadlock)
+                {
+                    // retry on deadlock
+                    retry;
+                }
+                catch (Exception::UpdateConflict)
+                {
+                    // try to resolve update conflict
+                    if (appl.ttsLevel() == 0)
+                    {
+                        if (xSession::currentRetryCount() >= #RetryNum)
+                        {
+                            throw Exception::UpdateConflictNotRecovered;
+                        }
+                        else
+                        {
+                            retry;
+                        }
+                    }
+                    else
+                    {
+                        throw Exception::UpdateConflict;
+                    }
+                }
+                catch(Exception::DuplicateKeyException)
+                {
+                    // retry in case of an duplicate key conflict
+                    if (appl.ttsLevel() == 0)
+                    {
+                        if (xSession::currentRetryCount() >= #RetryNum)
+                        {
+                            throw Exception::DuplicateKeyExceptionNotRecovered;
+                        }
+                        else
+                        {
+                            retry;
+                        }
+                    }
+                    else
+                    {
+                        throw Exception::DuplicateKeyException;
+                    }
+                }
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getResults</Name>
+				<Source><![CDATA[
+    public Set getResults()
+    {
+        return vatValidationResults;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>validationResultUpdated</Name>
+				<Source><![CDATA[
+    delegate void validationResultUpdated(FTBXECVIESCheckResult _result)
+    {
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

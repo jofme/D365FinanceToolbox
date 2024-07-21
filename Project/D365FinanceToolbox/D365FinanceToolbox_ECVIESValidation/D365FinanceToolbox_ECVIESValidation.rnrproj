@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>FinanceToolbox</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <RunAppCheckerRules>False</RunAppCheckerRules>
+    <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
+    <DeployOnline>False</DeployOnline>
+    <ProjectGuid>{74df9fbb-329f-44fd-975c-da5f81a81791}</ProjectGuid>
+    <Name>D365FinanceToolbox_ECVIESValidation</Name>
+    <RootNamespace>D365FinanceToolbox_ECVIESValidation</RootNamespace>
+    <StartupType>Class</StartupType>
+    <StartupObject>FTBXTest_TryGetAvailableMemberStates</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>
+    </Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="AxClass\FTBXECVIESAPICheckVatNumberRequestContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPICheckVatNumberRequestContract</Name>
+      <Link>Classes\FTBXECVIESAPICheckVatNumberRequestContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESAPICheckVatNumberResponseContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPICheckVatNumberResponseContract</Name>
+      <Link>Classes\FTBXECVIESAPICheckVatNumberResponseContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESAPIConstants">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPIConstants</Name>
+      <Link>Classes\FTBXECVIESAPIConstants</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESAPICountryContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPICountryContract</Name>
+      <Link>Classes\FTBXECVIESAPICountryContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESAPIErrorResponsesContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPIErrorResponsesContract</Name>
+      <Link>Classes\FTBXECVIESAPIErrorResponsesContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESAPIErrorWrapperContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPIErrorWrapperContract</Name>
+      <Link>Classes\FTBXECVIESAPIErrorWrapperContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESAPIMemberCountryStatusContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPIMemberCountryStatusContract</Name>
+      <Link>Classes\FTBXECVIESAPIMemberCountryStatusContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESCheckResult">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESCheckResult</Name>
+      <Link>Classes\FTBXECVIESCheckResult</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESInterfaceBase">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESInterfaceBase</Name>
+      <Link>Classes\FTBXECVIESInterfaceBase</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESInterfaceSingle">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESInterfaceSingle</Name>
+      <Link>Classes\FTBXECVIESInterfaceSingle</Link>
+    </Content>
+    <Content Include="AxClass\FTBXTest_TryGetAvailableMemberStates">
+      <SubType>Content</SubType>
+      <Name>FTBXTest_TryGetAvailableMemberStates</Name>
+      <Link>Classes\FTBXTest_TryGetAvailableMemberStates</Link>
+    </Content>
+    <Content Include="AxEnum\FTBXECVIESAPICountryStatus">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPICountryStatus</Name>
+      <Link>Base Enums\FTBXECVIESAPICountryStatus</Link>
+    </Content>
+    <Content Include="AxEnum\FTBXECVIESAPIMatchStatus">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPIMatchStatus</Name>
+      <Link>Base Enums\FTBXECVIESAPIMatchStatus</Link>
+    </Content>
+    <Content Include="AxForm\FTBXECVIESParameters">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESParameters</Name>
+      <Link>Forms\FTBXECVIESParameters</Link>
+    </Content>
+    <Content Include="AxLabelFile\FinanceToolbox_en-US">
+      <SubType>Content</SubType>
+      <Name>FinanceToolbox_en-US</Name>
+      <Link>Label Files\FinanceToolbox_en-US</Link>
+    </Content>
+    <Content Include="AxMenuExtension\Tax.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>Tax.FinanceToolbox</Name>
+      <Link>Menu Extensions\Tax.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\FTBXECVIESParameters">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESParameters</Name>
+      <Link>Display Menu Items\FTBXECVIESParameters</Link>
+    </Content>
+    <Content Include="AxTable\FTBXECVIESAvailableMemberStates">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAvailableMemberStates</Name>
+      <Link>Tables\FTBXECVIESAvailableMemberStates</Link>
+    </Content>
+    <Content Include="AxTable\FTBXECVIESParameters">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESParameters</Name>
+      <Link>Tables\FTBXECVIESParameters</Link>
+    </Content>
+    <Content Include="FinanceToolbox.en-US.label.txt">
+      <SubType>Content</SubType>
+      <Name>FinanceToolbox.en-US.label.txt</Name>
+      <DependentUpon>AxLabelFile\FinanceToolbox_en-US</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Base Enums\" />
+    <Folder Include="Classes" />
+    <Folder Include="Display Menu Items\" />
+    <Folder Include="Forms\" />
+    <Folder Include="Label Files\" />
+    <Folder Include="Menu Extensions\" />
+    <Folder Include="Tables\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.17.0.targets" />
+</Project>
