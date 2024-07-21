@@ -3,6 +3,9 @@
 	<Name>FTBXBatchJobBusinessEventDurationEvent</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Business event class for handling business events that takes longer than expected to complete.
+/// </summary>
 [
     BusinessEvents(
         classStr(FTBXBatchJobBusinessEventDurationContract),
@@ -21,6 +24,12 @@ internal final class FTBXBatchJobBusinessEventDurationEvent extends BusinessEven
 			<Method>
 				<Name>newFromBatchJobBatchJobBusinessEvents</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Instantiates a copy of the business event based on a batch job and it's business event parameters
+    /// </summary>
+    /// <param name = "_batchJob">Batch job</param>
+    /// <param name = "_batchJobBusinessEvents">Batch job business event parameters</param>
+    /// <returns>An instantiated copy of the <c>FTBXBatchJobBusinessEventDurationEvent</c> class</returns>
     public static FTBXBatchJobBusinessEventDurationEvent newFromBatchJobBatchJobBusinessEvents(
         BatchJob _batchJob,
         BatchJobBusinessEvents _batchJobBusinessEvents)

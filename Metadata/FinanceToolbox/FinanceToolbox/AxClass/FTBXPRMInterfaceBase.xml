@@ -3,6 +3,10 @@
 	<Name>FTBXPRMInterfaceBase</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Base class for different entity types in PRM
+/// Contains logic that handles exceptions and TTS
+/// </summary>
 public abstract class FTBXPRMInterfaceBase
 {    
     protected NumberSeq numberSeq;
@@ -16,6 +20,9 @@ public abstract class FTBXPRMInterfaceBase
 			<Method>
 				<Name>reload</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Reloads the state of the PRM entity
+    /// </summary>
     protected void reload()
     {
         isDirty         = false;
@@ -27,6 +34,9 @@ public abstract class FTBXPRMInterfaceBase
 			<Method>
 				<Name>commitInternal</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Method that contains logic that handles commit actions on the PRM entity
+    /// </summary>
     protected abstract void commitInternal()
     {
     }
@@ -36,6 +46,10 @@ public abstract class FTBXPRMInterfaceBase
 			<Method>
 				<Name>commit</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Commits the state of the entity to database
+    /// </summary>
+    /// <returns>The current object. Used for fluent interface</returns>
     public FTBXPRMInterfaceBase commit()
     {
         #OCCRETRYCOUNT

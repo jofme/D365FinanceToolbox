@@ -3,8 +3,11 @@
 	<Name>FTBXBatchJobBusinessEvents_Form_Extension</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// CoC class for the <c>BatchJobBusinessEvents</c> form
+/// </summary>
 [ExtensionOf(formStr(BatchJobBusinessEvents))]
-internal final class FTBXBatchJobBusinessEvents_Form_Extension
+public final class FTBXBatchJobBusinessEvents_Form_Extension
 {
     private boolean ftbxBusinessEventBatchDurationEnabled;
 
@@ -14,6 +17,10 @@ internal final class FTBXBatchJobBusinessEvents_Form_Extension
 			<Method>
 				<Name>init</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// CoC method for the init method
+    /// Handles extension fields for batch job business events
+    /// </summary>
     public void init()
     {
         ftbxBusinessEventBatchDurationEnabled = FTBXBatchAlertDurationFeature::isEnabled();
@@ -46,6 +53,10 @@ internal final class FTBXBatchJobBusinessEvents_Form_Extension
 			<Method>
 				<Name>closeOk</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// CoC method for the closeOk method
+    /// Handles extension fields for batch job business events
+    /// </summary>
     public void closeOk()
     {
         if (!openedForBatchJobId)

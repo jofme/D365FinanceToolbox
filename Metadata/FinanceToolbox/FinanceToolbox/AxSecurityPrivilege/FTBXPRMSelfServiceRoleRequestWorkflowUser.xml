@@ -73,9 +73,9 @@
 		</AxSecurityEntryPointReference>
 		<AxSecurityEntryPointReference>
 			<Name>FTBXPRMSelfServiceRoleRequestsOverviewAssignedToMe</Name>
-			<GrantPastData>
+			<Grant>
 				<Read>Allow</Read>
-			</GrantPastData>
+			</Grant>
 			<ObjectName>FTBXPRMSelfServiceRoleRequestsOverviewAssignedToMe</ObjectName>
 			<ObjectType>MenuItemDisplay</ObjectType>
 			<Forms>

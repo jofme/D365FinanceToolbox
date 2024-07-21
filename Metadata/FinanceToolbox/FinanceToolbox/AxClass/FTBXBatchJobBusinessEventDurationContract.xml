@@ -3,6 +3,9 @@
 	<Name>FTBXBatchJobBusinessEventDurationContract</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Data contract for batch duration business event
+/// </summary>
 [DataContract]
 internal final class FTBXBatchJobBusinessEventDurationContract extends BusinessEventsContract
 {
@@ -17,6 +20,12 @@ internal final class FTBXBatchJobBusinessEventDurationContract extends BusinessE
 			<Method>
 				<Name>newFromBatchJobBatchJobBusinessEvents</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Intantiates the business event froma batch job
+    /// </summary>
+    /// <param name = "_batchJob">Batch job</param>
+    /// <param name = "_batchJobBusinessEvents">Batch job business event parameters</param>
+    /// <returns>An instantiated copy of the <c>FTBXBatchJobBusinessEventDurationContract </c> class</returns>
     public static FTBXBatchJobBusinessEventDurationContract newFromBatchJobBatchJobBusinessEvents(
         BatchJob                _batchJob,
         BatchJobBusinessEvents  _batchJobBusinessEvents)
@@ -34,6 +43,10 @@ internal final class FTBXBatchJobBusinessEventDurationContract extends BusinessE
 			<Method>
 				<Name>initFromBatchJob</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Initializes class from batch job
+    /// </summary>
+    /// <param name = "_batchJob">Batch job</param>
     private void initFromBatchJob(BatchJob _batchJob)
     {
         batchCaption    = _batchJob.caption;
@@ -46,6 +59,10 @@ internal final class FTBXBatchJobBusinessEventDurationContract extends BusinessE
 			<Method>
 				<Name>initFromBatchJobBusinessEvent</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Initializes class from batch job business event parameters
+    /// </summary>
+    /// <param name = "_batchJobBusinessEvents">Batch job business event parameters</param>
     private void initFromBatchJobBusinessEvent(BatchJobBusinessEvents _batchJobBusinessEvents)
     {
         maxExecutionTime = _batchJobBusinessEvents.FTBXBatchJobMaxExecutionTime;

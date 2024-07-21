@@ -3,8 +3,11 @@
 	<Name>FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_UserCode_Extension</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// CoC method for the data source field FTBXPRMSelfServiceEligibleRoles.UserCode on the <c>SysSecRolesEditUsers</c> form
+/// </summary>
 [ExtensionOf(formDataFieldStr(SysSecRolesEditUsers, FTBXPRMSelfServiceEligibleRoles, UserCode))]
-final class FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_UserCode_Extension
+public final class FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_UserCode_Extension
 {
 }
 ]]></Declaration>
@@ -12,6 +15,10 @@ final class FTBXSysSecRolesEditUsers_SelfServiceEligibleRoles_UserCode_Extension
 			<Method>
 				<Name>modified</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// CoC method for modified
+    /// Updates the state of controls on the form
+    /// </summary>
     public void modified()
     {
         next Modified();

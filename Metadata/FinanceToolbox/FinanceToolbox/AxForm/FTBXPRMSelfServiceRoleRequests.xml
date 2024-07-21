@@ -18,7 +18,9 @@ public class FTBXPRMSelfServiceRoleRequests extends FormRun
 				<Name>init</Name>
 				<Source><![CDATA[
     public void init()
-    {
+    {        
+        super();
+
         if (!element.args()
             && !element.args().parmEnumType())
         {
@@ -30,7 +32,6 @@ public class FTBXPRMSelfServiceRoleRequests extends FormRun
             throw error(error::wrongUseOfFunction(funcName()));
         }
 
-        super();
 
         formHelper = FTBXPRMSelfServiceRoleRequestsFormHelper::construct(this, this.args().parmEnum());
         formHelper.updateQuery(false);
@@ -57,10 +58,6 @@ public class FTBXPRMSelfServiceRoleRequests extends FormRun
 					<Method>
 						<Name>active</Name>
 						<Source><![CDATA[
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
         public int active()
         {
             int ret = super();
@@ -88,7 +85,7 @@ public class FTBXPRMSelfServiceRoleRequests extends FormRun
         {
             if (FTBXPRMSelfServiceRoleRequests)
             {
-                new FTBXPRMSelfServiceRoleRequest(FTBXPRMSelfServiceRoleRequests.RequestId)
+                FTBXPRMSelfServiceRoleRequest::construct(FTBXPRMSelfServiceRoleRequests.RequestId)
                     .expireAssignments();
 
                 formHelper.onRequestCreated();
@@ -107,10 +104,6 @@ public class FTBXPRMSelfServiceRoleRequests extends FormRun
 					<Method>
 						<Name>modified</Name>
 						<Source><![CDATA[
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
         public boolean modified()
         {
             boolean ret = super();

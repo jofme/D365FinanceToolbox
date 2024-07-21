@@ -3,8 +3,11 @@
 	<Name>FTBXExchangeRateProviderCBODKStatbankVariableContract</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Contract for variables sections of a StatBank request
+/// </summary>
 [DataContractAttribute]
-class FTBXExchangeRateProviderCBODKStatbankVariableContract
+internal final class FTBXExchangeRateProviderCBODKStatbankVariableContract
 {
     private const str statBankDateTimeFormat = '%1M%2*';
 
@@ -17,9 +20,19 @@ class FTBXExchangeRateProviderCBODKStatbankVariableContract
 			<Method>
 				<Name>new</Name>
 				<Source><![CDATA[
-    public void new()
+    protected void new()
     {
         this.values = new List(Types::String);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static FTBXExchangeRateProviderCBODKStatbankVariableContract construct()
+    {
+        return new FTBXExchangeRateProviderCBODKStatbankVariableContract();
     }
 
 ]]></Source>
@@ -51,6 +64,11 @@ class FTBXExchangeRateProviderCBODKStatbankVariableContract
 			<Method>
 				<Name>setCode</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the code part of the variable
+    /// </summary>
+    /// <param name = "_code">Code</param>
+    /// <returns>This</returns>
     public FTBXExchangeRateProviderCBODKStatbankVariableContract setCode(str _code)
     {
         code = _code;
@@ -62,6 +80,11 @@ class FTBXExchangeRateProviderCBODKStatbankVariableContract
 			<Method>
 				<Name>addValue</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the value part of the variable
+    /// </summary>
+    /// <param name = "_value">Value</param>
+    /// <returns>This</returns>
     public FTBXExchangeRateProviderCBODKStatbankVariableContract addValue(str _value)
     {
         values.addEnd(_value);
@@ -73,6 +96,13 @@ class FTBXExchangeRateProviderCBODKStatbankVariableContract
 			<Method>
 				<Name>addDateRange</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the value of the variable to be a time span of months between two dates
+    /// Filter format example: 2024M06*
+    /// </summary>
+    /// <param name = "_fromDate">From date</param>
+    /// <param name = "_toDate">To date</param>
+    /// <returns>This</returns>
     public FTBXExchangeRateProviderCBODKStatbankVariableContract addDateRange(
         FromDate _fromDate, 
         ToDate _toDate)

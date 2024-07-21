@@ -3,6 +3,9 @@
 	<Name>FTBXBatchJobBusinessEvents_Table_Extension</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Extension class for the <c>BatchJobBusinessEvents</c> table
+/// </summary>
 [ExtensionOf(tableStr(BatchJobBusinessEvents))]
 public final class FTBXBatchJobBusinessEvents_Table_Extension
 {
@@ -12,6 +15,12 @@ public final class FTBXBatchJobBusinessEvents_Table_Extension
 			<Method>
 				<Name>ftbxSaveBusinessEvents</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Saves the Finance Toolbox extension fields
+    /// </summary>
+    /// <param name = "_batchJobId">Batch job</param>
+    /// <param name = "_batchJobDuration">Parameter for duration business event</param>
+    /// <param name = "_batchJobMaxExecutionTime">Max duration of business event</param>
     static server void ftbxSaveBusinessEvents(
         RecId _batchJobId, 
         NoYes _batchJobDuration,
