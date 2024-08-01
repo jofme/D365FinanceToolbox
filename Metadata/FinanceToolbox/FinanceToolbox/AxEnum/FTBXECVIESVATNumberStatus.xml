@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxEnum xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESVATNumberStatus</Name>
+	<Help>@FinanceToolbox:ECVIESVATNumberStatusHelp</Help>
+	<Label>@FinanceToolbox:ECVIESVATNumberStatusLabel</Label>
+	<EnumValues>
+		<AxEnumValue>
+			<Name>NotChecked</Name>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>Valid</Name>
+			<Label>@FinanceToolbox:ECVIESVATNumberStatusValid</Label>
+			<Value>1</Value>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>Invalid</Name>
+			<Label>@FinanceToolbox:ECVIESVATNumberStatusInvalid</Label>
+			<Value>2</Value>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>VIESError</Name>
+			<Label>@FinanceToolbox:ECVIESVATNumberStatusVIESError</Label>
+			<Value>3</Value>
+		</AxEnumValue>
+	</EnumValues>
+</AxEnum>

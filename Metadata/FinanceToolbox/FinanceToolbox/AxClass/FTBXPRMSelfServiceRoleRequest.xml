@@ -12,9 +12,10 @@
 /// </summary>
 public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 {
-    internal  FTBXPRMSelfServiceRoleRequests           roleRequest;
-    internal  FTBXPRMSelfServiceRoleRequestNotes       roleRequestsNote;
-    internal  FTBXPRMTmpReferences                     tmpRoleReferences;
+    internal FTBXPRMSelfServiceRoleRequests     roleRequest;
+    internal FTBXPRMSelfServiceRoleRequestNotes roleRequestsNote;
+    internal FTBXPRMTmpReferences               tmpRoleReferences;  
+
 
 }
 ]]></Declaration>

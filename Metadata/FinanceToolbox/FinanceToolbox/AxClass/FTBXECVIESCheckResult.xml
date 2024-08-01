@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESCheckResult</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+internal final class FTBXECVIESCheckResult
+{
+    //Key fields
+    private System.String    isoCode;
+    private System.String    vatNum;
+
+    //VAT fields
+    private VATNum      vatNumTested;
+
+    //Entity name and addressing
+    private Name        entityName;
+    private Addressing  entityAddressing;
+
+    //Database validity information
+    private boolean     isvalid;
+    private boolean     hasError;
+    private str         errorMessage;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    protected void new(
+        LogisticsAddressCountryRegionISOCode    _isoCode,
+        VATNum                                  _vatNum)
+    {
+        isoCode         = _isoCode;
+        vatNum          = _vatNum;
+        vatNumTested    = strKeep(vatNum, '0123456789');
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static FTBXECVIESCheckResult construct(
+        LogisticsAddressCountryRegionISOCode    _isoCode,
+        VATNum                                  _vatNum)
+    {
+        return new FTBXECVIESCheckResult(
+            _isoCode,
+            _vatNum);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setResultValues</Name>
+				<Source><![CDATA[
+    public void setResultValues(
+        Name        _entityName,
+        Addressing  _entityAddressing,
+        boolean     _isValid,
+        boolean     _hasError,
+        str         _errorMessage)
+    {
+        entityName          = _entityName;
+        entityAddressing    = _entityAddressing;
+        isvalid             = _isValid;
+        hasError            = _hasError;
+        errorMessage        = _errorMessage;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>isoCode</Name>
+				<Source><![CDATA[
+    public System.String isoCode()
+    {
+        return isoCode;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>vatNum</Name>
+				<Source><![CDATA[
+    public System.String vatNum()
+    {
+        return vatNum;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>vatNumTested</Name>
+				<Source><![CDATA[
+    public VATNum vatNumTested()
+    {
+        return vatNumTested;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>entityName</Name>
+				<Source><![CDATA[
+    public Name entityName()
+    {
+        return entityName;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>entityAddressing</Name>
+				<Source><![CDATA[
+    public Addressing entityAddressing()
+    {
+        return entityAddressing;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>isValid</Name>
+				<Source><![CDATA[
+    public boolean isValid()
+    {
+        return isvalid;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>hasError</Name>
+				<Source><![CDATA[
+    public boolean hasError()
+    {
+        return hasError;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>errorMessage</Name>
+				<Source><![CDATA[
+    public str errorMessage()
+    {
+        return errorMessage;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getHashCode</Name>
+				<Source><![CDATA[
+    public int getHashCode()
+    {
+        return isoCode.GetHashCode() ^ vatNum.GetHashCode();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>Equals</Name>
+				<Source><![CDATA[
+    public boolean Equals(System.Object _obj)
+    {
+        FTBXECVIESCheckResult result = _obj;
+
+        return isoCode == result.isoCode()
+            && vatNum  == result.vatNum();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

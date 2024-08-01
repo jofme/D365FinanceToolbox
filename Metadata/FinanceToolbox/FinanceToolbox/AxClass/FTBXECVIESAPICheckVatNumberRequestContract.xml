@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESAPICheckVatNumberRequestContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[DataContract]
+internal class FTBXECVIESAPICheckVatNumberRequestContract
+{
+    str countryCode;
+    str vatNumber;
+    str requesterMemberStateCode;
+    str requesterNumber;
+    str traderName;
+    str traderStreet;
+    str traderPostalCode;
+    str traderCity;
+    str traderCompanyType;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static FTBXECVIESAPICheckVatNumberRequestContract construct()
+    {
+        return new FTBXECVIESAPICheckVatNumberRequestContract();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmCountryCode</Name>
+				<Source><![CDATA[
+    [DataMember('countryCode')]
+    public str parmCountryCode(str _countryCode = countryCode)
+    {
+        countryCode = _countryCode;
+        return countryCode;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmVatNumber</Name>
+				<Source><![CDATA[
+    [DataMember('vatNumber')]
+    public str parmVatNumber(str _vatNumber = vatNumber)
+    {
+        vatNumber = _vatNumber;
+        return vatNumber;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmRequesterMemberStateCode</Name>
+				<Source><![CDATA[
+    [DataMember('requesterMemberStateCode')]
+    public str parmRequesterMemberStateCode(str _requesterMemberStateCode = requesterMemberStateCode)
+    {
+        requesterMemberStateCode = _requesterMemberStateCode;
+        return requesterMemberStateCode;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmRequesterNumber</Name>
+				<Source><![CDATA[
+    [DataMember('requesterNumber')]
+    public str parmRequesterNumber(str _requesterNumber = requesterNumber)
+    {
+        requesterNumber = _requesterNumber;
+        return requesterNumber;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderName</Name>
+				<Source><![CDATA[
+    [DataMember('traderName')]
+    public str parmTraderName(str _traderName = traderName)
+    {
+        traderName = _traderName;
+        return traderName;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderStreet</Name>
+				<Source><![CDATA[
+    [DataMember('traderStreet')]
+    public str parmTraderStreet(str _traderStreet = traderStreet)
+    {
+        traderStreet = _traderStreet;
+        return traderStreet;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderPostalCode</Name>
+				<Source><![CDATA[
+    [DataMember('traderPostalCode')]
+    public str parmTraderPostalCode(str _traderPostalCode = traderPostalCode)
+    {
+        traderPostalCode = _traderPostalCode;
+        return traderPostalCode;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderCity</Name>
+				<Source><![CDATA[
+    [DataMember('traderCity')]
+    public str parmTraderCity(str _traderCity = traderCity)
+    {
+        traderCity = _traderCity;
+        return traderCity;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTraderCompanyType</Name>
+				<Source><![CDATA[
+    [DataMember('traderCompanyType')]
+    public str parmTraderCompanyType(str _traderCompanyType = traderCompanyType)
+    {
+        traderCompanyType = _traderCompanyType;
+        return traderCompanyType;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setCountryCode</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Sets the 'countryCode' on the contract
+    /// </summary>
+    /// <param name="_countryCode">countryCode</param>
+    /// <returns>This</returns>
+    public FTBXECVIESAPICheckVatNumberRequestContract setCountryCode(str _countryCode = countryCode)
+    {
+        countryCode = _countryCode;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setVatNumber</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Sets the 'vatNumber' on the contract
+    /// </summary>
+    /// <param name="_vatNumber">vatNumber</param>
+    /// <returns>This</returns>
+    public FTBXECVIESAPICheckVatNumberRequestContract setVatNumber(str _vatNumber = vatNumber)
+    {
+        vatNumber = _vatNumber;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setRequesterMemberStateCode</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Sets the 'requesterMemberStateCode' on the contract
+    /// </summary>
+    /// <param name="_requesterMemberStateCode">requesterMemberStateCode</param>
+    /// <returns>This</returns>
+    public FTBXECVIESAPICheckVatNumberRequestContract setRequesterMemberStateCode(str _requesterMemberStateCode = requesterMemberStateCode)
+    {
+        requesterMemberStateCode = _requesterMemberStateCode;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setRequesterNumber</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Sets the 'requesterNumber' on the contract
+    /// </summary>
+    /// <param name="_requesterNumber">requesterNumber</param>
+    /// <returns>This</returns>
+    public FTBXECVIESAPICheckVatNumberRequestContract setRequesterNumber(str _requesterNumber = requesterNumber)
+    {
+        requesterNumber = _requesterNumber;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setTraderName</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Sets the 'traderName' on the contract
+    /// </summary>
+    /// <param name="_traderName">traderName</param>
+    /// <returns>This</returns>
+    public FTBXECVIESAPICheckVatNumberRequestContract setTraderName(str _traderName = traderName)
+    {
+        traderName = _traderName;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setTraderStreet</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Sets the 'traderStreet' on the contract
+    /// </summary>
+    /// <param name="_traderStreet">traderStreet</param>
+    /// <returns>This</returns>
+    public FTBXECVIESAPICheckVatNumberRequestContract setTraderStreet(str _traderStreet = traderStreet)
+    {
+        traderStreet = _traderStreet;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setTraderPostalCode</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Sets the 'traderPostalCode' on the contract
+    /// </summary>
+    /// <param name="_traderPostalCode">traderPostalCode</param>
+    /// <returns>This</returns>
+    public FTBXECVIESAPICheckVatNumberRequestContract setTraderPostalCode(str _traderPostalCode = traderPostalCode)
+    {
+        traderPostalCode = _traderPostalCode;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setTraderCity</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Sets the 'traderCity' on the contract
+    /// </summary>
+    /// <param name="_traderCity">traderCity</param>
+    /// <returns>This</returns>
+    public FTBXECVIESAPICheckVatNumberRequestContract setTraderCity(str _traderCity = traderCity)
+    {
+        traderCity = _traderCity;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setTraderCompanyType</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Sets the 'traderCompanyType' on the contract
+    /// </summary>
+    /// <param name="_traderCompanyType">traderCompanyType</param>
+    /// <returns>This</returns>
+    public FTBXECVIESAPICheckVatNumberRequestContract setTraderCompanyType(str _traderCompanyType = traderCompanyType)
+    {
+        traderCompanyType = _traderCompanyType;
+        return this;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

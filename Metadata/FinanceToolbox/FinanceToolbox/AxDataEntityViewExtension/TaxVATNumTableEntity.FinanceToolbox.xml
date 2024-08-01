@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxDataEntityViewExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>TaxVATNumTableEntity.FinanceToolbox</Name>
+	<DataSources />
+	<FieldGroupExtensions />
+	<FieldGroups>
+		<AxTableFieldGroup>
+			<Name>FTBXECVIESStatus</Name>
+			<Label>@FinanceToolbox:ECVIESVATNumberStatusLabel</Label>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>FTBXECVIESVatNumberStatusDate</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FTBXECVIESVATNumberStatus</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+	</FieldGroups>
+	<FieldModifications />
+	<Fields>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>FTBXECVIESVATNumberStatus</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<DataField>FTBXECVIESVATNumberStatus</DataField>
+			<DataSource>TaxVATNumTable</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>FTBXECVIESVatNumberStatusDate</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<DataField>FTBXECVIESVatNumberStatusDate</DataField>
+			<DataSource>TaxVATNumTable</DataSource>
+		</AxDataEntityViewField>
+	</Fields>
+	<Mappings />
+	<PropertyModifications />
+	<Relations />
+</AxDataEntityViewExtension>

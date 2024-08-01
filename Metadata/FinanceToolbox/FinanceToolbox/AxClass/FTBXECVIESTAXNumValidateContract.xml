@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESTAXNumValidateContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[DataContract]
+internal final class FTBXECVIESTAXNumValidateContract implements SysOperationInitializable
+{
+    private str		packedTaxVatNumQuery;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>initialize</Name>
+				<Source><![CDATA[
+    public void initialize()
+    {
+        this.setQuery(this.newQuery());
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>newQuery</Name>
+				<Source><![CDATA[
+    private Query newQuery()
+    {
+        return new Query(queryStr(FTBXECVIESVATNumberQuery));
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getQuery</Name>
+				<Source><![CDATA[
+    public Query getQuery()
+    {
+        Query ret;
+
+        if (packedTaxVatNumQuery)
+        {
+            ret = new Query(SysOperationHelper::base64Decode(packedTaxVatNumQuery));
+        }
+
+        if (!ret)
+        {
+            ret = this.newQuery();
+        }
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setQuery</Name>
+				<Source><![CDATA[
+    public void setQuery(Query _query)
+    {
+        packedTaxVatNumQuery = SysOperationHelper::base64Encode(_query.pack());
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmPackedReleaseQuery</Name>
+				<Source><![CDATA[
+    [
+        DataMemberAttribute,
+        AifQueryTypeAttribute('_packedTaxVatNumQuery', queryStr(FTBXECVIESVATNumberQuery))
+    ]
+    public str parmPackedReleaseQuery(str _packedTaxVatNumQuery = packedTaxVatNumQuery)
+    {
+        packedTaxVatNumQuery = _packedTaxVatNumQuery;
+
+        return packedTaxVatNumQuery;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

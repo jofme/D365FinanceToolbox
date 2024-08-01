@@ -6,6 +6,10 @@
 			<Name>FTBXPrivilegedRoleManagement</Name>
 			<Label>@FinanceToolbox:NumSeqPrivilegedRoleManagement</Label>
 		</AxEnumValue>
+		<AxEnumValue>
+			<Name>FTBXTax</Name>
+			<Label>@FinanceToolbox:NumSeqTax</Label>
+		</AxEnumValue>
 	</EnumValues>
 	<PropertyModifications />
 	<ValueModifications />

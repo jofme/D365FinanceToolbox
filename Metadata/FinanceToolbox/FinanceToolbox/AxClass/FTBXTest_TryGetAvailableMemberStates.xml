@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXTest_TryGetAvailableMemberStates</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.HttpStatusCode;
+
+internal final class FTBXTest_TryGetAvailableMemberStates
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Class entry point. The system will call this method when a designated menu 
+    /// is selected or when execution starts and this class is set as the startup class.
+    /// </summary>
+    /// <param name = "_args">The specified arguments.</param>
+    public static void main(Args _args)
+    {
+        new FTBXTest_TryGetAvailableMemberStates().callInterface();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>callInterface</Name>
+				<Source><![CDATA[
+    public void callInterface()
+    {
+        FTBXECVIESInterfaceBase viesInterface = FTBXECVIESInterfaceBase::construct();
+
+        viesInterface.validationResultUpdated += eventhandler(this.writeMessage);
+        
+        viesInterface.addCountry('DK', '25790936');
+        viesInterface.addCountry('DK', '28498233');
+        viesInterface.addCountry('DK', '13612870');
+        viesInterface.invokeValidation();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>writeMessage</Name>
+				<Source><![CDATA[
+    public void writeMessage(FTBXECVIESCheckResult _result)
+    {
+        Info(_result.entityName());
+        Info(_result.entityAddressing());
+        Info(strFmt("Is valid: %1", _result.isValid()));
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESAPIMemberCountryStatusContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// This data contract represents the response of the "check-status" API call
+/// It will contain the status and validity of member states
+/// </summary>
+[DataContract]
+internal class FTBXECVIESAPIMemberCountryStatusContract
+{
+    List countries;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    public void new()
+    {
+        countries = new List(Types::Class);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmCountries</Name>
+				<Source><![CDATA[
+    [DataMember("countries"), DataCollection(Types::Class, classStr(FTBXECVIESAPICountryContract))]
+    public List parmCountries(List _countries = countries)
+    {
+        countries = _countries;
+        return countries;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

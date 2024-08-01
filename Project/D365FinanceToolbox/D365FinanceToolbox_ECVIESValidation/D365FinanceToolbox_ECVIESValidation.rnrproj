@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>FinanceToolbox</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <RunAppCheckerRules>False</RunAppCheckerRules>
+    <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
+    <DeployOnline>False</DeployOnline>
+    <ProjectGuid>{74df9fbb-329f-44fd-975c-da5f81a81791}</ProjectGuid>
+    <Name>D365FinanceToolbox_ECVIESValidation</Name>
+    <RootNamespace>D365FinanceToolbox_ECVIESValidation</RootNamespace>
+    <StartupType>Form</StartupType>
+    <StartupObject>FTBXECVIESParameters</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>
+    </Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="AxClass\FTBXECVIESAPICheckVatNumberRequestContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPICheckVatNumberRequestContract</Name>
+      <Link>Classes\EC VIES API contracts\FTBXECVIESAPICheckVatNumberRequestContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESAPICheckVatNumberResponseContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPICheckVatNumberResponseContract</Name>
+      <Link>Classes\EC VIES API contracts\FTBXECVIESAPICheckVatNumberResponseContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESAPIConstants">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPIConstants</Name>
+      <Link>Classes\EC VIES API contracts\FTBXECVIESAPIConstants</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESAPICountryContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPICountryContract</Name>
+      <Link>Classes\EC VIES API contracts\FTBXECVIESAPICountryContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESAPIErrorResponsesContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPIErrorResponsesContract</Name>
+      <Link>Classes\EC VIES API contracts\FTBXECVIESAPIErrorResponsesContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESAPIErrorWrapperContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPIErrorWrapperContract</Name>
+      <Link>Classes\EC VIES API contracts\FTBXECVIESAPIErrorWrapperContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESAPIMemberCountryStatusContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPIMemberCountryStatusContract</Name>
+      <Link>Classes\EC VIES API contracts\FTBXECVIESAPIMemberCountryStatusContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESCheckResult">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESCheckResult</Name>
+      <Link>Classes\FTBXECVIESCheckResult</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESInterfaceBase">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESInterfaceBase</Name>
+      <Link>Classes\FTBXECVIESInterfaceBase</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESInterfaceSingle">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESInterfaceSingle</Name>
+      <Link>Classes\FTBXECVIESInterfaceSingle</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESTAXNumValidateContract">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESTAXNumValidateContract</Name>
+      <Link>Classes\FTBXECVIESTAXNumValidateContract</Link>
+    </Content>
+    <Content Include="AxClass\FTBXECVIESTAXNumValidateService">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESTAXNumValidateService</Name>
+      <Link>Classes\FTBXECVIESTAXNumValidateService</Link>
+    </Content>
+    <Content Include="AxClass\FTBXNumberSeqModulePrivilegedRoleManagementCopy">
+      <SubType>Content</SubType>
+      <Name>FTBXNumberSeqModulePrivilegedRoleManagementCopy</Name>
+      <Link>FTBXNumberSeqModulePrivilegedRoleManagementCopy</Link>
+    </Content>
+    <Content Include="AxClass\FTBXNumberSeqModuleTax">
+      <SubType>Content</SubType>
+      <Name>FTBXNumberSeqModuleTax</Name>
+      <Link>Classes\FTBXNumberSeqModuleTax</Link>
+    </Content>
+    <Content Include="AxClass\FTBXTest_CreateVIESData">
+      <SubType>Content</SubType>
+      <Name>FTBXTest_CreateVIESData</Name>
+      <Link>Classes\Test classes\FTBXTest_CreateVIESData</Link>
+    </Content>
+    <Content Include="AxClass\FTBXTest_TryGetAvailableMemberStates">
+      <SubType>Content</SubType>
+      <Name>FTBXTest_TryGetAvailableMemberStates</Name>
+      <Link>Classes\Test classes\FTBXTest_TryGetAvailableMemberStates</Link>
+    </Content>
+    <Content Include="AxDataEntityViewExtension\TaxVATNumTableEntity.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>TaxVATNumTableEntity.FinanceToolbox</Name>
+      <Link>Data Entity Extensions\TaxVATNumTableEntity.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxEdt\FTBXECVIESVatNumberCheckId">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVatNumberCheckId</Name>
+      <Link>EDT Strings\FTBXECVIESVatNumberCheckId</Link>
+    </Content>
+    <Content Include="AxEdt\FTBXECVIESVatNumberStatusDate">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVatNumberStatusDate</Name>
+      <Link>EDT Utc Date Times\FTBXECVIESVatNumberStatusDate</Link>
+    </Content>
+    <Content Include="AxEnumExtension\NumberSeqModule.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>NumberSeqModule.FinanceToolbox</Name>
+      <Link>Base Enum Extensions\NumberSeqModule.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxEnum\FTBXECVIESAPICountryStatus">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPICountryStatus</Name>
+      <Link>Base Enums\FTBXECVIESAPICountryStatus</Link>
+    </Content>
+    <Content Include="AxEnum\FTBXECVIESAPIMatchStatus">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPIMatchStatus</Name>
+      <Link>Base Enums\FTBXECVIESAPIMatchStatus</Link>
+    </Content>
+    <Content Include="AxEnum\FTBXECVIESVATNumberStatus">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberStatus</Name>
+      <Link>Base Enums\FTBXECVIESVATNumberStatus</Link>
+    </Content>
+    <Content Include="AxForm\FTBXECVIESParameters">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESParameters</Name>
+      <Link>Forms\FTBXECVIESParameters</Link>
+    </Content>
+    <Content Include="AxForm\FTBXECVIESVATNumberCheckTable">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberCheckTable</Name>
+      <Link>Forms\FTBXECVIESVATNumberCheckTable</Link>
+    </Content>
+    <Content Include="AxLabelFile\FinanceToolbox_en-US">
+      <SubType>Content</SubType>
+      <Name>FinanceToolbox_en-US</Name>
+      <Link>Label Files\FinanceToolbox_en-US</Link>
+    </Content>
+    <Content Include="AxMenuExtension\Tax.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>Tax.FinanceToolbox</Name>
+      <Link>Menu Extensions\Tax.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\FTBXECVIESTAXNumValidateService">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESTAXNumValidateService</Name>
+      <Link>Action Menu Items\FTBXECVIESTAXNumValidateService</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\FTBXECVIESParameters">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESParameters</Name>
+      <Link>Display Menu Items\FTBXECVIESParameters</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\FTBXECVIESVATNumberCheckTable">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberCheckTable</Name>
+      <Link>Display Menu Items\FTBXECVIESVATNumberCheckTable</Link>
+    </Content>
+    <Content Include="AxQuery\FTBXECVIESVATNumberQuery">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberQuery</Name>
+      <Link>Simple Queries\FTBXECVIESVATNumberQuery</Link>
+    </Content>
+    <Content Include="AxTableExtension\TaxVATNumTable.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>TaxVATNumTable.FinanceToolbox</Name>
+      <Link>Table Extensions\TaxVATNumTable.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxTableExtension\TaxVATNumTableStaging.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>TaxVATNumTableStaging.FinanceToolbox</Name>
+      <Link>Table Extensions\TaxVATNumTableStaging.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxTable\FTBXECVIESAvailableMemberStates">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAvailableMemberStates</Name>
+      <Link>Tables\FTBXECVIESAvailableMemberStates</Link>
+    </Content>
+    <Content Include="AxTable\FTBXECVIESParameters">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESParameters</Name>
+      <Link>Tables\FTBXECVIESParameters</Link>
+    </Content>
+    <Content Include="AxTable\FTBXECVIESVATNumberCheckResults">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberCheckResults</Name>
+      <Link>Tables\FTBXECVIESVATNumberCheckResults</Link>
+    </Content>
+    <Content Include="AxTable\FTBXECVIESVATNumberCheckTable">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberCheckTable</Name>
+      <Link>Tables\FTBXECVIESVATNumberCheckTable</Link>
+    </Content>
+    <Content Include="FinanceToolbox.en-US.label.txt">
+      <SubType>Content</SubType>
+      <Name>FinanceToolbox.en-US.label.txt</Name>
+      <DependentUpon>AxLabelFile\FinanceToolbox_en-US</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Action Menu Items\" />
+    <Folder Include="Base Enum Extensions\" />
+    <Folder Include="Base Enums\" />
+    <Folder Include="Classes" />
+    <Folder Include="Classes\EC VIES API contracts" />
+    <Folder Include="Classes\Test classes" />
+    <Folder Include="Data Entity Extensions\" />
+    <Folder Include="Display Menu Items\" />
+    <Folder Include="EDT Strings\" />
+    <Folder Include="EDT Utc Date Times\" />
+    <Folder Include="Forms\" />
+    <Folder Include="Label Files\" />
+    <Folder Include="Menu Extensions\" />
+    <Folder Include="Simple Queries\" />
+    <Folder Include="Table Extensions\" />
+    <Folder Include="Tables\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.17.0.targets" />
+</Project>

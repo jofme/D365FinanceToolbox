@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESInterfaceSingle</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+using System.Net.Http;
+using System.Net.Http.Headers;
+
+internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>invokeValidation</Name>
+				<Source><![CDATA[
+    public void invokeValidation()
+    {
+        
+        SetEnumerator enumerator = vatValidationResults.getEnumerator();
+
+        while (enumerator.moveNext())
+        {
+            boolean responseReceived;
+            FTBXECVIESCheckResult checkResult = enumerator.current();
+
+            if (checkResult.isoCode()
+                && checkResult.vatNum()
+                && FTBXECVIESAvailableMemberStates::isMemberStateAvailable(checkResult.isoCode()))
+            {
+                var httpRequestMessage  = new HttpRequestMessage(
+                    new HttpMethod('post'), 
+                    parameters.VIESAPIURLVatCheck);
+
+                httpRequestMessage.Content = new StringContent(
+                    FormJsonSerializer::serializeClass(
+                        FTBXECVIESAPICheckVatNumberRequestContract::construct()
+                        .setCountryCode(checkResult.isoCode())
+                        .setVatNumber(checkResult.vatNumTested())),
+                    System.Text.Encoding::UTF8,
+                    'application/json');
+
+                var responseMessage = httpClient.SendAsync(httpRequestMessage)
+                        .ConfigureAwait(false)
+                        .GetAwaiter()
+                        .GetResult();
+
+                if (responseMessage)
+                {
+                    if (responseMessage.StatusCode == System.Net.HttpStatusCode::OK
+                        && responseMessage.Content)
+                    {
+                        FTBXECVIESAPICheckVatNumberResponseContract statusContract =
+                            FormJsonSerializer::deserializeObjectStrict(
+                            classNum(FTBXECVIESAPICheckVatNumberResponseContract),
+                            responseMessage.Content.ReadAsStringAsync()
+                                .ConfigureAwait(false)
+                                .GetAwaiter()
+                                .GetResult());
+
+                        if (statusContract)
+                        {
+                            checkResult.setResultValues(
+                                statusContract.parmName(),
+                                statusContract.parmAddress(),
+                                statusContract.parmValid(),
+                                false,
+                                '');
+
+                            this.validationResultUpdated(checkResult);
+                            responseReceived = true;
+                        }
+                    }
+                    else
+                    {
+                        //TODO: Parse error message
+
+                        checkResult.setResultValues(
+                            '',
+                            '',
+                            false,
+                            true,
+                            strFmt("Webservice returned an error %1", responseMessage.StatusCode.ToString()));
+
+                        this.validationResultUpdated(checkResult);
+                        responseReceived = true;
+                    }
+                }
+            }
+            
+            if (!responseReceived)
+            {
+                checkResult.setResultValues(
+                    '',
+                    '',
+                    false,
+                    true,
+                    "Webservice did not return a valid response");
+
+                this.validationResultUpdated(checkResult);
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
