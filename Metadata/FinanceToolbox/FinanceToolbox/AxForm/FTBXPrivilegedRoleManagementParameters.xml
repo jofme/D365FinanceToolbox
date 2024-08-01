@@ -51,7 +51,7 @@ public class FTBXPrivilegedRoleManagementParameters extends FormRun
     {
         runExecuteDirect = false;
         numberSequenceModules = [NumberSeqModule::FTBXPrivilegedRoleManagement];
-        numberSeqApplicationModule = new NumberSeqModuleBudget();
+        numberSeqApplicationModule = new FTBXNumberSeqModulePrivilegedRoleManagement();
         scope = NumberSeqScopeFactory::createGlobalScope();
         NumberSeqApplicationModule::createReferencesMulti(numberSequenceModules, scope);
         tmpIdRef.setTmpData(NumberSequenceReference::configurationKeyTableMulti(numberSequenceModules));

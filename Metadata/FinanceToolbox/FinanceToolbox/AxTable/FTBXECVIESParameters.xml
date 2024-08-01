@@ -49,6 +49,7 @@ public class FTBXECVIESParameters extends common
 
         if (!parameter && !parameter.isTmp())
         {
+            new FTBXNumberSeqModuleTax().load();
             Company::createParameter(parameter);
         }
 
@@ -66,6 +67,16 @@ public class FTBXECVIESParameters extends common
 
         this.VIESAPIURLStatus   = FTBXECVIESAPIConstants::VIESAPIURLStatusDefault;
         this.VIESAPIURLVatCheck = FTBXECVIESAPIConstants::VIESAPIURLVatCheck;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>numRefFTBXECVIESVatNumberCheckId</Name>
+				<Source><![CDATA[
+    public static NumberSequenceReference numRefFTBXECVIESVatNumberCheckId()
+    {
+        return NumberSeqReference::findReference(extendedTypeNum(FTBXECVIESVatNumberCheckId));
     }
 
 ]]></Source>

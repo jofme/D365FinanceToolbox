@@ -9,6 +9,9 @@ internal final class FTBXECVIESCheckResult
     private System.String    isoCode;
     private System.String    vatNum;
 
+    //VAT fields
+    private VATNum      vatNumTested;
+
     //Entity name and addressing
     private Name        entityName;
     private Addressing  entityAddressing;
@@ -28,8 +31,9 @@ internal final class FTBXECVIESCheckResult
         LogisticsAddressCountryRegionISOCode    _isoCode,
         VATNum                                  _vatNum)
     {
-        isoCode   = _isoCode;
-        vatNum    = _vatNum;
+        isoCode         = _isoCode;
+        vatNum          = _vatNum;
+        vatNumTested    = strKeep(vatNum, '0123456789');
     }
 
 ]]></Source>
@@ -83,6 +87,16 @@ internal final class FTBXECVIESCheckResult
     public System.String vatNum()
     {
         return vatNum;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>vatNumTested</Name>
+				<Source><![CDATA[
+    public VATNum vatNumTested()
+    {
+        return vatNumTested;
     }
 
 ]]></Source>

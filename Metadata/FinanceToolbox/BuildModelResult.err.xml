@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Diagnostics
+  GenerationTime="2024-07-25T12:45:22.144459+00:00">
+  <Items>
+    <Diagnostic>
+      <DiagnosticType>Metadata</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>AxForm/FTBXECVIESVATNumberCheckTable/Design/Controls/PanelTab/Controls/DetailsTabPage/Controls/DetailsTab/Controls/ResultsTabPage/Controls/FTBXECVIESVATNumberCheckResults/Controls/FTBXECVIESVATNumberCheckResults_VATNum/DataField</Path>
+      <Moniker>DataSourceFieldDoesNotExist</Moniker>
+      <Message>Field 'VATNum' does not exist on data source 'FTBXECVIESVATNumberCheckResults'.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Class/FTBXECVIESTAXNumValidateService/Method/addResult</Path>
+      <ElementType>Class Method</ElementType>
+      <Moniker>TableDoesNotContainField</Moniker>
+      <Line>54</Line>
+      <Column>9</Column>
+      <EndLine>54</EndLine>
+      <EndColumn>33</EndColumn>
+      <Message>Table 'FTBXECVIESVATNumberCheckResults' does not contain a field named 'VATNum'.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Fatal</Severity>
+      <Path></Path>
+      <Moniker>UnableToRestoreFile</Moniker>
+      <Message>Unable to restore the file 'C:\AOSService\PackagesLocalDirectory\FinanceToolbox\bin\Dynamics.AX.FinanceToolbox.Forms.FTBXPrivilegedRoleManagementParameters.pdb' to its original state before compilation. A full build of the 'FinanceToolbox' module may be necessary to restore functionality. The error message given was: Could not find file 'C:\AOSService\PackagesLocalDirectory\FinanceToolbox\bin\Dynamics.AX.FinanceToolbox.Forms.FTBXPrivilegedRoleManagementParameters.pdbatfnfj53.klh.delete'.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Fatal</Severity>
+      <Path></Path>
+      <Moniker>UnableToRestoreFile</Moniker>
+      <Message>Unable to restore the file 'C:\AOSService\PackagesLocalDirectory\FinanceToolbox\bin\Dynamics.AX.FinanceToolbox.Forms.FTBXPRMSelfServiceRoleRequestsOverview.pdb' to its original state before compilation. A full build of the 'FinanceToolbox' module may be necessary to restore functionality. The error message given was: Could not find file 'C:\AOSService\PackagesLocalDirectory\FinanceToolbox\bin\Dynamics.AX.FinanceToolbox.Forms.FTBXPRMSelfServiceRoleRequestsOverview.pdbjqcji35l.vlb.delete'.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Fatal</Severity>
+      <Path></Path>
+      <Moniker>UnableToRestoreFile</Moniker>
+      <Message>Unable to restore the file 'C:\AOSService\PackagesLocalDirectory\FinanceToolbox\bin\Dynamics.AX.FinanceToolbox.Forms.FTBXPRMCreateSelfServiceRoleRequests.pdb' to its original state before compilation. A full build of the 'FinanceToolbox' module may be necessary to restore functionality. The error message given was: Could not find file 'C:\AOSService\PackagesLocalDirectory\FinanceToolbox\bin\Dynamics.AX.FinanceToolbox.Forms.FTBXPRMCreateSelfServiceRoleRequests.pdbkp2mwoqr.qj5.delete'.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Fatal</Severity>
+      <Path></Path>
+      <Moniker>UnableToRestoreFile</Moniker>
+      <Message>Unable to restore the file 'C:\AOSService\PackagesLocalDirectory\FinanceToolbox\bin\Dynamics.AX.FinanceToolbox.Forms.FTBXPRMSelfServiceRoleRequests.pdb' to its original state before compilation. A full build of the 'FinanceToolbox' module may be necessary to restore functionality. The error message given was: Could not find file 'C:\AOSService\PackagesLocalDirectory\FinanceToolbox\bin\Dynamics.AX.FinanceToolbox.Forms.FTBXPRMSelfServiceRoleRequests.pdbkrrh0d2l.ace.delete'.</Message>
+    </Diagnostic>
+  </Items>
+  <Aliases />
+</Diagnostics>
