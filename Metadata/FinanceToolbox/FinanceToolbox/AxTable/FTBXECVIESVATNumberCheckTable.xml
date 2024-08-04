@@ -19,6 +19,7 @@ public class FTBXECVIESVATNumberCheckTable extends common
 	<TitleField1>CheckId</TitleField1>
 	<TitleField2>CountTotal</TitleField2>
 	<AllowRowVersionChangeTracking>Yes</AllowRowVersionChangeTracking>
+	<CacheLookup>Found</CacheLookup>
 	<ClusteredIndex>IdIdx</ClusteredIndex>
 	<CreatedBy>Yes</CreatedBy>
 	<CreatedDateTime>Yes</CreatedDateTime>
@@ -27,11 +28,43 @@ public class FTBXECVIESVATNumberCheckTable extends common
 	<FieldGroups>
 		<AxTableFieldGroup>
 			<Name>AutoReport</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>CountError</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CheckId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountTotal</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountValid</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountInvalid</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoLookup</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>CheckId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountTotal</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountValid</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountInvalid</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountError</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoIdentification</Name>
@@ -44,11 +77,43 @@ public class FTBXECVIESVATNumberCheckTable extends common
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoSummary</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>CheckId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountTotal</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountValid</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountInvalid</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountError</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoBrowse</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>CheckId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountTotal</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountValid</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountInvalid</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountError</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>Counts</Name>

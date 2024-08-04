@@ -3,10 +3,13 @@
 	<Name>FTBXECVIESAPIConstants</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Constants used by the VIES interface
+/// </summary>
 internal final class FTBXECVIESAPIConstants
 {
-    public static const str VIESAPIURLVatCheck      = "https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number";
-    public static const str VIESAPIURLStatusDefault = "https://ec.europa.eu/taxation_customs/vies/rest-api/check-status";
+    public static const str VIESAPIURLVatCheck      = 'https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number';
+    public static const str VIESAPIURLStatusDefault = 'https://ec.europa.eu/taxation_customs/vies/rest-api/check-status';
     
 }
 ]]></Declaration>

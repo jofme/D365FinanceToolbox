@@ -21,16 +21,25 @@ public class FTBXECVIESAvailableMemberStates extends common
 			<Method>
 				<Name>find</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Finds the member state record based on ISO code
+    /// </summary>
+    /// <param name = "_isoCode">ISO code</param>
+    /// <param name = "_forUpdate">Select record for update</param>
+    /// <returns>The member state record for the specified ISO code</returns>
     public static FTBXECVIESAvailableMemberStates find(
-        LogisticsAddressCountryRegionISOCode _isoCode,
-        boolean _forUpdate = false)
+        LogisticsAddressCountryRegionISOCode    _isoCode,
+        boolean                                 _forUpdate = false)
     {
         FTBXECVIESAvailableMemberStates availableMemberStates;
 
-        availableMemberStates.selectForUpdate(_forUpdate);
+        if (_isoCode)
+        {
+            availableMemberStates.selectForUpdate(_forUpdate);
         
-        select firstonly availableMemberStates
-            where availableMemberStates.ISOCode == _isoCode;
+            select firstonly availableMemberStates
+                where availableMemberStates.ISOCode == _isoCode;
+        }
 
         return availableMemberStates;
     }
@@ -40,14 +49,17 @@ public class FTBXECVIESAvailableMemberStates extends common
 			<Method>
 				<Name>isMemberStateAvailable</Name>
 				<Source><![CDATA[
-    public static boolean isMemberStateAvailable(
-        LogisticsAddressCountryRegionISOCode _isoCode)
+    /// <summary>
+    /// Is the member state available for VIES validation 
+    /// </summary>
+    /// <param name = "_isoCode">ISO code of the member state</param>
+    /// <returns>True if the member state is available, otherwise false</returns>
+    public static boolean isMemberStateAvailable(LogisticsAddressCountryRegionISOCode _isoCode)
     {
         boolean ret;
 
         if (_isoCode)
         {
-
             FTBXECVIESAvailableMemberStates availableMemberStates;
 
             select firstonly EnableVIES, VIESCountryStatus from availableMemberStates
@@ -64,6 +76,8 @@ public class FTBXECVIESAvailableMemberStates extends common
 		</Methods>
 	</SourceCode>
 	<DeveloperDocumentation>@FinanceToolbox:ECVIESAvailableMemberStatesDevDoc</DeveloperDocumentation>
+	<FormRef>FTBXECVIESParameters</FormRef>
+	<Label>@FinanceToolbox:ECMemberStates</Label>
 	<SubscriberAccessLevel>
 		<Read>Allow</Read>
 	</SubscriberAccessLevel>
@@ -77,6 +91,7 @@ public class FTBXECVIESAvailableMemberStates extends common
 	<CreatedDateTime>Yes</CreatedDateTime>
 	<ModifiedBy>Yes</ModifiedBy>
 	<ModifiedDateTime>Yes</ModifiedDateTime>
+	<ReplacementKey>ISOCodeIdx</ReplacementKey>
 	<DeleteActions />
 	<FieldGroups>
 		<AxTableFieldGroup>
@@ -110,7 +125,11 @@ public class FTBXECVIESAvailableMemberStates extends common
 		<AxTableFieldGroup>
 			<Name>AutoIdentification</Name>
 			<AutoPopulate>Yes</AutoPopulate>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>ISOCode</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoSummary</Name>
@@ -142,6 +161,7 @@ public class FTBXECVIESAvailableMemberStates extends common
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>Grid</Name>
+			<Label>@SYS26263</Label>
 			<Fields>
 				<AxTableFieldGroupField>
 					<DataField>ISOCode</DataField>

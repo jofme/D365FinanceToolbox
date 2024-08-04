@@ -6,6 +6,9 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 
+/// <summary>
+/// Implementation of VIES VAT number validation, that uses the direct validation API
+/// </summary>
 internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 {
 }
@@ -15,8 +18,7 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 				<Name>invokeValidation</Name>
 				<Source><![CDATA[
     public void invokeValidation()
-    {
-        
+    {        
         SetEnumerator enumerator = vatValidationResults.getEnumerator();
 
         while (enumerator.moveNext())
@@ -73,14 +75,12 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
                     }
                     else
                     {
-                        //TODO: Parse error message
-
                         checkResult.setResultValues(
                             '',
                             '',
                             false,
                             true,
-                            strFmt("Webservice returned an error %1", responseMessage.StatusCode.ToString()));
+                            strFmt("@FinanceToolbox:ECVIESGenericWebServiceErrorMessage", responseMessage.StatusCode.ToString()));
 
                         this.validationResultUpdated(checkResult);
                         responseReceived = true;
@@ -95,7 +95,7 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
                     '',
                     false,
                     true,
-                    "Webservice did not return a valid response");
+                    "@FinanceToolbox:ECVIESGenericWebServiceInvalidResponse");
 
                 this.validationResultUpdated(checkResult);
             }

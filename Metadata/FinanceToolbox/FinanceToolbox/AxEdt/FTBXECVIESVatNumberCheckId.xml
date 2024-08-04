@@ -4,9 +4,14 @@
 	<Name>FTBXECVIESVatNumberCheckId</Name>
 	<HelpText>@FinanceToolbox:ECVIESVATNumberCheckIdHelp</HelpText>
 	<Label>@FinanceToolbox:ECVIESVATNumberCheckIdLabel</Label>
-	<ReferenceTable>FTBXECVIESAvailableMemberStates</ReferenceTable>
+	<ReferenceTable>FTBXECVIESVATNumberCheckTable</ReferenceTable>
 	<ArrayElements />
 	<Relations />
-	<TableReferences />
+	<TableReferences>
+		<AxEdtTableReference>
+			<RelatedField>CheckId</RelatedField>
+			<Table>FTBXECVIESVATNumberCheckTable</Table>
+		</AxEdtTableReference>
+	</TableReferences>
 	<StringSize>20</StringSize>
 </AxEdt>

@@ -3,6 +3,9 @@
 	<Name>FTBXECVIESAPICheckVatNumberRequestContract</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Representation of JSON VAT number validation object sent to the VIES service
+/// </summary>
 [DataContract]
 internal class FTBXECVIESAPICheckVatNumberRequestContract
 {

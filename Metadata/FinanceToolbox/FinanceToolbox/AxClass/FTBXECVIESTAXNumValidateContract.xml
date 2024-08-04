@@ -3,6 +3,9 @@
 	<Name>FTBXECVIESTAXNumValidateContract</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Contract class for VIES VAT number validation service
+/// </summary>
 [DataContract]
 internal final class FTBXECVIESTAXNumValidateContract implements SysOperationInitializable
 {

@@ -3,6 +3,9 @@
 	<Name>FTBXECVIESAPIErrorResponsesContract</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Representation of JSON error object return from VIES service
+/// </summary>
 [DataContract]
 internal class FTBXECVIESAPIErrorResponsesContract
 {

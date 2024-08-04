@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXCustTable_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// CoC class for CustTable
+/// </summary>
+[ExtensionOf(tableStr(CustTable))]
+public final class FTBXCustTable_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>blocked</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// CoC method for the method blocked
+    /// Will check if the VAT number is valid, and if it should be blocked
+    /// </summary>
+    /// <param name = "_custAccount">Account number</param>
+    /// <returns>Blocking status</returns>
+    static CustVendorBlocked blocked(CustAccount _custAccount)
+    {        
+        var blocked = next Blocked(_custAccount);
+
+        FTBXECVIESParameters viesParameters = FTBXECVIESParameters::find();
+
+        if (blocked == CustVendorBlocked::No
+            && viesParameters.CustBlocked != CustVendorBlocked::No)
+        {
+            CustTable custTable = CustTable::find(_custAccount);
+
+            if (custTable.VATNum)
+            {
+                if (TaxVATNumTable::find(
+                    custTable.VATNum, 
+                    TaxVATNumTable::resolveCountryRegionFromTable(custTable)).FTBXECVIESVATNumberStatus == FTBXECVIESVATNumberStatus::Invalid)
+                {
+                    blocked = viesParameters.CustBlocked;
+                }
+            }
+        }
+
+        return blocked;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

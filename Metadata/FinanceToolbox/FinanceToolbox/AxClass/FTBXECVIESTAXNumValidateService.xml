@@ -3,6 +3,9 @@
 	<Name>FTBXECVIESTAXNumValidateService</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Service that validate VAT numberes against the European Commision's VIES service
+/// </summary>
 internal final class FTBXECVIESTAXNumValidateService
 {
     FTBXECVIESVATNumberCheckTable   vatNumCheckTable;
@@ -15,6 +18,10 @@ internal final class FTBXECVIESTAXNumValidateService
 			<Method>
 				<Name>doValidateTaxNumbers</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Perform validation of VAT numbers based on the query in the contract class
+    /// </summary>
+    /// <param name = "_contract">Contract class</param>
     public void doValidateTaxNumbers(FTBXECVIESTAXNumValidateContract _contract)
     {
         FTBXECVIESInterfaceBase         viesInterface = FTBXECVIESInterfaceBase::construct();
@@ -36,7 +43,7 @@ internal final class FTBXECVIESTAXNumValidateService
                 taxVatNumTable = queryRun.get(tableNum(TaxVATNumTable));
                 logisticsAddressCountryRegion = queryRun.get(tableNum(LogisticsAddressCountryRegion));
 
-                viesInterface.addCountry(logisticsAddressCountryRegion.ISOcode, taxVatNumTable.VATNum);
+                viesInterface.addCountryVATNumber(logisticsAddressCountryRegion.ISOcode, taxVatNumTable.VATNum);
             }
         }
 
@@ -46,6 +53,8 @@ internal final class FTBXECVIESTAXNumValidateService
 
             if (viesInterface.getResults().elements() > 0)
             {
+                FTBXECVIESVATNumberCheckResults checkResults;
+
                 this.initHeader();
                 viesInterface.invokeValidation();
 
@@ -53,6 +62,15 @@ internal final class FTBXECVIESTAXNumValidateService
             
                 vatNumCheckTable.insert();
                 numberSeq.used();
+
+                update_recordset taxVatNumTable
+                    setting FTBXECVIESVatNumberCheckId      = checkResults.CheckId, 
+                            FTBXECVIESVATNumberStatusDate   = checkResults.StatusDate, 
+                            FTBXECVIESVATNumberStatus       = checkResults.Status
+                    join checkResults
+                        where checkResults.CountryRegionId  == taxVatNumTable.CountryRegionId
+                        &&    checkResults.VATNumSystem     == taxVatNumTable.VATNum
+                        &&    checkResults.CheckId          == vatNumCheckTable.CheckId;
             }
 
             ttscommit;
@@ -138,7 +156,7 @@ internal final class FTBXECVIESTAXNumValidateService
 			<Method>
 				<Name>addResult</Name>
 				<Source><![CDATA[
-    public void addResult(FTBXECVIESCheckResult _result)
+    private void addResult(FTBXECVIESCheckResult _result)
     {
         vatNumCheckTable.CountTotal++;
 
@@ -168,7 +186,7 @@ internal final class FTBXECVIESTAXNumValidateService
             }
             else
             {
-                vatNumCheckResult.Status = FTBXECVIESVATNumberStatus::Valid;
+                vatNumCheckResult.Status = FTBXECVIESVATNumberStatus::Invalid;
                 vatNumCheckTable.CountInvalid++;
             }
         }
