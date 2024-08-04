@@ -28,7 +28,7 @@ public final class FTBXVendTable_Extension
         FTBXECVIESParameters viesParameters = FTBXECVIESParameters::find();
 
         if (blocked == CustVendorBlocked::No
-            && viesParameters.CustBlocked != CustVendorBlocked::No)
+            && viesParameters.VendBlocked != CustVendorBlocked::No)
         {
             VendTable vendTable = VendTable::find(_vendAccount);
 
@@ -38,7 +38,7 @@ public final class FTBXVendTable_Extension
                     vendTable.VATNum,
                     TaxVATNumTable::resolveCountryRegionFromTable(vendTable)).FTBXECVIESVATNumberStatus == FTBXECVIESVATNumberStatus::Invalid)
                 {
-                    blocked = viesParameters.CustBlocked;
+                    blocked = viesParameters.VendBlocked;
                 }
             }
         }
