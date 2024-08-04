@@ -3,6 +3,9 @@
 	<Name>FTBXECVIESCheckResult</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Representation of a VIES VAT number validation result
+/// </summary>
 internal final class FTBXECVIESCheckResult
 {
     //Key fields
@@ -55,6 +58,14 @@ internal final class FTBXECVIESCheckResult
 			<Method>
 				<Name>setResultValues</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the result values from the VIES interface implementation
+    /// </summary>
+    /// <param name = "_entityName">Company name</param>
+    /// <param name = "_entityAddressing">Company address</param>
+    /// <param name = "_isValid">Is the VAT number valid</param>
+    /// <param name = "_hasError">Did the VIES service return an error</param>
+    /// <param name = "_errorMessage">Error message from the VIES service</param>
     public void setResultValues(
         Name        _entityName,
         Addressing  _entityAddressing,
@@ -74,6 +85,10 @@ internal final class FTBXECVIESCheckResult
 			<Method>
 				<Name>isoCode</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Gets the 2-character ISO country code that was used for validation
+    /// </summary>
+    /// <returns>ISO country code</returns>
     public System.String isoCode()
     {
         return isoCode;
@@ -84,6 +99,10 @@ internal final class FTBXECVIESCheckResult
 			<Method>
 				<Name>vatNum</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Gets the VAT number used by the system
+    /// </summary>
+    /// <returns>System VAT number</returns>
     public System.String vatNum()
     {
         return vatNum;
@@ -94,6 +113,10 @@ internal final class FTBXECVIESCheckResult
 			<Method>
 				<Name>vatNumTested</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Gets the VAT number that was sent to VIES
+    /// </summary>
+    /// <returns>The tested VAT number</returns>
     public VATNum vatNumTested()
     {
         return vatNumTested;
@@ -104,6 +127,10 @@ internal final class FTBXECVIESCheckResult
 			<Method>
 				<Name>entityName</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Gets the company name from VIES
+    /// </summary>
+    /// <returns>VIES company name</returns>
     public Name entityName()
     {
         return entityName;
@@ -114,6 +141,10 @@ internal final class FTBXECVIESCheckResult
 			<Method>
 				<Name>entityAddressing</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Gets the company addressing from VIES
+    /// </summary>
+    /// <returns>VIES company addressing</returns>
     public Addressing entityAddressing()
     {
         return entityAddressing;
@@ -124,6 +155,10 @@ internal final class FTBXECVIESCheckResult
 			<Method>
 				<Name>isValid</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Is the VIES vat number valid
+    /// </summary>
+    /// <returns>True if the number is valid, otherwise false</returns>
     public boolean isValid()
     {
         return isvalid;
@@ -134,6 +169,10 @@ internal final class FTBXECVIESCheckResult
 			<Method>
 				<Name>hasError</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Did the VIES web service respond with an error?
+    /// </summary>
+    /// <returns>True if an error was received, otherwise false</returns>
     public boolean hasError()
     {
         return hasError;
@@ -144,6 +183,10 @@ internal final class FTBXECVIESCheckResult
 			<Method>
 				<Name>errorMessage</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Gets the error message from VIES
+    /// </summary>
+    /// <returns>The error message from VIES</returns>
     public str errorMessage()
     {
         return errorMessage;

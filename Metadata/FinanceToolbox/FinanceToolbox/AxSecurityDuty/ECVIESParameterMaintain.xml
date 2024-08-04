@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxSecurityDuty xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ECVIESParameterMaintain</Name>
+	<Description>@FinanceToolbox:ECVIESParameterMaintainDescription</Description>
+	<Label>@FinanceToolbox:ECVIESParameterMaintainLabel</Label>
+	<Privileges>
+		<AxSecurityPrivilegeReference>
+			<Name>FTBXECVIESTAXNumValidateServiceInvoke</Name>
+		</AxSecurityPrivilegeReference>
+		<AxSecurityPrivilegeReference>
+			<Name>ECVIESParameterMaintain</Name>
+		</AxSecurityPrivilegeReference>
+	</Privileges>
+</AxSecurityDuty>

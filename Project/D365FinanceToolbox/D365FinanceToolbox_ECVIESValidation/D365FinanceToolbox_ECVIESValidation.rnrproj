@@ -94,30 +94,20 @@
       <Name>FTBXECVIESTAXNumValidateService</Name>
       <Link>Classes\FTBXECVIESTAXNumValidateService</Link>
     </Content>
-    <Content Include="AxClass\FTBXNumberSeqModulePrivilegedRoleManagementCopy">
-      <SubType>Content</SubType>
-      <Name>FTBXNumberSeqModulePrivilegedRoleManagementCopy</Name>
-      <Link>FTBXNumberSeqModulePrivilegedRoleManagementCopy</Link>
-    </Content>
     <Content Include="AxClass\FTBXNumberSeqModuleTax">
       <SubType>Content</SubType>
       <Name>FTBXNumberSeqModuleTax</Name>
       <Link>Classes\FTBXNumberSeqModuleTax</Link>
     </Content>
-    <Content Include="AxClass\FTBXTest_CreateVIESData">
-      <SubType>Content</SubType>
-      <Name>FTBXTest_CreateVIESData</Name>
-      <Link>Classes\Test classes\FTBXTest_CreateVIESData</Link>
-    </Content>
-    <Content Include="AxClass\FTBXTest_TryGetAvailableMemberStates">
-      <SubType>Content</SubType>
-      <Name>FTBXTest_TryGetAvailableMemberStates</Name>
-      <Link>Classes\Test classes\FTBXTest_TryGetAvailableMemberStates</Link>
-    </Content>
     <Content Include="AxDataEntityViewExtension\TaxVATNumTableEntity.FinanceToolbox">
       <SubType>Content</SubType>
       <Name>TaxVATNumTableEntity.FinanceToolbox</Name>
       <Link>Data Entity Extensions\TaxVATNumTableEntity.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxDataEntityView\FTBXECVIESVATNumberCheckResultsEntity">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberCheckResultsEntity</Name>
+      <Link>Data Entities\FTBXECVIESVATNumberCheckResultsEntity</Link>
     </Content>
     <Content Include="AxEdt\FTBXECVIESVatNumberCheckId">
       <SubType>Content</SubType>
@@ -148,6 +138,11 @@
       <SubType>Content</SubType>
       <Name>FTBXECVIESVATNumberStatus</Name>
       <Link>Base Enums\FTBXECVIESVATNumberStatus</Link>
+    </Content>
+    <Content Include="AxFormExtension\TaxVATNumTable.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>TaxVATNumTable.FinanceToolbox</Name>
+      <Link>Form Extensions\TaxVATNumTable.FinanceToolbox</Link>
     </Content>
     <Content Include="AxForm\FTBXECVIESParameters">
       <SubType>Content</SubType>
@@ -189,6 +184,56 @@
       <Name>FTBXECVIESVATNumberQuery</Name>
       <Link>Simple Queries\FTBXECVIESVATNumberQuery</Link>
     </Content>
+    <Content Include="AxSecurityDuty\ECVIESParameterMaintain">
+      <SubType>Content</SubType>
+      <Name>ECVIESParameterMaintain</Name>
+      <Link>Security Duties\ECVIESParameterMaintain</Link>
+    </Content>
+    <Content Include="AxSecurityDuty\FTBXECVIESTAXNumValidateServiceInvoke">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESTAXNumValidateServiceInvoke</Name>
+      <Link>Security Duties\FTBXECVIESTAXNumValidateServiceInvoke</Link>
+    </Content>
+    <Content Include="AxSecurityDuty\FTBXECVIESVATNumberCheckResultsMaintain">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberCheckResultsMaintain</Name>
+      <Link>Security Duties\FTBXECVIESVATNumberCheckResultsMaintain</Link>
+    </Content>
+    <Content Include="AxSecurityDuty\FTBXECVIESVATNumberCheckResultsView">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberCheckResultsView</Name>
+      <Link>Security Duties\FTBXECVIESVATNumberCheckResultsView</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\ECVIESParameterMaintain">
+      <SubType>Content</SubType>
+      <Name>ECVIESParameterMaintain</Name>
+      <Link>Security Privileges\ECVIESParameterMaintain</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\FTBXECVIESTAXNumValidateServiceInvoke">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESTAXNumValidateServiceInvoke</Name>
+      <Link>Security Privileges\FTBXECVIESTAXNumValidateServiceInvoke</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\FTBXECVIESVATNumberCheckResultsMaintain">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberCheckResultsMaintain</Name>
+      <Link>Security Privileges\FTBXECVIESVATNumberCheckResultsMaintain</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\FTBXECVIESVATNumberCheckResultsView">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberCheckResultsView</Name>
+      <Link>Security Privileges\FTBXECVIESVATNumberCheckResultsView</Link>
+    </Content>
+    <Content Include="AxSecurityRoleExtension\LedgerAccountant.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>LedgerAccountant.FinanceToolbox</Name>
+      <Link>Security Role Extensions\LedgerAccountant.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxSecurityRole\FTBXECVIESTAXNumberAdministrator">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESTAXNumberAdministrator</Name>
+      <Link>Security Roles\FTBXECVIESTAXNumberAdministrator</Link>
+    </Content>
     <Content Include="AxTableExtension\TaxVATNumTable.FinanceToolbox">
       <SubType>Content</SubType>
       <Name>TaxVATNumTable.FinanceToolbox</Name>
@@ -214,6 +259,11 @@
       <Name>FTBXECVIESVATNumberCheckResults</Name>
       <Link>Tables\FTBXECVIESVATNumberCheckResults</Link>
     </Content>
+    <Content Include="AxTable\FTBXECVIESVATNumberCheckResultsStaging">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberCheckResultsStaging</Name>
+      <Link>Tables\FTBXECVIESVATNumberCheckResultsStaging</Link>
+    </Content>
     <Content Include="AxTable\FTBXECVIESVATNumberCheckTable">
       <SubType>Content</SubType>
       <Name>FTBXECVIESVATNumberCheckTable</Name>
@@ -232,13 +282,19 @@
     <Folder Include="Classes" />
     <Folder Include="Classes\EC VIES API contracts" />
     <Folder Include="Classes\Test classes" />
+    <Folder Include="Data Entities\" />
     <Folder Include="Data Entity Extensions\" />
     <Folder Include="Display Menu Items\" />
     <Folder Include="EDT Strings\" />
     <Folder Include="EDT Utc Date Times\" />
+    <Folder Include="Form Extensions\" />
     <Folder Include="Forms\" />
     <Folder Include="Label Files\" />
     <Folder Include="Menu Extensions\" />
+    <Folder Include="Security Duties\" />
+    <Folder Include="Security Privileges\" />
+    <Folder Include="Security Role Extensions\" />
+    <Folder Include="Security Roles\" />
     <Folder Include="Simple Queries\" />
     <Folder Include="Table Extensions\" />
     <Folder Include="Tables\" />

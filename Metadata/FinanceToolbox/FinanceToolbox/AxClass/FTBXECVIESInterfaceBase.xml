@@ -7,6 +7,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.HttpStatusCode;
 
+/// <summary>
+/// Base interface for different VIES interfaces
+/// </summary>
 internal abstract class FTBXECVIESInterfaceBase
 {
     protected   HttpClient              httpClient;
@@ -39,9 +42,14 @@ internal abstract class FTBXECVIESInterfaceBase
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>addCountry</Name>
+				<Name>addCountryVATNumber</Name>
 				<Source><![CDATA[
-    public void addCountry(str _country, str _vatnum)
+    /// <summary>
+    /// Add a VAT number for validation using the VIES interface
+    /// </summary>
+    /// <param name = "_country">Country/Member state</param>
+    /// <param name = "_vatnum">VAT number</param>
+    public void addCountryVATNumber(str _country, str _vatnum)
     {
         vatValidationResults.add(FTBXECVIESCheckResult::construct(_country, _vatnum));
     }
@@ -51,6 +59,9 @@ internal abstract class FTBXECVIESInterfaceBase
 			<Method>
 				<Name>invokeValidation</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Invokes validation of all pending VAT numbers
+    /// </summary>
     public abstract void invokeValidation()
     {
     }
@@ -60,6 +71,9 @@ internal abstract class FTBXECVIESInterfaceBase
 			<Method>
 				<Name>updateAvailableCountries</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Update list of all available member states
+    /// </summary>
     public void updateAvailableCountries()
     {
         #OCCRETRYCOUNT
@@ -161,6 +175,10 @@ internal abstract class FTBXECVIESInterfaceBase
 			<Method>
 				<Name>getResults</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Gets the set of validation results
+    /// </summary>
+    /// <returns>Set containing all pending or executed VIES VAT number validation results</returns>
     public Set getResults()
     {
         return vatValidationResults;
@@ -171,6 +189,10 @@ internal abstract class FTBXECVIESInterfaceBase
 			<Method>
 				<Name>validationResultUpdated</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Triggers when a result for an VIES VAT number has been updated
+    /// </summary>
+    /// <param name = "_result">VIES result object</param>
     delegate void validationResultUpdated(FTBXECVIESCheckResult _result)
     {
     }

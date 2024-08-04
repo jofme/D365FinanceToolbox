@@ -8,6 +8,9 @@
 			<Label>@FinanceToolbox:ECVIESVATNumberStatusLabel</Label>
 			<Fields>
 				<AxTableFieldGroupField>
+					<DataField>FTBXECVIESVatNumberCheckId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
 					<DataField>FTBXECVIESVATNumberStatus</DataField>
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
@@ -29,7 +32,17 @@
 		<AxTableField xmlns=""
 			i:type="AxTableFieldEnum">
 			<Name>FTBXECVIESVATNumberStatus</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<EnumType>FTBXECVIESVATNumberStatus</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>FTBXECVIESVatNumberCheckId</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>FTBXECVIESVatNumberCheckId</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
@@ -48,5 +61,21 @@
 	<PropertyModifications />
 	<RelationExtensions />
 	<RelationModifications />
-	<Relations />
+	<Relations>
+		<AxTableRelation>
+			<Name>FTBXECVIESVATNumberCheckTable</Name>
+			<Cardinality>ZeroMore</Cardinality>
+			<RelatedTable>FTBXECVIESVATNumberCheckTable</RelatedTable>
+			<RelatedTableCardinality>ZeroOne</RelatedTableCardinality>
+			<RelationshipType>Association</RelationshipType>
+			<Constraints>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>FTBXECVIESVatNumberCheckId</Name>
+					<Field>FTBXECVIESVatNumberCheckId</Field>
+					<RelatedField>CheckId</RelatedField>
+				</AxTableRelationConstraint>
+			</Constraints>
+		</AxTableRelation>
+	</Relations>
 </AxTableExtension>

@@ -18,9 +18,19 @@ internal class FTBXECVIESAPIMemberCountryStatusContract
 			<Method>
 				<Name>new</Name>
 				<Source><![CDATA[
-    public void new()
+    protected void new()
     {
         countries = new List(Types::Class);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static FTBXECVIESAPIMemberCountryStatusContract construct()
+    {
+        return new FTBXECVIESAPIMemberCountryStatusContract();
     }
 
 ]]></Source>
