@@ -34,6 +34,11 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="AxClass\FTBXCustTable_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXCustTable_Extension</Name>
+      <Link>Classes\FTBXCustTable_Extension</Link>
+    </Content>
     <Content Include="AxClass\FTBXECVIESAPICheckVatNumberRequestContract">
       <SubType>Content</SubType>
       <Name>FTBXECVIESAPICheckVatNumberRequestContract</Name>
@@ -98,6 +103,11 @@
       <SubType>Content</SubType>
       <Name>FTBXNumberSeqModuleTax</Name>
       <Link>Classes\FTBXNumberSeqModuleTax</Link>
+    </Content>
+    <Content Include="AxClass\FTBXVendTable_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXVendTable_Extension</Name>
+      <Link>Classes\FTBXVendTable_Extension</Link>
     </Content>
     <Content Include="AxDataEntityViewExtension\TaxVATNumTableEntity.FinanceToolbox">
       <SubType>Content</SubType>

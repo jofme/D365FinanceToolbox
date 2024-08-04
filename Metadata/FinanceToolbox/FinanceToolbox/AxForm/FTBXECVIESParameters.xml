@@ -522,6 +522,37 @@ public class FTBXECVIESParameters extends FormRun
 										<DataField>VIESAPIURLVatCheck</DataField>
 										<DataSource>FTBXECVIESParameters</DataSource>
 									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormGroupControl">
+										<Name>InvalidBlocking</Name>
+										<Type>Group</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Controls>
+											<AxFormControl xmlns=""
+												i:type="AxFormComboBoxControl">
+												<Name>InvalidBlocking_CustBlocked</Name>
+												<Type>ComboBox</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<DataField>CustBlocked</DataField>
+												<DataSource>FTBXECVIESParameters</DataSource>
+												<Items />
+											</AxFormControl>
+											<AxFormControl xmlns=""
+												i:type="AxFormComboBoxControl">
+												<Name>InvalidBlocking_VendBlocked</Name>
+												<Type>ComboBox</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<DataField>VendBlocked</DataField>
+												<DataSource>FTBXECVIESParameters</DataSource>
+												<Items />
+											</AxFormControl>
+										</Controls>
+										<DataGroup>InvalidBlocking</DataGroup>
+										<DataSource>FTBXECVIESParameters</DataSource>
+									</AxFormControl>
 								</Controls>
 								<ColumnsMode>Fill</ColumnsMode>
 								<FrameType>None</FrameType>
