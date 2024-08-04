@@ -6,6 +6,10 @@
 			<Name>FTBXCentralBankOfDenmark</Name>
 			<Label>@FinanceToolbox:ExchangeRateProviderDanmarksNationalbank</Label>
 		</AxEnumValue>
+		<AxEnumValue>
+			<Name>FTBXCentralBankOfNorway</Name>
+			<Label>@FinanceToolbox:ExchangeRateProviderCentralBankOfNorway</Label>
+		</AxEnumValue>
 	</EnumValues>
 	<PropertyModifications />
 	<ValueModifications />

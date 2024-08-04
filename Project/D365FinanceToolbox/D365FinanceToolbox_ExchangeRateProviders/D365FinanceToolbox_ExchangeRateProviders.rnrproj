@@ -55,6 +55,11 @@
       <Name>FTBXExchangeRateProviderCBODKStatbankVariableContract</Name>
       <Link>Classes\FTBXExchangeRateProviderCBODKStatbankVariableContract</Link>
     </Content>
+    <Content Include="AxClass\FTBXExchangeRateProviderCBONO">
+      <SubType>Content</SubType>
+      <Name>FTBXExchangeRateProviderCBONO</Name>
+      <Link>Classes\FTBXExchangeRateProviderCBONO</Link>
+    </Content>
     <Content Include="AxEnumExtension\ExchangeRateProvider.FinanceToolbox">
       <SubType>Content</SubType>
       <Name>ExchangeRateProvider.FinanceToolbox</Name>
