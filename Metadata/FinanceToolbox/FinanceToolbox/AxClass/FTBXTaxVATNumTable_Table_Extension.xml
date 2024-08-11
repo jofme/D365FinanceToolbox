@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXTaxVATNumTable_Table_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// CoC extension class for the TaxVatNumTable table
+/// </summary>
+[ExtensionOf(tableStr(TaxVATNumTable))]
+final class FTBXTaxVATNumTable_Table_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>ftbxUpdateVIESStatus</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Updates VIES status of VAT number record
+    /// </summary>
+    public void ftbxUpdateVIESStatus()
+    {
+        LogisticsAddressCountryRegion logisticsAddressCountryRegion = LogisticsAddressCountryRegion::find(this.CountryRegionId);
+
+        if (FTBXECVIESAvailableMemberStates::isMemberStateAvailable(logisticsAddressCountryRegion.ISOcode))
+        {   
+            FTBXECVIESInterfaceBase viesInterface = FTBXECVIESInterfaceBase::construct();
+            viesInterface.addCountryVATNumber(logisticsAddressCountryRegion.ISOcode, this.VATNum);
+            viesInterface.invokeValidation();
+
+            this.FTBXECVIESVatNumberCheckId     = '';
+            this.FTBXECVIESVATNumberStatus      = viesInterface.latestResult.getNumberStatus();
+            this.FTBXECVIESVATNumberStatusDate  = DateTimeUtil::getSystemDateTime();
+
+            info(strFmt("@FinanceToolbox:ECVIESInfoStatus", this.FTBXECVIESVATNumberStatus));
+            info(strFmt("@FinanceToolbox:ECVIESInfoEntityName", viesInterface.latestResult.entityName()));
+            info(strFmt("@FinanceToolbox:ECVIESInfoEntityAddressing", viesInterface.latestResult.entityAddressing()));
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>insert</Name>
+				<Source><![CDATA[
+    public void insert()
+    {
+        if (FTBXECVIESParameters::find().ValidateOnNumberCreation)
+        {
+            this.ftbxUpdateVIESStatus();
+        }
+
+        next insert();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

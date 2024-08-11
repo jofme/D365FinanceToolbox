@@ -79,6 +79,11 @@
       <Name>FTBXECVIESCheckResult</Name>
       <Link>Classes\FTBXECVIESCheckResult</Link>
     </Content>
+    <Content Include="AxClass\FTBXECVIESFeature">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESFeature</Name>
+      <Link>Classes\FTBXECVIESFeature</Link>
+    </Content>
     <Content Include="AxClass\FTBXECVIESInterfaceBase">
       <SubType>Content</SubType>
       <Name>FTBXECVIESInterfaceBase</Name>
@@ -104,6 +109,21 @@
       <Name>FTBXNumberSeqModuleTax</Name>
       <Link>Classes\FTBXNumberSeqModuleTax</Link>
     </Content>
+    <Content Include="AxClass\FTBXTaxVATNumTable_Form_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXTaxVATNumTable_Form_Extension</Name>
+      <Link>Classes\FTBXTaxVATNumTable_Form_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FTBXTaxVATNumTable_FTBXValidateVIES_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXTaxVATNumTable_FTBXValidateVIES_Extension</Name>
+      <Link>Classes\FTBXTaxVATNumTable_FTBXValidateVIES_Extension</Link>
+    </Content>
+    <Content Include="AxClass\FTBXTaxVATNumTable_Table_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXTaxVATNumTable_Table_Extension</Name>
+      <Link>Classes\FTBXTaxVATNumTable_Table_Extension</Link>
+    </Content>
     <Content Include="AxClass\FTBXVendTable_Extension">
       <SubType>Content</SubType>
       <Name>FTBXVendTable_Extension</Name>
@@ -118,6 +138,11 @@
       <SubType>Content</SubType>
       <Name>FTBXECVIESVATNumberCheckResultsEntity</Name>
       <Link>Data Entities\FTBXECVIESVATNumberCheckResultsEntity</Link>
+    </Content>
+    <Content Include="AxEdt\ECVIESCustVendorBlocked">
+      <SubType>Content</SubType>
+      <Name>ECVIESCustVendorBlocked</Name>
+      <Link>EDT Enums\ECVIESCustVendorBlocked</Link>
     </Content>
     <Content Include="AxEdt\FTBXECVIESVatNumberCheckId">
       <SubType>Content</SubType>
@@ -149,10 +174,20 @@
       <Name>FTBXECVIESVATNumberStatus</Name>
       <Link>Base Enums\FTBXECVIESVATNumberStatus</Link>
     </Content>
+    <Content Include="AxFormExtension\CustTable.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>CustTable.FinanceToolbox</Name>
+      <Link>Form Extensions\CustTable.FinanceToolbox</Link>
+    </Content>
     <Content Include="AxFormExtension\TaxVATNumTable.FinanceToolbox">
       <SubType>Content</SubType>
       <Name>TaxVATNumTable.FinanceToolbox</Name>
       <Link>Form Extensions\TaxVATNumTable.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxFormExtension\VendTable.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>VendTable.FinanceToolbox</Name>
+      <Link>Form Extensions\VendTable.FinanceToolbox</Link>
     </Content>
     <Content Include="AxForm\FTBXECVIESParameters">
       <SubType>Content</SubType>
@@ -254,6 +289,11 @@
       <Name>TaxVATNumTableStaging.FinanceToolbox</Name>
       <Link>Table Extensions\TaxVATNumTableStaging.FinanceToolbox</Link>
     </Content>
+    <Content Include="AxTableExtension\VendTable.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>VendTable.FinanceToolbox</Name>
+      <Link>Table Extensions\VendTable.FinanceToolbox</Link>
+    </Content>
     <Content Include="AxTable\FTBXECVIESAvailableMemberStates">
       <SubType>Content</SubType>
       <Name>FTBXECVIESAvailableMemberStates</Name>
@@ -295,6 +335,7 @@
     <Folder Include="Data Entities\" />
     <Folder Include="Data Entity Extensions\" />
     <Folder Include="Display Menu Items\" />
+    <Folder Include="EDT Enums\" />
     <Folder Include="EDT Strings\" />
     <Folder Include="EDT Utc Date Times\" />
     <Folder Include="Form Extensions\" />

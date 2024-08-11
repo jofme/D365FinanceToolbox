@@ -225,6 +225,9 @@ public class FTBXECVIESParameters extends FormRun
 			<Table>FTBXECVIESParameters</Table>
 			<Fields>
 				<AxFormDataSourceField>
+					<DataField>CustBlocked</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
 					<DataField>DataAreaId</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
@@ -238,6 +241,12 @@ public class FTBXECVIESParameters extends FormRun
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
 					<DataField>TableId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ValidateOnNumberCreation</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>VendBlocked</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
 					<DataField>VIESAPIURLStatus</DataField>
@@ -551,6 +560,26 @@ public class FTBXECVIESParameters extends FormRun
 											</AxFormControl>
 										</Controls>
 										<DataGroup>InvalidBlocking</DataGroup>
+										<DataSource>FTBXECVIESParameters</DataSource>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormGroupControl">
+										<Name>Creation</Name>
+										<Type>Group</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Controls>
+											<AxFormControl xmlns=""
+												i:type="AxFormCheckBoxControl">
+												<Name>Creation_ValidateOnNumberCreation</Name>
+												<Type>CheckBox</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<DataField>ValidateOnNumberCreation</DataField>
+												<DataSource>FTBXECVIESParameters</DataSource>
+											</AxFormControl>
+										</Controls>
+										<DataGroup>Creation</DataGroup>
 										<DataSource>FTBXECVIESParameters</DataSource>
 									</AxFormControl>
 								</Controls>

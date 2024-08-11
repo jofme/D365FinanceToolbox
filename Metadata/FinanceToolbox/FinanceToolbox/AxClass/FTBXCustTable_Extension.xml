@@ -23,27 +23,83 @@ public final class FTBXCustTable_Extension
     /// <returns>Blocking status</returns>
     static CustVendorBlocked blocked(CustAccount _custAccount)
     {        
-        var blocked = next Blocked(_custAccount);
+        CustVendorBlocked blocked = next Blocked(_custAccount);
 
-        FTBXECVIESParameters viesParameters = FTBXECVIESParameters::find();
-
-        if (blocked == CustVendorBlocked::No
-            && viesParameters.CustBlocked != CustVendorBlocked::No)
+        if (FTBXECVIESFeature::isEnabled() && blocked == CustVendorBlocked::No)
         {
-            CustTable custTable = CustTable::find(_custAccount);
+            blocked = CustTable::find(_custAccount).ftbxECVIESVATBlockingStatus();
+        }
+        
+        return blocked;
+    }
 
-            if (custTable.VATNum)
+]]></Source>
+			</Method>
+			<Method>
+				<Name>ftbxECVIESVATBlockingStatus</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Gets the VIES blocking status, based on the validity of the VAT number
+    /// </summary>
+    /// <returns>VIES blocking status</returns>
+    public CustVendorBlocked ftbxECVIESVATBlockingStatus()
+    {
+        CustVendorBlocked blocked = CustVendorBlocked::No;
+
+        if (FTBXECVIESFeature::isEnabled())
+        {
+            FTBXECVIESParameters    viesParameters = FTBXECVIESParameters::find();
+
+            if (viesParameters.CustBlocked  != CustVendorBlocked::No
+                && this.VATNum              != ''
+                && TaxVATNumTable::find(
+                    this.VATNum,
+                    TaxVATNumTable::resolveCountryRegionFromTable(this)).FTBXECVIESVATNumberStatus == FTBXECVIESVATNumberStatus::Invalid)
             {
-                if (TaxVATNumTable::find(
-                    custTable.VATNum, 
-                    TaxVATNumTable::resolveCountryRegionFromTable(custTable)).FTBXECVIESVATNumberStatus == FTBXECVIESVATNumberStatus::Invalid)
-                {
-                    blocked = viesParameters.CustBlocked;
-                }
+                blocked = viesParameters.CustBlocked;
             }
         }
 
         return blocked;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>ftbxDisplayECVIESVATNumberBlockingStatus</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Displays the blocking status, if configured in VIES parameters
+    /// </summary>
+    /// <returns>VIES blocking status</returns>
+    [SysClientCacheDataMethod(true)]
+    public display ECVIESCustVendorBlocked ftbxDisplayECVIESVATNumberBlockingStatus()
+    {
+        return this.ftbxECVIESVATBlockingStatus();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>ftbxECVIESVATNumberStatus</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Displays the VIES status
+    /// </summary>
+    /// <returns>VIES status</returns>
+    [SysClientCacheDataMethod(true)]
+    public display FTBXECVIESVATNumberStatus ftbxECVIESVATNumberStatus()
+    {
+        FTBXECVIESVATNumberStatus ret = FTBXECVIESVATNumberStatus::NotChecked;
+
+        if (FTBXECVIESFeature::isEnabled() && this.VATNum)
+        {
+            ret = TaxVATNumTable::find(
+                this.VATNum,
+                TaxVATNumTable::resolveCountryRegionFromTable(this)).FTBXECVIESVATNumberStatus;
+        }
+
+        return ret;
     }
 
 ]]></Source>

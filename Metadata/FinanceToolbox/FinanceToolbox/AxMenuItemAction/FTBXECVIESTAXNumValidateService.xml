@@ -3,6 +3,7 @@
 	<Name>FTBXECVIESTAXNumValidateService</Name>
 	<EnumParameter>Synchronous</EnumParameter>
 	<EnumTypeParameter>SysOperationExecutionMode</EnumTypeParameter>
+	<FeatureClass>FTBXECVIESFeature</FeatureClass>
 	<HelpText>@FinanceToolbox:ECVIESAPIValidateServiceHelp</HelpText>
 	<Label>@FinanceToolbox:ECVIESAPIValidateServiceLabel</Label>
 	<Object>SysOperationServiceController</Object>

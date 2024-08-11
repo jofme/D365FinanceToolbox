@@ -27,6 +27,7 @@
 			<AllowEdit>No</AllowEdit>
 			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<ExtendedDataType>FTBXECVIESVATNumberStatusDate</ExtendedDataType>
+			<FeatureClass>FTBXECVIESFeature</FeatureClass>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 		</AxTableField>
 		<AxTableField xmlns=""
@@ -34,6 +35,7 @@
 			<Name>FTBXECVIESVATNumberStatus</Name>
 			<AllowEdit>No</AllowEdit>
 			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<FeatureClass>FTBXECVIESFeature</FeatureClass>
 			<EnumType>FTBXECVIESVATNumberStatus</EnumType>
 		</AxTableField>
 		<AxTableField xmlns=""
@@ -42,6 +44,7 @@
 			<AllowEdit>No</AllowEdit>
 			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<ExtendedDataType>FTBXECVIESVatNumberCheckId</ExtendedDataType>
+			<FeatureClass>FTBXECVIESFeature</FeatureClass>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 		</AxTableField>
 	</Fields>

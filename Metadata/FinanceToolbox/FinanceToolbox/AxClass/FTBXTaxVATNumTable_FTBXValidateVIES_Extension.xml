@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXTaxVATNumTable_FTBXValidateVIES_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// CoC method for the control FTBXValidateVIES on the TaxVATNumTable form
+/// </summary>
+[ExtensionOf(formControlStr(TaxVATNumTable, FTBXValidateVIES))]
+internal final class FTBXTaxVATNumTable_FTBXValidateVIES_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>clicked</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// CoC method for the clicked method
+    /// </summary>
+    public void clicked()
+    {
+        next clicked();
+
+        if (element.TaxVATNumTable)
+        {
+            TaxVATNumTable taxVatNumTableThis = element.TaxVATNumTable;
+
+            taxVatNumTableThis.ftbxUpdateVIESStatus();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
