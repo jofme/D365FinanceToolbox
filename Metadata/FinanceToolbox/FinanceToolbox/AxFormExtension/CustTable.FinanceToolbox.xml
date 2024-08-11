@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>CustTable.FinanceToolbox</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControljd3cmkj11</Name>
+			<FormControl xmlns=""
+				i:type="AxFormComboBoxControl">
+				<Name>FTBXDisplayECVIESStatus</Name>
+				<Type>ComboBox</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<CacheDataMethod>Yes</CacheDataMethod>
+				<DataMethod>FTBXCustTable_Extension.ftbxECVIESVATNumberStatus</DataMethod>
+				<DataSource>CustTable</DataSource>
+				<Items />
+			</FormControl>
+			<Parent>SalesTax</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>VATNum</PreviousSibling>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlmoozilm41</Name>
+			<FormControl xmlns=""
+				i:type="AxFormComboBoxControl">
+				<Name>FTBXDisplayECVIESVATNumberBlockingStatus</Name>
+				<Type>ComboBox</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataMethod>FTBXCustTable_Extension.ftbxDisplayECVIESVATNumberBlockingStatus</DataMethod>
+				<DataSource>CustTable</DataSource>
+				<Items />
+			</FormControl>
+			<Parent>SalesTax</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>VATNum</PreviousSibling>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

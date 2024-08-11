@@ -195,6 +195,34 @@ internal final class FTBXECVIESCheckResult
 ]]></Source>
 			</Method>
 			<Method>
+				<Name>getNumberStatus</Name>
+				<Source><![CDATA[
+    public FTBXECVIESVATNumberStatus getNumberStatus()
+    {
+        FTBXECVIESVATNumberStatus ret;
+
+        if (hasError)
+        {
+            ret = FTBXECVIESVATNumberStatus::VIESError;
+        }
+        else
+        {
+            if (isvalid)
+            {
+                ret = FTBXECVIESVATNumberStatus::Valid;
+            }
+            else
+            {
+                ret = FTBXECVIESVATNumberStatus::Invalid;
+            }
+        }
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
 				<Name>getHashCode</Name>
 				<Source><![CDATA[
     public int getHashCode()

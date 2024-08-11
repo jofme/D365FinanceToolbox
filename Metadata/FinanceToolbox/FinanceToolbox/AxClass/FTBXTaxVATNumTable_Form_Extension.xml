@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXTaxVATNumTable_Form_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// CoC class for the TaxVATNumTable form
+/// </summary>
+[ExtensionOf(formStr(TaxVATNumTable))]
+final class FTBXTaxVATNumTable_Form_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// CoC method for the init method
+    /// </summary>
+    public void init()
+    {
+        next Init();
+
+        FTBXValidateVIES.visible(FTBXECVIESFeature::isEnabled());
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

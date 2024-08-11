@@ -170,26 +170,22 @@ internal final class FTBXECVIESTAXNumValidateService
         vatNumCheckResult.CompanyName       = _result.entityName();
         vatNumCheckResult.Address           = _result.entityAddressing();
         vatNumCheckResult.StatusDate        = DateTimeUtil::getSystemDateTime();
+        vatNumCheckResult.Status            = _result.getNumberStatus();
 
-        if (_result.hasError())
+        switch (vatNumCheckResult.Status)
         {
-            vatNumCheckResult.Status = FTBXECVIESVATNumberStatus::VIESError;
-
-            vatNumCheckTable.CountError++;
-        }
-        else
-        {
-            if (_result.isValid())
-            {
-                vatNumCheckResult.Status = FTBXECVIESVATNumberStatus::Valid;
-                vatNumCheckTable.CountValid++;
-            }
-            else
-            {
-                vatNumCheckResult.Status = FTBXECVIESVATNumberStatus::Invalid;
+            case FTBXECVIESVATNumberStatus::Invalid:
                 vatNumCheckTable.CountInvalid++;
-            }
+                break;
+            case FTBXECVIESVATNumberStatus::Valid:
+                vatNumCheckTable.CountValid++;
+                break;
+            case FTBXECVIESVATNumberStatus::VIESError:
+                vatNumCheckTable.CountError ++;
+                break;
         }
+
+        vatNumCheckTable.CountTotal++;
 
         resultInsertList.add(vatNumCheckResult);
     }

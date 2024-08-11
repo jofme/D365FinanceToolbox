@@ -178,6 +178,15 @@ public class FTBXECVIESParameters extends common
 				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>Creation</Name>
+			<Label>@SYS40679</Label>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>ValidateOnNumberCreation</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
 	</FieldGroups>
 	<Fields>
 		<AxTableField xmlns=""
@@ -214,6 +223,15 @@ public class FTBXECVIESParameters extends common
 			<ExtendedDataType>VendBlocked</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<EnumType>CustVendorBlocked</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>ValidateOnNumberCreation</Name>
+			<ExtendedDataType>NoYesId</ExtendedDataType>
+			<HelpText>@FinanceToolbox:ECVIESValidateVatNumOnCreationHelp</HelpText>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:ECVIESValidateVatNumOnCreationLabel</Label>
+			<EnumType>NoYes</EnumType>
 		</AxTableField>
 	</Fields>
 	<FullTextIndexes />

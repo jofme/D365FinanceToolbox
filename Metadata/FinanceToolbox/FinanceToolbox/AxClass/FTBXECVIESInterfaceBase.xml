@@ -15,6 +15,7 @@ internal abstract class FTBXECVIESInterfaceBase
     protected   HttpClient              httpClient;
     protected   FTBXECVIESParameters    parameters;
     protected   Set                     vatValidationResults;
+    public      FTBXECVIESCheckResult   latestResult;
 
 }
 ]]></Declaration>
@@ -51,7 +52,8 @@ internal abstract class FTBXECVIESInterfaceBase
     /// <param name = "_vatnum">VAT number</param>
     public void addCountryVATNumber(str _country, str _vatnum)
     {
-        vatValidationResults.add(FTBXECVIESCheckResult::construct(_country, _vatnum));
+        latestResult = FTBXECVIESCheckResult::construct(_country, _vatnum);
+        vatValidationResults.add(latestResult);
     }
 
 ]]></Source>
