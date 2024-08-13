@@ -21,8 +21,6 @@
 		<AxTableField xmlns=""
 			i:type="AxTableFieldUtcDateTime">
 			<Name>FTBXECVIESVatNumberStatusDate</Name>
-			<AllowEdit>No</AllowEdit>
-			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<ExtendedDataType>FTBXECVIESVatNumberStatusDate</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 		</AxTableField>

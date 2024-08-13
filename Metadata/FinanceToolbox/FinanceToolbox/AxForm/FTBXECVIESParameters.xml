@@ -514,22 +514,32 @@ public class FTBXECVIESParameters extends FormRun
 									i:nil="true" />
 								<Controls>
 									<AxFormControl xmlns=""
-										i:type="AxFormStringControl">
-										<Name>FTBXECVIESParameters_VIESAPIURLStatus</Name>
-										<Type>String</Type>
+										i:type="AxFormGroupControl">
+										<Name>API</Name>
+										<Type>Group</Type>
 										<FormControlExtension
 											i:nil="true" />
-										<DataField>VIESAPIURLStatus</DataField>
-										<DataSource>FTBXECVIESParameters</DataSource>
-									</AxFormControl>
-									<AxFormControl xmlns=""
-										i:type="AxFormStringControl">
-										<Name>FTBXECVIESParameters_VIESAPIURLVatCheck</Name>
-										<Type>String</Type>
-										<FormControlExtension
-											i:nil="true" />
-										<DataField>VIESAPIURLVatCheck</DataField>
-										<DataSource>FTBXECVIESParameters</DataSource>
+										<Controls>
+											<AxFormControl xmlns=""
+												i:type="AxFormStringControl">
+												<Name>FTBXECVIESParameters_VIESAPIURLStatus</Name>
+												<Type>String</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<DataField>VIESAPIURLStatus</DataField>
+												<DataSource>FTBXECVIESParameters</DataSource>
+											</AxFormControl>
+											<AxFormControl xmlns=""
+												i:type="AxFormStringControl">
+												<Name>FTBXECVIESParameters_VIESAPIURLVatCheck</Name>
+												<Type>String</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<DataField>VIESAPIURLVatCheck</DataField>
+												<DataSource>FTBXECVIESParameters</DataSource>
+											</AxFormControl>
+										</Controls>
+										<Caption>@SYS92841</Caption>
 									</AxFormControl>
 									<AxFormControl xmlns=""
 										i:type="AxFormGroupControl">
@@ -564,14 +574,14 @@ public class FTBXECVIESParameters extends FormRun
 									</AxFormControl>
 									<AxFormControl xmlns=""
 										i:type="AxFormGroupControl">
-										<Name>Creation</Name>
+										<Name>ValidateOn</Name>
 										<Type>Group</Type>
 										<FormControlExtension
 											i:nil="true" />
 										<Controls>
 											<AxFormControl xmlns=""
 												i:type="AxFormCheckBoxControl">
-												<Name>Creation_ValidateOnNumberCreation</Name>
+												<Name>ValidateOn_ValidateOnNumberCreation</Name>
 												<Type>CheckBox</Type>
 												<FormControlExtension
 													i:nil="true" />
@@ -579,7 +589,7 @@ public class FTBXECVIESParameters extends FormRun
 												<DataSource>FTBXECVIESParameters</DataSource>
 											</AxFormControl>
 										</Controls>
-										<DataGroup>Creation</DataGroup>
+										<DataGroup>ValidateOn</DataGroup>
 										<DataSource>FTBXECVIESParameters</DataSource>
 									</AxFormControl>
 								</Controls>

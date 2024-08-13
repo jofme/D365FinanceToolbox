@@ -179,8 +179,8 @@ public class FTBXECVIESParameters extends common
 			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
-			<Name>Creation</Name>
-			<Label>@SYS40679</Label>
+			<Name>ValidateOn</Name>
+			<Label>@FinanceToolbox:ECVIESValidateOn</Label>
 			<Fields>
 				<AxTableFieldGroupField>
 					<DataField>ValidateOnNumberCreation</DataField>
@@ -202,12 +202,14 @@ public class FTBXECVIESParameters extends common
 			<Name>VIESAPIURLStatus</Name>
 			<ExtendedDataType>URL</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:ECVIESAPICountryStatus</Label>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>VIESAPIURLVatCheck</Name>
 			<ExtendedDataType>URL</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:ECVIESVATNumberStatusLabel</Label>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldEnum">
