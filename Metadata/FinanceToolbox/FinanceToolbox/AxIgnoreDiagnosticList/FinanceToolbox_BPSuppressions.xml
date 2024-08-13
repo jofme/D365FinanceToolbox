@@ -19,6 +19,14 @@
 			<Justification>The method numberSeqPreInit is called before super() in init method for initializing number sequences which can be granted exception</Justification>
 		</Diagnostic>
 		<Diagnostic>
+			<DiagnosticType>CodeAnalysis</DiagnosticType>
+			<Severity>Informational</Severity>
+			<Path>dynamics://Form/FTBXECVIESParameters</Path>
+			<Moniker>BPCheckInvalidInitFormMethodInfo</Moniker>
+			<Message>Form element statements should not be used before super() in init method of form FTBXECVIESParameters(Exception can be granted because call seems to be initializing number sequences by calling the method numberSeqPreInit)</Message>
+			<Justification>The method numberSeqPreInit is called before super() in init method for initializing number sequences which can be granted exception</Justification>
+		</Diagnostic>
+		<Diagnostic>
 			<DiagnosticType>BestPractices</DiagnosticType>
 			<Severity>Warning</Severity>
 			<Path>dynamics://Table/FTBXPRMSelfServiceRoleRequests/TableRelationForeignKey/SecurityRole</Path>
@@ -36,7 +44,7 @@
 		<Diagnostic>
 			<DiagnosticType>BestPractices</DiagnosticType>
 			<Severity>Warning</Severity>
-			<Path>dynamics://Class/FTBETrialBalanceFilterFeature/isFeatureEnabled</Path>
+			<Path>dynamics://Class/FTBXPrivilegedRoleManagementFeature/isFeatureEnabled</Path>
 			<Message>Method 'isFeatureEnabled' or type 'FeatureStateProvider' in which it is declared is marked InternalUseOnly and is not accessible from the current module 'FinanceToolbox'</Message>
 			<Moniker>InternalUseOnlyMethodInaccessible</Moniker>
 			<Justification>Using V0 of FeatureStateProvider which is internal use only to limit the initial exposure of the functionality.</Justification>
@@ -44,7 +52,7 @@
 		<Diagnostic>
 			<DiagnosticType>BestPractices</DiagnosticType>
 			<Severity>Warning</Severity>
-			<Path>dynamics://Class/FTBXPrivilegedRoleManagementFeature/isFeatureEnabled</Path>
+			<Path>dynamics://Class/FTBXECVIESFeature/isFeatureEnabled</Path>
 			<Message>Method 'isFeatureEnabled' or type 'FeatureStateProvider' in which it is declared is marked InternalUseOnly and is not accessible from the current module 'FinanceToolbox'</Message>
 			<Moniker>InternalUseOnlyMethodInaccessible</Moniker>
 			<Justification>Using V0 of FeatureStateProvider which is internal use only to limit the initial exposure of the functionality.</Justification>

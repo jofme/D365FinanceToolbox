@@ -32,7 +32,21 @@ internal final class FTBXECVIESTAXNumValidateService
 
         #OCCRETRYCOUNT
 
-        QueryRun queryRun = new QueryRun(_contract.getQuery());
+        Query query = _contract.getQuery();
+        
+        if (_contract.parmNumberOfRecords() > 0)
+        {
+            query.topRows(_contract.parmNumberOfRecords());
+        }
+
+        if (_contract.parmNumberOfDays() > 0)
+        {
+            SysQuery::findOrCreateRange(
+                query.dataSourceTable(tableNum(TaxVATNumTable)),
+                fieldNum(TaxVATNumTable, FTBXECVIESVATNumberStatusDate)).value(SysQueryRangeUtil::lessThanUtcDate(-_contract.parmNumberOfDays()));
+        }
+
+        QueryRun queryRun = new QueryRun(query);
 
         resultInsertList = new RecordInsertList(tableNum(FTBXECVIESVATNumberCheckResults));
 
@@ -71,6 +85,10 @@ internal final class FTBXECVIESTAXNumValidateService
                         where checkResults.CountryRegionId  == taxVatNumTable.CountryRegionId
                         &&    checkResults.VATNumSystem     == taxVatNumTable.VATNum
                         &&    checkResults.CheckId          == vatNumCheckTable.CheckId;
+            }
+            else
+            {
+                info("@FinanceToolbox:ECVIESVATNumberNoNumbersFound");
             }
 
             ttscommit;
@@ -158,8 +176,6 @@ internal final class FTBXECVIESTAXNumValidateService
 				<Source><![CDATA[
     private void addResult(FTBXECVIESCheckResult _result)
     {
-        vatNumCheckTable.CountTotal++;
-
         FTBXECVIESVATNumberCheckResults vatNumCheckResult;
 
         vatNumCheckResult.CheckId           = vatNumCheckTable.checkId;
@@ -171,6 +187,8 @@ internal final class FTBXECVIESTAXNumValidateService
         vatNumCheckResult.Address           = _result.entityAddressing();
         vatNumCheckResult.StatusDate        = DateTimeUtil::getSystemDateTime();
         vatNumCheckResult.Status            = _result.getNumberStatus();
+
+        vatNumCheckTable.CountTotal++;
 
         switch (vatNumCheckResult.Status)
         {
@@ -184,8 +202,6 @@ internal final class FTBXECVIESTAXNumValidateService
                 vatNumCheckTable.CountError ++;
                 break;
         }
-
-        vatNumCheckTable.CountTotal++;
 
         resultInsertList.add(vatNumCheckResult);
     }
