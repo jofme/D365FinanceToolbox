@@ -113,6 +113,7 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
 			</Method>
 		</Methods>
 	</SourceCode>
+	<DeveloperDocumentation>@FinanceToolbox:PrivilegedRoleManagementRoleEligibilityDevDoc</DeveloperDocumentation>
 	<Label>@FinanceToolbox:SelfServiceEligibleRoles</Label>
 	<SubscriberAccessLevel>
 		<Read>Allow</Read>
@@ -126,6 +127,7 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
 	<CreatedDateTime>Yes</CreatedDateTime>
 	<ModifiedBy>Yes</ModifiedBy>
 	<ModifiedDateTime>Yes</ModifiedDateTime>
+	<ReplacementKey>RoleAssignmentIdx</ReplacementKey>
 	<SaveDataPerCompany>No</SaveDataPerCompany>
 	<TableContents>BaseData</TableContents>
 	<ValidTimeStateFieldType>UtcDateTime</ValidTimeStateFieldType>
@@ -168,7 +170,17 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
 		<AxTableFieldGroup>
 			<Name>AutoIdentification</Name>
 			<AutoPopulate>Yes</AutoPopulate>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>RoleEligibilityId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ValidFrom</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ValidTo</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoSummary</Name>
@@ -228,6 +240,18 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
 				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>ValidFromTo</Name>
+			<Label>@FinanceToolbox:ValidFromTo</Label>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>ValidTo</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ValidFrom</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
 	</FieldGroups>
 	<Fields>
 		<AxTableField xmlns=""
@@ -236,6 +260,7 @@ public class FTBXPRMSelfServiceEligibleRoles extends common
 			<ExtendedDataType>SysSecurityRoleRecId</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Mandatory>Yes</Mandatory>
+			<Visible>No</Visible>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldEnum">

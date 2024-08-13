@@ -3,6 +3,9 @@
 	<Name>FTBXPRMSelfServiceRoleRequestsFormHelper</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Contains methods for the <c>FTBXPRMSelfServiceRoleRequests</c> and <c>FTBXPRMSelfServiceRoleRequestsOverview</c> forms
+/// </summary>
 internal final class FTBXPRMSelfServiceRoleRequestsFormHelper
 {
     FormRun formRun;
@@ -26,6 +29,9 @@ internal final class FTBXPRMSelfServiceRoleRequestsFormHelper
 			<Method>
 				<Name>updateDesign</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Update the form design based on the form mode
+    /// </summary>
     public void updateDesign()
     {
         if (formRun.name() == formStr(FTBXPRMSelfServiceRoleRequests))
@@ -43,7 +49,7 @@ internal final class FTBXPRMSelfServiceRoleRequestsFormHelper
                     break;
             }
         }
-        else if (formRun.name() == formStr(FTBXPRMSelfServiceRoleRequests))
+        else if (formRun.name() == formStr(FTBXPRMSelfServiceRoleRequestsOverview))
         {
             if (mode == FTBXPRMSelfServiceRoleRequestsMode::AssignedToMe)
             {
@@ -58,6 +64,9 @@ internal final class FTBXPRMSelfServiceRoleRequestsFormHelper
 			<Method>
 				<Name>setButtonsEnabled</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Enables buttons on the respective role request forms
+    /// </summary>
     public void setButtonsEnabled()
     {
         FTBXPRMSelfServiceRoleRequests roleRequests = fdsSelfServiceRoleRequest.cursor();
@@ -70,6 +79,10 @@ internal final class FTBXPRMSelfServiceRoleRequestsFormHelper
 			<Method>
 				<Name>getMode</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Returns the mode of the form
+    /// </summary>
+    /// <returns>The mode that the form is running in</returns>
     public FTBXPRMSelfServiceRoleRequestsMode getMode()
     {
         return mode;
@@ -80,6 +93,10 @@ internal final class FTBXPRMSelfServiceRoleRequestsFormHelper
 			<Method>
 				<Name>updateQuery</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Updates the different queries based on different filter fields and form modes
+    /// </summary>
+    /// <param name = "_executeQuery">Should the query be executed. Typically this should be true is when a filter value has changes</param>
     public void updateQuery(boolean _executeQuery = true)
     {
         if (formRun.name() == formStr(FTBXPRMSelfServiceRoleRequests))
@@ -134,6 +151,9 @@ internal final class FTBXPRMSelfServiceRoleRequestsFormHelper
 			<Method>
 				<Name>onRequestCreated</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Trigger for when a request has been created by the <c>FTBXPRMCreateSelfServiceRoleRequests</c> form
+    /// </summary>
     public void onRequestCreated()
     {
         fdsSelfServiceRoleRequest.research(true);
@@ -167,6 +187,9 @@ internal final class FTBXPRMSelfServiceRoleRequestsFormHelper
 			<Method>
 				<Name>initFromFormRun</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Initializes variables for different form controls, based on what form this is helping
+    /// </summary>
     private void initFromFormRun()
     {
         fdsSelfServiceRoleRequest   = formRun.findFirstFormDataSource(tableNum(FTBXPRMSelfServiceRoleRequests));

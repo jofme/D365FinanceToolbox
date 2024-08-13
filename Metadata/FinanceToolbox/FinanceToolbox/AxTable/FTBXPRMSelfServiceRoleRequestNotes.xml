@@ -9,11 +9,13 @@ public class FTBXPRMSelfServiceRoleRequestNotes extends common
 ]]></Declaration>
 		<Methods />
 	</SourceCode>
+	<DeveloperDocumentation>@FinanceToolbox:PrivilegedRoleManagementRoleRequestNotesDevDoc</DeveloperDocumentation>
 	<Label>@SYS70989</Label>
 	<SubscriberAccessLevel>
 		<Read>Allow</Read>
 	</SubscriberAccessLevel>
 	<TitleField1>RequestId</TitleField1>
+	<Visibility>Internal</Visibility>
 	<AllowRowVersionChangeTracking>Yes</AllowRowVersionChangeTracking>
 	<CacheLookup>FoundAndEmpty</CacheLookup>
 	<ClusteredIndex>RequestIdx</ClusteredIndex>
@@ -27,11 +29,19 @@ public class FTBXPRMSelfServiceRoleRequestNotes extends common
 	<FieldGroups>
 		<AxTableFieldGroup>
 			<Name>AutoReport</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>Justification</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoLookup</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>Justification</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoIdentification</Name>
@@ -44,11 +54,19 @@ public class FTBXPRMSelfServiceRoleRequestNotes extends common
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoSummary</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>Justification</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoBrowse</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>Justification</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>Notes</Name>

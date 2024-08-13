@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESTAXNumValidateContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// Contract class for VIES VAT number validation service
+/// </summary>
+[DataContract]
+internal final class FTBXECVIESTAXNumValidateContract implements SysOperationInitializable
+{
+    private str	        packedTaxVatNumQuery;
+    private Days        numberOfDays;
+    private NumberOf    numberOfRecords;
+
+    protected static int defaultNumberOfDays    = 30;
+    protected static int defaultNumberOfRecords = 100;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>initialize</Name>
+				<Source><![CDATA[
+    public void initialize()
+    {
+        this.setQuery(this.newQuery());
+
+        numberOfDays    = defaultNumberOfDays;
+        numberOfRecords = defaultNumberOfRecords;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>newQuery</Name>
+				<Source><![CDATA[
+    private Query newQuery()
+    {
+        return new Query(queryStr(FTBXECVIESVATNumberQuery));
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getQuery</Name>
+				<Source><![CDATA[
+    public Query getQuery()
+    {
+        Query ret;
+
+        if (packedTaxVatNumQuery)
+        {
+            ret = new Query(SysOperationHelper::base64Decode(packedTaxVatNumQuery));
+        }
+
+        if (!ret)
+        {
+            ret = this.newQuery();
+        }
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setQuery</Name>
+				<Source><![CDATA[
+    public void setQuery(Query _query)
+    {
+        packedTaxVatNumQuery = SysOperationHelper::base64Encode(_query.pack());
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmPackedReleaseQuery</Name>
+				<Source><![CDATA[
+    [
+        DataMemberAttribute,
+        AifQueryTypeAttribute('_packedTaxVatNumQuery', queryStr(FTBXECVIESVATNumberQuery))
+    ]
+    public str parmPackedReleaseQuery(str _packedTaxVatNumQuery = packedTaxVatNumQuery)
+    {
+        packedTaxVatNumQuery = _packedTaxVatNumQuery;
+
+        return packedTaxVatNumQuery;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmNumberOfRecords</Name>
+				<Source><![CDATA[
+    [
+        DataMember,
+        SysOperationLabel("@FinanceToolbox:ECVIESVATNumbersToCheck")
+    ]
+    public NumberOf parmNumberOfRecords(NumberOf _numberOfRecords = numberOfRecords)
+    {
+        numberOfRecords = _numberOfRecords;
+        return numberOfRecords;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmNumberOfDays</Name>
+				<Source><![CDATA[
+    [
+        DataMember,
+        SysOperationLabel("@FinanceToolbox:ECVIESVATNumberCheckOlderThan"),
+        SysOperationHelpText("@FinanceToolbox:ECVIESVATNumberCheckOlderThanHelp")
+    ]
+    public Days parmNumberOfDays(Days _numberOfDays = numberOfDays)
+    {
+        numberOfDays = _numberOfDays;
+        return numberOfDays;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

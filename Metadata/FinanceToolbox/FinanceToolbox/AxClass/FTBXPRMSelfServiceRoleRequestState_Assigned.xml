@@ -3,6 +3,10 @@
 	<Name>FTBXPRMSelfServiceRoleRequestState_Assigned</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Implementation of the request status change to assigned
+/// This will create an role assignment record, and add the role to the user if the assignment is active at the moment of creation
+/// </summary>
 [FTBXPRMSelfServiceRoleRequestStateAttribute(FTBXPRMSelfServiceRoleRequestStatus::Assigned)]
 internal final class FTBXPRMSelfServiceRoleRequestState_Assigned extends FTBXPRMSelfServiceRoleRequestState
 {
@@ -12,11 +16,12 @@ internal final class FTBXPRMSelfServiceRoleRequestState_Assigned extends FTBXPRM
 			<Method>
 				<Name>changeStateInternal</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Creates an assignment, and adds the role to the user if it is active
+    /// </summary>
     protected void changeStateInternal()
     {       
-        boolean setStatusApproved;
-
-        FTBXPRMRoleAssignment assignment = new FTBXPRMRoleAssignment()
+        FTBXPRMRoleAssignment assignment = FTBXPRMRoleAssignment::construct()
             .setRequestId(request.roleRequest.RequestId)
             .setRole(request.roleRequest.SysSecurityRoleRecId)
             .setUserId(request.roleRequest.UserId)

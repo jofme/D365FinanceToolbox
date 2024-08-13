@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESAPIConstants</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// Constants used by the VIES interface
+/// </summary>
+internal final class FTBXECVIESAPIConstants
+{
+    public static const str VIESAPIURLVatCheck      = 'https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number';
+    public static const str VIESAPIURLStatusDefault = 'https://ec.europa.eu/taxation_customs/vies/rest-api/check-status';
+    
+}
+]]></Declaration>
+		<Methods />
+	</SourceCode>
+</AxClass>

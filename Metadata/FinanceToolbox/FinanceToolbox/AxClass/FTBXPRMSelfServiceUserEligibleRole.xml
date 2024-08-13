@@ -3,7 +3,11 @@
 	<Name>FTBXPRMSelfServiceUserEligibleRole</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
-public final class FTBXPRMSelfServiceUserEligibleRole
+/// <summary>
+/// Representation of an user role eligibility record
+/// Pattern documentation: https://melgaard.nu/x-readability-custom-types/
+/// </summary>
+internal final class FTBXPRMSelfServiceUserEligibleRole
 {
     public System.String                        userId;
     public RefRecId                             roleId;
@@ -20,7 +24,7 @@ public final class FTBXPRMSelfServiceUserEligibleRole
 			<Method>
 				<Name>new</Name>
 				<Source><![CDATA[
-    public void new(
+    protected void new(
         UserId                  _userId, 
         SysSecurityRoleRecId    _roleId)
     {
@@ -33,15 +37,38 @@ public final class FTBXPRMSelfServiceUserEligibleRole
 ]]></Source>
 			</Method>
 			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Constructor for FTBXPRMSelfServiceUserEligibleRole
+    /// </summary>
+    /// <param name = "_userId">User of the eligibility record</param>
+    /// <param name = "_roleId">Role that the eligibility record contains</param>
+    /// <returns>An instantiated copy of the <c>FTBXPRMSelfServiceUserEligibleRole</c> class</returns>
+    public FTBXPRMSelfServiceUserEligibleRole construct(
+        UserId                  _userId,
+        SysSecurityRoleRecId    _roleId)
+    {
+        return new FTBXPRMSelfServiceUserEligibleRole(_userId, _roleId);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
 				<Name>setUserEligibilityRecord</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Initializes the class for an role eligibility record
+    /// </summary>
+    /// <param name = "_eligibleRole">User role eligibility record</param>
+    /// <returns>This</returns>
     public FTBXPRMSelfServiceUserEligibleRole setUserEligibilityRecord(FTBXPRMSelfServiceEligibleRoles _eligibleRole)
     {
         roleEligibilityId   = _eligibleRole.RoleEligibilityId;
         fromDateTime        = max(DateTimeUtil::getSystemDateTime(), FTBXPRMSelfServiceUserEligibleRole::getEarliestStartDate(userId, roleId));
 
         maxDuration         = parameters.RoleRequestsMaxDuration    ? parameters.RoleRequestsMaxDuration                : _eligibleRole.MaxDuration;        
-        toDateTime          = maxDuration && FromDateTime           ? DateTimeUtil::addHours(fromDateTime, maxDuration) : DateTimeUtil::minValue();
+        toDateTime          = maxDuration && FromDateTime           ? DateTimeUtil::addMinutes(fromDateTime, real2int(maxDuration) * 60): DateTimeUtil::minValue();
 
         return this;
     }
@@ -51,6 +78,12 @@ public final class FTBXPRMSelfServiceUserEligibleRole
 			<Method>
 				<Name>getEarliestStartDate</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Gets the earliest possible start date of a role request
+    /// </summary>
+    /// <param name = "_userId">User that requests a role</param>
+    /// <param name = "_roleId">The role that is requested</param>
+    /// <returns>The earliest possible date/time</returns>
     public static utcdatetime getEarliestStartDate(UserId _userId, SysSecurityRoleRecId _roleId)
     {
         utcdatetime                     ret;
@@ -88,6 +121,11 @@ public final class FTBXPRMSelfServiceUserEligibleRole
 			<Method>
 				<Name>appendToSetIfNotExists</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Appends to a set of role eligibility records, based on if the overlapping parameters is set or not
+    /// </summary>
+    /// <param name = "_set">A set of <c>FTBXPRMSelfServiceUserEligibleRole</c> objects</param>
+    /// <returns>This</returns>
     public FTBXPRMSelfServiceUserEligibleRole appendToSetIfNotExists(Set _set)
     {
         if (!(!parameters.RoleRequestsAllowOverlappingRoles
@@ -107,9 +145,13 @@ public final class FTBXPRMSelfServiceUserEligibleRole
 			<Method>
 				<Name>getHashCode</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Gets the approximate hash value of the role eligibility
+    /// </summary>
+    /// <returns>The hash value as an integer</returns>
     public int getHashCode()
     {
-        return userId.GetHashCode() ^ roleId;
+        return userId.GetHashCode() ^ real2int(roleId);
     }
 
 ]]></Source>
@@ -117,6 +159,11 @@ public final class FTBXPRMSelfServiceUserEligibleRole
 			<Method>
 				<Name>Equals</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Is two records identical
+    /// </summary>
+    /// <param name = "_obj">The object to compare against</param>
+    /// <returns>True if the objects is idential to this</returns>
     public boolean Equals(System.Object _obj)
     {
         FTBXPRMSelfServiceUserEligibleRole contract = _obj;
@@ -130,6 +177,11 @@ public final class FTBXPRMSelfServiceUserEligibleRole
 			<Method>
 				<Name>findEligibleRolesForUser</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Finds all eligibile roles for an user, at this date/time
+    /// </summary>
+    /// <param name = "_userId">User that wants to request a role</param>
+    /// <returns>Set of all eligible roles for the user</returns>
     public static Set findEligibleRolesForUser(UserId _userId)
     {
         UserGroupList                   userGroupList;

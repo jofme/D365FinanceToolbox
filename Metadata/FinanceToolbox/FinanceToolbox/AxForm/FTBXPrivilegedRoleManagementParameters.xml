@@ -51,7 +51,7 @@ public class FTBXPrivilegedRoleManagementParameters extends FormRun
     {
         runExecuteDirect = false;
         numberSequenceModules = [NumberSeqModule::FTBXPrivilegedRoleManagement];
-        numberSeqApplicationModule = new NumberSeqModuleBudget();
+        numberSeqApplicationModule = new FTBXNumberSeqModulePrivilegedRoleManagement();
         scope = NumberSeqScopeFactory::createGlobalScope();
         NumberSeqApplicationModule::createReferencesMulti(numberSequenceModules, scope);
         tmpIdRef.setTmpData(NumberSequenceReference::configurationKeyTableMulti(numberSequenceModules));
@@ -551,6 +551,7 @@ public class FTBXPrivilegedRoleManagementParameters extends FormRun
 												<WidthMode>Auto</WidthMode>
 												<FormControlExtension
 													i:nil="true" />
+												<CacheDataMethod>Yes</CacheDataMethod>
 												<DataMethod>referenceLabel</DataMethod>
 												<DataSource>NumberSequenceReference</DataSource>
 											</AxFormControl>
@@ -612,6 +613,7 @@ public class FTBXPrivilegedRoleManagementParameters extends FormRun
 												<WidthMode>Auto</WidthMode>
 												<FormControlExtension
 													i:nil="true" />
+												<CacheDataMethod>Yes</CacheDataMethod>
 												<DataMethod>referenceSameAsLabel</DataMethod>
 												<DataSource>NumberSequenceReference</DataSource>
 											</AxFormControl>
@@ -619,6 +621,7 @@ public class FTBXPrivilegedRoleManagementParameters extends FormRun
 												i:type="AxFormStringControl">
 												<Name>referenceHelp</Name>
 												<AllowEdit>No</AllowEdit>
+												<AutoDeclaration>Yes</AutoDeclaration>
 												<ElementPosition>1717986916</ElementPosition>
 												<FilterExpression>%1</FilterExpression>
 												<Skip>Yes</Skip>
@@ -627,6 +630,7 @@ public class FTBXPrivilegedRoleManagementParameters extends FormRun
 												<FormControlExtension
 													i:nil="true" />
 												<Border>None</Border>
+												<CacheDataMethod>Yes</CacheDataMethod>
 												<DataMethod>referenceHelp</DataMethod>
 												<DataSource>NumberSequenceReference</DataSource>
 												<MultiLine>Yes</MultiLine>

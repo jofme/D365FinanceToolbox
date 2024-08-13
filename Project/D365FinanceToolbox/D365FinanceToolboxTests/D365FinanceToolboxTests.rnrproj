@@ -15,8 +15,10 @@
     <ProjectGuid>{072373e1-81d5-4ec1-9be8-6452be9fd081}</ProjectGuid>
     <Name>D365FinanceToolboxTests</Name>
     <RootNamespace>D365FinanceToolboxTests</RootNamespace>
-    <StartupType>Class</StartupType>
-    <StartupObject>FTBXText_FindEligibleRoles</StartupObject>
+    <StartupType>
+    </StartupType>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
@@ -43,21 +45,6 @@
       <SubType>Content</SubType>
       <Name>FTBXTest_BatchAlertsSlowBatchJob</Name>
       <Link>Classes\FTBXTest_BatchAlertsSlowBatchJob</Link>
-    </Content>
-    <Content Include="AxClass\FTBXTest_CreateRoleRequest">
-      <SubType>Content</SubType>
-      <Name>FTBXTest_CreateRoleRequest</Name>
-      <Link>Classes\FTBXTest_CreateRoleRequest</Link>
-    </Content>
-    <Content Include="AxClass\FTBXTest_RoleProcessingJob">
-      <SubType>Content</SubType>
-      <Name>FTBXTest_RoleProcessingJob</Name>
-      <Link>Classes\FTBXTest_RoleProcessingJob</Link>
-    </Content>
-    <Content Include="AxClass\FTBXText_FindEligibleRoles">
-      <SubType>Content</SubType>
-      <Name>FTBXText_FindEligibleRoles</Name>
-      <Link>Classes\FTBXText_FindEligibleRoles</Link>
     </Content>
     <Content Include="AxMenuExtension\SystemAdministration.FinanceToolboxTests">
       <SubType>Content</SubType>

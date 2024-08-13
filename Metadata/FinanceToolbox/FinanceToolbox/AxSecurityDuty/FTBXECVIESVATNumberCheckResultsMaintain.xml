@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxSecurityDuty xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESVATNumberCheckResultsMaintain</Name>
+	<Description>@FinanceToolbox:ECVIESVATNumberCheckResultsMaintainDescription</Description>
+	<Label>@FinanceToolbox:ECVIESVATNumberCheckResultsMaintainLabel</Label>
+	<Privileges>
+		<AxSecurityPrivilegeReference>
+			<Name>FTBXECVIESVATNumberCheckResultsMaintain</Name>
+		</AxSecurityPrivilegeReference>
+	</Privileges>
+</AxSecurityDuty>

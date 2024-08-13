@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTable xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESParameters</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class FTBXECVIESParameters extends common
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>delete</Name>
+				<Source><![CDATA[
+    public void  delete()
+    {
+        throw error("@SYS23721");
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>update</Name>
+				<Source><![CDATA[
+    public void update()
+    {
+        super();
+        flush FTBXECVIESParameters;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>find</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Find parameter record
+    /// </summary>
+    /// <param name = "update">Select the parameter record for update</param>
+    /// <returns>An initialized parameter record</returns>
+    public static FTBXECVIESParameters find(boolean update = false)
+    {
+        FTBXECVIESParameters parameter;
+
+        parameter.selectForUpdate(update);
+
+        select firstonly parameter
+            index KeyIdx
+            where parameter.Key == 0;
+
+        if (!parameter && !parameter.isTmp())
+        {
+            new FTBXNumberSeqModuleTax().load();
+            Company::createParameter(parameter);
+        }
+
+        return parameter;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>initValue</Name>
+				<Source><![CDATA[
+    public void initValue()
+    {
+        super();
+
+        this.VIESAPIURLStatus   = FTBXECVIESAPIConstants::VIESAPIURLStatusDefault;
+        this.VIESAPIURLVatCheck = FTBXECVIESAPIConstants::VIESAPIURLVatCheck;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>numRefFTBXECVIESVatNumberCheckId</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Number sequence for VIES VAT number validation check runs
+    /// </summary>
+    /// <returns>Number sequence for VIES VAT number validation check runs</returns>
+    public static NumberSequenceReference numRefFTBXECVIESVatNumberCheckId()
+    {
+        return NumberSeqReference::findReference(extendedTypeNum(FTBXECVIESVatNumberCheckId));
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+	<DeveloperDocumentation>@FinanceToolbox:ECVIESParametersDevDoc</DeveloperDocumentation>
+	<Label>@FinanceToolbox:ECVIESParameters</Label>
+	<SubscriberAccessLevel>
+		<Read>Allow</Read>
+	</SubscriberAccessLevel>
+	<TableGroup>Parameter</TableGroup>
+	<TitleField1>Key</TitleField1>
+	<TitleField2>VIESAPIURLStatus</TitleField2>
+	<AllowRowVersionChangeTracking>Yes</AllowRowVersionChangeTracking>
+	<CacheLookup>Found</CacheLookup>
+	<ClusteredIndex>KeyIdx</ClusteredIndex>
+	<ReplacementKey>KeyIdx</ReplacementKey>
+	<DeleteActions />
+	<FieldGroups>
+		<AxTableFieldGroup>
+			<Name>AutoReport</Name>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>Key</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>VIESAPIURLStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>VIESAPIURLVatCheck</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoLookup</Name>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>Key</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>VIESAPIURLStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>VIESAPIURLVatCheck</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoIdentification</Name>
+			<AutoPopulate>Yes</AutoPopulate>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>Key</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoSummary</Name>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>Key</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>VIESAPIURLStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>VIESAPIURLVatCheck</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoBrowse</Name>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>Key</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>VIESAPIURLStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>VIESAPIURLVatCheck</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>InvalidBlocking</Name>
+			<Label>@FinanceToolbox:ECVIESBlockOnInvalidLabel</Label>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>CustBlocked</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>VendBlocked</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>ValidateOn</Name>
+			<Label>@FinanceToolbox:ECVIESValidateOn</Label>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>ValidateOnNumberCreation</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+	</FieldGroups>
+	<Fields>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt">
+			<Name>Key</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>ParametersKey</ExtendedDataType>
+			<Visible>No</Visible>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>VIESAPIURLStatus</Name>
+			<ExtendedDataType>URL</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:ECVIESAPICountryStatus</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>VIESAPIURLVatCheck</Name>
+			<ExtendedDataType>URL</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:ECVIESVATNumberStatusLabel</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>CustBlocked</Name>
+			<ExtendedDataType>CustBlocked</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:ECVIESCustomerHold</Label>
+			<EnumType>CustVendorBlocked</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>VendBlocked</Name>
+			<ExtendedDataType>VendBlocked</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<EnumType>CustVendorBlocked</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>ValidateOnNumberCreation</Name>
+			<ExtendedDataType>NoYesId</ExtendedDataType>
+			<HelpText>@FinanceToolbox:ECVIESValidateVatNumOnCreationHelp</HelpText>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:ECVIESValidateVatNumOnCreationLabel</Label>
+			<EnumType>NoYes</EnumType>
+		</AxTableField>
+	</Fields>
+	<FullTextIndexes />
+	<Indexes>
+		<AxTableIndex>
+			<Name>KeyIdx</Name>
+			<AlternateKey>Yes</AlternateKey>
+			<Fields>
+				<AxTableIndexField>
+					<DataField>Key</DataField>
+				</AxTableIndexField>
+			</Fields>
+		</AxTableIndex>
+	</Indexes>
+	<Mappings />
+	<Relations />
+	<StateMachines />
+</AxTable>

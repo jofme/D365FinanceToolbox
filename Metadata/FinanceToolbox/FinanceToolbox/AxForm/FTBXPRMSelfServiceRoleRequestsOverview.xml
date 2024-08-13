@@ -18,7 +18,9 @@ public class FTBXPRMSelfServiceRoleRequestsOverview extends FormRun
 				<Name>init</Name>
 				<Source><![CDATA[
     public void init()
-    {
+    {        
+        super();
+
         if (!element.args()
             && !element.args().parmEnumType())
         {
@@ -29,8 +31,6 @@ public class FTBXPRMSelfServiceRoleRequestsOverview extends FormRun
         {
             throw error(error::wrongUseOfFunction(funcName()));
         }
-
-        super();
 
         formHelper = FTBXPRMSelfServiceRoleRequestsFormHelper::construct(this, this.args().parmEnum());
         formHelper.updateQuery(false);
@@ -57,10 +57,6 @@ public class FTBXPRMSelfServiceRoleRequestsOverview extends FormRun
 					<Method>
 						<Name>active</Name>
 						<Source><![CDATA[
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
         public int active()
         {
             int ret = super();
@@ -88,7 +84,7 @@ public class FTBXPRMSelfServiceRoleRequestsOverview extends FormRun
         {
             if (FTBXPRMSelfServiceRoleRequests)
             {
-                new FTBXPRMSelfServiceRoleRequest(FTBXPRMSelfServiceRoleRequests.RequestId)
+                FTBXPRMSelfServiceRoleRequest::construct(FTBXPRMSelfServiceRoleRequests.RequestId)
                     .expireAssignments();
 
                 formHelper.onRequestCreated();
@@ -505,7 +501,7 @@ public class FTBXPRMSelfServiceRoleRequestsOverview extends FormRun
 											</AxFormControl>
 										</Controls>
 										<ColumnsMode>Fill</ColumnsMode>
-										<Caption>Role request</Caption>
+										<Caption>@FinanceToolbox:SelfServiceRoleRequests</Caption>
 									</AxFormControl>
 									<AxFormControl xmlns=""
 										i:type="AxFormTabPageControl">

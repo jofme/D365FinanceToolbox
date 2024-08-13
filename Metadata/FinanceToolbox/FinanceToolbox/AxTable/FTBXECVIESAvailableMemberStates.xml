@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTable xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESAvailableMemberStates</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class FTBXECVIESAvailableMemberStates extends common
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>delete</Name>
+				<Source><![CDATA[
+    public void  delete()
+    {
+        throw error("@SYS23721");
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>find</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Finds the member state record based on ISO code
+    /// </summary>
+    /// <param name = "_isoCode">ISO code</param>
+    /// <param name = "_forUpdate">Select record for update</param>
+    /// <returns>The member state record for the specified ISO code</returns>
+    public static FTBXECVIESAvailableMemberStates find(
+        LogisticsAddressCountryRegionISOCode    _isoCode,
+        boolean                                 _forUpdate = false)
+    {
+        FTBXECVIESAvailableMemberStates availableMemberStates;
+
+        if (_isoCode)
+        {
+            availableMemberStates.selectForUpdate(_forUpdate);
+        
+            select firstonly availableMemberStates
+                where availableMemberStates.ISOCode == _isoCode;
+        }
+
+        return availableMemberStates;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>isMemberStateAvailable</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Is the member state available for VIES validation 
+    /// </summary>
+    /// <param name = "_isoCode">ISO code of the member state</param>
+    /// <returns>True if the member state is available, otherwise false</returns>
+    public static boolean isMemberStateAvailable(LogisticsAddressCountryRegionISOCode _isoCode)
+    {
+        boolean ret;
+
+        if (_isoCode)
+        {
+            FTBXECVIESAvailableMemberStates availableMemberStates;
+
+            select firstonly EnableVIES, VIESCountryStatus from availableMemberStates
+                where availableMemberStates.ISOCode == _isoCode;
+
+            ret = availableMemberStates.EnableVIES && availableMemberStates.VIESCountryStatus == FTBXECVIESAPICountryStatus::Available;
+        }
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+	<DeveloperDocumentation>@FinanceToolbox:ECVIESAvailableMemberStatesDevDoc</DeveloperDocumentation>
+	<FormRef>FTBXECVIESParameters</FormRef>
+	<Label>@FinanceToolbox:ECMemberStates</Label>
+	<SubscriberAccessLevel>
+		<Read>Allow</Read>
+	</SubscriberAccessLevel>
+	<TableGroup>Main</TableGroup>
+	<TitleField1>ISOCode</TitleField1>
+	<TitleField2>VIESCountryStatus</TitleField2>
+	<AllowRowVersionChangeTracking>Yes</AllowRowVersionChangeTracking>
+	<CacheLookup>FoundAndEmpty</CacheLookup>
+	<ClusteredIndex>ISOCodeIdx</ClusteredIndex>
+	<CreatedBy>Yes</CreatedBy>
+	<CreatedDateTime>Yes</CreatedDateTime>
+	<ModifiedBy>Yes</ModifiedBy>
+	<ModifiedDateTime>Yes</ModifiedDateTime>
+	<ReplacementKey>ISOCodeIdx</ReplacementKey>
+	<DeleteActions />
+	<FieldGroups>
+		<AxTableFieldGroup>
+			<Name>AutoReport</Name>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>VIESCountryStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ISOCode</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>EnableVIES</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoLookup</Name>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>VIESCountryStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ISOCode</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>EnableVIES</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoIdentification</Name>
+			<AutoPopulate>Yes</AutoPopulate>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>ISOCode</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoSummary</Name>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>VIESCountryStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ISOCode</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>EnableVIES</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoBrowse</Name>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>VIESCountryStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ISOCode</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>EnableVIES</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>Grid</Name>
+			<Label>@SYS26263</Label>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>ISOCode</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>VIESCountryStatus</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>EnableVIES</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+	</FieldGroups>
+	<Fields>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>VIESCountryStatus</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<EnumType>FTBXECVIESAPICountryStatus</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>ISOCode</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>LogisticsAddressCountryRegionISOCode</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:ECVIESAPICountryCode</Label>
+			<Mandatory>Yes</Mandatory>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>EnableVIES</Name>
+			<ExtendedDataType>NoYesId</ExtendedDataType>
+			<HelpText>@FinanceToolbox:ECVIESStateEnabledHelp</HelpText>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:ECVIESStateEnabledLabel</Label>
+			<EnumType>NoYes</EnumType>
+		</AxTableField>
+	</Fields>
+	<FullTextIndexes />
+	<Indexes>
+		<AxTableIndex>
+			<Name>ISOCodeIdx</Name>
+			<AlternateKey>Yes</AlternateKey>
+			<Fields>
+				<AxTableIndexField>
+					<DataField>ISOCode</DataField>
+				</AxTableIndexField>
+			</Fields>
+		</AxTableIndex>
+	</Indexes>
+	<Mappings />
+	<Relations>
+		<AxTableRelation>
+			<Name>LogisticsAddressCountryRegion</Name>
+			<Cardinality>OneMore</Cardinality>
+			<OnDelete>Cascade</OnDelete>
+			<RelatedTable>LogisticsAddressCountryRegion</RelatedTable>
+			<RelatedTableCardinality>ZeroOne</RelatedTableCardinality>
+			<RelationshipType>Association</RelationshipType>
+			<Constraints>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>ISOCode</Name>
+					<Field>ISOCode</Field>
+					<RelatedField>ISOcode</RelatedField>
+				</AxTableRelationConstraint>
+			</Constraints>
+		</AxTableRelation>
+	</Relations>
+	<StateMachines />
+</AxTable>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTableExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>VendTable.FinanceToolbox</Name>
+	<FieldGroupExtensions>
+		<AxTableFieldGroupExtension>
+			<Name>SalesTax</Name>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>FTBXVendTable_Extension.ftbxDisplayECVIESVATNumberBlockingStatus</DataField>
+					<PositionType>AfterItem</PositionType>
+					<PreviousSibling>VATNum</PreviousSibling>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FTBXVendTable_Extension.ftbxECVIESVATNumberStatus</DataField>
+					<PositionType>AfterItem</PositionType>
+					<PreviousSibling>VATNum</PreviousSibling>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroupExtension>
+	</FieldGroupExtensions>
+	<FieldGroups />
+	<FieldModifications />
+	<Fields />
+	<FullTextIndexes />
+	<Indexes />
+	<Mappings />
+	<PropertyModifications />
+	<RelationExtensions />
+	<RelationModifications />
+	<Relations />
+</AxTableExtension>

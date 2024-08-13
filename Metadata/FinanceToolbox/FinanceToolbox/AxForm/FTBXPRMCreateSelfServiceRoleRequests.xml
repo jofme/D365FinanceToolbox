@@ -113,7 +113,7 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
                 {
                     while (tmpSelectedRoled)
                     {
-                        var request = new FTBXPRMSelfServiceRoleRequest()
+                        var request = FTBXPRMSelfServiceRoleRequest::construct()
                             .setRole(tmpSelectedRoled.SysSecurityRoleRecId)
                             .setUserId(SelectedUserTxt.valueStr())
                             .setJustification(JustificationTxt.valueStr())
@@ -125,6 +125,7 @@ public class FTBXPRMCreateSelfServiceRoleRequests extends FormRun
                         FTBXPRMTmpReferences tmpReferences;
                         tmpReferences.linkPhysicalTableInstance(FTBXPRMTmpReferences);
 
+                        //BP deviation documented
                         while select tmpReferences
                         {
                             request.addReference(

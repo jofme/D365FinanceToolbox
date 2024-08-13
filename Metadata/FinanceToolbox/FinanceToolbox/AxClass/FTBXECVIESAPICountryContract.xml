@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESAPICountryContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// This data contract represents the country part of the "check-status" API call
+/// It will contain the status and validity of a specific member state
+/// </summary>
+[DataContractAttribute]
+internal class FTBXECVIESAPICountryContract
+{
+    str                         countryCode;
+    FTBXECVIESAPICountryStatus  availability;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>parmCountryCode</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute("countryCode")]
+    public str parmCountryCode(str _countryCode = countryCode)
+    {
+        countryCode = _countryCode;
+        return countryCode;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmAvailability</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute("availability")]
+    public FTBXECVIESAPICountryStatus parmAvailability(FTBXECVIESAPICountryStatus _availability = availability)
+    {
+        availability = _availability;
+        return availability;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

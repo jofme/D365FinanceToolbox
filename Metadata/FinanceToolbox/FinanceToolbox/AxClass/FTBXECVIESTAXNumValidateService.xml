@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESTAXNumValidateService</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// Service that validate VAT numberes against the European Commision's VIES service
+/// </summary>
+internal final class FTBXECVIESTAXNumValidateService
+{
+    FTBXECVIESVATNumberCheckTable   vatNumCheckTable;
+    RecordInsertList                resultInsertList;      
+    NumberSeq                       numberSeq;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>doValidateTaxNumbers</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Perform validation of VAT numbers based on the query in the contract class
+    /// </summary>
+    /// <param name = "_contract">Contract class</param>
+    public void doValidateTaxNumbers(FTBXECVIESTAXNumValidateContract _contract)
+    {
+        FTBXECVIESInterfaceBase         viesInterface = FTBXECVIESInterfaceBase::construct();
+        TaxVATNumTable                  taxVatNumTable;
+        LogisticsAddressCountryRegion   logisticsAddressCountryRegion;
+
+        viesInterface.validationResultUpdated += eventhandler(this.addResult);
+
+        #OCCRETRYCOUNT
+
+        Query query = _contract.getQuery();
+        
+        if (_contract.parmNumberOfRecords() > 0)
+        {
+            query.topRows(_contract.parmNumberOfRecords());
+        }
+
+        if (_contract.parmNumberOfDays() > 0)
+        {
+            SysQuery::findOrCreateRange(
+                query.dataSourceTable(tableNum(TaxVATNumTable)),
+                fieldNum(TaxVATNumTable, FTBXECVIESVATNumberStatusDate)).value(SysQueryRangeUtil::lessThanUtcDate(-_contract.parmNumberOfDays()));
+        }
+
+        QueryRun queryRun = new QueryRun(query);
+
+        resultInsertList = new RecordInsertList(tableNum(FTBXECVIESVATNumberCheckResults));
+
+        while (queryRun.next())
+        {
+            if (queryRun.changed(tableNum(TaxVATNumTable)))
+            {
+                taxVatNumTable = queryRun.get(tableNum(TaxVATNumTable));
+                logisticsAddressCountryRegion = queryRun.get(tableNum(LogisticsAddressCountryRegion));
+
+                viesInterface.addCountryVATNumber(logisticsAddressCountryRegion.ISOcode, taxVatNumTable.VATNum);
+            }
+        }
+
+        try
+        {
+            ttsbegin;
+
+            if (viesInterface.getResults().elements() > 0)
+            {
+                FTBXECVIESVATNumberCheckResults checkResults;
+
+                this.initHeader();
+                viesInterface.invokeValidation();
+
+                resultInsertList.insertDatabase();
+            
+                vatNumCheckTable.insert();
+                numberSeq.used();
+
+                update_recordset taxVatNumTable
+                    setting FTBXECVIESVatNumberCheckId      = checkResults.CheckId, 
+                            FTBXECVIESVATNumberStatusDate   = checkResults.StatusDate, 
+                            FTBXECVIESVATNumberStatus       = checkResults.Status
+                    join checkResults
+                        where checkResults.CountryRegionId  == taxVatNumTable.CountryRegionId
+                        &&    checkResults.VATNumSystem     == taxVatNumTable.VATNum
+                        &&    checkResults.CheckId          == vatNumCheckTable.CheckId;
+            }
+            else
+            {
+                info("@FinanceToolbox:ECVIESVATNumberNoNumbersFound");
+            }
+
+            ttscommit;
+        }
+        catch (Exception::Deadlock)
+        {
+            // retry on deadlock
+            retry;
+        }
+        catch (Exception::UpdateConflict)
+        {
+            // try to resolve update conflict
+            if (appl.ttsLevel() == 0)
+            {
+                if (xSession::currentRetryCount() >= #RetryNum)
+                {
+                    throw Exception::UpdateConflictNotRecovered;
+                    
+                }
+                else
+                {
+                    retry;
+                }
+            }
+            else
+            {
+                throw Exception::UpdateConflict;
+            }
+        }
+        catch(Exception::DuplicateKeyException)
+        {
+            // retry in case of an duplicate key conflict
+            if (appl.ttsLevel() == 0)
+            {
+                if (xSession::currentRetryCount() >= #RetryNum)
+                {
+                    throw Exception::DuplicateKeyExceptionNotRecovered;
+                }
+                else
+                {
+                    retry;
+                }
+            }
+            else
+            {
+                throw Exception::DuplicateKeyException;
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setNumSeq</Name>
+				<Source><![CDATA[
+    private void setNumSeq()
+    {
+        NumberSequenceReference numSeqRefRequest = FTBXPrivilegedRoleManagementParameters::numRefFTBXPRMSelfServiceRoleRequestId();
+        
+        if (numSeqRefRequest && numSeqRefRequest.NumberSequenceId)
+        {
+            numberSeq = NumberSeq::newGetNum(numSeqRefRequest, true);
+            vatNumCheckTable.CheckId = numberSeq.num();
+        }
+        else
+        {
+            throw error("@SYS53912");
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>initHeader</Name>
+				<Source><![CDATA[
+    private void initHeader()
+    {
+        this.setNumSeq();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>addResult</Name>
+				<Source><![CDATA[
+    private void addResult(FTBXECVIESCheckResult _result)
+    {
+        FTBXECVIESVATNumberCheckResults vatNumCheckResult;
+
+        vatNumCheckResult.CheckId           = vatNumCheckTable.checkId;
+        vatNumCheckResult.ISOCode           = _result.isoCode();
+        vatNumCheckResult.CountryRegionId   = LogisticsAddressCountryRegion::findByISOCode(_result.isoCode()).CountryRegionId;
+        vatNumCheckResult.VATNumSystem      = _result.vatNum();
+        vatNumCheckResult.VATNumTested      = _result.vatNumTested();
+        vatNumCheckResult.CompanyName       = _result.entityName();
+        vatNumCheckResult.Address           = _result.entityAddressing();
+        vatNumCheckResult.StatusDate        = DateTimeUtil::getSystemDateTime();
+        vatNumCheckResult.Status            = _result.getNumberStatus();
+
+        vatNumCheckTable.CountTotal++;
+
+        switch (vatNumCheckResult.Status)
+        {
+            case FTBXECVIESVATNumberStatus::Invalid:
+                vatNumCheckTable.CountInvalid++;
+                break;
+            case FTBXECVIESVATNumberStatus::Valid:
+                vatNumCheckTable.CountValid++;
+                break;
+            case FTBXECVIESVATNumberStatus::VIESError:
+                vatNumCheckTable.CountError ++;
+                break;
+        }
+
+        resultInsertList.add(vatNumCheckResult);
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

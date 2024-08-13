@@ -3,11 +3,19 @@
 	<Name>FTBXPRMSelfServiceRoleRequest</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Representation of a PRM role request
+/// This class contains functionality related to 
+///     Creation of role request
+///     Submision of request to workflow
+///     Marking of request as expired
+/// </summary>
 public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 {
-    public  FTBXPRMSelfServiceRoleRequests           roleRequest;
-    public  FTBXPRMSelfServiceRoleRequestNotes       roleRequestsNote;
-    public  FTBXPRMTmpReferences                     tmpRoleReferences;
+    internal FTBXPRMSelfServiceRoleRequests     roleRequest;
+    internal FTBXPRMSelfServiceRoleRequestNotes roleRequestsNote;
+    internal FTBXPRMTmpReferences               tmpRoleReferences;  
+
 
 }
 ]]></Declaration>
@@ -15,7 +23,7 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>new</Name>
 				<Source><![CDATA[
-    public void new(FTBXPRMSelfServiceRoleRequestId _requestId = '')
+    protected void new(FTBXPRMSelfServiceRoleRequestId _requestId = '')
     {
         if (_requestId)
         {
@@ -35,8 +43,23 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 ]]></Source>
 			</Method>
 			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static FTBXPRMSelfServiceRoleRequest construct(FTBXPRMSelfServiceRoleRequestId _requestId = '')
+    {
+        return new FTBXPRMSelfServiceRoleRequest(_requestId);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
 				<Name>setUserId</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the user of the role request
+    /// </summary>
+    /// <param name = "_userId">User that the request has been created for</param>
+    /// <returns>This</returns>
     public FTBXPRMSelfServiceRoleRequest setUserId(UserId _userId)
     {
         roleRequest.UserId = _userId;
@@ -48,6 +71,11 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>setRole</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Role that the user has requested, or on behalf of the user
+    /// </summary>
+    /// <param name = "_roleId">RecId of the role</param>
+    /// <returns>This</returns>
     public FTBXPRMSelfServiceRoleRequest setRole(SysSecurityRoleRecId _roleId)
     {
         roleRequest.SysSecurityRoleRecId = _roleId;
@@ -59,6 +87,11 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>setFromDateTime</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// From date/time of the request
+    /// </summary>
+    /// <param name = "_validFrom">From date/time of the request</param>
+    /// <returns>This</returns>
     public FTBXPRMSelfServiceRoleRequest setFromDateTime(FromDateTime _validFrom)
     {
         isDirty = true;
@@ -72,6 +105,11 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>setToDateTime</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// To date/time of the request
+    /// </summary>
+    /// <param name = "_validTo">To date/time of the request</param>
+    /// <returns>This</returns>
     public FTBXPRMSelfServiceRoleRequest setToDateTime(ToDateTime _validTo)
     {
         isDirty = true;
@@ -85,6 +123,11 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>setEligibilityId</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the reference to the role assignment eligibility record
+    /// </summary>
+    /// <param name = "_eligibilityId">Role eligibility identifier</param>
+    /// <returns>This</returns>
     public FTBXPRMSelfServiceRoleRequest setEligibilityId(FTBXPRMSelfServiceRoleEligibilityId _eligibilityId)
     {
         roleRequest.EligibilityId = _eligibilityId;
@@ -96,6 +139,11 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>setJustification</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the justification of why the user should have this role
+    /// </summary>
+    /// <param name = "_justification">Request justification</param>
+    /// <returns>This</returns>
     public FTBXPRMSelfServiceRoleRequest setJustification(Notes _justification)
     {
         roleRequestsNote.justification = _justification;
@@ -107,6 +155,11 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>setDuration</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the duration of the role request in hours
+    /// </summary>
+    /// <param name = "_duration">Request duration in hours</param>
+    /// <returns>This</returns>
     public FTBXPRMSelfServiceRoleRequest setDuration(FTBXPRMSelfServiceDuration _duration)
     {
         roleRequest.Duration = _duration;
@@ -118,6 +171,12 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>addReference</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Adds a reference to the role request
+    /// </summary>
+    /// <param name = "_refType">Reference type (E.g. ticket, application)</param>
+    /// <param name = "_reference">Reference value</param>
+    /// <returns>This</returns>
     public FTBXPRMSelfServiceRoleRequest addReference(
         FTBXPRMSelfServiceRoleRequestReferenceType  _refType,
         FTBXRPMSelfServiceRoleRequestReference      _reference)
@@ -134,6 +193,9 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>reload</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Reloads the request. Typically used if a request state has changed
+    /// </summary>
     public void reload()
     {
         super();
@@ -147,6 +209,12 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>setStatus</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the state of the request
+    /// The request state changes contains the business logic of the request lifecycle
+    /// </summary>
+    /// <param name = "_status">Status to change to</param>
+    /// <returns>This</returns>
     public FTBXPRMSelfServiceRoleRequest setStatus(FTBXPRMSelfServiceRoleRequestStatus _status)
     {
         if (roleRequest.RequestStatus != _status)
@@ -165,6 +233,10 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>setNumSeq</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Sets the identifier of the role request
+    /// Will throw an exception if no number sequence has been configured
+    /// </summary>
     private void setNumSeq()
     {
         NumberSequenceReference numSeqRefRequest = FTBXPrivilegedRoleManagementParameters::numRefFTBXPRMSelfServiceRoleRequestId();
@@ -176,7 +248,7 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
         }
         else
         {
-            throw error(strfmt("@SYS53912"));
+            throw error("@SYS53912");
         }
     }
 
@@ -185,6 +257,10 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>submitToWorkflow</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Role workflow submission rogic
+    /// If approval has not been enabled, an assignment record will be created immediately and approved.
+    /// </summary>
     public void submitToWorkflow()
     {
         if (roleRequest.canSubmitToWorkflow()
@@ -208,6 +284,9 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>expireAssignments</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Expires the related role assignment
+    /// </summary>
     public void expireAssignments()
     {
         FTBXPRMRoleAssignments roleAssignments;
@@ -215,7 +294,7 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
         while select roleAssignments
             where roleAssignments.RequestId == roleRequest.RequestId
         {
-            new FTBXPRMRoleAssignment(roleAssignments.AssignmentId)
+            FTBXPRMRoleAssignment::construct(roleAssignments.AssignmentId)
                 .removeRoleFromUser()
                 .setToDateTime(DateTimeUtil::addSeconds(DateTimeUtil::getSystemDateTime(), -1))
                 .commit();
@@ -227,6 +306,9 @@ public final class FTBXPRMSelfServiceRoleRequest extends FTBXPRMInterfaceBase
 			<Method>
 				<Name>commitInternal</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Commits changes to database, and trigger business logic related to status changes
+    /// </summary>
     protected void commitInternal()
     {
         if (!roleRequest.RecId)

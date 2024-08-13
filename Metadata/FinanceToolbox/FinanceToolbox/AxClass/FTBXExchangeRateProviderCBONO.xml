@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXExchangeRateProviderCBONO</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+using Microsoft.Dynamics.ApplicationSuite.FinancialManagement.Currency.Framework;
+using System.Collections;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.HttpStatusCode;
+using SysCollections = System.Collections.Generic;
+using System.ComponentModel.Composition;
+
+/// <summary>
+/// Exchage rate provider for Central Bank of Norway (Norges Bank)
+/// </summary>
+[
+    ExportMetadataAttribute(
+        enumStr(ExchangeRateProvider),
+        ExchangeRateProvider::FTBXCentralBankOfNorway),
+    ExportAttribute('Microsoft.Dynamics.ApplicationSuite.FinancialManagement.Currency.Framework.IExchangeRateProvider')
+]
+
+internal final class FTBXExchangeRateProviderCBONO implements IExchangeRateProvider
+{
+    private const ExchangeRateProviderId providerId  = '3ffa8f91-d4a2-4db7-9088-de2bb3529d5b';
+
+    private const str configNameCentralBankNorwayEndpoint   = 'Central Bank of Norway API endpoint';
+
+    private const str csvHeaderFREQ         = 'FREQ';
+    private const str csvHeaderBASECUR      = 'BASE_CUR';
+    private const str csvHeaderQUOTECUR     = 'QUOTE_CUR';
+    private const str csvHeaderUNITMULT     = 'UNIT_MULT';
+    private const str csvHeaderTIMEPERIOD   = 'TIME_PERIOD';
+    private const str csvHeaderOBSVALUE     = 'OBS_VALUE';
+    private const str csvHeaderDecimals     = 'DECIMALS';
+
+    private const str csvDelimiter                  = ';';
+    private const int csvFormatMultiplierUnit       = 0;
+    private const int csvFormatMultiplierHundreds   = 2;
+    private const str csvFormatFrequencyBusiness    = 'B';
+
+    IExchangeRateProviderFrameworkFactory factory;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>GetConfigurationDefaults</Name>
+				<Source><![CDATA[
+    public IExchangeRateProviderConfigDefaults GetConfigurationDefaults()
+    {
+        IExchangeRateProviderConfigDefaults configurationDefaults = factory.CreateExchangeRateProviderConfigDefaults();
+
+        configurationDefaults.addNameValueConfigurationPair(
+            configNameCentralBankNorwayEndpoint,
+            @'https://data.norges-bank.no/api/data/EXR?format=csv&startPeriod=%1&endPeriod=%2&locale=en&bom=include');
+
+
+        return configurationDefaults;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>EnumNameForLookup</Name>
+				<Source><![CDATA[
+    public str EnumNameForLookup(ExchangeRateProviderPropertyKey _key)
+    {
+        return '';
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>get_Name</Name>
+				<Source><![CDATA[
+    public ExchangeRateProviderName get_Name()
+    {
+        return "@FinanceToolbox:ExchangeRateProviderCentralBankOfNorway";
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>get_Id</Name>
+				<Source><![CDATA[
+    public ExchangeRateProviderId get_Id()
+    {
+        return ProviderId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>set_Factory</Name>
+				<Source><![CDATA[
+    public void set_Factory(IExchangeRateProviderFrameworkFactory _factory)
+    {
+        factory = _factory;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>GetSupportedOptions</Name>
+				<Source><![CDATA[
+    public IExchangeRateProviderSupportedOptions GetSupportedOptions()
+    {
+        ExchangeRateProviderSupportedOptions options = factory.CreateExchangeRateProviderSupportedOptions();
+
+        options.set_doesSupportSpecificCurrencyPairs(false);
+        options.set_doesSupportSpecificDates(true);
+        options.set_doesSupportPreventImportOnNationalHoliday(false);
+        options.set_doesSupportExchangeRateFromPreviousDay(false);
+
+        return options;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>ValidateConfigurationDetail</Name>
+				<Source><![CDATA[
+    public boolean ValidateConfigurationDetail(ExchangeRateProviderPropertyKey _key, ExchangeRateProviderPropertyValue _value)
+    {
+        return true;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>addExchangeRateDataWarehouse</Name>
+				<Source><![CDATA[
+    private void addExchangeRateDataWarehouse(
+        ExchangeRateResponse    _response,
+        str                     _apiEndpoint,
+        FromDate                _fromDate,
+        ToDate                  _toDate)
+    {
+        URL dataWarehouseUrl = strFmt(
+            _apiEndpoint,
+            date2Str(_fromDate, 321, DateDay::Digits2, DateSeparator::Hyphen, DateMonth::Digits2, DateSeparator::Hyphen, DateYear::Digits4),
+            date2Str(_toDate,   321, DateDay::Digits2, DateSeparator::Hyphen, DateMonth::Digits2, DateSeparator::Hyphen, DateYear::Digits4));
+
+        var httpClient          = new HttpClient();
+        var httpRequestMessage  = new HttpRequestMessage(new HttpMethod('get'), dataWarehouseUrl);
+        var responseMessage = httpClient.SendAsync(httpRequestMessage)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
+
+        if (responseMessage 
+            && responseMessage.Content
+            && responseMessage.StatusCode == System.Net.HttpStatusCode::OK)
+        {
+            str exchangeRateCSV =  responseMessage.Content.ReadAsStringAsync()
+                        .ConfigureAwait(false)
+                        .GetAwaiter()
+                        .GetResult();
+
+            if (exchangeRateCSV)
+            {
+                int lineIndex = 0;
+                container lineData = str2con(strLine(exchangeRateCSV, lineIndex), csvDelimiter);
+
+                int headerIndexFrequency        = conFind(lineData, csvHeaderFreq);
+                int headerIndexBaseCur          = conFind(lineData, csvHeaderBASECUR);
+                int headerIndexQuoteCur         = conFind(lineData, csvHeaderQUOTECUR);
+                int headerIndexUnitMultiplier   = conFind(lineData, csvHeaderUNITMULT);
+                int headerIndexTimePeriod       = conFind(lineData, csvHeaderTIMEPERIOD);
+                int headerIndexObservedValue    = conFind(lineData, csvHeaderOBSVALUE);
+
+                if (!headerIndexFrequency
+                    || !headerIndexFrequency
+                    || !headerIndexBaseCur
+                    || !headerIndexQuoteCur
+                    || !headerIndexUnitMultiplier
+                    || !headerIndexTimePeriod
+                    || !headerIndexObservedValue)
+                {
+                    throw error("@FinanceToolbox:ExchangeRateProviderCBONOInvalidCSVHeader");
+                }
+
+                lineIndex++;
+                lineData = str2con(strLine(exchangeRateCSV, lineIndex), csvDelimiter);
+
+                do
+                {
+                    str frequency       = conPeek(lineData, headerIndexFrequency);
+                    str baseCurrency    = conPeek(lineData, headerIndexBaseCur);
+                    str quoteCurrency   = conPeek(lineData, headerIndexQuoteCur);
+                    int unitMultiplier  = conPeek(lineData, headerIndexUnitMultiplier);
+                    str timePeriod      = conPeek(linedata, headerIndexTimePeriod);
+                    str observedValue   = conPeek(lineData, headerIndexObservedValue);
+
+                    if (frequency == csvFormatFrequencyBusiness)
+                    {
+                        var currencyPair = ExchangeRateResponseCurrencyPair::construct();
+                        currencypair.set_fromCurrency(baseCurrency);
+                        currencypair.set_toCurrency(quoteCurrency);
+                        
+                        switch (unitMultiplier)
+                        {
+                            case csvFormatMultiplierHundreds:
+                                currencypair.set_exchangeRateDisplayFactor(ExchangeRateDisplayFactor::Hundred);
+                                break;
+                            case csvFormatMultiplierUnit:
+                                currencypair.set_exchangeRateDisplayFactor(ExchangeRateDisplayFactor::One);
+                                break;
+                            default:
+                                throw error(strFmt("@FinanceToolbox:ExchangeRateProviderUnknownMultiplier",
+                                    unitMultiplier,
+                                    baseCurrency,
+                                    quoteCurrency));
+                        }
+
+                        var exchangeRate = ExchangeRateResponseExchangeRate::construct();
+                        exchangeRate.set_validFrom(str2Date(timePeriod, 321));
+                        exchangeRate.set_exchangeRate(str2Num(observedValue));
+
+                        currencyPair.addExchangeRate(exchangeRate);
+
+                        _response.addOrUpdateCurrencyPair(currencyPair);
+                    }
+
+                    lineIndex++;
+                    lineData = str2con(strLine(exchangeRateCSV, lineIndex), csvDelimiter);
+                }
+                while(conLen(lineData) > 1);
+            }
+        }
+        else if (responseMessage
+            && responseMessage.Content
+            && responseMessage.StatusCode == System.Net.HttpStatusCode::NotFound)
+        {
+            error(strFmt("@FinanceToolbox:ExchangeRateProviderNoRatesSelectedPeriod",
+                _fromDate,
+                _toDate));
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>GetExchangeRates</Name>
+				<Source><![CDATA[
+    public IExchangeRateResponse GetExchangeRates(IExchangeRateRequest _request, IExchangeRateProviderConfig _config)
+    {
+        var exchangeRateResponse = ExchangeRateResponse::construct();
+
+        try
+        {
+            this.addExchangeRateDataWarehouse(
+                exchangeRateResponse,
+                _config.getPropertyValue(ProviderId, configNameCentralBankNorwayEndpoint),
+                _request.FromDate,
+                _request.ToDate);
+        }
+        catch
+        {
+            exceptionTextFallThrough();
+        }
+
+        return exchangeRateResponse;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

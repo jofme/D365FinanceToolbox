@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxEnum xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESAPICountryStatus</Name>
+	<Help>@FinanceToolbox:ECVIESAPICountryStatusHelp</Help>
+	<Label>@FinanceToolbox:ECVIESAPICountryStatusLabel</Label>
+	<UseEnumValue>No</UseEnumValue>
+	<EnumValues>
+		<AxEnumValue>
+			<Name>Available</Name>
+			<Label>@SYS30545</Label>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>Unavailable</Name>
+			<Label>@SYS25673</Label>
+			<Value>1</Value>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>MonitoringDisabled</Name>
+			<Label>@FinanceToolbox:ECVIESAPICountryStatusMonitoringDisabled</Label>
+			<Value>2</Value>
+		</AxEnumValue>
+	</EnumValues>
+	<IsExtensible>true</IsExtensible>
+</AxEnum>

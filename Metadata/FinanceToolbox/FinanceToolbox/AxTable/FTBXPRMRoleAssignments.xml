@@ -9,28 +9,26 @@ public class FTBXPRMRoleAssignments extends common
 ]]></Declaration>
 		<Methods>
 			<Method>
-				<Name>aosValidateDelete</Name>
+				<Name>delete</Name>
 				<Source><![CDATA[
-    public boolean aosValidateDelete()
+    public void  delete()
     {
-        boolean ret = super();
-
-        ret = false;
-    
-        return ret;
+        throw error("@SYS23721");
     }
 
 ]]></Source>
 			</Method>
 		</Methods>
 	</SourceCode>
+	<DeveloperDocumentation>@FinanceToolbox:PrivilegedRoleManagementRoleAssignmentsDevDoc</DeveloperDocumentation>
 	<Label>@FinanceToolbox:RoleAssignmentsLabel</Label>
 	<SubscriberAccessLevel>
 		<Read>Allow</Read>
 	</SubscriberAccessLevel>
-	<TableGroup>Transaction</TableGroup>
+	<TableGroup>Parameter</TableGroup>
 	<TitleField1>AssignmentId</TitleField1>
 	<TitleField2>UserId</TitleField2>
+	<Visibility>Internal</Visibility>
 	<AllowRowVersionChangeTracking>Yes</AllowRowVersionChangeTracking>
 	<CacheLookup>FoundAndEmpty</CacheLookup>
 	<ClusteredIndex>UserSecurityRoleIdx</ClusteredIndex>
@@ -38,29 +36,137 @@ public class FTBXPRMRoleAssignments extends common
 	<CreatedDateTime>Yes</CreatedDateTime>
 	<ModifiedBy>Yes</ModifiedBy>
 	<ModifiedDateTime>Yes</ModifiedDateTime>
+	<ReplacementKey>AssignmentIdx</ReplacementKey>
 	<SaveDataPerCompany>No</SaveDataPerCompany>
 	<DeleteActions />
 	<FieldGroups>
 		<AxTableFieldGroup>
 			<Name>AutoReport</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>RequestId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>AssignmentId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FromDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ToDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SecurityUserRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>UserId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>Duration</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoLookup</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>RequestId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>AssignmentId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FromDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ToDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SecurityUserRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>UserId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>Duration</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoIdentification</Name>
 			<AutoPopulate>Yes</AutoPopulate>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>AssignmentId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoSummary</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>RequestId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>AssignmentId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FromDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ToDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SecurityUserRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>UserId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>Duration</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoBrowse</Name>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>RequestId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>AssignmentId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FromDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ToDateTime</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SecurityUserRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SysSecurityRoleRecId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>UserId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>Duration</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>Grid</Name>

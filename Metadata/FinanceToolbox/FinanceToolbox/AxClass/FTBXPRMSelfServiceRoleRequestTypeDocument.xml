@@ -6,7 +6,7 @@
 /// <summary>
 /// The FTBXPRMSelfServiceRoleRequestTypeDocument workflow document class.
 /// </summary>
-class FTBXPRMSelfServiceRoleRequestTypeDocument extends WorkflowDocument
+public final class FTBXPRMSelfServiceRoleRequestTypeDocument extends WorkflowDocument
 {
 }
 ]]></Declaration>
@@ -22,7 +22,7 @@ class FTBXPRMSelfServiceRoleRequestTypeDocument extends WorkflowDocument
 	/// </returns>
 	public queryName getQueryName()
 	{
-		return querystr(FTBXPRMSelfServiceRoleRequests);
+        return querystr(FTBXPRMSelfServiceRoleRequests);
 	}
 
 ]]></Source>

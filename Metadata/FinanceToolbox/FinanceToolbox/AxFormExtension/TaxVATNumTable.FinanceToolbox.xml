@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>TaxVATNumTable.FinanceToolbox</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControldw3l54lf1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormGroupControl">
+				<Name>FTBXECVIESStatus</Name>
+				<Type>Group</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormStringControl">
+						<Name>FTBXECVIESStatus_FTBXECVIESVatNumberCheckId</Name>
+						<Type>String</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FTBXECVIESVatNumberCheckId</DataField>
+						<DataSource>TaxVATNumTable</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormComboBoxControl">
+						<Name>FTBXECVIESStatus_FTBXECVIESVATNumberStatus</Name>
+						<Type>ComboBox</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FTBXECVIESVATNumberStatus</DataField>
+						<DataSource>TaxVATNumTable</DataSource>
+						<Items />
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormDateTimeControl">
+						<Name>FTBXECVIESStatus_FTBXECVIESVATNumberStatusDate</Name>
+						<Type>DateTime</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FTBXECVIESVATNumberStatusDate</DataField>
+						<DataSource>TaxVATNumTable</DataSource>
+					</AxFormControl>
+				</Controls>
+				<DataGroup>FTBXECVIESStatus</DataGroup>
+				<DataSource>TaxVATNumTable</DataSource>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControl0r0j3uqk1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormButtonGroupControl">
+				<Name>FTBXVIES</Name>
+				<Type>ButtonGroup</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormButtonControl">
+						<Name>FTBXValidateVIES</Name>
+						<AutoDeclaration>Yes</AutoDeclaration>
+						<Type>Button</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Text>@FinanceToolbox:ECVIESValidate</Text>
+					</AxFormControl>
+				</Controls>
+				<Caption>@FinanceToolbox:ECVIES</Caption>
+			</FormControl>
+			<Parent>ActionPane</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

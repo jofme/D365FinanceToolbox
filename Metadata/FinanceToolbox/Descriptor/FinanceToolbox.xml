@@ -21,6 +21,7 @@ mail: financetoolbox@melgaard.nu</Description>
 		<d2p1:string>ApplicationPlatform</d2p1:string>
 		<d2p1:string>ApplicationSuite</d2p1:string>
 		<d2p1:string>Calendar</d2p1:string>
+		<d2p1:string>ContactPerson</d2p1:string>
 		<d2p1:string>Currency</d2p1:string>
 		<d2p1:string>Dimensions</d2p1:string>
 		<d2p1:string>Directory</d2p1:string>
@@ -30,7 +31,7 @@ mail: financetoolbox@melgaard.nu</Description>
 	<Name>FinanceToolbox</Name>
 	<Publisher>The D365 Finance Toolbox Team</Publisher>
 	<SolutionId>00000000-0000-0000-0000-000000000000</SolutionId>
-	<VersionBuild>7</VersionBuild>
+	<VersionBuild>8</VersionBuild>
 	<VersionMajor>1</VersionMajor>
 	<VersionMinor>24</VersionMinor>
 	<VersionRevision>0</VersionRevision>

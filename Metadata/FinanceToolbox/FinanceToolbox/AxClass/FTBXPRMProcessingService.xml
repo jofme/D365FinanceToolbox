@@ -3,7 +3,14 @@
 	<Name>FTBXPRMProcessingService</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
-public final class FTBXPRMProcessingService
+/// <summary>
+/// Processing batch job for PRM
+/// This batch job handles
+///     - Assignment of roles that originates from a PRM request
+///     - Assignment of roles that does not originate from a PRM request
+///     - Removal of expired roles
+/// </summary>
+internal final class FTBXPRMProcessingService
 {
     FTBXPrivilegedRoleManagementParameters parameters;
 
@@ -13,7 +20,7 @@ public final class FTBXPRMProcessingService
 			<Method>
 				<Name>new</Name>
 				<Source><![CDATA[
-    public void new()
+    protected void new()
     {
         parameters = FTBXPrivilegedRoleManagementParameters::find();
     }
@@ -23,6 +30,9 @@ public final class FTBXPRMProcessingService
 			<Method>
 				<Name>doProcess</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Entry point of batch job
+    /// </summary>
     public void doProcess()
     {
         this.doProcessRoleRequests();
@@ -52,7 +62,7 @@ public final class FTBXPRMProcessingService
             {
                 try
                 {
-                    new FTBXPRMSelfServiceRoleRequest(roleRequests.RequestId)
+                    FTBXPRMSelfServiceRoleRequest::construct(roleRequests.RequestId)
                         .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Assigned)
                         .commit();
                 }
@@ -71,7 +81,7 @@ public final class FTBXPRMProcessingService
                     where roleAssignments.SecurityUserRoleRecId != 0
                     &&    roleAssignments.RequestId             == roleRequests.RequestId
             {
-                new FTBXPRMSelfServiceRoleRequest(roleRequests.RequestId)
+                FTBXPRMSelfServiceRoleRequest::construct(roleRequests.RequestId)
                     .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Expired)
                     .commit();
             }
@@ -84,7 +94,7 @@ public final class FTBXPRMProcessingService
                     where roleAssignments.SecurityUserRoleRecId != 0
                     &&    roleAssignments.RequestId             == roleRequests.RequestId
             {
-                new FTBXPRMSelfServiceRoleRequest(roleRequests.RequestId)
+                FTBXPRMSelfServiceRoleRequest::construct(roleRequests.RequestId)
                     .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Assigned)
                     .commit();
             }
@@ -99,7 +109,7 @@ public final class FTBXPRMProcessingService
         {
             try
             {
-                new FTBXPRMSelfServiceRoleRequest(roleAssignments.RequestId)
+                FTBXPRMSelfServiceRoleRequest::construct(roleAssignments.RequestId)
                     .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Expired)
                     .commit();
             }
@@ -129,7 +139,7 @@ public final class FTBXPRMProcessingService
         {
             try
             {
-                new FTBXPRMRoleAssignment(roleAssignments.AssignmentId)
+                FTBXPRMRoleAssignment::construct(roleAssignments.AssignmentId)
                     .addRoleToUser()
                     .commit();                
             }
@@ -158,7 +168,7 @@ public final class FTBXPRMProcessingService
         {
             try
             {
-                new FTBXPRMRoleAssignment(roleAssignments.AssignmentId)
+                FTBXPRMRoleAssignment::construct(roleAssignments.AssignmentId)
                     .removeRoleFromUser()
                     .commit();
             }

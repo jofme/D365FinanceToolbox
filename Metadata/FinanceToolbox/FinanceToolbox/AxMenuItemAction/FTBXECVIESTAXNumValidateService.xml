@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxMenuItemAction xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V1">
+	<Name>FTBXECVIESTAXNumValidateService</Name>
+	<EnumParameter>Synchronous</EnumParameter>
+	<EnumTypeParameter>SysOperationExecutionMode</EnumTypeParameter>
+	<FeatureClass>FTBXECVIESFeature</FeatureClass>
+	<HelpText>@FinanceToolbox:ECVIESAPIValidateServiceHelp</HelpText>
+	<Label>@FinanceToolbox:ECVIESAPIValidateServiceLabel</Label>
+	<Object>SysOperationServiceController</Object>
+	<ObjectType>Class</ObjectType>
+	<Parameters>FTBXECVIESTAXNumValidateService.doValidateTaxNumbers</Parameters>
+	<SubscriberAccessLevel>
+		<Read xmlns="">Allow</Read>
+	</SubscriberAccessLevel>
+</AxMenuItemAction>

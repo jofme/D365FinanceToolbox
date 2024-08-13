@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxSecurityPrivilege xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESVATNumberCheckResultsView</Name>
+	<Description>@FinanceToolbox:ECVIESVATNumberCheckResultsViewDescription</Description>
+	<Label>@FinanceToolbox:ECVIESVATNumberCheckResultsViewLabel</Label>
+	<DataEntityPermissions>
+		<AxSecurityDataEntityPermission>
+			<Grant>
+				<Read>Allow</Read>
+			</Grant>
+			<Name>FTBXECVIESVATNumberCheckResultsEntity</Name>
+			<Fields />
+			<Methods />
+		</AxSecurityDataEntityPermission>
+	</DataEntityPermissions>
+	<DirectAccessPermissions />
+	<EntryPoints>
+		<AxSecurityEntryPointReference>
+			<Name>FTBXECVIESVATNumberCheckTable</Name>
+			<Grant>
+				<Read>Allow</Read>
+			</Grant>
+			<ObjectName>FTBXECVIESVATNumberCheckTable</ObjectName>
+			<ObjectType>MenuItemDisplay</ObjectType>
+			<Forms>
+				<AxSecurityEntryPointReferenceForm>
+					<Name>FTBXECVIESVATNumberCheckTable</Name>
+					<Controls />
+					<DataSources />
+				</AxSecurityEntryPointReferenceForm>
+			</Forms>
+		</AxSecurityEntryPointReference>
+	</EntryPoints>
+	<FormControlOverrides />
+</AxSecurityPrivilege>

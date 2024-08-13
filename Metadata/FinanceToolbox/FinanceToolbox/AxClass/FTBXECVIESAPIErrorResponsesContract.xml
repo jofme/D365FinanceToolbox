@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESAPIErrorResponsesContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// Representation of JSON error object return from VIES service
+/// </summary>
+[DataContract]
+internal class FTBXECVIESAPIErrorResponsesContract
+{
+    boolean actionSucceed;
+    List errorWrappers;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>parmActionSucceed</Name>
+				<Source><![CDATA[
+    [DataMember('actionSucceed')]
+    public boolean parmActionSucceed(boolean _actionSucceed = actionSucceed)
+    {
+        actionSucceed = _actionSucceed;
+        return actionSucceed;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmErrorWrappers</Name>
+				<Source><![CDATA[
+    [DataMember('errorWrappers'), DataCollection(Types::Class, classStr(FTBXECVIESAPIErrorWrapperContract))]
+    public List parmErrorWrappers(List _errorWrappers = errorWrappers)
+    {
+        errorWrappers = _errorWrappers;
+        return errorWrappers;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

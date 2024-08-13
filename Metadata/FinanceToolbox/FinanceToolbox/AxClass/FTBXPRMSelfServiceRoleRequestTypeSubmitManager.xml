@@ -6,7 +6,7 @@
 /// <summary>
 /// The FTBXPRMSelfServiceRoleRequestTypeSubmitManager menu item action event handler.
 /// </summary>
-public class FTBXPRMSelfServiceRoleRequestTypeSubmitManager 
+internal class FTBXPRMSelfServiceRoleRequestTypeSubmitManager 
 {
     protected FTBXPRMSelfServiceRoleRequests    roleRequest;
     protected WorkflowVersionTable              workflowConfigurationTable;
@@ -22,6 +22,10 @@ public class FTBXPRMSelfServiceRoleRequestTypeSubmitManager
 			<Method>
 				<Name>dialogOk</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Runs the workflow dialog
+    /// </summary>
+    /// <returns>The submitter accepted the workflow submission</returns>
     public boolean dialogOk()
     {
         WorkflowSubmitDialog workflowSubmitDialog = WorkflowSubmitDialog::construct(workflowConfigurationTable);
@@ -35,6 +39,13 @@ public class FTBXPRMSelfServiceRoleRequestTypeSubmitManager
 			<Method>
 				<Name>init</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Initialize the workflow manager
+    /// </summary>
+    /// <param name = "_documentRecord">The PRM role request record</param>
+    /// <param name = "_menuItemName">Menu item the submission was called from</param>
+    /// <param name = "_workflowConfigurationTable">Workflow configuration</param>
+    /// <param name = "_workflowWorkItemTable">Configured menu item of the workflow type</param>
     public void init(FTBXPRMSelfServiceRoleRequests _documentRecord,
                      menuItemName                   _menuItemName,
                      WorkflowVersionTable           _workflowConfigurationTable,
@@ -54,6 +65,9 @@ public class FTBXPRMSelfServiceRoleRequestTypeSubmitManager
 			<Method>
 				<Name>submit</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Submits the role request to workflow
+    /// </summary>
     public void submit()
     {
         Workflow::activateFromWorkflowType(this.workflowTemplateName,
@@ -61,7 +75,7 @@ public class FTBXPRMSelfServiceRoleRequestTypeSubmitManager
             workflowComment,
             NoYes::No);
 
-        new FTBXPRMSelfServiceRoleRequest(roleRequest.RequestId)
+        FTBXPRMSelfServiceRoleRequest::construct(roleRequest.RequestId)
             .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Submitted)
             .commit();
     }
@@ -80,6 +94,10 @@ public class FTBXPRMSelfServiceRoleRequestTypeSubmitManager
 			<Method>
 				<Name>construct</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Constructs the workflow manager
+    /// </summary>
+    /// <returns>An instantiated copy of the <c>FTBXPRMSelfServiceRoleRequestTypeSubmitManager</c> class</returns>
     public static FTBXPRMSelfServiceRoleRequestTypeSubmitManager construct()
     {
         return new FTBXPRMSelfServiceRoleRequestTypeSubmitManager();
@@ -90,6 +108,11 @@ public class FTBXPRMSelfServiceRoleRequestTypeSubmitManager
 			<Method>
 				<Name>validateArgs</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Validates the args the manager was called with
+    /// </summary>
+    /// <param name = "_args">Args of the menu item</param>
+    /// <returns>Returns true if all is okay</returns>
     public boolean validateArgs(Args _args)
     {
         boolean ret =
@@ -106,6 +129,10 @@ public class FTBXPRMSelfServiceRoleRequestTypeSubmitManager
 			<Method>
 				<Name>main</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Entry point of the workflow manager
+    /// </summary>
+    /// <param name = "_args">Arguments from the caller</param>
     public static void main(Args _args)
 	{
         var manager = FTBXPRMSelfServiceRoleRequestTypeSubmitManager::construct();

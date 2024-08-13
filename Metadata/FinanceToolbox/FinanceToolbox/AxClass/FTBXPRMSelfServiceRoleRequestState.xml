@@ -3,15 +3,25 @@
 	<Name>FTBXPRMSelfServiceRoleRequestState</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// Method that contains logic that handles state change actions of PRM requests
+/// </summary>
 internal class FTBXPRMSelfServiceRoleRequestState
 {
     FTBXPRMSelfServiceRoleRequest request;
+
 }
 ]]></Declaration>
 		<Methods>
 			<Method>
 				<Name>construct</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Constructor of the PRM entity state
+    /// </summary>
+    /// <param name = "_request">PRM request entity</param>
+    /// <param name = "_status">Status that the PRM entity should change to</param>
+    /// <returns>An instantiated FTBXPRMSelfServiceRoleRequestState object</returns>
     public static FTBXPRMSelfServiceRoleRequestState construct(FTBXPRMSelfServiceRoleRequest _request, FTBXPRMSelfServiceRoleRequestStatus _status)
     {
         FTBXPRMSelfServiceRoleRequestState state;
@@ -54,6 +64,10 @@ internal class FTBXPRMSelfServiceRoleRequestState
 			<Method>
 				<Name>init</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// initializes the PRM entity state 
+    /// </summary>
+    /// <param name = "_request">The request that should change status</param>
     public void init(FTBXPRMSelfServiceRoleRequest _request)
     {
         request = _request;
@@ -64,9 +78,66 @@ internal class FTBXPRMSelfServiceRoleRequestState
 			<Method>
 				<Name>changeState</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Method that contains exception handling logic of the PRM entity state
+    /// </summary>
     public final void changeState()
     {
-        this.changeStateInternal();
+        #OCCRETRYCOUNT
+
+        try
+        {
+            ttsbegin;
+
+            this.changeStateInternal();
+
+            ttscommit;
+        }
+        catch (Exception::Deadlock)
+        {
+            // retry on deadlock
+            retry;
+        }
+        catch (Exception::UpdateConflict)
+        {
+            // try to resolve update conflict
+            if (appl.ttsLevel() == 0)
+            {
+                if (xSession::currentRetryCount() >= #RetryNum)
+                {
+                    throw Exception::UpdateConflictNotRecovered;
+                    
+                }
+                else
+                {
+                    retry;
+                }
+            }
+            else
+            {
+                throw Exception::UpdateConflict;
+            }
+        }
+        catch(Exception::DuplicateKeyException)
+        {
+            // retry in case of an duplicate key conflict
+            if (appl.ttsLevel() == 0)
+            {
+                if (xSession::currentRetryCount() >= #RetryNum)
+                {
+                    throw Exception::DuplicateKeyExceptionNotRecovered;
+                }
+                else
+                {
+                    retry;
+                }
+            }
+            else
+            {
+                throw Exception::DuplicateKeyException;
+            }
+        }
+        
 
     }
 
@@ -75,6 +146,9 @@ internal class FTBXPRMSelfServiceRoleRequestState
 			<Method>
 				<Name>changeStateInternal</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Method that contains logic that handles commit actions on the PRM entity state
+    /// </summary>
     protected void changeStateInternal()
     {
     }

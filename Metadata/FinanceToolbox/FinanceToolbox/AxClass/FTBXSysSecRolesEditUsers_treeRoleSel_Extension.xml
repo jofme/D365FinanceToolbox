@@ -3,8 +3,11 @@
 	<Name>FTBXSysSecRolesEditUsers_treeRoleSel_Extension</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// CoC class for the treeRoleSel control on the <c>SysSecRolesEditUsers</c> form
+/// </summary>
 [ExtensionOf(formControlStr(SysSecRolesEditUsers, treeRoleSel))]
-final class FTBXSysSecRolesEditUsers_treeRoleSel_Extension
+public final class FTBXSysSecRolesEditUsers_treeRoleSel_Extension
 {
 }
 ]]></Declaration>
@@ -12,6 +15,13 @@ final class FTBXSysSecRolesEditUsers_treeRoleSel_Extension
 			<Method>
 				<Name>selectionChanged</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// CoC method for selectionChanged
+    /// Updates the ranges of the role eligibility data source, if the feature is enabled
+    /// </summary>
+    /// <param name = "_oldItem">Old item</param>
+    /// <param name = "_newItem">New item</param>
+    /// <param name = "_how">How</param>
     public void selectionChanged(FormTreeItem _oldItem, FormTreeItem _newItem, FormTreeSelect _how)
     {
         next selectionChanged(_oldItem, _newItem, _how);

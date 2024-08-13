@@ -3,7 +3,11 @@
 	<Name>FTBXPRMSelfServiceRoleRequestAutoTaskDeny</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
-internal final class FTBXPRMSelfServiceRoleRequestAutoTaskDeny implements WorkflowElementExecutionEventHandler
+/// <summary>
+///    The <c>FTBXPRMSelfServiceRoleRequestAutoTaskDeny</c> class is the event handler class, which manages
+///    the workflow automated task execution event.
+/// </summary>
+public final class FTBXPRMSelfServiceRoleRequestAutoTaskDeny implements WorkflowElementExecutionEventHandler
 {
 }
 ]]></Declaration>
@@ -11,9 +15,15 @@ internal final class FTBXPRMSelfServiceRoleRequestAutoTaskDeny implements Workfl
 			<Method>
 				<Name>execute</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Handles the execute event for the workflow automated task.
+    /// </summary>
+    /// <param name="_workflowElementEventArgs">
+    /// An instance of the <c>WorkflowElementEventArgs</c> class.
+    /// </param>
     public void execute(WorkflowElementEventArgs _workflowElementEventArgs)
     {
-        new FTBXPRMSelfServiceRoleRequest(
+        FTBXPRMSelfServiceRoleRequest::construct(
                 FTBXPRMSelfServiceRoleRequests::findRecId(_workflowElementEventArgs.parmWorkflowContext().parmRecId()).RequestId)
             .setStatus(FTBXPRMSelfServiceRoleRequestStatus::Rejected)
             .commit();
