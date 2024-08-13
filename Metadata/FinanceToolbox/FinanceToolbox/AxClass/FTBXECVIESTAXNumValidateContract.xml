@@ -9,7 +9,12 @@
 [DataContract]
 internal final class FTBXECVIESTAXNumValidateContract implements SysOperationInitializable
 {
-    private str		packedTaxVatNumQuery;
+    private str	        packedTaxVatNumQuery;
+    private Days        numberOfDays;
+    private NumberOf    numberOfRecords;
+
+    protected static int defaultNumberOfDays    = 30;
+    protected static int defaultNumberOfRecords = 100;
 
 }
 ]]></Declaration>
@@ -20,6 +25,9 @@ internal final class FTBXECVIESTAXNumValidateContract implements SysOperationIni
     public void initialize()
     {
         this.setQuery(this.newQuery());
+
+        numberOfDays    = defaultNumberOfDays;
+        numberOfRecords = defaultNumberOfRecords;
     }
 
 ]]></Source>
@@ -78,6 +86,37 @@ internal final class FTBXECVIESTAXNumValidateContract implements SysOperationIni
         packedTaxVatNumQuery = _packedTaxVatNumQuery;
 
         return packedTaxVatNumQuery;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmNumberOfRecords</Name>
+				<Source><![CDATA[
+    [
+        DataMember,
+        SysOperationLabel("@FinanceToolbox:ECVIESVATNumbersToCheck")
+    ]
+    public NumberOf parmNumberOfRecords(NumberOf _numberOfRecords = numberOfRecords)
+    {
+        numberOfRecords = _numberOfRecords;
+        return numberOfRecords;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmNumberOfDays</Name>
+				<Source><![CDATA[
+    [
+        DataMember,
+        SysOperationLabel("@FinanceToolbox:ECVIESVATNumberCheckOlderThan"),
+        SysOperationHelpText("@FinanceToolbox:ECVIESVATNumberCheckOlderThanHelp")
+    ]
+    public Days parmNumberOfDays(Days _numberOfDays = numberOfDays)
+    {
+        numberOfDays = _numberOfDays;
+        return numberOfDays;
     }
 
 ]]></Source>

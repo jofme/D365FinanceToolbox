@@ -31,7 +31,7 @@ mail: financetoolbox@melgaard.nu&#xD;
 	<Name>FinanceToolboxExtended</Name>
 	<Publisher>The D365 Finance Toolbox Team</Publisher>
 	<SolutionId>00000000-0000-0000-0000-000000000000</SolutionId>
-	<VersionBuild>7</VersionBuild>
+	<VersionBuild>8</VersionBuild>
 	<VersionMajor>1</VersionMajor>
 	<VersionMinor>24</VersionMinor>
 	<VersionRevision>0</VersionRevision>
