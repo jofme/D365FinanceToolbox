@@ -69,6 +69,9 @@ internal final class FTBXECVIESTAXNumValidateService
             {
                 FTBXECVIESVATNumberCheckResults checkResults;
 
+                //Check if all counties are available
+                viesInterface.updateAvailableCountries();
+
                 this.initHeader();
                 viesInterface.invokeValidation();
 
