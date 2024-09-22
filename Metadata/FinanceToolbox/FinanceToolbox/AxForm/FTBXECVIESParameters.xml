@@ -240,6 +240,9 @@ public class FTBXECVIESParameters extends FormRun
 					<DataField>RecId</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
+					<DataField>SkipVATNumCorrection</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
 					<DataField>TableId</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
@@ -540,6 +543,25 @@ public class FTBXECVIESParameters extends FormRun
 											</AxFormControl>
 										</Controls>
 										<Caption>@SYS92841</Caption>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormGroupControl">
+										<Name>Behavior</Name>
+										<Type>Group</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Controls>
+											<AxFormControl xmlns=""
+												i:type="AxFormCheckBoxControl">
+												<Name>FTBXECVIESParameters_SkipVATNumCorrection</Name>
+												<Type>CheckBox</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<DataField>SkipVATNumCorrection</DataField>
+												<DataSource>FTBXECVIESParameters</DataSource>
+											</AxFormControl>
+										</Controls>
+										<Caption>@SYS55950</Caption>
 									</AxFormControl>
 									<AxFormControl xmlns=""
 										i:type="AxFormGroupControl">

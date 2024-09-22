@@ -36,7 +36,8 @@ internal final class FTBXECVIESCheckResult
     {
         isoCode         = _isoCode;
         vatNum          = _vatNum;
-        vatNumTested    = strKeep(vatNum, '0123456789');
+
+        this.initVatNumTested();
     }
 
 ]]></Source>
@@ -51,6 +52,39 @@ internal final class FTBXECVIESCheckResult
         return new FTBXECVIESCheckResult(
             _isoCode,
             _vatNum);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>initVatNumTested</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Initializes the tested VAT number.
+    /// If correction is activated, the following adjustments will be applied:
+    ///     - The ISO country/region code will be removed from the VAT number.
+    ///     - All non-alphanumeric characters will be removed.
+    /// </summary>
+    private void initVatNumTested()
+    {
+        if (vatNumTested)
+        {
+            return;
+        }
+
+        vatNumTested = vatNum;
+
+        if (!FTBXECVIESParameters::find().SkipVATNumCorrection)
+        {
+            //Check if VAT number starts with ISO country/region code
+            if (subStr(vatNumTested, 1, strLen(isoCode)) == isoCode)
+            {
+                vatNumTested = strDel(vatNumTested, 1, strLen(isoCode));
+            }
+
+            //Remove all non-alphanumeric characters from VAT number
+            vatNumTested = strAlpha(vatNumTested);
+        }
     }
 
 ]]></Source>
