@@ -22,5 +22,10 @@
 			<Label>@FinanceToolbox:ECVIESVATNumberStatusVIESError</Label>
 			<Value>3</Value>
 		</AxEnumValue>
+		<AxEnumValue>
+			<Name>VIESNotAvailable</Name>
+			<Label>@SYS322850</Label>
+			<Value>4</Value>
+		</AxEnumValue>
 	</EnumValues>
 </AxEnum>

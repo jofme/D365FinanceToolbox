@@ -15,15 +15,14 @@
     <ProjectGuid>{74df9fbb-329f-44fd-975c-da5f81a81791}</ProjectGuid>
     <Name>D365FinanceToolbox_ECVIESValidation</Name>
     <RootNamespace>D365FinanceToolbox_ECVIESValidation</RootNamespace>
-    <StartupType>Form</StartupType>
-    <StartupObject>FTBXECVIESParameters</StartupObject>
+    <StartupType>Class</StartupType>
+    <StartupObject>JOFME_TestSingleVIESCCheckCall</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
     <DBSyncInBuild>False</DBSyncInBuild>
     <GenerateFormAdaptors>False</GenerateFormAdaptors>
-    <Company>
-    </Company>
+    <Company>usmf</Company>
     <Partition>initial</Partition>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
@@ -129,6 +128,11 @@
       <Name>FTBXVendTable_Extension</Name>
       <Link>Classes\FTBXVendTable_Extension</Link>
     </Content>
+    <Content Include="AxClass\JOFME_TestSingleVIESCCheckCall">
+      <SubType>Content</SubType>
+      <Name>JOFME_TestSingleVIESCCheckCall</Name>
+      <Link>Classes\Test classes\JOFME_TestSingleVIESCCheckCall</Link>
+    </Content>
     <Content Include="AxDataEntityViewExtension\TaxVATNumTableEntity.FinanceToolbox">
       <SubType>Content</SubType>
       <Name>TaxVATNumTableEntity.FinanceToolbox</Name>
@@ -143,6 +147,11 @@
       <SubType>Content</SubType>
       <Name>ECVIESCustVendorBlocked</Name>
       <Link>EDT Enums\ECVIESCustVendorBlocked</Link>
+    </Content>
+    <Content Include="AxEdt\FTBXECVIESAPIMessage">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESAPIMessage</Name>
+      <Link>EDT Strings\FTBXECVIESAPIMessage</Link>
     </Content>
     <Content Include="AxEdt\FTBXECVIESVatNumberCheckId">
       <SubType>Content</SubType>
@@ -303,6 +312,11 @@
       <SubType>Content</SubType>
       <Name>FTBXECVIESParameters</Name>
       <Link>Tables\FTBXECVIESParameters</Link>
+    </Content>
+    <Content Include="AxTable\FTBXECVIESVATNumberCheckResultDetails">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberCheckResultDetails</Name>
+      <Link>Tables\FTBXECVIESVATNumberCheckResultDetails</Link>
     </Content>
     <Content Include="AxTable\FTBXECVIESVATNumberCheckResults">
       <SubType>Content</SubType>

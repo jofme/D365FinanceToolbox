@@ -15,6 +15,7 @@ internal abstract class FTBXECVIESInterfaceBase
     protected   HttpClient              httpClient;
     protected   FTBXECVIESParameters    parameters;
     protected   Set                     vatValidationResults;
+    protected   boolean                 saveAPIMessages;
     public      FTBXECVIESCheckResult   latestResult;
 
 }
@@ -28,6 +29,7 @@ internal abstract class FTBXECVIESInterfaceBase
         parameters              = FTBXECVIESParameters::find();
         httpClient              = new HttpClient();
         vatValidationResults    = new Set(Types::Class);
+        saveAPIMessages         = parameters.SaveAPIMessages;
     }
 
 ]]></Source>
@@ -50,9 +52,16 @@ internal abstract class FTBXECVIESInterfaceBase
     /// </summary>
     /// <param name = "_country">Country/Member state</param>
     /// <param name = "_vatnum">VAT number</param>
-    public void addCountryVATNumber(str _country, str _vatnum)
+    public void addCountryVATNumber(
+        LogisticsAddressCountryRegionId _countryRegionId,
+        str _country, 
+        str _vatnum)
     {
-        latestResult = FTBXECVIESCheckResult::construct(_country, _vatnum);
+        latestResult = FTBXECVIESCheckResult::construct(
+            _countryRegionId,
+            _country, 
+            _vatnum);
+
         vatValidationResults.add(latestResult);
     }
 

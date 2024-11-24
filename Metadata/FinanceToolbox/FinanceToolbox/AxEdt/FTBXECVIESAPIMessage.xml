@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxEdt xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns=""
+	i:type="AxEdtString">
+	<Name>FTBXECVIESAPIMessage</Name>
+	<HelpText>@FinanceToolbox:ECVIESAPIMessageHelp</HelpText>
+	<Label>@FinanceToolbox:ECVIESAPIMessageLabel</Label>
+	<ArrayElements />
+	<Relations />
+	<TableReferences />
+	<DisplayHeight>6</DisplayHeight>
+	<StringSize>-1</StringSize>
+</AxEdt>
