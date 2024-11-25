@@ -23,14 +23,15 @@ public class FTBXECVIESVATNumberCheckResults extends common
 				<Source><![CDATA[
     public void initFromCheckResult(FTBXECVIESCheckResult _result)
     {
-        this.ISOCode           = _result.vatCountry();
-        this.CountryRegionId   = _result.countryRegionId();
-        this.VATNumSystem      = _result.vatNum();
-        this.VATNumTested      = _result.vatNumTested();
-        this.CompanyName       = _result.entityName();
-        this.Address           = _result.entityAddressing();
-        this.StatusDate        = DateTimeUtil::getSystemDateTime();
-        this.Status            = _result.getNumberStatus();
+        this.ISOCode            = _result.vatCountry();
+        this.CountryRegionId    = _result.countryRegionId();
+        this.VATNumSystem       = _result.vatNum();
+        this.VATNumTested       = _result.vatNumTested();
+        this.CompanyName        = _result.entityName();
+        this.Address            = _result.entityAddressing();
+        this.StatusDate         = DateTimeUtil::getSystemDateTime();
+        this.Status             = _result.getNumberStatus();
+        this.RequestIdentifier  = _result.apiRequestIdentifier();
     }
 
 ]]></Source>
@@ -129,6 +130,9 @@ public class FTBXECVIESVATNumberCheckResults extends common
 			<Fields>
 				<AxTableFieldGroupField>
 					<DataField>Status</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>RequestIdentifier</DataField>
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
 					<DataField>CountryRegionId</DataField>
@@ -242,6 +246,14 @@ public class FTBXECVIESVATNumberCheckResults extends common
 			<AllowEdit>No</AllowEdit>
 			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<EnumType>FTBXECVIESVATNumberStatus</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>RequestIdentifier</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>FTBXECVIESVATNumberCheckAPIRequestIdentifier</ExtendedDataType>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 		</AxTableField>
 	</Fields>
 	<FullTextIndexes />

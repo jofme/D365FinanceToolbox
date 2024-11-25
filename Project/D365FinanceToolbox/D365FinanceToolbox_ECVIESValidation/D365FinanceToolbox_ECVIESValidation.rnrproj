@@ -153,6 +153,11 @@
       <Name>FTBXECVIESAPIMessage</Name>
       <Link>EDT Strings\FTBXECVIESAPIMessage</Link>
     </Content>
+    <Content Include="AxEdt\FTBXECVIESVATNumberCheckAPIRequestIdentifier">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberCheckAPIRequestIdentifier</Name>
+      <Link>EDT Strings\FTBXECVIESVATNumberCheckAPIRequestIdentifier</Link>
+    </Content>
     <Content Include="AxEdt\FTBXECVIESVatNumberCheckId">
       <SubType>Content</SubType>
       <Name>FTBXECVIESVatNumberCheckId</Name>

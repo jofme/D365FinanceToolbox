@@ -67,7 +67,16 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 			<Table>FTBXECVIESVATNumberCheckResults</Table>
 			<Fields>
 				<AxFormDataSourceField>
+					<DataField>Address</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
 					<DataField>CheckId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>CompanyName</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>CountryRegionId</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
 					<DataField>CreatedBy</DataField>
@@ -79,10 +88,16 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 					<DataField>DataAreaId</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
+					<DataField>ISOCode</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
 					<DataField>Partition</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
 					<DataField>RecId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>RequestIdentifier</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
 					<DataField>Status</DataField>
@@ -94,7 +109,10 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 					<DataField>TableId</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
-					<DataField>VATNum</DataField>
+					<DataField>VATNumSystem</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>VATNumTested</DataField>
 				</AxFormDataSourceField>
 			</Fields>
 			<ReferencedDataSources />
@@ -379,12 +397,22 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 													i:nil="true" />
 												<Controls>
 													<AxFormControl xmlns=""
+														i:type="AxFormComboBoxControl">
+														<Name>FTBXECVIESVATNumberCheckResults_Status</Name>
+														<Type>ComboBox</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>Status</DataField>
+														<DataSource>FTBXECVIESVATNumberCheckResults</DataSource>
+														<Items />
+													</AxFormControl>
+													<AxFormControl xmlns=""
 														i:type="AxFormStringControl">
-														<Name>FTBXECVIESVATNumberCheckResults_VATNumSystem</Name>
+														<Name>FTBXECVIESVATNumberCheckResults_RequestIdentifier</Name>
 														<Type>String</Type>
 														<FormControlExtension
 															i:nil="true" />
-														<DataField>VATNumSystem</DataField>
+														<DataField>RequestIdentifier</DataField>
 														<DataSource>FTBXECVIESVATNumberCheckResults</DataSource>
 													</AxFormControl>
 													<AxFormControl xmlns=""
@@ -394,6 +422,15 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 														<FormControlExtension
 															i:nil="true" />
 														<DataField>CountryRegionId</DataField>
+														<DataSource>FTBXECVIESVATNumberCheckResults</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>FTBXECVIESVATNumberCheckResults_VATNumSystem</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>VATNumSystem</DataField>
 														<DataSource>FTBXECVIESVATNumberCheckResults</DataSource>
 													</AxFormControl>
 													<AxFormControl xmlns=""
@@ -413,16 +450,6 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 															i:nil="true" />
 														<DataField>VATNumTested</DataField>
 														<DataSource>FTBXECVIESVATNumberCheckResults</DataSource>
-													</AxFormControl>
-													<AxFormControl xmlns=""
-														i:type="AxFormComboBoxControl">
-														<Name>FTBXECVIESVATNumberCheckResults_Status</Name>
-														<Type>ComboBox</Type>
-														<FormControlExtension
-															i:nil="true" />
-														<DataField>Status</DataField>
-														<DataSource>FTBXECVIESVATNumberCheckResults</DataSource>
-														<Items />
 													</AxFormControl>
 													<AxFormControl xmlns=""
 														i:type="AxFormDateTimeControl">
@@ -458,10 +485,10 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 											<AxFormControl xmlns=""
 												i:type="AxFormGroupControl">
 												<Name>Footer</Name>
-												<Pattern>FieldsFieldGroups</Pattern>
-												<PatternVersion>1.1</PatternVersion>
+												<HeightMode>Auto</HeightMode>
+												<Pattern>Custom</Pattern>
 												<Type>Group</Type>
-												<WidthMode>SizeToAvailable</WidthMode>
+												<WidthMode>Auto</WidthMode>
 												<FormControlExtension
 													i:nil="true" />
 												<Controls>
@@ -500,6 +527,7 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 																<DataSource>FTBXECVIESVATNumberCheckResultDetails</DataSource>
 															</AxFormControl>
 														</Controls>
+														<Columns>3</Columns>
 														<DataGroup>Troubleshooting</DataGroup>
 														<DataSource>FTBXECVIESVATNumberCheckResultDetails</DataSource>
 													</AxFormControl>
@@ -508,6 +536,7 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 											</AxFormControl>
 										</Controls>
 										<Caption>@FinanceToolbox:ECVIESVATNumberResults</Caption>
+										<Style>DetailsFormDetails</Style>
 									</AxFormControl>
 								</Controls>
 								<Style>FastTabs</Style>

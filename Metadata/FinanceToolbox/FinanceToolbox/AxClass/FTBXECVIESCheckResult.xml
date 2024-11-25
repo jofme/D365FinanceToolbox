@@ -22,8 +22,9 @@ public final class FTBXECVIESCheckResult
     private Addressing  entityAddressing;
 
     //Database validity information
-    private FTBXECVIESVATNumberStatus   vatNumberStatus;
+    private FTBXECVIESVATNumberStatus   vatNumberStatus;    
     private str                         errorMessage;
+    private str                         apiRequestIdentifier;
     private FTBXECVIESAPIMessage        apiRequest;
     private FTBXECVIESAPIMessage        apiResponse;
 
@@ -99,28 +100,22 @@ public final class FTBXECVIESCheckResult
 			<Method>
 				<Name>setResultValues</Name>
 				<Source><![CDATA[
-    /// <summary>
-    /// Sets the result values from the VIES interface implementation
-    /// </summary>
-    /// <param name = "_entityName">Company name</param>
-    /// <param name = "_entityAddressing">Company address</param>
-    /// <param name = "_isValid">Is the VAT number valid</param>
-    /// <param name = "_hasError">Did the VIES service return an error</param>
-    /// <param name = "_errorMessage">Error message from the VIES service</param>
     public void setResultValues(
         Name                        _entityName,
         Addressing                  _entityAddressing,
         FTBXECVIESVATNumberStatus   _vatNumberStatus,
-        str                         _errorMessage = '',
-        str                         _apiRequest = '',
-        str                         _apiResponse = '')
+        str                         _errorMessage           = '',
+        str                         _apiRequest             = '',
+        str                         _apiResponse            = '',
+        str                         _apiRequestIdentifier   = '')
     {
-        entityName          = _entityName;
-        entityAddressing    = _entityAddressing;
-        vatNumberStatus     = _vatNumberStatus;
-        errorMessage        = _errorMessage;
-        apiRequest          = _apiRequest;
-        apiResponse         = _apiResponse;
+        entityName              = _entityName;
+        entityAddressing        = _entityAddressing;
+        vatNumberStatus         = _vatNumberStatus;
+        errorMessage            = _errorMessage;
+        apiRequest              = _apiRequest;
+        apiResponse             = _apiResponse;
+        apiRequestIdentifier    = _apiRequestIdentifier;
     }
 
 ]]></Source>
@@ -259,6 +254,20 @@ public final class FTBXECVIESCheckResult
     public FTBXECVIESAPIMessage apiResponse()
     {
         return apiResponse;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>apiRequestIdentifier</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Gets the request identifier from the VIES API
+    /// </summary>
+    /// <returns>API request identifier</returns>
+    public FTBXECVIESVATNumberCheckAPIRequestIdentifier apiRequestIdentifier()
+    {
+        return apiRequestIdentifier;
     }
 
 ]]></Source>

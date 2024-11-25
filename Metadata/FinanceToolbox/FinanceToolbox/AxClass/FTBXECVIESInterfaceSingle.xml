@@ -11,9 +11,42 @@ using System.Net.Http.Headers;
 /// </summary>
 internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 {
+    EUSalesListTax  vatCountryLegalEntity;
+    VATNum          vatNumLegalEntity;
+
 }
 ]]></Declaration>
 		<Methods>
+			<Method>
+				<Name>initLegalEntity</Name>
+				<Source><![CDATA[
+    private void initLegalEntity()
+    {
+        CompanyInfo companyInfo = CompanyInfo::find();
+
+        if (companyInfo.VATNum)
+        {
+            TaxCountryRegionParameters taxCountryRegionParameters = TaxCountryRegionParameters::find(
+                companyInfo.postalAddress().CountryRegionId);
+
+            if (taxCountryRegionParameters)
+            {
+                vatCountryLegalEntity   = taxCountryRegionParameters.SalesTaxCode;
+                vatNumLegalEntity       = companyInfo.VATNum;
+            }
+        }
+
+        if (!vatCountryLegalEntity
+            || !vatNumLegalEntity)
+        {
+            throw error("VAT configuration of legal entity is missing. Unable to perform VIES validation");
+        }
+
+        //TODO: Check if VAT number is valid
+    }
+
+]]></Source>
+			</Method>
 			<Method>
 				<Name>processResponseMessage</Name>
 				<Source><![CDATA[
@@ -43,7 +76,8 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
                     statusContract.parmValid() ? FTBXECVIESVATNumberStatus::Valid : FTBXECVIESVATNumberStatus::Invalid,
                     '',
                     saveAPIMessages ? _request : '',
-                    saveAPIMessages ? response : '');
+                    saveAPIMessages ? response : '',
+                    statusContract.parmRequestIdentifier());
             }
             else
             {
@@ -135,6 +169,8 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 				<Source><![CDATA[
     public void invokeValidation()
     {        
+        this.initLegalEntity();
+
         SetEnumerator enumerator = vatValidationResults.getEnumerator();
 
         while (enumerator.moveNext())
@@ -152,7 +188,9 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
                     str request = FormJsonSerializer::serializeClass(
                         FTBXECVIESAPICheckVatNumberRequestContract::construct()
                         .setCountryCode(checkResult.vatCountry())
-                        .setVatNumber(checkResult.vatNumTested()));
+                        .setVatNumber(checkResult.vatNumTested())
+                        .setRequesterMemberStateCode(vatCountryLegalEntity)
+                        .setRequesterNumber(vatNumLegalEntity));
 
                     httpRequestMessage.Content = new StringContent(
                         request,
