@@ -194,6 +194,9 @@ public class FTBXECVIESParameters extends common
 				<AxTableFieldGroupField>
 					<DataField>SkipVATNumCorrection</DataField>
 				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>SaveAPIMessages</DataField>
+				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
 	</FieldGroups>
@@ -251,6 +254,15 @@ public class FTBXECVIESParameters extends common
 			<HelpText>@FinanceToolbox:ECVIESSkipCorrectVATNumOnValidationHelp</HelpText>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Label>@FinanceToolbox:ECVIESSkipCorrectVATNumOnValidationLabel</Label>
+			<EnumType>NoYes</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>SaveAPIMessages</Name>
+			<ExtendedDataType>NoYesId</ExtendedDataType>
+			<HelpText>@FinanceToolbox:ECVIESAPIMessageSaveHelp</HelpText>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:ECVIESAPIMessageSaveLabel</Label>
 			<EnumType>NoYes</EnumType>
 		</AxTableField>
 	</Fields>

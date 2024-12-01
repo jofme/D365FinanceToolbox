@@ -20,12 +20,16 @@ final class FTBXTaxVATNumTable_Table_Extension
     /// </summary>
     public void ftbxUpdateVIESStatus()
     {
-        LogisticsAddressCountryRegion logisticsAddressCountryRegion = LogisticsAddressCountryRegion::find(this.CountryRegionId);
+        TaxCountryRegionParameters taxCountryRegionParameters = TaxCountryRegionParameters::find(this.CountryRegionId);
 
-        if (FTBXECVIESAvailableMemberStates::isMemberStateAvailable(logisticsAddressCountryRegion.ISOcode))
+        if (taxCountryRegionParameters && FTBXECVIESAvailableMemberStates::isMemberStateAvailable(taxCountryRegionParameters.SalesTaxCode))
         {   
             FTBXECVIESInterfaceBase viesInterface = FTBXECVIESInterfaceBase::construct();
-            viesInterface.addCountryVATNumber(logisticsAddressCountryRegion.ISOcode, this.VATNum);
+            viesInterface.addCountryVATNumber(
+                taxCountryRegionParameters.CountryRegionId, 
+                taxCountryRegionParameters.SalesTaxCode, 
+                this.VATNum);
+
             viesInterface.invokeValidation();
 
             this.FTBXECVIESVatNumberCheckId     = '';

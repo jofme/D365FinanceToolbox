@@ -6,23 +6,27 @@
 /// <summary>
 /// Representation of a VIES VAT number validation result
 /// </summary>
-internal final class FTBXECVIESCheckResult
+public final class FTBXECVIESCheckResult
 {
     //Key fields
-    private System.String    isoCode;
+    private System.String    countryRegionId;
     private System.String    vatNum;
 
     //VAT fields
-    private VATNum      vatNumTested;
+    private EUSalesListTax  vatCountry;
+    private VATNum          vatNumTested;
+    
 
     //Entity name and addressing
     private Name        entityName;
     private Addressing  entityAddressing;
 
     //Database validity information
-    private boolean     isvalid;
-    private boolean     hasError;
-    private str         errorMessage;
+    private FTBXECVIESVATNumberStatus   vatNumberStatus;    
+    private str                         errorMessage;
+    private str                         apiRequestIdentifier;
+    private FTBXECVIESAPIMessage        apiRequest;
+    private FTBXECVIESAPIMessage        apiResponse;
 
 }
 ]]></Declaration>
@@ -31,10 +35,12 @@ internal final class FTBXECVIESCheckResult
 				<Name>new</Name>
 				<Source><![CDATA[
     protected void new(
-        LogisticsAddressCountryRegionISOCode    _isoCode,
+        LogisticsAddressCountryRegionId         _countryRegionId,
+        EUSalesListTax                          _vatCountry,
         VATNum                                  _vatNum)
     {
-        isoCode         = _isoCode;
+        countryRegionId = _countryRegionId;
+        vatCountry      = _vatCountry;
         vatNum          = _vatNum;
 
         this.initVatNumTested();
@@ -46,11 +52,13 @@ internal final class FTBXECVIESCheckResult
 				<Name>construct</Name>
 				<Source><![CDATA[
     public static FTBXECVIESCheckResult construct(
-        LogisticsAddressCountryRegionISOCode    _isoCode,
+        LogisticsAddressCountryRegionId         _countryRegionId,
+        EUSalesListTax                          _vatCountry,
         VATNum                                  _vatNum)
     {
         return new FTBXECVIESCheckResult(
-            _isoCode,
+            _countryRegionId,
+            _vatCountry,
             _vatNum);
     }
 
@@ -77,9 +85,9 @@ internal final class FTBXECVIESCheckResult
         if (!FTBXECVIESParameters::find().SkipVATNumCorrection)
         {
             //Check if VAT number starts with ISO country/region code
-            if (subStr(vatNumTested, 1, strLen(isoCode)) == isoCode)
+            if (subStr(vatNumTested, 1, strLen(vatCountry)) == vatCountry)
             {
-                vatNumTested = strDel(vatNumTested, 1, strLen(isoCode));
+                vatNumTested = strDel(vatNumTested, 1, strLen(vatCountry));
             }
 
             //Remove all non-alphanumeric characters from VAT number
@@ -92,40 +100,50 @@ internal final class FTBXECVIESCheckResult
 			<Method>
 				<Name>setResultValues</Name>
 				<Source><![CDATA[
-    /// <summary>
-    /// Sets the result values from the VIES interface implementation
-    /// </summary>
-    /// <param name = "_entityName">Company name</param>
-    /// <param name = "_entityAddressing">Company address</param>
-    /// <param name = "_isValid">Is the VAT number valid</param>
-    /// <param name = "_hasError">Did the VIES service return an error</param>
-    /// <param name = "_errorMessage">Error message from the VIES service</param>
     public void setResultValues(
-        Name        _entityName,
-        Addressing  _entityAddressing,
-        boolean     _isValid,
-        boolean     _hasError,
-        str         _errorMessage)
+        Name                        _entityName,
+        Addressing                  _entityAddressing,
+        FTBXECVIESVATNumberStatus   _vatNumberStatus,
+        str                         _errorMessage           = '',
+        str                         _apiRequest             = '',
+        str                         _apiResponse            = '',
+        str                         _apiRequestIdentifier   = '')
     {
-        entityName          = _entityName;
-        entityAddressing    = _entityAddressing;
-        isvalid             = _isValid;
-        hasError            = _hasError;
-        errorMessage        = _errorMessage;
+        entityName              = _entityName;
+        entityAddressing        = _entityAddressing;
+        vatNumberStatus         = _vatNumberStatus;
+        errorMessage            = _errorMessage;
+        apiRequest              = _apiRequest;
+        apiResponse             = _apiResponse;
+        apiRequestIdentifier    = _apiRequestIdentifier;
     }
 
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>isoCode</Name>
+				<Name>vatCountry</Name>
 				<Source><![CDATA[
     /// <summary>
     /// Gets the 2-character ISO country code that was used for validation
     /// </summary>
     /// <returns>ISO country code</returns>
-    public System.String isoCode()
+    public EUSalesListTax vatCountry()
     {
-        return isoCode;
+        return vatCountry;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>countryRegionId</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Gets the country/region id for the tested VAT number
+    /// </summary>
+    /// <returns>Country/region id</returns>
+    public System.String countryRegionId()
+    {
+        return countryRegionId;
     }
 
 ]]></Source>
@@ -187,34 +205,6 @@ internal final class FTBXECVIESCheckResult
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>isValid</Name>
-				<Source><![CDATA[
-    /// <summary>
-    /// Is the VIES vat number valid
-    /// </summary>
-    /// <returns>True if the number is valid, otherwise false</returns>
-    public boolean isValid()
-    {
-        return isvalid;
-    }
-
-]]></Source>
-			</Method>
-			<Method>
-				<Name>hasError</Name>
-				<Source><![CDATA[
-    /// <summary>
-    /// Did the VIES web service respond with an error?
-    /// </summary>
-    /// <returns>True if an error was received, otherwise false</returns>
-    public boolean hasError()
-    {
-        return hasError;
-    }
-
-]]></Source>
-			</Method>
-			<Method>
 				<Name>errorMessage</Name>
 				<Source><![CDATA[
     /// <summary>
@@ -233,25 +223,67 @@ internal final class FTBXECVIESCheckResult
 				<Source><![CDATA[
     public FTBXECVIESVATNumberStatus getNumberStatus()
     {
-        FTBXECVIESVATNumberStatus ret;
+        return vatNumberStatus;
+    }
 
-        if (hasError)
-        {
-            ret = FTBXECVIESVATNumberStatus::VIESError;
-        }
-        else
-        {
-            if (isvalid)
-            {
-                ret = FTBXECVIESVATNumberStatus::Valid;
-            }
-            else
-            {
-                ret = FTBXECVIESVATNumberStatus::Invalid;
-            }
-        }
+]]></Source>
+			</Method>
+			<Method>
+				<Name>apiRequest</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Gets the request sent to VIES API
+    /// Only set if SaveAPIMessages has been enabled
+    /// </summary>
+    /// <returns>API request message</returns>
+    public FTBXECVIESAPIMessage apiRequest()
+    {
+        return apiRequest;
+    }
 
-        return ret;
+]]></Source>
+			</Method>
+			<Method>
+				<Name>apiResponse</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Gets the response sent from VIES API
+    /// Only set if SaveAPIMessages has been enabled
+    /// </summary>
+    /// <returns>API response message</returns>
+    public FTBXECVIESAPIMessage apiResponse()
+    {
+        return apiResponse;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>apiRequestIdentifier</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Gets the request identifier from the VIES API
+    /// </summary>
+    /// <returns>API request identifier</returns>
+    public FTBXECVIESVATNumberCheckAPIRequestIdentifier apiRequestIdentifier()
+    {
+        return apiRequestIdentifier;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>hasDebuggingInformation</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Is there troubleshooting information attached to check result?
+    /// </summary>
+    /// <returns>True if there is troubleshooting information available</returns>
+    public boolean hasDebuggingInformation()
+    {
+        return errorMessage
+            || apiRequest
+            || apiResponse;
     }
 
 ]]></Source>
@@ -261,7 +293,7 @@ internal final class FTBXECVIESCheckResult
 				<Source><![CDATA[
     public int getHashCode()
     {
-        return isoCode.GetHashCode() ^ vatNum.GetHashCode();
+        return countryRegionId.GetHashCode() ^ vatNum.GetHashCode();
     }
 
 ]]></Source>
@@ -273,7 +305,7 @@ internal final class FTBXECVIESCheckResult
     {
         FTBXECVIESCheckResult result = _obj;
 
-        return isoCode == result.isoCode()
+        return countryRegionId == result.vatCountry()
             && vatNum  == result.vatNum();
     }
 

@@ -188,7 +188,7 @@ public class FTBXECVIESAvailableMemberStates extends common
 			<Name>ISOCode</Name>
 			<AllowEdit>No</AllowEdit>
 			<AllowEditOnCreate>No</AllowEditOnCreate>
-			<ExtendedDataType>LogisticsAddressCountryRegionISOCode</ExtendedDataType>
+			<ExtendedDataType>EUSalesListTax</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Label>@FinanceToolbox:ECVIESAPICountryCode</Label>
 			<Mandatory>Yes</Mandatory>
@@ -216,23 +216,6 @@ public class FTBXECVIESAvailableMemberStates extends common
 		</AxTableIndex>
 	</Indexes>
 	<Mappings />
-	<Relations>
-		<AxTableRelation>
-			<Name>LogisticsAddressCountryRegion</Name>
-			<Cardinality>OneMore</Cardinality>
-			<OnDelete>Cascade</OnDelete>
-			<RelatedTable>LogisticsAddressCountryRegion</RelatedTable>
-			<RelatedTableCardinality>ZeroOne</RelatedTableCardinality>
-			<RelationshipType>Association</RelationshipType>
-			<Constraints>
-				<AxTableRelationConstraint xmlns=""
-					i:type="AxTableRelationConstraintField">
-					<Name>ISOCode</Name>
-					<Field>ISOCode</Field>
-					<RelatedField>ISOcode</RelatedField>
-				</AxTableRelationConstraint>
-			</Constraints>
-		</AxTableRelation>
-	</Relations>
+	<Relations />
 	<StateMachines />
 </AxTable>

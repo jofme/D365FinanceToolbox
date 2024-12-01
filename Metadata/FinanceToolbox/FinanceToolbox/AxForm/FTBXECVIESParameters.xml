@@ -240,6 +240,9 @@ public class FTBXECVIESParameters extends FormRun
 					<DataField>RecId</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
+					<DataField>SaveAPIMessages</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
 					<DataField>SkipVATNumCorrection</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
@@ -558,6 +561,15 @@ public class FTBXECVIESParameters extends FormRun
 												<FormControlExtension
 													i:nil="true" />
 												<DataField>SkipVATNumCorrection</DataField>
+												<DataSource>FTBXECVIESParameters</DataSource>
+											</AxFormControl>
+											<AxFormControl xmlns=""
+												i:type="AxFormCheckBoxControl">
+												<Name>FTBXECVIESParameters_SaveAPIMessages</Name>
+												<Type>CheckBox</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<DataField>SaveAPIMessages</DataField>
 												<DataSource>FTBXECVIESParameters</DataSource>
 											</AxFormControl>
 										</Controls>

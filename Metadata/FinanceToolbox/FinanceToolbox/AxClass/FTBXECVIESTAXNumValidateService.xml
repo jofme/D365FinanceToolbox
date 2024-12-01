@@ -10,6 +10,7 @@ internal final class FTBXECVIESTAXNumValidateService
 {
     FTBXECVIESVATNumberCheckTable   vatNumCheckTable;
     RecordInsertList                resultInsertList;      
+    RecordInsertList                resultDetailsInsertList;
     NumberSeq                       numberSeq;
 
 }
@@ -23,14 +24,15 @@ internal final class FTBXECVIESTAXNumValidateService
     /// </summary>
     /// <param name = "_contract">Contract class</param>
     public void doValidateTaxNumbers(FTBXECVIESTAXNumValidateContract _contract)
-    {
-        FTBXECVIESInterfaceBase         viesInterface = FTBXECVIESInterfaceBase::construct();
-        TaxVATNumTable                  taxVatNumTable;
-        LogisticsAddressCountryRegion   logisticsAddressCountryRegion;
-
-        viesInterface.validationResultUpdated += eventhandler(this.addResult);
-
+    {        
         #OCCRETRYCOUNT
+
+        FTBXECVIESInterfaceBase     viesInterface = FTBXECVIESInterfaceBase::construct();
+        TaxVATNumTable              taxVatNumTable;
+        TaxCountryRegionParameters  taxCountryRegionParameters;
+
+        viesInterface.validationResultUpdated       += eventhandler(this.addResult);
+        viesInterface.validateLegalEntityVatNumber  = true;
 
         Query query = _contract.getQuery();
         
@@ -48,16 +50,20 @@ internal final class FTBXECVIESTAXNumValidateService
 
         QueryRun queryRun = new QueryRun(query);
 
-        resultInsertList = new RecordInsertList(tableNum(FTBXECVIESVATNumberCheckResults));
+        resultInsertList        = new RecordInsertList(tableNum(FTBXECVIESVATNumberCheckResults));
+        resultDetailsInsertList = new RecordInsertList(tableNum(FTBXECVIESVATNumberCheckResultDetails));
 
         while (queryRun.next())
         {
             if (queryRun.changed(tableNum(TaxVATNumTable)))
             {
                 taxVatNumTable = queryRun.get(tableNum(TaxVATNumTable));
-                logisticsAddressCountryRegion = queryRun.get(tableNum(LogisticsAddressCountryRegion));
+                taxCountryRegionParameters = queryRun.get(tableNum(TaxCountryRegionParameters));
 
-                viesInterface.addCountryVATNumber(logisticsAddressCountryRegion.ISOcode, taxVatNumTable.VATNum);
+                viesInterface.addCountryVATNumber(
+                    taxCountryRegionParameters.CountryRegionId,
+                    taxCountryRegionParameters.SalesTaxCode, 
+                    taxVatNumTable.VATNum);
             }
         }
 
@@ -76,6 +82,7 @@ internal final class FTBXECVIESTAXNumValidateService
                 viesInterface.invokeValidation();
 
                 resultInsertList.insertDatabase();
+                resultDetailsInsertList.insertDatabase();
             
                 vatNumCheckTable.insert();
                 numberSeq.used();
@@ -180,16 +187,9 @@ internal final class FTBXECVIESTAXNumValidateService
     private void addResult(FTBXECVIESCheckResult _result)
     {
         FTBXECVIESVATNumberCheckResults vatNumCheckResult;
-
-        vatNumCheckResult.CheckId           = vatNumCheckTable.checkId;
-        vatNumCheckResult.ISOCode           = _result.isoCode();
-        vatNumCheckResult.CountryRegionId   = LogisticsAddressCountryRegion::findByISOCode(_result.isoCode()).CountryRegionId;
-        vatNumCheckResult.VATNumSystem      = _result.vatNum();
-        vatNumCheckResult.VATNumTested      = _result.vatNumTested();
-        vatNumCheckResult.CompanyName       = _result.entityName();
-        vatNumCheckResult.Address           = _result.entityAddressing();
-        vatNumCheckResult.StatusDate        = DateTimeUtil::getSystemDateTime();
-        vatNumCheckResult.Status            = _result.getNumberStatus();
+        
+        vatNumCheckResult.initFromVatNumCheckTable(vatNumCheckTable);
+        vatNumCheckResult.initFromCheckResult(_result);
 
         vatNumCheckTable.CountTotal++;
 
@@ -203,10 +203,20 @@ internal final class FTBXECVIESTAXNumValidateService
                 break;
             case FTBXECVIESVATNumberStatus::VIESError:
                 vatNumCheckTable.CountError ++;
-                break;
         }
 
         resultInsertList.add(vatNumCheckResult);
+
+        if (_result.hasDebuggingInformation())
+        {
+            FTBXECVIESVATNumberCheckResultDetails vatNumCheckResultDetails;
+
+            vatNumCheckResultDetails.initFromVatNumCheckTable(vatNumCheckTable);
+            vatNumCheckResultDetails.initFromCheckResult(_result);
+
+            resultDetailsInsertList.add(vatNumCheckResultDetails);
+
+        }
     }
 
 ]]></Source>

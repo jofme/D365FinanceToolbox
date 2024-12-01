@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxView xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESVATNumUsed</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class FTBXECVIESVATNumUsed extends common
+{
+}
+
+]]></Declaration>
+		<Methods />
+	</SourceCode>
+	<Label>@FinanceToolbox:FTBXECVIESVatNumUsed</Label>
+	<SubscriberAccessLevel>
+		<Read>Allow</Read>
+	</SubscriberAccessLevel>
+	<TitleField1>AccountNum</TitleField1>
+	<TitleField2>Type</TitleField2>
+	<Query>FTBXECVIESVatNumUsedQuery</Query>
+	<FieldGroups>
+		<AxTableFieldGroup>
+			<Name>AutoReport</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoLookup</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoIdentification</Name>
+			<AutoPopulate>Yes</AutoPopulate>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoSummary</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoBrowse</Name>
+			<Fields />
+		</AxTableFieldGroup>
+	</FieldGroups>
+	<Fields>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>AccountNum</Name>
+			<DataField>AccountNum</DataField>
+			<DataSource>FTBXECVIESVATNumUsedCustomer</DataSource>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>VatNum</Name>
+			<DataField>VatNum</DataField>
+			<DataSource>FTBXECVIESVATNumUsedCustomer</DataSource>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>CountryRegionId</Name>
+			<DataField>CountryRegionId</DataField>
+			<DataSource>FTBXECVIESVATNumUsedCustomer</DataSource>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>Type</Name>
+			<DataField>Type</DataField>
+			<DataSource>FTBXECVIESVATNumUsedCustomer</DataSource>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>DataArea</Name>
+			<DataField>DataArea</DataField>
+			<DataSource>FTBXECVIESVATNumUsedCustomer</DataSource>
+		</AxViewField>
+	</Fields>
+	<Indexes />
+	<Mappings />
+	<Relations />
+	<StateMachines />
+	<ViewMetadata>
+		<Name>Metadata</Name>
+		<SourceCode>
+			<Methods />
+		</SourceCode>
+		<QueryType>Union</QueryType>
+		<DataSources />
+	</ViewMetadata>
+</AxView>
