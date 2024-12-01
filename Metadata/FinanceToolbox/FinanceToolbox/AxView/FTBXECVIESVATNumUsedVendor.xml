@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxView xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESVATNumUsedVendor</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class FTBXECVIESVATNumUsedVendor extends common
+{
+}
+
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>CustVendType</Name>
+				<Source><![CDATA[
+    private static str CustVendType()
+    {
+        return SysComputedColumn::returnLiteral(DirPartyRoleType::Vendor);
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+	<Label>@FinanceToolbox:FTBXECVIESVatNumUsedVendor</Label>
+	<SubscriberAccessLevel>
+		<Read>Allow</Read>
+	</SubscriberAccessLevel>
+	<TitleField1>AccountNum</TitleField1>
+	<TitleField2>Type</TitleField2>
+	<FieldGroups>
+		<AxTableFieldGroup>
+			<Name>AutoReport</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoLookup</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoIdentification</Name>
+			<AutoPopulate>Yes</AutoPopulate>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoSummary</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoBrowse</Name>
+			<Fields />
+		</AxTableFieldGroup>
+	</FieldGroups>
+	<Fields>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>AccountNum</Name>
+			<DataField>AccountNum</DataField>
+			<DataSource>VendTable</DataSource>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>VatNum</Name>
+			<DataField>VATNum</DataField>
+			<DataSource>VendTable</DataSource>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>CountryRegionId</Name>
+			<DataField>CountryRegionId</DataField>
+			<DataSource>LogisticsPostalAddress</DataSource>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldComputedEnum">
+			<Name>Type</Name>
+			<Label>@SYS330576</Label>
+			<ViewMethod>CustVendType</ViewMethod>
+			<EnumType>DirPartyRoleType</EnumType>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>DataArea</Name>
+			<Label>@SYS315616</Label>
+			<DataField>DataAreaId</DataField>
+			<DataSource>VendTable</DataSource>
+		</AxViewField>
+	</Fields>
+	<Indexes />
+	<Mappings />
+	<Relations />
+	<StateMachines />
+	<ViewMetadata>
+		<Name>Metadata</Name>
+		<SourceCode>
+			<Methods />
+		</SourceCode>
+		<DataSources>
+			<AxQuerySimpleRootDataSource>
+				<Name>VendTable</Name>
+				<DynamicFields>Yes</DynamicFields>
+				<Table>VendTable</Table>
+				<DataSources>
+					<AxQuerySimpleEmbeddedDataSource>
+						<Name>DirPartyLocation</Name>
+						<DynamicFields>Yes</DynamicFields>
+						<Table>DirPartyLocation</Table>
+						<DataSources>
+							<AxQuerySimpleEmbeddedDataSource>
+								<Name>LogisticsPostalAddress</Name>
+								<DynamicFields>Yes</DynamicFields>
+								<Table>LogisticsPostalAddress</Table>
+								<DataSources />
+								<DerivedDataSources />
+								<Fields />
+								<Ranges />
+								<Relations>
+									<AxQuerySimpleDataSourceRelation>
+										<Name>QueryDataSourceRelation1</Name>
+										<Field>Location</Field>
+										<JoinDataSource>DirPartyLocation</JoinDataSource>
+										<RelatedField>Location</RelatedField>
+									</AxQuerySimpleDataSourceRelation>
+								</Relations>
+							</AxQuerySimpleEmbeddedDataSource>
+						</DataSources>
+						<DerivedDataSources />
+						<Fields />
+						<Ranges>
+							<AxQuerySimpleDataSourceRange>
+								<Name>IsPostalAddress</Name>
+								<Field>IsPostalAddress</Field>
+								<Value>Yes</Value>
+							</AxQuerySimpleDataSourceRange>
+							<AxQuerySimpleDataSourceRange>
+								<Name>IsPrimary</Name>
+								<Field>IsPrimary</Field>
+								<Value>Yes</Value>
+							</AxQuerySimpleDataSourceRange>
+						</Ranges>
+						<Relations>
+							<AxQuerySimpleDataSourceRelation>
+								<Name>QueryDataSourceRelation1</Name>
+								<Field>Party</Field>
+								<JoinDataSource>VendTable</JoinDataSource>
+								<RelatedField>Party</RelatedField>
+							</AxQuerySimpleDataSourceRelation>
+						</Relations>
+					</AxQuerySimpleEmbeddedDataSource>
+				</DataSources>
+				<DerivedDataSources />
+				<Fields />
+				<Ranges>
+					<AxQuerySimpleDataSourceRange>
+						<Name>VATNum</Name>
+						<Field>VATNum</Field>
+						<Value>!""</Value>
+					</AxQuerySimpleDataSourceRange>
+				</Ranges>
+				<GroupBy />
+				<Having />
+				<OrderBy />
+			</AxQuerySimpleRootDataSource>
+		</DataSources>
+	</ViewMetadata>
+</AxView>

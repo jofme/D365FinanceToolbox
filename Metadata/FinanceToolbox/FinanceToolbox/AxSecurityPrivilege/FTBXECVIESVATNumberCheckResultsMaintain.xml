@@ -38,6 +38,30 @@
 				</AxSecurityEntryPointReferenceForm>
 			</Forms>
 		</AxSecurityEntryPointReference>
+		<AxSecurityEntryPointReference>
+			<Name>FTBXECVIESVATNumberRelatedEntitiesPart</Name>
+			<Grant>
+				<Read>Allow</Read>
+			</Grant>
+			<GrantCurrentData>
+				<Read>Allow</Read>
+			</GrantCurrentData>
+			<GrantFutureData>
+				<Read>Allow</Read>
+			</GrantFutureData>
+			<GrantPastData>
+				<Read>Allow</Read>
+			</GrantPastData>
+			<ObjectName>FTBXECVIESVATNumberRelatedEntitiesPart</ObjectName>
+			<ObjectType>MenuItemDisplay</ObjectType>
+			<Forms>
+				<AxSecurityEntryPointReferenceForm>
+					<Name>FTBXECVIESVATNumberRelatedEntitiesPart</Name>
+					<Controls />
+					<DataSources />
+				</AxSecurityEntryPointReferenceForm>
+			</Forms>
+		</AxSecurityEntryPointReference>
 	</EntryPoints>
 	<FormControlOverrides />
 </AxSecurityPrivilege>

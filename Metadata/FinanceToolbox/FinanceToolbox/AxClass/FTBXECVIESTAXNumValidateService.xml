@@ -24,14 +24,15 @@ internal final class FTBXECVIESTAXNumValidateService
     /// </summary>
     /// <param name = "_contract">Contract class</param>
     public void doValidateTaxNumbers(FTBXECVIESTAXNumValidateContract _contract)
-    {
+    {        
+        #OCCRETRYCOUNT
+
         FTBXECVIESInterfaceBase     viesInterface = FTBXECVIESInterfaceBase::construct();
         TaxVATNumTable              taxVatNumTable;
         TaxCountryRegionParameters  taxCountryRegionParameters;
 
-        viesInterface.validationResultUpdated += eventhandler(this.addResult);
-
-        #OCCRETRYCOUNT
+        viesInterface.validationResultUpdated       += eventhandler(this.addResult);
+        viesInterface.validateLegalEntityVatNumber  = true;
 
         Query query = _contract.getQuery();
         
@@ -59,7 +60,6 @@ internal final class FTBXECVIESTAXNumValidateService
                 taxVatNumTable = queryRun.get(tableNum(TaxVATNumTable));
                 taxCountryRegionParameters = queryRun.get(tableNum(TaxCountryRegionParameters));
 
-                //TODO: Add check for TAX Parameter code instead of ISO code - It might be wrong
                 viesInterface.addCountryVATNumber(
                     taxCountryRegionParameters.CountryRegionId,
                     taxCountryRegionParameters.SalesTaxCode, 

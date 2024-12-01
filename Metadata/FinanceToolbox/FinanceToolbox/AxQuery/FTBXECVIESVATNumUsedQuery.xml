@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxQuery xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns=""
+	i:type="AxQuerySimple">
+	<Name>FTBXECVIESVATNumUsedQuery</Name>
+	<SourceCode>
+		<Methods>
+			<Method>
+				<Name>classDeclaration</Name>
+				<Source><![CDATA[
+[Query]
+public class FTBXECVIESVATNumUsedQuery extends QueryRun
+{
+}
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+	<QueryType>Union</QueryType>
+	<Title>@FinanceToolbox:FTBXECVIESVatNumUsed</Title>
+	<DataSources>
+		<AxQuerySimpleRootDataSource>
+			<Name>FTBXECVIESVATNumUsedCustomer</Name>
+			<Table>FTBXECVIESVATNumUsedCustomer</Table>
+			<DataSources />
+			<DerivedDataSources />
+			<Fields>
+				<AxQuerySimpleDataSourceField>
+					<Name>AccountNum</Name>
+					<Field>AccountNum</Field>
+				</AxQuerySimpleDataSourceField>
+				<AxQuerySimpleDataSourceField>
+					<Name>VatNum</Name>
+					<Field>VatNum</Field>
+				</AxQuerySimpleDataSourceField>
+				<AxQuerySimpleDataSourceField>
+					<Name>CountryRegionId</Name>
+					<Field>CountryRegionId</Field>
+				</AxQuerySimpleDataSourceField>
+				<AxQuerySimpleDataSourceField>
+					<Name>Type</Name>
+					<Field>Type</Field>
+				</AxQuerySimpleDataSourceField>
+				<AxQuerySimpleDataSourceField>
+					<Name>DataArea</Name>
+					<Field>DataArea</Field>
+				</AxQuerySimpleDataSourceField>
+			</Fields>
+			<Ranges />
+			<GroupBy>
+				<AxQuerySimpleGroupByField>
+					<Name>AccountNum</Name>
+					<DataSource>FTBXECVIESVATNumUsedCustomer</DataSource>
+					<Field>AccountNum</Field>
+				</AxQuerySimpleGroupByField>
+				<AxQuerySimpleGroupByField>
+					<Name>VatNum</Name>
+					<DataSource>FTBXECVIESVATNumUsedCustomer</DataSource>
+					<Field>VatNum</Field>
+				</AxQuerySimpleGroupByField>
+				<AxQuerySimpleGroupByField>
+					<Name>CountryRegionId</Name>
+					<DataSource>FTBXECVIESVATNumUsedCustomer</DataSource>
+					<Field>CountryRegionId</Field>
+				</AxQuerySimpleGroupByField>
+				<AxQuerySimpleGroupByField>
+					<Name>Type</Name>
+					<DataSource>FTBXECVIESVATNumUsedCustomer</DataSource>
+					<Field>Type</Field>
+				</AxQuerySimpleGroupByField>
+				<AxQuerySimpleGroupByField>
+					<Name>DataArea</Name>
+					<DataSource>FTBXECVIESVATNumUsedCustomer</DataSource>
+					<Field>DataArea</Field>
+				</AxQuerySimpleGroupByField>
+			</GroupBy>
+			<Having />
+			<OrderBy />
+		</AxQuerySimpleRootDataSource>
+		<AxQuerySimpleRootDataSource>
+			<Name>FTBXECVIESVATNumUsedVendor</Name>
+			<Table>FTBXECVIESVATNumUsedVendor</Table>
+			<DataSources />
+			<DerivedDataSources />
+			<Fields>
+				<AxQuerySimpleDataSourceField>
+					<Name>AccountNum</Name>
+					<Field>AccountNum</Field>
+				</AxQuerySimpleDataSourceField>
+				<AxQuerySimpleDataSourceField>
+					<Name>VatNum</Name>
+					<Field>VatNum</Field>
+				</AxQuerySimpleDataSourceField>
+				<AxQuerySimpleDataSourceField>
+					<Name>CountryRegionId</Name>
+					<Field>CountryRegionId</Field>
+				</AxQuerySimpleDataSourceField>
+				<AxQuerySimpleDataSourceField>
+					<Name>Type</Name>
+					<Field>Type</Field>
+				</AxQuerySimpleDataSourceField>
+				<AxQuerySimpleDataSourceField>
+					<Name>DataArea</Name>
+					<Field>DataArea</Field>
+				</AxQuerySimpleDataSourceField>
+			</Fields>
+			<Ranges />
+			<GroupBy>
+				<AxQuerySimpleGroupByField>
+					<Name>AccountNum</Name>
+					<DataSource>FTBXECVIESVATNumUsedVendor</DataSource>
+					<Field>AccountNum</Field>
+				</AxQuerySimpleGroupByField>
+				<AxQuerySimpleGroupByField>
+					<Name>VatNum</Name>
+					<DataSource>FTBXECVIESVATNumUsedVendor</DataSource>
+					<Field>VatNum</Field>
+				</AxQuerySimpleGroupByField>
+				<AxQuerySimpleGroupByField>
+					<Name>CountryRegionId</Name>
+					<DataSource>FTBXECVIESVATNumUsedVendor</DataSource>
+					<Field>CountryRegionId</Field>
+				</AxQuerySimpleGroupByField>
+				<AxQuerySimpleGroupByField>
+					<Name>Type</Name>
+					<DataSource>FTBXECVIESVATNumUsedVendor</DataSource>
+					<Field>Type</Field>
+				</AxQuerySimpleGroupByField>
+				<AxQuerySimpleGroupByField>
+					<Name>DataArea</Name>
+					<DataSource>FTBXECVIESVATNumUsedVendor</DataSource>
+					<Field>DataArea</Field>
+				</AxQuerySimpleGroupByField>
+			</GroupBy>
+			<Having />
+			<OrderBy />
+		</AxQuerySimpleRootDataSource>
+		<AxQuerySimpleRootDataSource>
+			<Name>FTBXECVIESVATNumUsedTaxRegNumber</Name>
+			<Table>FTBXECVIESVATNumUsedTaxRegNumber</Table>
+			<DataSources />
+			<DerivedDataSources />
+			<Fields>
+				<AxQuerySimpleDataSourceField>
+					<Name>AccountNum</Name>
+					<Field>AccountNum</Field>
+				</AxQuerySimpleDataSourceField>
+				<AxQuerySimpleDataSourceField>
+					<Name>VatNum</Name>
+					<Field>VatNum</Field>
+				</AxQuerySimpleDataSourceField>
+				<AxQuerySimpleDataSourceField>
+					<Name>CountryRegionId</Name>
+					<Field>CountryRegionId</Field>
+				</AxQuerySimpleDataSourceField>
+				<AxQuerySimpleDataSourceField>
+					<Name>Type</Name>
+					<Field>Type</Field>
+				</AxQuerySimpleDataSourceField>
+				<AxQuerySimpleDataSourceField>
+					<Name>DataArea</Name>
+					<Field>DataArea</Field>
+				</AxQuerySimpleDataSourceField>
+			</Fields>
+			<Ranges />
+			<GroupBy>
+				<AxQuerySimpleGroupByField>
+					<Name>AccountNum</Name>
+					<DataSource>FTBXECVIESVATNumUsedTaxRegNumber</DataSource>
+					<Field>AccountNum</Field>
+				</AxQuerySimpleGroupByField>
+				<AxQuerySimpleGroupByField>
+					<Name>VatNum</Name>
+					<DataSource>FTBXECVIESVATNumUsedTaxRegNumber</DataSource>
+					<Field>VatNum</Field>
+				</AxQuerySimpleGroupByField>
+				<AxQuerySimpleGroupByField>
+					<Name>CountryRegionId</Name>
+					<DataSource>FTBXECVIESVATNumUsedTaxRegNumber</DataSource>
+					<Field>CountryRegionId</Field>
+				</AxQuerySimpleGroupByField>
+				<AxQuerySimpleGroupByField>
+					<Name>Type</Name>
+					<DataSource>FTBXECVIESVATNumUsedTaxRegNumber</DataSource>
+					<Field>Type</Field>
+				</AxQuerySimpleGroupByField>
+				<AxQuerySimpleGroupByField>
+					<Name>DataArea</Name>
+					<DataSource>FTBXECVIESVATNumUsedTaxRegNumber</DataSource>
+					<Field>DataArea</Field>
+				</AxQuerySimpleGroupByField>
+			</GroupBy>
+			<Having />
+			<OrderBy />
+		</AxQuerySimpleRootDataSource>
+	</DataSources>
+</AxQuery>

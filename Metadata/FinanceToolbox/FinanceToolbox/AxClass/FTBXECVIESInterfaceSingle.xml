@@ -33,16 +33,32 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
             {
                 vatCountryLegalEntity   = taxCountryRegionParameters.SalesTaxCode;
                 vatNumLegalEntity       = companyInfo.VATNum;
+
+                if (validateLegalEntityVatNumber)
+                {
+                    FTBXECVIESInterfaceBase viesInterfaceSingle = FTBXECVIESInterfaceBase::construct();
+
+                    viesInterfaceSingle.addCountryVATNumber(
+                        taxCountryRegionParameters.CountryRegionId,
+                        vatCountryLegalEntity,
+                        vatNumLegalEntity);
+
+                    viesInterfaceSingle.invokeValidation();
+
+                    if (!viesInterfaceSingle.latestResult.getNumberStatus())
+                    {
+                        throw Error("@FinanceToolbox:ECVIESVATNumberLegalEntityNotValid");
+                    }
+                }
             }
         }
 
-        if (!vatCountryLegalEntity
-            || !vatNumLegalEntity)
+        if (validateLegalEntityVatNumber
+            && (!vatCountryLegalEntity
+            || !vatNumLegalEntity))
         {
-            throw error("VAT configuration of legal entity is missing. Unable to perform VIES validation");
+            warning("@FinanceToolbox:ECVIESVATNumberLegalEntityNotSpecified");
         }
-
-        //TODO: Check if VAT number is valid
     }
 
 ]]></Source>
@@ -90,7 +106,7 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
                 '',
                 '',
                 FTBXECVIESVATNumberStatus::VIESError,
-                "VIES API did not return a response",
+                "@FinanceToolbox:ECVIESAPINoResponse",
                 saveAPIMessages ? _request : '');
         }
     }
@@ -123,11 +139,9 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
                     '',
                     '',
                     FTBXECVIESVATNumberStatus::VIESError,
-                    strFmt("%1\n%2", errorWrapper.parmError(), errorWrapper.parmMessage()),
+                    strFmt('%1\n%2', errorWrapper.parmError(), errorWrapper.parmMessage()),
                     saveAPIMessages ? _request : '',
                     saveAPIMessages ? _response : '');
-
-                //TODO: Check conditions where the VIES check might be blocked because of too many requests
             }
             else
             {

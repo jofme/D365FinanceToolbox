@@ -392,6 +392,7 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 											<AxFormControl xmlns=""
 												i:type="AxFormGridControl">
 												<Name>FTBXECVIESVATNumberCheckResults</Name>
+												<AllowEdit>No</AllowEdit>
 												<Type>Grid</Type>
 												<FormControlExtension
 													i:nil="true" />
@@ -481,62 +482,62 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 												</Controls>
 												<DataGroup>Grid</DataGroup>
 												<DataSource>FTBXECVIESVATNumberCheckResults</DataSource>
+												<MultiSelect>No</MultiSelect>
+												<ShowRowLabels>No</ShowRowLabels>
 											</AxFormControl>
+										</Controls>
+										<Caption>@FinanceToolbox:ECVIESVATNumberResults</Caption>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormTabPageControl">
+										<Name>TroubleshootingTabPage</Name>
+										<Pattern>FieldsFieldGroups</Pattern>
+										<PatternVersion>1.1</PatternVersion>
+										<Type>TabPage</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Controls>
 											<AxFormControl xmlns=""
 												i:type="AxFormGroupControl">
-												<Name>Footer</Name>
-												<HeightMode>Auto</HeightMode>
-												<Pattern>Custom</Pattern>
+												<Name>Troubleshooting</Name>
 												<Type>Group</Type>
-												<WidthMode>Auto</WidthMode>
 												<FormControlExtension
 													i:nil="true" />
 												<Controls>
 													<AxFormControl xmlns=""
-														i:type="AxFormGroupControl">
-														<Name>Troubleshooting</Name>
-														<Type>Group</Type>
+														i:type="AxFormStringControl">
+														<Name>Troubleshooting_ErrorMsg</Name>
+														<Type>String</Type>
 														<FormControlExtension
 															i:nil="true" />
-														<Controls>
-															<AxFormControl xmlns=""
-																i:type="AxFormStringControl">
-																<Name>Troubleshooting_ErrorMsg</Name>
-																<Type>String</Type>
-																<FormControlExtension
-																	i:nil="true" />
-																<DataField>ErrorMsg</DataField>
-																<DataSource>FTBXECVIESVATNumberCheckResultDetails</DataSource>
-															</AxFormControl>
-															<AxFormControl xmlns=""
-																i:type="AxFormStringControl">
-																<Name>Troubleshooting_APIRequest</Name>
-																<Type>String</Type>
-																<FormControlExtension
-																	i:nil="true" />
-																<DataField>APIRequest</DataField>
-																<DataSource>FTBXECVIESVATNumberCheckResultDetails</DataSource>
-															</AxFormControl>
-															<AxFormControl xmlns=""
-																i:type="AxFormStringControl">
-																<Name>Troubleshooting_APIResponse</Name>
-																<Type>String</Type>
-																<FormControlExtension
-																	i:nil="true" />
-																<DataField>APIResponse</DataField>
-																<DataSource>FTBXECVIESVATNumberCheckResultDetails</DataSource>
-															</AxFormControl>
-														</Controls>
-														<Columns>3</Columns>
-														<DataGroup>Troubleshooting</DataGroup>
+														<DataField>ErrorMsg</DataField>
+														<DataSource>FTBXECVIESVATNumberCheckResultDetails</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>Troubleshooting_APIRequest</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>APIRequest</DataField>
+														<DataSource>FTBXECVIESVATNumberCheckResultDetails</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>Troubleshooting_APIResponse</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>APIResponse</DataField>
 														<DataSource>FTBXECVIESVATNumberCheckResultDetails</DataSource>
 													</AxFormControl>
 												</Controls>
-												<ColumnsMode>Fill</ColumnsMode>
+												<DataSource>FTBXECVIESVATNumberCheckResultDetails</DataSource>
+												<FrameType>None</FrameType>
 											</AxFormControl>
 										</Controls>
-										<Caption>@FinanceToolbox:ECVIESVATNumberResults</Caption>
-										<Style>DetailsFormDetails</Style>
+										<ColumnsMode>Fill</ColumnsMode>
+										<Caption>@SYS319640</Caption>
 									</AxFormControl>
 								</Controls>
 								<Style>FastTabs</Style>
@@ -696,5 +697,12 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 			</AxFormControl>
 		</Controls>
 	</Design>
-	<Parts />
+	<Parts>
+		<AxFormPartReference xmlns="">
+			<Name>FTBXECVIESVATNumberRelatedEntitiesPart</Name>
+			<DataSource>FTBXECVIESVATNumberCheckResults</DataSource>
+			<DataSourceRelation>FTBXECVIESVATNumberCheckResults.FTBXECVIESVatNumUsed</DataSourceRelation>
+			<MenuItemName>FTBXECVIESVATNumberRelatedEntitiesPart</MenuItemName>
+		</AxFormPartReference>
+	</Parts>
 </AxForm>

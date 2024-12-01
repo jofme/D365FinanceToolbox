@@ -311,6 +311,33 @@ public class FTBXECVIESVATNumberCheckResults extends common
 				</AxTableRelationConstraint>
 			</Constraints>
 		</AxTableRelation>
+		<AxTableRelation>
+			<Name>FTBXECVIESVatNumUsed</Name>
+			<Cardinality>ZeroMore</Cardinality>
+			<RelatedTable>FTBXECVIESVatNumUsed</RelatedTable>
+			<RelatedTableCardinality>ZeroOne</RelatedTableCardinality>
+			<RelationshipType>Association</RelationshipType>
+			<Constraints>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>DataAreaId</Name>
+					<Field>DataAreaId</Field>
+					<RelatedField>DataArea</RelatedField>
+				</AxTableRelationConstraint>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>CountryRegionId</Name>
+					<Field>CountryRegionId</Field>
+					<RelatedField>CountryRegionId</RelatedField>
+				</AxTableRelationConstraint>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>VATNumSystem</Name>
+					<Field>VATNumSystem</Field>
+					<RelatedField>VatNum</RelatedField>
+				</AxTableRelationConstraint>
+			</Constraints>
+		</AxTableRelation>
 	</Relations>
 	<StateMachines />
 </AxTable>

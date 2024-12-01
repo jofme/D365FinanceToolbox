@@ -35,10 +35,18 @@ public class FTBXECVIESVATNumberCheckResultDetails extends common
 			</Method>
 		</Methods>
 	</SourceCode>
+	<DeveloperDocumentation>@FinanceToolbox:ECVIESVatNumberCheckResultsDetailsDevDoc</DeveloperDocumentation>
+	<Label>@FinanceToolbox:ECVIESVATNumberResultDetails</Label>
 	<SubscriberAccessLevel>
 		<Read>Allow</Read>
 	</SubscriberAccessLevel>
+	<TableGroup>Transaction</TableGroup>
+	<TitleField1>CheckId</TitleField1>
+	<TitleField2>VATNumSystem</TitleField2>
 	<AllowRowVersionChangeTracking>Yes</AllowRowVersionChangeTracking>
+	<CacheLookup>NotInTTS</CacheLookup>
+	<ClusteredIndex>IdStatusIdx</ClusteredIndex>
+	<ReplacementKey>IdStatusIdx</ReplacementKey>
 	<DeleteActions />
 	<FieldGroups>
 		<AxTableFieldGroup>
@@ -90,7 +98,17 @@ public class FTBXECVIESVATNumberCheckResultDetails extends common
 		<AxTableFieldGroup>
 			<Name>AutoIdentification</Name>
 			<AutoPopulate>Yes</AutoPopulate>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>CheckId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountryRegionId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>VATNumSystem</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoSummary</Name>

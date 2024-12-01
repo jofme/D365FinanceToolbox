@@ -15,8 +15,10 @@
     <ProjectGuid>{74df9fbb-329f-44fd-975c-da5f81a81791}</ProjectGuid>
     <Name>D365FinanceToolbox_ECVIESValidation</Name>
     <RootNamespace>D365FinanceToolbox_ECVIESValidation</RootNamespace>
-    <StartupType>Class</StartupType>
-    <StartupObject>JOFME_TestSingleVIESCCheckCall</StartupObject>
+    <StartupType>
+    </StartupType>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
@@ -128,11 +130,6 @@
       <Name>FTBXVendTable_Extension</Name>
       <Link>Classes\FTBXVendTable_Extension</Link>
     </Content>
-    <Content Include="AxClass\JOFME_TestSingleVIESCCheckCall">
-      <SubType>Content</SubType>
-      <Name>JOFME_TestSingleVIESCCheckCall</Name>
-      <Link>Classes\Test classes\JOFME_TestSingleVIESCCheckCall</Link>
-    </Content>
     <Content Include="AxDataEntityViewExtension\TaxVATNumTableEntity.FinanceToolbox">
       <SubType>Content</SubType>
       <Name>TaxVATNumTableEntity.FinanceToolbox</Name>
@@ -213,6 +210,11 @@
       <Name>FTBXECVIESVATNumberCheckTable</Name>
       <Link>Forms\FTBXECVIESVATNumberCheckTable</Link>
     </Content>
+    <Content Include="AxForm\FTBXECVIESVATNumberRelatedEntitiesPart">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberRelatedEntitiesPart</Name>
+      <Link>Forms\FTBXECVIESVATNumberRelatedEntitiesPart</Link>
+    </Content>
     <Content Include="AxLabelFile\FinanceToolbox_en-US">
       <SubType>Content</SubType>
       <Name>FinanceToolbox_en-US</Name>
@@ -238,10 +240,20 @@
       <Name>FTBXECVIESVATNumberCheckTable</Name>
       <Link>Display Menu Items\FTBXECVIESVATNumberCheckTable</Link>
     </Content>
+    <Content Include="AxMenuItemDisplay\FTBXECVIESVATNumberRelatedEntitiesPart">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberRelatedEntitiesPart</Name>
+      <Link>Display Menu Items\FTBXECVIESVATNumberRelatedEntitiesPart</Link>
+    </Content>
     <Content Include="AxQuery\FTBXECVIESVATNumberQuery">
       <SubType>Content</SubType>
       <Name>FTBXECVIESVATNumberQuery</Name>
       <Link>Simple Queries\FTBXECVIESVATNumberQuery</Link>
+    </Content>
+    <Content Include="AxQuery\FTBXECVIESVATNumUsedQuery">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumUsedQuery</Name>
+      <Link>Simple Queries\FTBXECVIESVATNumUsedQuery</Link>
     </Content>
     <Content Include="AxSecurityDuty\ECVIESParameterMaintain">
       <SubType>Content</SubType>
@@ -338,6 +350,26 @@
       <Name>FTBXECVIESVATNumberCheckTable</Name>
       <Link>Tables\FTBXECVIESVATNumberCheckTable</Link>
     </Content>
+    <Content Include="AxView\FTBXECVIESVATNumUsed">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumUsed</Name>
+      <Link>Views\FTBXECVIESVATNumUsed</Link>
+    </Content>
+    <Content Include="AxView\FTBXECVIESVATNumUsedCustomer">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumUsedCustomer</Name>
+      <Link>Views\FTBXECVIESVATNumUsedCustomer</Link>
+    </Content>
+    <Content Include="AxView\FTBXECVIESVATNumUsedTaxRegNumber">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumUsedTaxRegNumber</Name>
+      <Link>Views\FTBXECVIESVATNumUsedTaxRegNumber</Link>
+    </Content>
+    <Content Include="AxView\FTBXECVIESVATNumUsedVendor">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumUsedVendor</Name>
+      <Link>Views\FTBXECVIESVATNumUsedVendor</Link>
+    </Content>
     <Content Include="FinanceToolbox.en-US.label.txt">
       <SubType>Content</SubType>
       <Name>FinanceToolbox.en-US.label.txt</Name>
@@ -351,6 +383,7 @@
     <Folder Include="Classes" />
     <Folder Include="Classes\EC VIES API contracts" />
     <Folder Include="Classes\Test classes" />
+    <Folder Include="Composite Queries\" />
     <Folder Include="Data Entities\" />
     <Folder Include="Data Entity Extensions\" />
     <Folder Include="Display Menu Items\" />
@@ -368,6 +401,7 @@
     <Folder Include="Simple Queries\" />
     <Folder Include="Table Extensions\" />
     <Folder Include="Tables\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
   <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.17.0.targets" />

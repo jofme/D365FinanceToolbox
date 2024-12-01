@@ -16,6 +16,7 @@ internal abstract class FTBXECVIESInterfaceBase
     protected   FTBXECVIESParameters    parameters;
     protected   Set                     vatValidationResults;
     protected   boolean                 saveAPIMessages;
+    public      boolean                 validateLegalEntityVatNumber;
     public      FTBXECVIESCheckResult   latestResult;
 
 }
@@ -50,6 +51,7 @@ internal abstract class FTBXECVIESInterfaceBase
     /// <summary>
     /// Add a VAT number for validation using the VIES interface
     /// </summary>
+    /// <param name = "_countryRegionId">Region id of the VAT number</param>
     /// <param name = "_country">Country/Member state</param>
     /// <param name = "_vatnum">VAT number</param>
     public void addCountryVATNumber(
