@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>LogisticsPostalAddress.FinanceToolbox</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlddmic4wh1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormGroupControl">
+				<Name>FTBXECVIESStatus</Name>
+				<Type>Group</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormStringControl">
+						<Name>FTBXECVIESStatus_FTBXECVIESVatNumberCheckId</Name>
+						<Type>String</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FTBXECVIESVatNumberCheckId</DataField>
+						<DataSource>TaxRegistration</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormComboBoxControl">
+						<Name>FTBXECVIESStatus_FTBXECVIESVATNumberStatus</Name>
+						<Type>ComboBox</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FTBXECVIESVATNumberStatus</DataField>
+						<DataSource>TaxRegistration</DataSource>
+						<Items />
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormDateTimeControl">
+						<Name>FTBXECVIESStatus_FTBXECVIESVATNumberStatusDate</Name>
+						<Type>DateTime</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FTBXECVIESVATNumberStatusDate</DataField>
+						<DataSource>TaxRegistration</DataSource>
+					</AxFormControl>
+				</Controls>
+				<DataGroup>FTBXECVIESStatus</DataGroup>
+				<DataSource>TaxRegistration</DataSource>
+			</FormControl>
+			<Parent>TaxRegistrationGrid</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

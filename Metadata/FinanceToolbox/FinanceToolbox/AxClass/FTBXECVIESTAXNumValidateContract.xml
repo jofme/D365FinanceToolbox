@@ -10,6 +10,7 @@
 internal final class FTBXECVIESTAXNumValidateContract implements SysOperationInitializable
 {
     private str	        packedTaxVatNumQuery;
+    private str	        packedTaxRegNumQuery;
     private Days        numberOfDays;
     private NumberOf    numberOfRecords;
 
@@ -24,20 +25,10 @@ internal final class FTBXECVIESTAXNumValidateContract implements SysOperationIni
 				<Source><![CDATA[
     public void initialize()
     {
-        this.setQuery(this.newQuery());
-
-        numberOfDays    = defaultNumberOfDays;
-        numberOfRecords = defaultNumberOfRecords;
-    }
-
-]]></Source>
-			</Method>
-			<Method>
-				<Name>newQuery</Name>
-				<Source><![CDATA[
-    private Query newQuery()
-    {
-        return new Query(queryStr(FTBXECVIESVATNumberQuery));
+        numberOfDays            = defaultNumberOfDays;
+        numberOfRecords         = defaultNumberOfRecords;  
+        packedTaxVatNumQuery    = SysOperationHelper::base64Encode(new Query(queryStr(FTBXECVIESVATNumberQuery)).pack());
+        packedTaxRegNumQuery    = SysOperationHelper::base64Encode(new Query(queryStr(FTBXECVIESTaxRegNumQuery)).pack());
     }
 
 ]]></Source>
@@ -45,18 +36,32 @@ internal final class FTBXECVIESTAXNumValidateContract implements SysOperationIni
 			<Method>
 				<Name>getQuery</Name>
 				<Source><![CDATA[
-    public Query getQuery()
+    public Query getQuery(str _queryStr)
     {
         Query ret;
 
-        if (packedTaxVatNumQuery)
+        switch (_queryStr)
         {
-            ret = new Query(SysOperationHelper::base64Decode(packedTaxVatNumQuery));
+            case queryStr(FTBXECVIESVATNumberQuery):
+                if (packedTaxVatNumQuery)
+                {
+                    ret = new Query(SysOperationHelper::base64Decode(packedTaxVatNumQuery));
+                }
+                break;
+            case queryStr(FTBXECVIESTaxRegNumQuery):
+                if (packedTaxRegNumQuery)
+                {
+                    ret = new Query(SysOperationHelper::base64Decode(packedTaxRegNumQuery));
+                }
+                break;
+            default:
+                error(error::wrongUseOfFunction(funcName()));
+                throw Exception::Error;
         }
 
         if (!ret)
         {
-            ret = this.newQuery();
+            ret = new Query(_queryStr);
         }
 
         return ret;
@@ -65,27 +70,35 @@ internal final class FTBXECVIESTAXNumValidateContract implements SysOperationIni
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>setQuery</Name>
+				<Name>parmQueryVatNumTable</Name>
 				<Source><![CDATA[
-    public void setQuery(Query _query)
+    [
+        DataMemberAttribute,
+        AifQueryTypeAttribute('_packedTaxVatNumQuery', queryStr(FTBXECVIESVATNumberQuery))
+        
+    ]
+    public str parmQueryVatNumTable(str _packedTaxVatNumQuery = packedTaxVatNumQuery)
     {
-        packedTaxVatNumQuery = SysOperationHelper::base64Encode(_query.pack());
+        packedTaxVatNumQuery = _packedTaxVatNumQuery;
+
+        return packedTaxVatNumQuery;
     }
 
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>parmPackedReleaseQuery</Name>
+				<Name>parmQueryTaxRegNum</Name>
 				<Source><![CDATA[
     [
         DataMemberAttribute,
-        AifQueryTypeAttribute('_packedTaxVatNumQuery', queryStr(FTBXECVIESVATNumberQuery))
+        AifQueryTypeAttribute('_packedTaxReqNumQuery', queryStr(FTBXECVIESTaxRegNumQuery)),
+        SysOperationLabel(literalStr('@RegistrationNumbers:RegistrationNumbers'))
     ]
-    public str parmPackedReleaseQuery(str _packedTaxVatNumQuery = packedTaxVatNumQuery)
+    public str parmQueryTaxRegNum(str _packedTaxReqNumQuery = packedTaxRegNumQuery)
     {
-        packedTaxVatNumQuery = _packedTaxVatNumQuery;
+        packedTaxRegNumQuery = _packedTaxReqNumQuery;
 
-        return packedTaxVatNumQuery;
+        return packedTaxRegNumQuery;
     }
 
 ]]></Source>

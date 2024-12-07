@@ -305,7 +305,7 @@ public final class FTBXECVIESCheckResult
     {
         FTBXECVIESCheckResult result = _obj;
 
-        return countryRegionId == result.vatCountry()
+        return countryRegionId == result.countryRegionId()
             && vatNum  == result.vatNum();
     }
 

@@ -130,6 +130,11 @@
       <Name>FTBXVendTable_Extension</Name>
       <Link>Classes\FTBXVendTable_Extension</Link>
     </Content>
+    <Content Include="AxDataEntityViewExtension\TaxRegistrationLegislativeEntity.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>TaxRegistrationLegislativeEntity.FinanceToolbox</Name>
+      <Link>Data Entity Extensions\TaxRegistrationLegislativeEntity.FinanceToolbox</Link>
+    </Content>
     <Content Include="AxDataEntityViewExtension\TaxVATNumTableEntity.FinanceToolbox">
       <SubType>Content</SubType>
       <Name>TaxVATNumTableEntity.FinanceToolbox</Name>
@@ -190,6 +195,11 @@
       <Name>CustTable.FinanceToolbox</Name>
       <Link>Form Extensions\CustTable.FinanceToolbox</Link>
     </Content>
+    <Content Include="AxFormExtension\LogisticsPostalAddress.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>LogisticsPostalAddress.FinanceToolbox</Name>
+      <Link>Form Extensions\LogisticsPostalAddress.FinanceToolbox</Link>
+    </Content>
     <Content Include="AxFormExtension\TaxVATNumTable.FinanceToolbox">
       <SubType>Content</SubType>
       <Name>TaxVATNumTable.FinanceToolbox</Name>
@@ -244,6 +254,11 @@
       <SubType>Content</SubType>
       <Name>FTBXECVIESVATNumberRelatedEntitiesPart</Name>
       <Link>Display Menu Items\FTBXECVIESVATNumberRelatedEntitiesPart</Link>
+    </Content>
+    <Content Include="AxQuery\FTBXECVIESTaxRegNumQuery">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESTaxRegNumQuery</Name>
+      <Link>Simple Queries\FTBXECVIESTaxRegNumQuery</Link>
     </Content>
     <Content Include="AxQuery\FTBXECVIESVATNumberQuery">
       <SubType>Content</SubType>
@@ -304,6 +319,16 @@
       <SubType>Content</SubType>
       <Name>FTBXECVIESTAXNumberAdministrator</Name>
       <Link>Security Roles\FTBXECVIESTAXNumberAdministrator</Link>
+    </Content>
+    <Content Include="AxTableExtension\TaxRegistration.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>TaxRegistration.FinanceToolbox</Name>
+      <Link>Table Extensions\TaxRegistration.FinanceToolbox</Link>
+    </Content>
+    <Content Include="AxTableExtension\TaxRegistrationLegislativeStaging.FinanceToolbox">
+      <SubType>Content</SubType>
+      <Name>TaxRegistrationLegislativeStaging.FinanceToolbox</Name>
+      <Link>Table Extensions\TaxRegistrationLegislativeStaging.FinanceToolbox</Link>
     </Content>
     <Content Include="AxTableExtension\TaxVATNumTable.FinanceToolbox">
       <SubType>Content</SubType>
