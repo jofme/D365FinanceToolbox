@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXTaxRegistration_Table_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// CoC extension class for the TaxRegistration table
+/// </summary>
+[ExtensionOf(tableStr(TaxRegistration))]
+public final class FTBXTaxRegistration_Table_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>ftbxUpdateVIESStatus</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Updates VIES status of Tax registration number record
+    /// </summary>
+    public void ftbxUpdateVIESStatus()
+    {
+        var applicabilityRule   = TaxRegistrationTypeApplicabilityRule::find(this.TaxRegistrationTypeApplicabilityRule);
+        var legislationType     = TaxRegistrationLegislationTypes::findByTaxRegistrationTypeAppRule(applicabilityRule.RecId);
+
+        if (legislationType.TaxRegistrationTypesList == TaxRegistrationTypesList::TAXID)
+        {
+            TaxCountryRegionParameters taxCountryRegionParameters = TaxCountryRegionParameters::find(applicabilityRule.CountryRegionId);
+
+            if (taxCountryRegionParameters && FTBXECVIESAvailableMemberStates::isMemberStateAvailable(taxCountryRegionParameters.SalesTaxCode))
+            {
+                FTBXECVIESInterfaceBase viesInterface = FTBXECVIESInterfaceBase::construct();
+
+                viesInterface.addCountryVATNumber(
+                    taxCountryRegionParameters.CountryRegionId,
+                    taxCountryRegionParameters.SalesTaxCode,
+                    this.RegistrationNumber);
+
+                viesInterface.invokeValidation();
+
+                this.FTBXECVIESVatNumberCheckId     = '';
+                this.FTBXECVIESVATNumberStatus      = viesInterface.latestResult.getNumberStatus();
+                this.FTBXECVIESVATNumberStatusDate  = DateTimeUtil::getSystemDateTime();
+
+                info(strFmt("@FinanceToolbox:ECVIESInfoStatus", this.FTBXECVIESVATNumberStatus));
+                info(strFmt("@FinanceToolbox:ECVIESInfoEntityName", viesInterface.latestResult.entityName()));
+                info(strFmt("@FinanceToolbox:ECVIESInfoEntityAddressing", viesInterface.latestResult.entityAddressing()));
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>insert</Name>
+				<Source><![CDATA[
+    public void insert()
+    {
+        if (FTBXECVIESParameters::find().ValidateOnNumberCreation)
+        {
+            this.ftbxUpdateVIESStatus();
+        }
+
+        next insert();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>update</Name>
+				<Source><![CDATA[
+    public void update()
+    {
+        if (this.RegistrationNumber != this.orig().RegistrationNumber
+            && FTBXECVIESParameters::find().ValidateOnNumberCreation)
+        {
+            this.ftbxUpdateVIESStatus();
+        }
+
+        next update();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

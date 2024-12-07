@@ -36,6 +36,24 @@ public final class FTBXCustTable_Extension
 ]]></Source>
 			</Method>
 			<Method>
+				<Name>ftbxECVIESVATStatusVatNumRecId</Name>
+				<Source><![CDATA[
+    private FTBXECVIESVATNumberStatus ftbxECVIESVATStatusVatNumRecId()
+    {
+        switch (this.VATNumTableType)
+        {
+            case TaxExemptNumberSourceType::TaxRegistration:
+                return TaxRegistration::find(this.VATNumRecId).FTBXECVIESVATNumberStatus;
+            case TaxExemptNumberSourceType::TaxVATNumTable:
+                return TaxVATNumTable::ftbxFindRecId(this.VATNumRecId).FTBXECVIESVATNumberStatus;
+        }
+
+        return FTBXECVIESVATNumberStatus::NotChecked;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
 				<Name>ftbxECVIESVATBlockingStatus</Name>
 				<Source><![CDATA[
     /// <summary>
@@ -48,15 +66,24 @@ public final class FTBXCustTable_Extension
 
         if (FTBXECVIESFeature::isEnabled())
         {
-            FTBXECVIESParameters    viesParameters = FTBXECVIESParameters::find();
+            FTBXECVIESParameters viesParameters = FTBXECVIESParameters::find();
 
             if (viesParameters.CustBlocked  != CustVendorBlocked::No
-                && this.VATNum              != ''
-                && TaxVATNumTable::find(
+                && this.VATNum              != '')
+            {
+                if (this.VATNumRecId)
+                {
+                    if (this.ftbxECVIESVATStatusVatNumRecId() == FTBXECVIESVATNumberStatus::Invalid)
+                    {
+                        blocked = viesParameters.CustBlocked;
+                    }
+                }
+                else if (TaxVATNumTable::find(
                     this.VATNum,
                     TaxVATNumTable::resolveCountryRegionFromTable(this)).FTBXECVIESVATNumberStatus == FTBXECVIESVATNumberStatus::Invalid)
-            {
-                blocked = viesParameters.CustBlocked;
+                {
+                    blocked = viesParameters.CustBlocked;
+                }
             }
         }
 
@@ -94,9 +121,16 @@ public final class FTBXCustTable_Extension
 
         if (FTBXECVIESFeature::isEnabled() && this.VATNum)
         {
-            ret = TaxVATNumTable::find(
-                this.VATNum,
-                TaxVATNumTable::resolveCountryRegionFromTable(this)).FTBXECVIESVATNumberStatus;
+            if (this.VATNumRecId)
+            {
+                ret = this.ftbxECVIESVATStatusVatNumRecId();
+            }
+            else
+            {
+                ret = TaxVATNumTable::find(
+                    this.VATNum,
+                    TaxVATNumTable::resolveCountryRegionFromTable(this)).FTBXECVIESVATNumberStatus;
+            }
         }
 
         return ret;

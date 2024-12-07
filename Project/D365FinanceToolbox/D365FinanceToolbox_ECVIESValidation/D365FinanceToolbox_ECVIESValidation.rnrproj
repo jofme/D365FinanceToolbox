@@ -110,6 +110,11 @@
       <Name>FTBXNumberSeqModuleTax</Name>
       <Link>Classes\FTBXNumberSeqModuleTax</Link>
     </Content>
+    <Content Include="AxClass\FTBXTaxRegistration_Table_Extension">
+      <SubType>Content</SubType>
+      <Name>FTBXTaxRegistration_Table_Extension</Name>
+      <Link>Classes\FTBXTaxRegistration_Table_Extension</Link>
+    </Content>
     <Content Include="AxClass\FTBXTaxVATNumTable_Form_Extension">
       <SubType>Content</SubType>
       <Name>FTBXTaxVATNumTable_Form_Extension</Name>
