@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxQuery xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns=""
+	i:type="AxQuerySimple">
+	<Name>FTBXECVIESTaxRegNumQuery</Name>
+	<SourceCode>
+		<Methods>
+			<Method>
+				<Name>classDeclaration</Name>
+				<Source><![CDATA[
+[Query]
+public class FTBXECVIESTaxRegNumQuery extends QueryRun
+{
+}
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+	<Title>@RegistrationNumbers:RegistrationNumbers</Title>
+	<DataSources>
+		<AxQuerySimpleRootDataSource>
+			<Name>TaxRegistration</Name>
+			<Table>TaxRegistration</Table>
+			<DataSources>
+				<AxQuerySimpleEmbeddedDataSource>
+					<Name>TaxRegistrationTypeApplicabilityRule</Name>
+					<Table>TaxRegistrationTypeApplicabilityRule</Table>
+					<DataSources>
+						<AxQuerySimpleEmbeddedDataSource>
+							<Name>TaxRegistrationLegislationTypes</Name>
+							<Table>TaxRegistrationLegislationTypes</Table>
+							<DataSources />
+							<DerivedDataSources />
+							<Fields />
+							<Ranges>
+								<AxQuerySimpleDataSourceRange>
+									<Name>TaxRegistrationTypesList</Name>
+									<Field>TaxRegistrationTypesList</Field>
+									<Status>Locked</Status>
+									<Value>VAT ID</Value>
+								</AxQuerySimpleDataSourceRange>
+							</Ranges>
+							<JoinMode>ExistsJoin</JoinMode>
+							<Relations>
+								<AxQuerySimpleDataSourceRelation>
+									<Name>QueryDataSourceRelation1</Name>
+									<Field>RecId</Field>
+									<JoinDataSource>TaxRegistrationTypeApplicabilityRule</JoinDataSource>
+									<RelatedField>TaxRegistrationTypeApplicabilityRule</RelatedField>
+								</AxQuerySimpleDataSourceRelation>
+							</Relations>
+						</AxQuerySimpleEmbeddedDataSource>
+						<AxQuerySimpleEmbeddedDataSource>
+							<Name>TaxCountryRegionParameters</Name>
+							<Table>TaxCountryRegionParameters</Table>
+							<DataSources>
+								<AxQuerySimpleEmbeddedDataSource>
+									<Name>FTBXECVIESAvailableMemberStates</Name>
+									<Table>FTBXECVIESAvailableMemberStates</Table>
+									<DataSources />
+									<DerivedDataSources />
+									<Fields />
+									<Ranges />
+									<JoinMode>ExistsJoin</JoinMode>
+									<Relations>
+										<AxQuerySimpleDataSourceRelation>
+											<Name>QueryDataSourceRelation1</Name>
+											<Field>SalesTaxCode</Field>
+											<JoinDataSource>TaxCountryRegionParameters</JoinDataSource>
+											<RelatedField>ISOCode</RelatedField>
+										</AxQuerySimpleDataSourceRelation>
+									</Relations>
+								</AxQuerySimpleEmbeddedDataSource>
+							</DataSources>
+							<DerivedDataSources />
+							<Fields>
+								<AxQuerySimpleDataSourceField>
+									<Name>CountryRegionId</Name>
+									<Field>CountryRegionId</Field>
+								</AxQuerySimpleDataSourceField>
+								<AxQuerySimpleDataSourceField>
+									<Name>SalesTaxCode</Name>
+									<Field>SalesTaxCode</Field>
+								</AxQuerySimpleDataSourceField>
+							</Fields>
+							<Ranges />
+							<Relations>
+								<AxQuerySimpleDataSourceRelation>
+									<Name>QueryDataSourceRelation1</Name>
+									<Field>CountryRegionId</Field>
+									<JoinDataSource>TaxRegistrationTypeApplicabilityRule</JoinDataSource>
+									<RelatedField>CountryRegionId</RelatedField>
+								</AxQuerySimpleDataSourceRelation>
+							</Relations>
+						</AxQuerySimpleEmbeddedDataSource>
+					</DataSources>
+					<DerivedDataSources />
+					<Fields />
+					<Ranges />
+					<Relations>
+						<AxQuerySimpleDataSourceRelation>
+							<Name>QueryDataSourceRelation1</Name>
+							<Field>TaxRegistrationTypeApplicabilityRule</Field>
+							<JoinDataSource>TaxRegistration</JoinDataSource>
+							<RelatedField>RecId</RelatedField>
+						</AxQuerySimpleDataSourceRelation>
+					</Relations>
+				</AxQuerySimpleEmbeddedDataSource>
+			</DataSources>
+			<DerivedDataSources />
+			<Fields>
+				<AxQuerySimpleDataSourceField>
+					<Name>RegistrationNumber</Name>
+					<Field>RegistrationNumber</Field>
+				</AxQuerySimpleDataSourceField>
+			</Fields>
+			<Ranges />
+			<GroupBy />
+			<Having />
+			<OrderBy />
+		</AxQuerySimpleRootDataSource>
+	</DataSources>
+</AxQuery>
