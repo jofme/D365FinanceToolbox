@@ -9,6 +9,8 @@
 [ExtensionOf(tableStr(TaxVATNumTable))]
 final class FTBXTaxVATNumTable_Table_Extension
 {
+    
+
 }
 ]]></Declaration>
 		<Methods>
@@ -40,6 +42,32 @@ final class FTBXTaxVATNumTable_Table_Extension
             info(strFmt("@FinanceToolbox:ECVIESInfoEntityName", viesInterface.latestResult.entityName()));
             info(strFmt("@FinanceToolbox:ECVIESInfoEntityAddressing", viesInterface.latestResult.entityAddressing()));
         }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>ftbxFindRecId</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Find a TaxVatNumTable record based on RecId
+    /// </summary>
+    /// <param name = "_recId">RecId of record to find</param>
+    /// <param name = "_forUpdate">Select for update</param>
+    /// <returns>TaxVatNumTable record</returns>
+    public static TaxVATNumTable ftbxFindRecId(RecId _recId, boolean _forUpdate = false)
+    {
+        TaxVATNumTable taxVatNumTable;
+
+        taxVatNumTable.selectForUpdate(_forUpdate);
+
+        if (_recId)
+        {
+            select firstonly taxVatNumTable
+                where taxVatNumTable.RecId == _recId;
+        }
+
+        return taxVatNumTable;
     }
 
 ]]></Source>
