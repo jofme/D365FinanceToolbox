@@ -15,6 +15,7 @@ public class FTBXECVIESVATNumberQuery extends QueryRun
 			</Method>
 		</Methods>
 	</SourceCode>
+	<Title>@SYS55109</Title>
 	<DataSources>
 		<AxQuerySimpleRootDataSource>
 			<Name>TaxVATNumTable</Name>
@@ -22,8 +23,8 @@ public class FTBXECVIESVATNumberQuery extends QueryRun
 			<Table>TaxVATNumTable</Table>
 			<DataSources>
 				<AxQuerySimpleEmbeddedDataSource>
-					<Name>LogisticsAddressCountryRegion</Name>
-					<Table>LogisticsAddressCountryRegion</Table>
+					<Name>TaxCountryRegionParameters</Name>
+					<Table>TaxCountryRegionParameters</Table>
 					<DataSources>
 						<AxQuerySimpleEmbeddedDataSource>
 							<Name>FTBXECVIESAvailableMemberStates</Name>
@@ -43,8 +44,8 @@ public class FTBXECVIESVATNumberQuery extends QueryRun
 							<Relations>
 								<AxQuerySimpleDataSourceRelation>
 									<Name>QueryDataSourceRelation1</Name>
-									<Field>ISOCode</Field>
-									<JoinDataSource>LogisticsAddressCountryRegion</JoinDataSource>
+									<Field>SalesTaxCode</Field>
+									<JoinDataSource>TaxCountryRegionParameters</JoinDataSource>
 									<RelatedField>ISOCode</RelatedField>
 								</AxQuerySimpleDataSourceRelation>
 							</Relations>

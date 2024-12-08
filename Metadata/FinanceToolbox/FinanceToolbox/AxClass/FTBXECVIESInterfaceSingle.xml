@@ -11,92 +11,236 @@ using System.Net.Http.Headers;
 /// </summary>
 internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 {
+    EUSalesListTax  vatCountryLegalEntity;
+    VATNum          vatNumLegalEntity;
+
 }
 ]]></Declaration>
 		<Methods>
+			<Method>
+				<Name>initLegalEntity</Name>
+				<Source><![CDATA[
+    private void initLegalEntity()
+    {
+        CompanyInfo companyInfo = CompanyInfo::find();
+
+        if (companyInfo.VATNum)
+        {
+            TaxCountryRegionParameters taxCountryRegionParameters = TaxCountryRegionParameters::find(
+                companyInfo.postalAddress().CountryRegionId);
+
+            if (taxCountryRegionParameters)
+            {
+                vatCountryLegalEntity   = taxCountryRegionParameters.SalesTaxCode;
+                vatNumLegalEntity       = companyInfo.VATNum;
+
+                if (validateLegalEntityVatNumber)
+                {
+                    FTBXECVIESInterfaceBase viesInterfaceSingle = FTBXECVIESInterfaceBase::construct();
+
+                    viesInterfaceSingle.addCountryVATNumber(
+                        taxCountryRegionParameters.CountryRegionId,
+                        vatCountryLegalEntity,
+                        vatNumLegalEntity);
+
+                    viesInterfaceSingle.invokeValidation();
+
+                    if (!viesInterfaceSingle.latestResult.getNumberStatus())
+                    {
+                        throw Error("@FinanceToolbox:ECVIESVATNumberLegalEntityNotValid");
+                    }
+                }
+            }
+        }
+
+        if (validateLegalEntityVatNumber
+            && (!vatCountryLegalEntity
+            || !vatNumLegalEntity))
+        {
+            warning("@FinanceToolbox:ECVIESVATNumberLegalEntityNotSpecified");
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>processResponseMessage</Name>
+				<Source><![CDATA[
+    private void processResponseMessage(
+        FTBXECVIESCheckResult _checkResult, 
+        str _request,
+        System.Net.Http.HttpResponseMessage _responseMessage)
+    {
+        if (_responseMessage.Content)
+        {
+            str response = _responseMessage.Content.ReadAsStringAsync()
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
+
+            //Try to deserialize it as a message without error
+            FTBXECVIESAPICheckVatNumberResponseContract statusContract =
+                FormJsonSerializer::deserializeObjectStrict(
+                    classNum(FTBXECVIESAPICheckVatNumberResponseContract),
+                    response);
+
+            if (statusContract)
+            {
+                _checkResult.setResultValues(
+                    statusContract.parmName(),
+                    statusContract.parmAddress(),
+                    statusContract.parmValid() ? FTBXECVIESVATNumberStatus::Valid : FTBXECVIESVATNumberStatus::Invalid,
+                    '',
+                    saveAPIMessages ? _request : '',
+                    saveAPIMessages ? response : '',
+                    statusContract.parmRequestIdentifier());
+            }
+            else
+            {
+                this.processResponseError(_checkResult, _request, response);
+            }
+        }
+        else
+        {
+            _checkResult.setResultValues(
+                '',
+                '',
+                FTBXECVIESVATNumberStatus::VIESError,
+                "@FinanceToolbox:ECVIESAPINoResponse",
+                saveAPIMessages ? _request : '');
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>processResponseError</Name>
+				<Source><![CDATA[
+    private void processResponseError(
+        FTBXECVIESCheckResult _checkResult, 
+        str _request,
+        str _response)
+    {
+        FTBXECVIESAPIErrorResponsesContract errorContract =
+            FormJsonSerializer::deserializeObjectStrict(
+                classNum(FTBXECVIESAPIErrorResponsesContract),
+                _response);
+
+        if (errorContract)
+        {
+            if (errorContract.parmErrorWrappers().elements() > 0)
+            {
+                var errorWrapper = errorContract
+                    .parmErrorWrappers()
+                    .getEnumerator()
+                    .current();
+
+                _checkResult.setResultValues(
+                    '',
+                    '',
+                    FTBXECVIESVATNumberStatus::VIESError,
+                    strFmt('%1\n%2', errorWrapper.parmError(), errorWrapper.parmMessage()),
+                    saveAPIMessages ? _request : '',
+                    saveAPIMessages ? _response : '');
+            }
+            else
+            {
+                _checkResult.setResultValues(
+                    '',
+                    '',
+                    FTBXECVIESVATNumberStatus::VIESError,
+                    "@FinanceToolbox:ECVIESGenericWebServiceInvalidResponse",
+                    saveAPIMessages ? _request : '',
+                    saveAPIMessages ? _response : '');
+            }
+        }
+        else
+        {
+            _checkResult.setResultValues(
+                '',
+                '',
+                FTBXECVIESVATNumberStatus::VIESError,
+                "@FinanceToolbox:ECVIESGenericWebServiceInvalidResponse",
+                saveAPIMessages ? _request : '',
+                saveAPIMessages ? _response : '');
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>isMemberStateAvailable</Name>
+				<Source><![CDATA[
+    private boolean isMemberStateAvailable(EUSalesListTax _salesTaxCode)
+    {
+        return FTBXECVIESAvailableMemberStates::isMemberStateAvailable(_salesTaxCode);
+    }
+
+]]></Source>
+			</Method>
 			<Method>
 				<Name>invokeValidation</Name>
 				<Source><![CDATA[
     public void invokeValidation()
     {        
+        this.initLegalEntity();
+
         SetEnumerator enumerator = vatValidationResults.getEnumerator();
 
         while (enumerator.moveNext())
         {
-            boolean responseReceived;
             FTBXECVIESCheckResult checkResult = enumerator.current();
 
-            if (checkResult.isoCode()
-                && checkResult.vatNum()
-                && FTBXECVIESAvailableMemberStates::isMemberStateAvailable(checkResult.isoCode()))
+            if (checkResult.vatCountry() && checkResult.vatNum())
             {
-                var httpRequestMessage  = new HttpRequestMessage(
-                    new HttpMethod('post'), 
-                    parameters.VIESAPIURLVatCheck);
+                if (this.isMemberStateAvailable(checkResult.vatCountry()))
+                {
+                    var httpRequestMessage  = new HttpRequestMessage(
+                        new HttpMethod('post'),
+                        parameters.VIESAPIURLVatCheck);
 
-                httpRequestMessage.Content = new StringContent(
-                    FormJsonSerializer::serializeClass(
+                    str request = FormJsonSerializer::serializeClass(
                         FTBXECVIESAPICheckVatNumberRequestContract::construct()
-                        .setCountryCode(checkResult.isoCode())
-                        .setVatNumber(checkResult.vatNumTested())),
-                    System.Text.Encoding::UTF8,
-                    'application/json');
+                        .setCountryCode(checkResult.vatCountry())
+                        .setVatNumber(checkResult.vatNumTested())
+                        .setRequesterMemberStateCode(vatCountryLegalEntity)
+                        .setRequesterNumber(vatNumLegalEntity));
 
-                var responseMessage = httpClient.SendAsync(httpRequestMessage)
+                    httpRequestMessage.Content = new StringContent(
+                        request,
+                        System.Text.Encoding::UTF8,
+                        'application/json');
+
+                    System.Net.Http.HttpResponseMessage responseMessage = httpClient.SendAsync(httpRequestMessage)
                         .ConfigureAwait(false)
                         .GetAwaiter()
                         .GetResult();
 
-                if (responseMessage)
-                {
-                    if (responseMessage.StatusCode == System.Net.HttpStatusCode::OK
-                        && responseMessage.Content)
+                    if (responseMessage)
                     {
-                        FTBXECVIESAPICheckVatNumberResponseContract statusContract =
-                            FormJsonSerializer::deserializeObjectStrict(
-                            classNum(FTBXECVIESAPICheckVatNumberResponseContract),
-                            responseMessage.Content.ReadAsStringAsync()
-                                .ConfigureAwait(false)
-                                .GetAwaiter()
-                                .GetResult());
-
-                        if (statusContract)
-                        {
-                            checkResult.setResultValues(
-                                statusContract.parmName(),
-                                statusContract.parmAddress(),
-                                statusContract.parmValid(),
-                                false,
-                                '');
-
-                            this.validationResultUpdated(checkResult);
-                            responseReceived = true;
-                        }
+                        this.processResponseMessage(
+                            checkResult, 
+                            request,
+                            responseMessage);
                     }
                     else
                     {
                         checkResult.setResultValues(
                             '',
                             '',
-                            false,
-                            true,
-                            strFmt("@FinanceToolbox:ECVIESGenericWebServiceErrorMessage", responseMessage.StatusCode.ToString()));
-
-                        this.validationResultUpdated(checkResult);
-                        responseReceived = true;
+                            FTBXECVIESVATNumberStatus::VIESError,
+                            "@FinanceToolbox:ECVIESGenericWebServiceInvalidResponse");
                     }
                 }
-            }
-            
-            if (!responseReceived)
-            {
-                checkResult.setResultValues(
-                    '',
-                    '',
-                    false,
-                    true,
-                    "@FinanceToolbox:ECVIESGenericWebServiceInvalidResponse");
-
+                else
+                {
+                    checkResult.setResultValues(
+                        '',
+                        '',
+                        FTBXECVIESVATNumberStatus::VIESNotAvailable,
+                        '');
+                }
+                
                 this.validationResultUpdated(checkResult);
             }
         }

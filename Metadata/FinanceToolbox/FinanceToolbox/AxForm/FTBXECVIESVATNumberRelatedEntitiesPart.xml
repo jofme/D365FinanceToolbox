@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxForm xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>FTBXECVIESVATNumberRelatedEntitiesPart</Name>
+	<SourceCode>
+		<Methods xmlns="">
+			<Method>
+				<Name>classDeclaration</Name>
+				<Source><![CDATA[
+[Form]
+public class FTBXECVIESVATNumberRelatedEntitiesPart extends FormRun
+{
+    Common          jumpRefRecord;
+    MenuItemName    jumpRefMenuItemName;
+
+}
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setJumpRefRecord</Name>
+				<Source><![CDATA[
+    protected void setJumpRefRecord()
+    {
+        switch (FTBXECVIESVatNumUsed.Type)
+        {
+            case DirPartyRoleType::Customer:
+                jumpRefMenuItemName = menuitemdisplaystr(CustTable);
+                jumpRefRecord       = CustTable::findByCompany(FTBXECVIESVatNumUsed.DataArea, FTBXECVIESVatNumUsed.Accountnum);
+                break;
+            case DirPartyRoleType::Vendor:
+                jumpRefMenuItemName = menuitemdisplaystr(VendTable);
+                jumpRefRecord       = VendTable::findByCompany(FTBXECVIESVatNumUsed.DataArea, FTBXECVIESVatNumUsed.Accountnum);
+                break;
+            case DirPartyRoleType::LegalEntity:
+                jumpRefMenuItemName = menuitemdisplaystr(OMLegalEntities);
+                jumpRefRecord       = CompanyInfo::findDataArea(FTBXECVIESVatNumUsed.AccountNum);
+            default:
+                jumpRefMenuItemName = '';
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+		<DataSources xmlns="">
+			<DataSource>
+				<Name>FTBXECVIESVatNumUsed</Name>
+				<Methods />
+				<Fields>
+					<Field>
+						<DataField>AccountNum</DataField>
+						<Methods>
+							<Method>
+								<Name>jumpRef</Name>
+								<Source><![CDATA[
+            public void jumpRef()
+            {
+                element.setJumpRefRecord();
+
+                if (element.jumpRefMenuItemName && element.jumpRefRecord)
+                {
+                    Args args = new Args();
+
+                    args.record(element.jumpRefRecord);
+                    new MenuFunction(element.jumpRefMenuItemName, MenuItemType::Display).run(args);
+                }
+            }
+
+]]></Source>
+							</Method>
+						</Methods>
+					</Field>
+				</Fields>
+			</DataSource>
+		</DataSources>
+		<DataControls xmlns="" />
+		<Members xmlns="" />
+	</SourceCode>
+	<DataSources>
+		<AxFormDataSource xmlns="">
+			<Name>FTBXECVIESVatNumUsed</Name>
+			<Table>FTBXECVIESVatNumUsed</Table>
+			<Fields>
+				<AxFormDataSourceField>
+					<DataField>AccountNum</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>CountryRegionId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>DataArea</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>DataAreaId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Partition</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>RecId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>TableId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Type</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>VatNum</DataField>
+				</AxFormDataSourceField>
+			</Fields>
+			<ReferencedDataSources />
+			<InsertIfEmpty>No</InsertIfEmpty>
+			<DataSourceLinks />
+			<DerivedDataSources />
+		</AxFormDataSource>
+	</DataSources>
+	<Design>
+		<Pattern xmlns="">FormPartFactboxGrid</Pattern>
+		<PatternVersion xmlns="">1.1</PatternVersion>
+		<Style xmlns="">FormPart</Style>
+		<Controls xmlns="">
+			<AxFormControl xmlns=""
+				i:type="AxFormGridControl">
+				<Name>FTBXECVIESVatNumUsed</Name>
+				<AllowEdit>No</AllowEdit>
+				<Type>Grid</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormStringControl">
+						<Name>FTBXECVIESVatNumUsed_AccountNum</Name>
+						<Type>String</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>AccountNum</DataField>
+						<DataSource>FTBXECVIESVatNumUsed</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormComboBoxControl">
+						<Name>FTBXECVIESVatNumUsed_Type</Name>
+						<Type>ComboBox</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>Type</DataField>
+						<DataSource>FTBXECVIESVatNumUsed</DataSource>
+						<Items />
+					</AxFormControl>
+				</Controls>
+				<DataSource>FTBXECVIESVatNumUsed</DataSource>
+				<HighlightActive>No</HighlightActive>
+				<MultiSelect>No</MultiSelect>
+				<ShowRowLabels>No</ShowRowLabels>
+				<Style>SimpleReadOnly</Style>
+				<VisibleRows>5</VisibleRows>
+				<VisibleRowsMode>Fixed</VisibleRowsMode>
+			</AxFormControl>
+		</Controls>
+	</Design>
+	<Parts />
+</AxForm>

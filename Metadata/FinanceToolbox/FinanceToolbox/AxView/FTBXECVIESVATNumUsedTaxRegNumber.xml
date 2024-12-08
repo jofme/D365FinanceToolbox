@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxView xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>FTBXECVIESVATNumUsedTaxRegNumber</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class FTBXECVIESVATNumUsedTaxRegNumber extends common
+{
+
+}
+
+]]></Declaration>
+		<Methods />
+	</SourceCode>
+	<Label>@FinanceToolbox:FTBXECVIESVatNumUsedRegNum</Label>
+	<SubscriberAccessLevel>
+		<Read>Allow</Read>
+	</SubscriberAccessLevel>
+	<TitleField1>AccountNum</TitleField1>
+	<TitleField2>Type</TitleField2>
+	<FieldGroups>
+		<AxTableFieldGroup>
+			<Name>AutoReport</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoLookup</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoIdentification</Name>
+			<AutoPopulate>Yes</AutoPopulate>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoSummary</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoBrowse</Name>
+			<Fields />
+		</AxTableFieldGroup>
+	</FieldGroups>
+	<Fields>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>AccountNum</Name>
+			<DataField>AccountNum</DataField>
+			<DataSource>DirPartyView</DataSource>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>VatNum</Name>
+			<DataField>RegistrationNumber</DataField>
+			<DataSource>TaxRegistration</DataSource>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>CountryRegionId</Name>
+			<DataField>CountryRegionId</DataField>
+			<DataSource>TaxRegistrationTypeApplicabilityRule</DataSource>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>Type</Name>
+			<Label>@SYS330576</Label>
+			<DataField>RoleType</DataField>
+			<DataSource>DirPartyView</DataSource>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>DataArea</Name>
+			<DataField>DataArea</DataField>
+			<DataSource>DirPartyView</DataSource>
+		</AxViewField>
+	</Fields>
+	<Indexes />
+	<Mappings />
+	<Relations />
+	<StateMachines />
+	<ViewMetadata>
+		<Name>Metadata</Name>
+		<SourceCode>
+			<Methods />
+		</SourceCode>
+		<DataSources>
+			<AxQuerySimpleRootDataSource>
+				<Name>DirPartyView</Name>
+				<DynamicFields>Yes</DynamicFields>
+				<Table>DirPartyView</Table>
+				<DataSources>
+					<AxQuerySimpleEmbeddedDataSource>
+						<Name>DirPartyLocation</Name>
+						<DynamicFields>Yes</DynamicFields>
+						<Table>DirPartyLocation</Table>
+						<DataSources>
+							<AxQuerySimpleEmbeddedDataSource>
+								<Name>TaxRegistration</Name>
+								<DynamicFields>Yes</DynamicFields>
+								<Table>TaxRegistration</Table>
+								<DataSources>
+									<AxQuerySimpleEmbeddedDataSource>
+										<Name>TaxRegistrationTypeApplicabilityRule</Name>
+										<DynamicFields>Yes</DynamicFields>
+										<FirstOnly>Yes</FirstOnly>
+										<Table>TaxRegistrationTypeApplicabilityRule</Table>
+										<DataSources>
+											<AxQuerySimpleEmbeddedDataSource>
+												<Name>TaxRegistrationLegislationTypes</Name>
+												<DynamicFields>Yes</DynamicFields>
+												<Table>TaxRegistrationLegislationTypes</Table>
+												<DataSources />
+												<DerivedDataSources />
+												<Fields />
+												<Ranges>
+													<AxQuerySimpleDataSourceRange>
+														<Name>TaxRegistrationTypesList</Name>
+														<Field>TaxRegistrationTypesList</Field>
+														<Value>TaxRegistrationTypesList::TAXID</Value>
+													</AxQuerySimpleDataSourceRange>
+												</Ranges>
+												<JoinMode>ExistsJoin</JoinMode>
+												<Relations>
+													<AxQuerySimpleDataSourceRelation>
+														<Name>QueryDataSourceRelation1</Name>
+														<Field>RecId</Field>
+														<JoinDataSource>TaxRegistrationTypeApplicabilityRule</JoinDataSource>
+														<RelatedField>TaxRegistrationTypeApplicabilityRule</RelatedField>
+													</AxQuerySimpleDataSourceRelation>
+												</Relations>
+											</AxQuerySimpleEmbeddedDataSource>
+										</DataSources>
+										<DerivedDataSources />
+										<Fields />
+										<Ranges />
+										<Relations>
+											<AxQuerySimpleDataSourceRelation>
+												<Name>QueryDataSourceRelation1</Name>
+												<Field>TaxRegistrationTypeApplicabilityRule</Field>
+												<JoinDataSource>TaxRegistration</JoinDataSource>
+												<RelatedField>RecId</RelatedField>
+											</AxQuerySimpleDataSourceRelation>
+										</Relations>
+									</AxQuerySimpleEmbeddedDataSource>
+								</DataSources>
+								<DerivedDataSources />
+								<Fields />
+								<Ranges />
+								<Relations>
+									<AxQuerySimpleDataSourceRelation>
+										<Name>QueryDataSourceRelation1</Name>
+										<Field>RecId</Field>
+										<JoinDataSource>DirPartyLocation</JoinDataSource>
+										<RelatedField>DirPartyLocation</RelatedField>
+									</AxQuerySimpleDataSourceRelation>
+								</Relations>
+							</AxQuerySimpleEmbeddedDataSource>
+						</DataSources>
+						<DerivedDataSources />
+						<Fields />
+						<Ranges />
+						<Relations>
+							<AxQuerySimpleDataSourceRelation>
+								<Name>QueryDataSourceRelation1</Name>
+								<Field>Party</Field>
+								<JoinDataSource>DirPartyView</JoinDataSource>
+								<RelatedField>Party</RelatedField>
+							</AxQuerySimpleDataSourceRelation>
+						</Relations>
+					</AxQuerySimpleEmbeddedDataSource>
+				</DataSources>
+				<DerivedDataSources />
+				<Fields />
+				<Ranges />
+				<GroupBy />
+				<Having />
+				<OrderBy />
+			</AxQuerySimpleRootDataSource>
+		</DataSources>
+	</ViewMetadata>
+</AxView>

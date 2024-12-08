@@ -10,89 +10,143 @@ internal final class FTBXECVIESTAXNumValidateService
 {
     FTBXECVIESVATNumberCheckTable   vatNumCheckTable;
     RecordInsertList                resultInsertList;      
+    RecordInsertList                resultDetailsInsertList;
     NumberSeq                       numberSeq;
 
 }
 ]]></Declaration>
 		<Methods>
 			<Method>
-				<Name>doValidateTaxNumbers</Name>
+				<Name>loadTaxVatNumTable</Name>
 				<Source><![CDATA[
-    /// <summary>
-    /// Perform validation of VAT numbers based on the query in the contract class
-    /// </summary>
-    /// <param name = "_contract">Contract class</param>
-    public void doValidateTaxNumbers(FTBXECVIESTAXNumValidateContract _contract)
+    private void loadTaxVatNumTable(
+        Query                   _query, 
+        FTBXECVIESInterfaceBase _viesInterface,
+        int                     _maxNumRecords,
+        int                     _numDays)
     {
-        FTBXECVIESInterfaceBase         viesInterface = FTBXECVIESInterfaceBase::construct();
-        TaxVATNumTable                  taxVatNumTable;
-        LogisticsAddressCountryRegion   logisticsAddressCountryRegion;
-
-        viesInterface.validationResultUpdated += eventhandler(this.addResult);
-
-        #OCCRETRYCOUNT
-
-        Query query = _contract.getQuery();
+        TaxVATNumTable              taxVatNumTable;
+        TaxCountryRegionParameters  taxCountryRegionParameters;
         
-        if (_contract.parmNumberOfRecords() > 0)
+        if (_maxNumRecords > 0)
         {
-            query.topRows(_contract.parmNumberOfRecords());
+            _query.topRows(_maxNumRecords - _viesInterface.getResults().elements());
         }
 
-        if (_contract.parmNumberOfDays() > 0)
+        if (_numDays > 0)
         {
             SysQuery::findOrCreateRange(
-                query.dataSourceTable(tableNum(TaxVATNumTable)),
-                fieldNum(TaxVATNumTable, FTBXECVIESVATNumberStatusDate)).value(SysQueryRangeUtil::lessThanUtcDate(-_contract.parmNumberOfDays()));
+                _query.dataSourceTable(tableNum(TaxVATNumTable)),
+                fieldNum(TaxVATNumTable, FTBXECVIESVATNumberStatusDate)).value(SysQueryRangeUtil::lessThanUtcDate(-_numDays));
         }
 
-        QueryRun queryRun = new QueryRun(query);
-
-        resultInsertList = new RecordInsertList(tableNum(FTBXECVIESVATNumberCheckResults));
+        QueryRun queryRun = new QueryRun(_query);
 
         while (queryRun.next())
         {
             if (queryRun.changed(tableNum(TaxVATNumTable)))
             {
-                taxVatNumTable = queryRun.get(tableNum(TaxVATNumTable));
-                logisticsAddressCountryRegion = queryRun.get(tableNum(LogisticsAddressCountryRegion));
+                taxVatNumTable              = queryRun.get(tableNum(TaxVATNumTable));
+                taxCountryRegionParameters  = queryRun.get(tableNum(TaxCountryRegionParameters));
 
-                viesInterface.addCountryVATNumber(logisticsAddressCountryRegion.ISOcode, taxVatNumTable.VATNum);
+                _viesInterface.addCountryVATNumber(
+                    taxCountryRegionParameters.CountryRegionId,
+                    taxCountryRegionParameters.SalesTaxCode,
+                    taxVatNumTable.VATNum);
             }
         }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>loadTaxRegTable</Name>
+				<Source><![CDATA[
+    private void loadTaxRegTable(
+        Query                   _query,
+        FTBXECVIESInterfaceBase _viesInterface,
+        int                     _maxNumRecords,
+        int                     _numDays)
+    {
+        TaxRegistration             taxRegistration;
+        TaxCountryRegionParameters  taxCountryRegionParameters;
+        
+        if (_maxNumRecords > 0)
+        {
+            _query.topRows(_maxNumRecords - _viesInterface.getResults().elements());
+        }
+
+        if (_numDays > 0)
+        {
+            SysQuery::findOrCreateRange(
+                _query.dataSourceTable(tableNum(taxRegistration)),
+                fieldNum(taxRegistration, FTBXECVIESVATNumberStatusDate)).value(SysQueryRangeUtil::lessThanUtcDate(-_numDays));
+        }
+
+        QueryRun queryRun = new QueryRun(_query);
+
+        while (queryRun.next())
+        {
+            if (queryRun.changed(tableNum(taxRegistration)))
+            {
+                taxRegistration             = queryRun.get(tableNum(taxRegistration));
+                taxCountryRegionParameters  = queryRun.get(tableNum(TaxCountryRegionParameters));
+
+                _viesInterface.addCountryVATNumber(
+                    taxCountryRegionParameters.CountryRegionId,
+                    taxCountryRegionParameters.SalesTaxCode,
+                    taxRegistration.RegistrationNumber);
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>updateTaxNumTables</Name>
+				<Source><![CDATA[
+    private void updateTaxNumTables()
+    {
+        #OCCRETRYCOUNT
+
+        TaxVATNumTable                          taxVATNumTable;
+        TaxRegistration                         TaxRegistration;
+        FTBXECVIESVATNumberCheckResults         checkResults;
+        TaxRegistrationTypeApplicabilityRule    taxRegistrationTypeApplicabilityRule;
+        TaxRegistrationLegislationTypes         taxRegistrationLegislationTypes;
 
         try
         {
             ttsbegin;
 
-            if (viesInterface.getResults().elements() > 0)
-            {
-                FTBXECVIESVATNumberCheckResults checkResults;
+            update_recordset taxVatNumTable
+                setting FTBXECVIESVatNumberCheckId      = checkResults.CheckId,
+                        FTBXECVIESVATNumberStatusDate   = checkResults.StatusDate,
+                        FTBXECVIESVATNumberStatus       = checkResults.Status
+                join checkResults
+                    where checkResults.CountryRegionId  == taxVatNumTable.CountryRegionId
+                    &&    checkResults.VATNumSystem     == taxVatNumTable.VATNum
+                    &&   (checkResults.Status           == FTBXECVIESVATNumberStatus::Invalid
+                    ||    checkResults.Status           == FTBXECVIESVATNumberStatus::Valid)
+                    &&    checkResults.CheckId          == vatNumCheckTable.CheckId;
 
-                //Check if all counties are available
-                viesInterface.updateAvailableCountries();
+            taxRegistration.validTimeStateUpdateMode(ValidTimeStateUpdate::Correction);
 
-                this.initHeader();
-                viesInterface.invokeValidation();
-
-                resultInsertList.insertDatabase();
-            
-                vatNumCheckTable.insert();
-                numberSeq.used();
-
-                update_recordset taxVatNumTable
-                    setting FTBXECVIESVatNumberCheckId      = checkResults.CheckId, 
-                            FTBXECVIESVATNumberStatusDate   = checkResults.StatusDate, 
-                            FTBXECVIESVATNumberStatus       = checkResults.Status
-                    join checkResults
-                        where checkResults.CountryRegionId  == taxVatNumTable.CountryRegionId
-                        &&    checkResults.VATNumSystem     == taxVatNumTable.VATNum
-                        &&    checkResults.CheckId          == vatNumCheckTable.CheckId;
-            }
-            else
-            {
-                info("@FinanceToolbox:ECVIESVATNumberNoNumbersFound");
-            }
+            update_recordset taxRegistration
+                setting FTBXECVIESVatNumberCheckId      = checkResults.CheckId,
+                        FTBXECVIESVATNumberStatusDate   = checkResults.StatusDate,
+                        FTBXECVIESVATNumberStatus       = checkResults.Status
+                join checkResults
+                    where checkResults.VATNumSystem     == taxRegistration.RegistrationNumber
+                    &&    checkResults.CheckId          == vatNumCheckTable.CheckId
+                    &&   (checkResults.Status           == FTBXECVIESVATNumberStatus::Invalid
+                    ||    checkResults.Status           == FTBXECVIESVATNumberStatus::Valid)
+                exists join taxRegistrationTypeApplicabilityRule
+                    where taxRegistrationTypeApplicabilityRule.RecId            == taxRegistration.TaxRegistrationTypeApplicabilityRule
+                    &&    taxRegistrationTypeApplicabilityRule.CountryRegionId  == checkResults.CountryRegionId
+                exists join taxRegistrationLegislationTypes
+                    where   taxRegistrationLegislationTypes.TaxRegistrationTypeApplicabilityRule    == taxRegistrationTypeApplicabilityRule.RecId
+                    &&      taxRegistrationLegislationTypes.TaxRegistrationTypesList                == TaxRegistrationTypesList::TAXID;
 
             ttscommit;
         }
@@ -145,6 +199,70 @@ internal final class FTBXECVIESTAXNumValidateService
 ]]></Source>
 			</Method>
 			<Method>
+				<Name>doValidateTaxNumbers</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Perform validation of VAT numbers based on the query in the contract class
+    /// </summary>
+    /// <param name = "_contract">Contract class</param>
+    public void doValidateTaxNumbers(FTBXECVIESTAXNumValidateContract _contract)
+    {      
+        FTBXECVIESInterfaceBase viesInterface = FTBXECVIESInterfaceBase::construct();
+        
+        resultInsertList        = new RecordInsertList(tableNum(FTBXECVIESVATNumberCheckResults));
+        resultDetailsInsertList = new RecordInsertList(tableNum(FTBXECVIESVATNumberCheckResultDetails));
+
+        viesInterface.validationResultUpdated       += eventhandler(this.addResult);
+        viesInterface.validateLegalEntityVatNumber  = true;
+        
+        this.loadTaxVatNumTable(
+            _contract.getQuery(queryStr(FTBXECVIESVATNumberQuery)),
+            viesInterface,
+            _contract.parmNumberOfDays(),
+            _contract.parmNumberOfRecords());
+
+        this.loadTaxRegTable(
+            _contract.getQuery(queryStr(FTBXECVIESTaxRegNumQuery)),
+            viesInterface,
+            _contract.parmNumberOfDays(),
+            _contract.parmNumberOfRecords());
+
+        try
+        {
+            ttsbegin;
+
+            if (viesInterface.getResults().elements() > 0)
+            {   
+                //Check if all counties are available
+                viesInterface.updateAvailableCountries();
+
+                this.initHeader();
+                viesInterface.invokeValidation();
+
+                resultInsertList.insertDatabase();
+                resultDetailsInsertList.insertDatabase();
+            
+                vatNumCheckTable.insert();
+                numberSeq.used();
+
+                this.updateTaxNumTables();
+            }
+            else
+            {
+                info("@FinanceToolbox:ECVIESVATNumberNoNumbersFound");
+            }
+
+            ttscommit;
+        }
+        catch
+        {
+            exceptionTextFallThrough();
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
 				<Name>setNumSeq</Name>
 				<Source><![CDATA[
     private void setNumSeq()
@@ -180,16 +298,9 @@ internal final class FTBXECVIESTAXNumValidateService
     private void addResult(FTBXECVIESCheckResult _result)
     {
         FTBXECVIESVATNumberCheckResults vatNumCheckResult;
-
-        vatNumCheckResult.CheckId           = vatNumCheckTable.checkId;
-        vatNumCheckResult.ISOCode           = _result.isoCode();
-        vatNumCheckResult.CountryRegionId   = LogisticsAddressCountryRegion::findByISOCode(_result.isoCode()).CountryRegionId;
-        vatNumCheckResult.VATNumSystem      = _result.vatNum();
-        vatNumCheckResult.VATNumTested      = _result.vatNumTested();
-        vatNumCheckResult.CompanyName       = _result.entityName();
-        vatNumCheckResult.Address           = _result.entityAddressing();
-        vatNumCheckResult.StatusDate        = DateTimeUtil::getSystemDateTime();
-        vatNumCheckResult.Status            = _result.getNumberStatus();
+        
+        vatNumCheckResult.initFromVatNumCheckTable(vatNumCheckTable);
+        vatNumCheckResult.initFromCheckResult(_result);
 
         vatNumCheckTable.CountTotal++;
 
@@ -203,10 +314,20 @@ internal final class FTBXECVIESTAXNumValidateService
                 break;
             case FTBXECVIESVATNumberStatus::VIESError:
                 vatNumCheckTable.CountError ++;
-                break;
         }
 
         resultInsertList.add(vatNumCheckResult);
+
+        if (_result.hasDebuggingInformation())
+        {
+            FTBXECVIESVATNumberCheckResultDetails vatNumCheckResultDetails;
+
+            vatNumCheckResultDetails.initFromVatNumCheckTable(vatNumCheckTable);
+            vatNumCheckResultDetails.initFromCheckResult(_result);
+
+            resultDetailsInsertList.add(vatNumCheckResultDetails);
+
+        }
     }
 
 ]]></Source>

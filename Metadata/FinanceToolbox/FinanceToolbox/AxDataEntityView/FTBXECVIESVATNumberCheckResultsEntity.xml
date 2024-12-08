@@ -52,6 +52,12 @@ public class FTBXECVIESVATNumberCheckResultsEntity extends common
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
+			<Name>RequestIdentifier</Name>
+			<DataField>RequestIdentifier</DataField>
+			<DataSource>FTBXECVIESVATNumberCheckResults</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
 			<Name>StatusDate</Name>
 			<DataField>StatusDate</DataField>
 			<DataSource>FTBXECVIESVATNumberCheckResults</DataSource>

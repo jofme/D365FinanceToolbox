@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxTable xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>FTBXECVIESVATNumberCheckResults</Name>
+	<Name>FTBXECVIESVATNumberCheckResultDetails</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
-public class FTBXECVIESVATNumberCheckResults extends common
+public class FTBXECVIESVATNumberCheckResultDetails extends common
 {
 }
 ]]></Declaration>
@@ -23,33 +23,29 @@ public class FTBXECVIESVATNumberCheckResults extends common
 				<Source><![CDATA[
     public void initFromCheckResult(FTBXECVIESCheckResult _result)
     {
-        this.ISOCode            = _result.vatCountry();
-        this.CountryRegionId    = _result.countryRegionId();
         this.VATNumSystem       = _result.vatNum();
-        this.VATNumTested       = _result.vatNumTested();
-        this.CompanyName        = _result.entityName();
-        this.Address            = _result.entityAddressing();
-        this.StatusDate         = DateTimeUtil::getSystemDateTime();
-        this.Status             = _result.getNumberStatus();
-        this.RequestIdentifier  = _result.apiRequestIdentifier();
+        this.CountryRegionId    = _result.countryRegionId();
+
+        this.ErrorMsg       = _result.errorMessage();
+        this.APIRequest     = _result.apiRequest();
+        this.APIResponse    = _result.apiResponse();
     }
 
 ]]></Source>
 			</Method>
 		</Methods>
 	</SourceCode>
-	<DeveloperDocumentation>@FinanceToolbox:ECVIESVatNumberCheckResultsDevDoc</DeveloperDocumentation>
-	<Label>@FinanceToolbox:ECVIESVATNumberCheckTable</Label>
+	<DeveloperDocumentation>@FinanceToolbox:ECVIESVatNumberCheckResultsDetailsDevDoc</DeveloperDocumentation>
+	<Label>@FinanceToolbox:ECVIESVATNumberResultDetails</Label>
 	<SubscriberAccessLevel>
 		<Read>Allow</Read>
 	</SubscriberAccessLevel>
-	<TableGroup>WorksheetLine</TableGroup>
+	<TableGroup>Transaction</TableGroup>
 	<TitleField1>CheckId</TitleField1>
 	<TitleField2>VATNumSystem</TitleField2>
 	<AllowRowVersionChangeTracking>Yes</AllowRowVersionChangeTracking>
+	<CacheLookup>NotInTTS</CacheLookup>
 	<ClusteredIndex>IdStatusIdx</ClusteredIndex>
-	<CreatedBy>Yes</CreatedBy>
-	<CreatedDateTime>Yes</CreatedDateTime>
 	<ReplacementKey>IdStatusIdx</ReplacementKey>
 	<DeleteActions />
 	<FieldGroups>
@@ -57,13 +53,22 @@ public class FTBXECVIESVATNumberCheckResults extends common
 			<Name>AutoReport</Name>
 			<Fields>
 				<AxTableFieldGroupField>
-					<DataField>StatusDate</DataField>
+					<DataField>CheckId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountryRegionId</DataField>
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
 					<DataField>VATNumSystem</DataField>
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
-					<DataField>Status</DataField>
+					<DataField>ErrorMsg</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>APIRequest</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>APIResponse</DataField>
 				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
@@ -71,13 +76,22 @@ public class FTBXECVIESVATNumberCheckResults extends common
 			<Name>AutoLookup</Name>
 			<Fields>
 				<AxTableFieldGroupField>
-					<DataField>StatusDate</DataField>
+					<DataField>CheckId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountryRegionId</DataField>
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
 					<DataField>VATNumSystem</DataField>
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
-					<DataField>Status</DataField>
+					<DataField>ErrorMsg</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>APIRequest</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>APIResponse</DataField>
 				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
@@ -100,39 +114,7 @@ public class FTBXECVIESVATNumberCheckResults extends common
 			<Name>AutoSummary</Name>
 			<Fields>
 				<AxTableFieldGroupField>
-					<DataField>StatusDate</DataField>
-				</AxTableFieldGroupField>
-				<AxTableFieldGroupField>
-					<DataField>VATNumSystem</DataField>
-				</AxTableFieldGroupField>
-				<AxTableFieldGroupField>
-					<DataField>Status</DataField>
-				</AxTableFieldGroupField>
-			</Fields>
-		</AxTableFieldGroup>
-		<AxTableFieldGroup>
-			<Name>AutoBrowse</Name>
-			<Fields>
-				<AxTableFieldGroupField>
-					<DataField>StatusDate</DataField>
-				</AxTableFieldGroupField>
-				<AxTableFieldGroupField>
-					<DataField>VATNumSystem</DataField>
-				</AxTableFieldGroupField>
-				<AxTableFieldGroupField>
-					<DataField>Status</DataField>
-				</AxTableFieldGroupField>
-			</Fields>
-		</AxTableFieldGroup>
-		<AxTableFieldGroup>
-			<Name>Grid</Name>
-			<Label>@SYS26263</Label>
-			<Fields>
-				<AxTableFieldGroupField>
-					<DataField>Status</DataField>
-				</AxTableFieldGroupField>
-				<AxTableFieldGroupField>
-					<DataField>RequestIdentifier</DataField>
+					<DataField>CheckId</DataField>
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
 					<DataField>CountryRegionId</DataField>
@@ -141,28 +123,51 @@ public class FTBXECVIESVATNumberCheckResults extends common
 					<DataField>VATNumSystem</DataField>
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
-					<DataField>ISOCode</DataField>
+					<DataField>ErrorMsg</DataField>
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
-					<DataField>VATNumTested</DataField>
+					<DataField>APIRequest</DataField>
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
-					<DataField>StatusDate</DataField>
-				</AxTableFieldGroupField>
-				<AxTableFieldGroupField>
-					<DataField>CompanyName</DataField>
-				</AxTableFieldGroupField>
-				<AxTableFieldGroupField>
-					<DataField>Address</DataField>
+					<DataField>APIResponse</DataField>
 				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
-			<Name>Id</Name>
-			<Label>@SYS112373</Label>
+			<Name>AutoBrowse</Name>
 			<Fields>
 				<AxTableFieldGroupField>
 					<DataField>CheckId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>CountryRegionId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>VATNumSystem</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ErrorMsg</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>APIRequest</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>APIResponse</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>Troubleshooting</Name>
+			<Label>@SYS319640</Label>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>ErrorMsg</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>APIRequest</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>APIResponse</DataField>
 				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
@@ -178,31 +183,12 @@ public class FTBXECVIESVATNumberCheckResults extends common
 			<Mandatory>Yes</Mandatory>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldUtcDateTime">
-			<Name>StatusDate</Name>
-			<AllowEdit>No</AllowEdit>
-			<AllowEditOnCreate>No</AllowEditOnCreate>
-			<ExtendedDataType>FTBXECVIESVatNumberStatusDate</ExtendedDataType>
-			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-			<Mandatory>Yes</Mandatory>
-		</AxTableField>
-		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>CountryRegionId</Name>
 			<AllowEdit>No</AllowEdit>
 			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<ExtendedDataType>AddressCountryRegionId</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-			<Mandatory>Yes</Mandatory>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldString">
-			<Name>ISOCode</Name>
-			<AllowEdit>No</AllowEdit>
-			<AllowEditOnCreate>No</AllowEditOnCreate>
-			<ExtendedDataType>LogisticsAddressCountryRegionISOCode</ExtendedDataType>
-			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-			<Label>@FinanceToolbox:ECVIESAPICountryCode</Label>
 			<Mandatory>Yes</Mandatory>
 		</AxTableField>
 		<AxTableField xmlns=""
@@ -216,44 +202,29 @@ public class FTBXECVIESVATNumberCheckResults extends common
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
-			<Name>VATNumTested</Name>
+			<Name>ErrorMsg</Name>
 			<AllowEdit>No</AllowEdit>
 			<AllowEditOnCreate>No</AllowEditOnCreate>
-			<ExtendedDataType>VATNum</ExtendedDataType>
-			<HelpText>@FinanceToolbox:ECVIESVATNumberHelp</HelpText>
-			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-			<Label>@FinanceToolbox:ECVIESVATNumberLabel</Label>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldString">
-			<Name>CompanyName</Name>
-			<AllowEdit>No</AllowEdit>
-			<AllowEditOnCreate>No</AllowEditOnCreate>
-			<ExtendedDataType>CompanyName</ExtendedDataType>
+			<ExtendedDataType>ErrorMsg</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
-			<Name>Address</Name>
+			<Name>APIRequest</Name>
 			<AllowEdit>No</AllowEdit>
 			<AllowEditOnCreate>No</AllowEditOnCreate>
-			<ExtendedDataType>Addressing</ExtendedDataType>
+			<ExtendedDataType>FTBXECVIESAPIMessage</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldEnum">
-			<Name>Status</Name>
-			<AllowEdit>No</AllowEdit>
-			<AllowEditOnCreate>No</AllowEditOnCreate>
-			<EnumType>FTBXECVIESVATNumberStatus</EnumType>
+			<Label>@FinanceToolbox:ECVIESAPIMessageRequestLabel</Label>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
-			<Name>RequestIdentifier</Name>
+			<Name>APIResponse</Name>
 			<AllowEdit>No</AllowEdit>
 			<AllowEditOnCreate>No</AllowEditOnCreate>
-			<ExtendedDataType>FTBXECVIESVATNumberCheckAPIRequestIdentifier</ExtendedDataType>
+			<ExtendedDataType>FTBXECVIESAPIMessage</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:ECVIESAPIMessageResponseLabel</Label>
 		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
@@ -273,24 +244,14 @@ public class FTBXECVIESVATNumberCheckResults extends common
 				</AxTableIndexField>
 			</Fields>
 		</AxTableIndex>
-		<AxTableIndex>
-			<Name>StatusIdx</Name>
-			<AllowDuplicates>Yes</AllowDuplicates>
-			<Fields>
-				<AxTableIndexField>
-					<DataField>Status</DataField>
-				</AxTableIndexField>
-			</Fields>
-		</AxTableIndex>
 	</Indexes>
 	<Mappings />
 	<Relations>
 		<AxTableRelation>
-			<Name>FTBXECVIESVATNumberCheckTable</Name>
-			<Cardinality>ZeroMore</Cardinality>
-			<CreateNavigationPropertyMethods>Yes</CreateNavigationPropertyMethods>
+			<Name>FTBXECVIESVATNumberCheckResults</Name>
+			<Cardinality>ZeroOne</Cardinality>
 			<OnDelete>Cascade</OnDelete>
-			<RelatedTable>FTBXECVIESVATNumberCheckTable</RelatedTable>
+			<RelatedTable>FTBXECVIESVATNumberCheckResults</RelatedTable>
 			<RelatedTableCardinality>ExactlyOne</RelatedTableCardinality>
 			<RelationshipType>Association</RelationshipType>
 			<Constraints>
@@ -299,39 +260,6 @@ public class FTBXECVIESVATNumberCheckResults extends common
 					<Name>CheckId</Name>
 					<Field>CheckId</Field>
 					<RelatedField>CheckId</RelatedField>
-				</AxTableRelationConstraint>
-			</Constraints>
-		</AxTableRelation>
-		<AxTableRelation>
-			<Name>LogisticsAddressCountryRegion</Name>
-			<Cardinality>ZeroMore</Cardinality>
-			<CreateNavigationPropertyMethods>Yes</CreateNavigationPropertyMethods>
-			<EDTRelation>Yes</EDTRelation>
-			<OnDelete>Restricted</OnDelete>
-			<RelatedTable>LogisticsAddressCountryRegion</RelatedTable>
-			<RelatedTableCardinality>ExactlyOne</RelatedTableCardinality>
-			<RelationshipType>Association</RelationshipType>
-			<Constraints>
-				<AxTableRelationConstraint xmlns=""
-					i:type="AxTableRelationConstraintField">
-					<Name>CountryRegionId</Name>
-					<Field>CountryRegionId</Field>
-					<RelatedField>CountryRegionId</RelatedField>
-				</AxTableRelationConstraint>
-			</Constraints>
-		</AxTableRelation>
-		<AxTableRelation>
-			<Name>FTBXECVIESVatNumUsed</Name>
-			<Cardinality>ZeroMore</Cardinality>
-			<RelatedTable>FTBXECVIESVatNumUsed</RelatedTable>
-			<RelatedTableCardinality>ZeroOne</RelatedTableCardinality>
-			<RelationshipType>Association</RelationshipType>
-			<Constraints>
-				<AxTableRelationConstraint xmlns=""
-					i:type="AxTableRelationConstraintField">
-					<Name>DataAreaId</Name>
-					<Field>DataAreaId</Field>
-					<RelatedField>DataArea</RelatedField>
 				</AxTableRelationConstraint>
 				<AxTableRelationConstraint xmlns=""
 					i:type="AxTableRelationConstraintField">
@@ -343,7 +271,7 @@ public class FTBXECVIESVATNumberCheckResults extends common
 					i:type="AxTableRelationConstraintField">
 					<Name>VATNumSystem</Name>
 					<Field>VATNumSystem</Field>
-					<RelatedField>VatNum</RelatedField>
+					<RelatedField>VATNumSystem</RelatedField>
 				</AxTableRelationConstraint>
 			</Constraints>
 		</AxTableRelation>

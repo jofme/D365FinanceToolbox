@@ -102,6 +102,14 @@
 			<Mandatory>Yes</Mandatory>
 		</AxTableField>
 		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>RequestIdentifier</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>FTBXECVIESVATNumberCheckAPIRequestIdentifier</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
 			i:type="AxTableFieldUtcDateTime">
 			<Name>StatusDate</Name>
 			<AllowEdit>No</AllowEdit>
@@ -116,8 +124,6 @@
 			<AllowEdit>No</AllowEdit>
 			<AllowEditOnCreate>No</AllowEditOnCreate>
 			<ExtendedDataType>AddressCountryRegionId</ExtendedDataType>
-			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
-			<IsManuallyUpdated>Yes</IsManuallyUpdated>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 			<Mandatory>Yes</Mandatory>
 		</AxTableField>
@@ -230,24 +236,6 @@
 					<Name>VATNumSystem</Name>
 					<Field>VATNumSystem</Field>
 					<RelatedField>VATNumSystem</RelatedField>
-				</AxTableRelationConstraint>
-			</Constraints>
-		</AxTableRelation>
-		<AxTableRelation>
-			<Name>LogisticsAddressCountryRegion</Name>
-			<Cardinality>ZeroMore</Cardinality>
-			<CreateNavigationPropertyMethods>Yes</CreateNavigationPropertyMethods>
-			<EDTRelation>Yes</EDTRelation>
-			<OnDelete>Restricted</OnDelete>
-			<RelatedTable>LogisticsAddressCountryRegion</RelatedTable>
-			<RelatedTableCardinality>ExactlyOne</RelatedTableCardinality>
-			<RelationshipType>Association</RelationshipType>
-			<Constraints>
-				<AxTableRelationConstraint xmlns=""
-					i:type="AxTableRelationConstraintField">
-					<Name>CountryRegionId</Name>
-					<Field>CountryRegionId</Field>
-					<RelatedField>CountryRegionId</RelatedField>
 				</AxTableRelationConstraint>
 			</Constraints>
 		</AxTableRelation>
