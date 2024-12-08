@@ -218,14 +218,14 @@ internal final class FTBXECVIESTAXNumValidateService
         this.loadTaxVatNumTable(
             _contract.getQuery(queryStr(FTBXECVIESVATNumberQuery)),
             viesInterface,
-            _contract.parmNumberOfDays(),
-            _contract.parmNumberOfRecords());
+            _contract.parmNumberOfRecords(),
+            _contract.parmNumberOfDays());
 
         this.loadTaxRegTable(
             _contract.getQuery(queryStr(FTBXECVIESTaxRegNumQuery)),
             viesInterface,
-            _contract.parmNumberOfDays(),
-            _contract.parmNumberOfRecords());
+            _contract.parmNumberOfRecords(),
+            _contract.parmNumberOfDays());
 
         try
         {
