@@ -1,6 +1,7 @@
 {
-  "templateUrl":  "https://github.com/fscpscollaborative/fscps",
-  "templateBranch":  "main",
-  "runs-on":  "self-hosted",
-  "metadataPath": "Metadata"
+  "templateUrl": "https://github.com/fscpscollaborative/fscps",
+  "templateBranch": "main",
+  "runs-on": "self-hosted",
+  "metadataPath": "Metadata",
+  "versionStrategy": "latest"
 }
