@@ -1,13 +1,14 @@
 [
   {
     "name":"Dummy",
-    "settings":{
+    "settings": {
       "buildVersion": "10.0.44",
+      "versionStrategy": "latest",
       "sourceBranch": "main",
       "lcsEnvironmentId": "12345678-1234-1234-1234-123456789012",
-      "azVmname" : "Dummy",
-      "azVmrg" : "Dummy",
-      "cron":"0 0 31 2 *"
+      "azVmname": "Dummy",
+      "azVmrg": "Dummy",
+      "cron": "0 0 31 2 *"
     }
   }
 ]
