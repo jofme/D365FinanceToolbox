@@ -19,7 +19,7 @@ env:
 
 jobs:
    Initialization:
-    runs-on: [ self-hosted ]
+    runs-on: [ windows-latest ]
     outputs:
       type: ${{ steps.ReadSettings.outputs.type }}
       source_branch: ${{ steps.ReadSettings.outputs.source_branch }}
@@ -47,7 +47,7 @@ jobs:
           
    Build:
     needs: [ Initialization ]
-    runs-on: [ self-hosted ]
+    runs-on: [ windows-latest ]
     strategy:
       matrix:
         version: ${{ fromJson(needs.Initialization.outputs.versions) }}
@@ -113,7 +113,7 @@ jobs:
           
    PostProcess: 
     if: ${{ !cancelled() }}
-    runs-on: [ self-hosted ]
+    runs-on: [ windows-latest ]
     needs: [ Initialization,  Build ]
     steps:
       - name: Checkout
