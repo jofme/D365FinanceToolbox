@@ -47,7 +47,7 @@ jobs:
           
    Build:
     needs: [ Initialization ]
-    runs-on: [ windows-latest ]
+    runs-on: ${{ fromJson(needs.Initialization.outputs.githubRunner) }}
     strategy:
       matrix:
         version: ${{ fromJson(needs.Initialization.outputs.versions) }}
@@ -113,7 +113,7 @@ jobs:
           
    PostProcess: 
     if: ${{ !cancelled() }}
-    runs-on: [ windows-latest ]
+    runs-on: ${{ fromJson(needs.Initialization.outputs.githubRunner) }}
     needs: [ Initialization,  Build ]
     steps:
       - name: Checkout
