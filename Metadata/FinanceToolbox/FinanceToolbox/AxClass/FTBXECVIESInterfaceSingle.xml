@@ -11,8 +11,14 @@ using System.Net.Http.Headers;
 /// </summary>
 internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 {
+    public static int defaultCallDelay      = 200;
+    public static int maximumCallDelay      = 1500;
+    public static int incrementCallDelay    = 300;
+
+
     EUSalesListTax  vatCountryLegalEntity;
     VATNum          vatNumLegalEntity;
+    int             callDelay;
 
 }
 ]]></Declaration>
@@ -99,6 +105,8 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
             {
                 this.processResponseError(_checkResult, _request, response);
             }
+
+
         }
         else
         {
@@ -179,10 +187,57 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 ]]></Source>
 			</Method>
 			<Method>
+				<Name>callApi</Name>
+				<Source><![CDATA[
+    private void callApi(FTBXECVIESCheckResult _checkResult)
+    {
+        var httpRequestMessage  = new HttpRequestMessage(
+            new HttpMethod('post'),
+            parameters.VIESAPIURLVatCheck);
+
+        str request = FormJsonSerializer::serializeClass(
+            FTBXECVIESAPICheckVatNumberRequestContract::construct()
+            .setCountryCode(_checkResult.vatCountry())
+            .setVatNumber(_checkResult.vatNumTested())
+            .setRequesterMemberStateCode(vatCountryLegalEntity)
+            .setRequesterNumber(vatNumLegalEntity));
+
+        httpRequestMessage.Content = new StringContent(
+            request,
+            System.Text.Encoding::UTF8,
+            'application/json');
+
+        System.Net.Http.HttpResponseMessage responseMessage = httpClient.SendAsync(httpRequestMessage)
+            .ConfigureAwait(false)
+            .GetAwaiter()
+            .GetResult();
+
+        if (responseMessage)
+        {
+            this.processResponseMessage(
+                _checkResult,
+                request,
+                responseMessage);
+        }
+        else
+        {
+            _checkResult.setResultValues(
+                '',
+                '',
+                FTBXECVIESVATNumberStatus::VIESError,
+                "@FinanceToolbox:ECVIESGenericWebServiceInvalidResponse");
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
 				<Name>invokeValidation</Name>
 				<Source><![CDATA[
     public void invokeValidation()
     {        
+        callDelay = defaultCallDelay;
+
         this.initLegalEntity();
 
         SetEnumerator enumerator = vatValidationResults.getEnumerator();
@@ -194,43 +249,23 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
             if (checkResult.vatCountry() && checkResult.vatNum())
             {
                 if (this.isMemberStateAvailable(checkResult.vatCountry()))
-                {
-                    var httpRequestMessage  = new HttpRequestMessage(
-                        new HttpMethod('post'),
-                        parameters.VIESAPIURLVatCheck);
+                {     
+                    this.callApi(checkResult);
 
-                    str request = FormJsonSerializer::serializeClass(
-                        FTBXECVIESAPICheckVatNumberRequestContract::construct()
-                        .setCountryCode(checkResult.vatCountry())
-                        .setVatNumber(checkResult.vatNumTested())
-                        .setRequesterMemberStateCode(vatCountryLegalEntity)
-                        .setRequesterNumber(vatNumLegalEntity));
-
-                    httpRequestMessage.Content = new StringContent(
-                        request,
-                        System.Text.Encoding::UTF8,
-                        'application/json');
-
-                    System.Net.Http.HttpResponseMessage responseMessage = httpClient.SendAsync(httpRequestMessage)
-                        .ConfigureAwait(false)
-                        .GetAwaiter()
-                        .GetResult();
-
-                    if (responseMessage)
+                    while (checkResult.getNumberStatus() == FTBXECVIESVATNumberStatus::VIESMaxRequests)
                     {
-                        this.processResponseMessage(
-                            checkResult, 
-                            request,
-                            responseMessage);
+                        callDelay += incrementCallDelay;
+
+                        if (callDelay > maximumCallDelay)
+                        {
+                            throw Exception::Error;
+                        }
+
+                        sleep(callDelay);
+                        this.callApi(checkResult);
                     }
-                    else
-                    {
-                        checkResult.setResultValues(
-                            '',
-                            '',
-                            FTBXECVIESVATNumberStatus::VIESError,
-                            "@FinanceToolbox:ECVIESGenericWebServiceInvalidResponse");
-                    }
+
+                    sleep(callDelay);
                 }
                 else
                 {

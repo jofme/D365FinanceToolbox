@@ -18,6 +18,11 @@
 			<Value>2</Value>
 		</AxEnumValue>
 		<AxEnumValue>
+			<Name>Cancelled</Name>
+			<Label>@FinanceToolbox:VIESCancelled</Label>
+			<Value>6</Value>
+		</AxEnumValue>
+		<AxEnumValue>
 			<Name>VIESError</Name>
 			<Label>@FinanceToolbox:ECVIESVATNumberStatusVIESError</Label>
 			<Value>3</Value>
@@ -26,6 +31,11 @@
 			<Name>VIESNotAvailable</Name>
 			<Label>@SYS322850</Label>
 			<Value>4</Value>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>VIESMaxRequests</Name>
+			<Label>@FinanceToolbox:VIESMaxRequests</Label>
+			<Value>5</Value>
 		</AxEnumValue>
 	</EnumValues>
 </AxEnum>
