@@ -22,6 +22,12 @@
 			<DataField>FTBXECVIESVatNumberStatusDate</DataField>
 			<DataSource>TaxRegistration</DataSource>
 		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>FTBXECVIESVATNumberLifecycle</Name>
+			<DataField>FTBXECVIESVATNumberLifecycle</DataField>
+			<DataSource>TaxRegistration</DataSource>
+		</AxDataEntityViewField>
 	</Fields>
 	<Mappings />
 	<PropertyModifications />

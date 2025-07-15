@@ -190,6 +190,11 @@
       <Name>FTBXECVIESAPIMatchStatus</Name>
       <Link>Base Enums\FTBXECVIESAPIMatchStatus</Link>
     </Content>
+    <Content Include="AxEnum\FTBXECVIESVATNumberLifecycle">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberLifecycle</Name>
+      <Link>Base Enums\FTBXECVIESVATNumberLifecycle</Link>
+    </Content>
     <Content Include="AxEnum\FTBXECVIESVATNumberStatus">
       <SubType>Content</SubType>
       <Name>FTBXECVIESVATNumberStatus</Name>

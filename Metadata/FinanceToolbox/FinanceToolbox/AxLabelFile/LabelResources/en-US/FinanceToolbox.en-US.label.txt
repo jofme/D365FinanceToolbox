@@ -239,4 +239,6 @@ SelfServiceTmpSelectedRoleMaxDuration=Duration cannot be greater than max durati
 SelfServiceTmpSelectedRoleToDateBeforeFromDate=To date/time needs to be after from date/time
 TaxSetUpNumberSeq=Set up number sequences for Finance Toolbox tax
 ValidFromTo=Valid from / to
+VATNumberLifecycleHelp=Lifecycle of the VAT number
+VATNumberLifecycleLabel=Lifecycle status
 VIESMaxRequests=Request limit reached

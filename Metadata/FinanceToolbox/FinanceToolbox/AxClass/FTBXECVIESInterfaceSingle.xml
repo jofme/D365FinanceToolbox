@@ -19,6 +19,7 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
     EUSalesListTax  vatCountryLegalEntity;
     VATNum          vatNumLegalEntity;
     int             callDelay;
+    Set             unavailableMemberStatues;
 
 }
 ]]></Declaration>
@@ -138,15 +139,27 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
         {
             if (errorContract.parmErrorWrappers().elements() > 0)
             {
+                FTBXECVIESVATNumberStatus vatNumStatus = FTBXECVIESVATNumberStatus::VIESError;
+
                 var errorWrapper = errorContract
                     .parmErrorWrappers()
                     .getEnumerator()
                     .current();
 
+                switch (errorWrapper.parmError())
+                {
+                    case 'MS_MAXMS_MAX_CONCURRENT_REQ':
+                        vatNumStatus = FTBXECVIESVATNumberStatus::VIESMaxRequests;
+                        break;
+                    case 'MS_UNAVAILABLE':
+                        vatNumStatus = FTBXECVIESVATNumberStatus::VIESNotAvailable;
+                        break;
+                }
+
                 _checkResult.setResultValues(
                     '',
                     '',
-                    FTBXECVIESVATNumberStatus::VIESError,
+                    vatNumStatus,
                     strFmt('%1\n%2', errorWrapper.parmError(), errorWrapper.parmMessage()),
                     saveAPIMessages ? _request : '',
                     saveAPIMessages ? _response : '');
@@ -236,7 +249,8 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 				<Source><![CDATA[
     public void invokeValidation()
     {        
-        callDelay = defaultCallDelay;
+        callDelay                   = defaultCallDelay;
+        unavailableMemberStatues    = new Set(Types::String);
 
         this.initLegalEntity();
 
@@ -248,21 +262,28 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 
             if (checkResult.vatCountry() && checkResult.vatNum())
             {
-                if (this.isMemberStateAvailable(checkResult.vatCountry()))
+                if (!unavailableMemberStatues.in(checkResult.vatCountry()) && this.isMemberStateAvailable(checkResult.vatCountry()))
                 {     
                     this.callApi(checkResult);
 
-                    while (checkResult.getNumberStatus() == FTBXECVIESVATNumberStatus::VIESMaxRequests)
+                    if (checkResult.getNumberStatus() == FTBXECVIESVATNumberStatus::VIESNotAvailable)
                     {
-                        callDelay += incrementCallDelay;
-
-                        if (callDelay > maximumCallDelay)
+                        unavailableMemberStatues.add(checkResult.vatCountry());
+                    }
+                    else
+                    {
+                        while (checkResult.getNumberStatus() == FTBXECVIESVATNumberStatus::VIESMaxRequests)
                         {
-                            throw Exception::Error;
-                        }
+                            callDelay += incrementCallDelay;
 
-                        sleep(callDelay);
-                        this.callApi(checkResult);
+                            if (callDelay > maximumCallDelay)
+                            {
+                                throw Exception::Error;
+                            }
+
+                            sleep(callDelay);
+                            this.callApi(checkResult);
+                        }
                     }
 
                     sleep(callDelay);
