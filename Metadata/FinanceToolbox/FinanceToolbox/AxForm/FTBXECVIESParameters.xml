@@ -225,6 +225,9 @@ public class FTBXECVIESParameters extends FormRun
 			<Table>FTBXECVIESParameters</Table>
 			<Fields>
 				<AxFormDataSourceField>
+					<DataField>APICallDelay</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
 					<DataField>CustBlocked</DataField>
 				</AxFormDataSourceField>
 				<AxFormDataSourceField>
@@ -387,6 +390,9 @@ public class FTBXECVIESParameters extends FormRun
 							<DataField>DEL_RestartNum_CN</DataField>
 						</AxFormDataSourceField>
 						<AxFormDataSourceField>
+							<DataField>Extended</DataField>
+						</AxFormDataSourceField>
+						<AxFormDataSourceField>
 							<DataField>FetchAhead</DataField>
 						</AxFormDataSourceField>
 						<AxFormDataSourceField>
@@ -399,6 +405,9 @@ public class FTBXECVIESParameters extends FormRun
 							<DataField>Highest</DataField>
 						</AxFormDataSourceField>
 						<AxFormDataSourceField>
+							<DataField>Highest64</DataField>
+						</AxFormDataSourceField>
+						<AxFormDataSourceField>
 							<DataField>InUse</DataField>
 						</AxFormDataSourceField>
 						<AxFormDataSourceField>
@@ -408,6 +417,9 @@ public class FTBXECVIESParameters extends FormRun
 							<DataField>Lowest</DataField>
 						</AxFormDataSourceField>
 						<AxFormDataSourceField>
+							<DataField>Lowest64</DataField>
+						</AxFormDataSourceField>
+						<AxFormDataSourceField>
 							<DataField>Manual</DataField>
 						</AxFormDataSourceField>
 						<AxFormDataSourceField>
@@ -415,6 +427,9 @@ public class FTBXECVIESParameters extends FormRun
 						</AxFormDataSourceField>
 						<AxFormDataSourceField>
 							<DataField>NextRec</DataField>
+						</AxFormDataSourceField>
+						<AxFormDataSourceField>
+							<DataField>NextRec64</DataField>
 						</AxFormDataSourceField>
 						<AxFormDataSourceField>
 							<DataField>NoIncrement</DataField>
@@ -570,6 +585,15 @@ public class FTBXECVIESParameters extends FormRun
 												<FormControlExtension
 													i:nil="true" />
 												<DataField>SaveAPIMessages</DataField>
+												<DataSource>FTBXECVIESParameters</DataSource>
+											</AxFormControl>
+											<AxFormControl xmlns=""
+												i:type="AxFormIntegerControl">
+												<Name>FTBXECVIESParameters_APICallDelay</Name>
+												<Type>Integer</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<DataField>APICallDelay</DataField>
 												<DataSource>FTBXECVIESParameters</DataSource>
 											</AxFormControl>
 										</Controls>

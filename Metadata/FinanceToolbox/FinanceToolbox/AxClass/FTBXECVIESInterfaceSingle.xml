@@ -11,10 +11,6 @@ using System.Net.Http.Headers;
 /// </summary>
 internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 {
-    public static int defaultCallDelay      = 200;
-    public static int maximumCallDelay      = 1500;
-    public static int incrementCallDelay    = 300;
-
 
     EUSalesListTax  vatCountryLegalEntity;
     VATNum          vatNumLegalEntity;
@@ -78,6 +74,8 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
         str _request,
         System.Net.Http.HttpResponseMessage _responseMessage)
     {
+        boolean requestParsed;
+
         if (_responseMessage.Content)
         {
             str response = _responseMessage.Content.ReadAsStringAsync()
@@ -93,21 +91,26 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 
             if (statusContract)
             {
-                _checkResult.setResultValues(
-                    statusContract.parmName(),
-                    statusContract.parmAddress(),
-                    statusContract.parmValid() ? FTBXECVIESVATNumberStatus::Valid : FTBXECVIESVATNumberStatus::Invalid,
-                    '',
-                    saveAPIMessages ? _request : '',
-                    saveAPIMessages ? response : '',
-                    statusContract.parmRequestIdentifier());
+                if (statusContract.parmRequestIdentifier() || statusContract.parmVatNumber())
+                {
+                    _checkResult.setResultValues(
+                        statusContract.parmName(),
+                        statusContract.parmAddress(),
+                        statusContract.parmValid() ? FTBXECVIESVATNumberStatus::Valid : FTBXECVIESVATNumberStatus::Invalid,
+                        '',
+                        saveAPIMessages ? _request : '',
+                        saveAPIMessages ? response : '',
+                        statusContract.parmRequestIdentifier());
+
+                    requestParsed = true;
+                }
             }
-            else
+
+
+            if (!requestParsed)
             {
                 this.processResponseError(_checkResult, _request, response);
             }
-
-
         }
         else
         {
@@ -130,6 +133,7 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
         str _request,
         str _response)
     {
+        boolean foundError;
         FTBXECVIESAPIErrorResponsesContract errorContract =
             FormJsonSerializer::deserializeObjectStrict(
                 classNum(FTBXECVIESAPIErrorResponsesContract),
@@ -141,41 +145,39 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
             {
                 FTBXECVIESVATNumberStatus vatNumStatus = FTBXECVIESVATNumberStatus::VIESError;
 
-                var errorWrapper = errorContract
+                Enumerator errorEnumerator = errorContract
                     .parmErrorWrappers()
-                    .getEnumerator()
-                    .current();
+                    .getEnumerator();
 
-                switch (errorWrapper.parmError())
+                if (errorEnumerator.moveNext())
                 {
-                    case 'MS_MAXMS_MAX_CONCURRENT_REQ':
-                        vatNumStatus = FTBXECVIESVATNumberStatus::VIESMaxRequests;
-                        break;
-                    case 'MS_UNAVAILABLE':
-                        vatNumStatus = FTBXECVIESVATNumberStatus::VIESNotAvailable;
-                        break;
+                    FTBXECVIESAPIErrorWrapperContract errorWrapper = errorEnumerator.current();
+
+                    switch (errorWrapper.parmError())
+                    {
+                        case FTBXECVIESAPIConstants::VIESErrorMaxConcurrentRequests: 
+                            vatNumStatus = FTBXECVIESVATNumberStatus::VIESMaxRequests;
+                            break;
+                        case FTBXECVIESAPIConstants::VIESErrorMemberStateUnavailable:
+                            vatNumStatus = FTBXECVIESVATNumberStatus::VIESNotAvailable;
+                            break;
+                    }
+
+                    _checkResult.setResultValues(
+                        '',
+                        '',
+                        vatNumStatus,
+                        strFmt('%1\n%2', errorWrapper.parmError(), errorWrapper.parmMessage()),
+                        saveAPIMessages ? _request : '',
+                        saveAPIMessages ? _response : '');
+
+                    foundError = true;
                 }
 
-                _checkResult.setResultValues(
-                    '',
-                    '',
-                    vatNumStatus,
-                    strFmt('%1\n%2', errorWrapper.parmError(), errorWrapper.parmMessage()),
-                    saveAPIMessages ? _request : '',
-                    saveAPIMessages ? _response : '');
-            }
-            else
-            {
-                _checkResult.setResultValues(
-                    '',
-                    '',
-                    FTBXECVIESVATNumberStatus::VIESError,
-                    "@FinanceToolbox:ECVIESGenericWebServiceInvalidResponse",
-                    saveAPIMessages ? _request : '',
-                    saveAPIMessages ? _response : '');
             }
         }
-        else
+
+        if (!foundError)
         {
             _checkResult.setResultValues(
                 '',
@@ -249,7 +251,7 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 				<Source><![CDATA[
     public void invokeValidation()
     {        
-        callDelay                   = defaultCallDelay;
+        callDelay                   = minOne(parameters.APICallDelay ? parameters.APICallDelay : FTBXECVIESAPIConstants::VIESInterfaceSingleDefaultCallDelay);
         unavailableMemberStatues    = new Set(Types::String);
 
         this.initLegalEntity();
@@ -274,11 +276,15 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
                     {
                         while (checkResult.getNumberStatus() == FTBXECVIESVATNumberStatus::VIESMaxRequests)
                         {
-                            callDelay += incrementCallDelay;
+                            sleep(FTBXECVIESAPIConstants::VIESInterfaceSingleCallDelayHit);
 
-                            if (callDelay > maximumCallDelay)
+                            callDelay += FTBXECVIESAPIConstants::VIESInterfaceSingleIncrementCallDelay;
+
+                            if (callDelay > FTBXECVIESAPIConstants::VIESInterfaceSingleMaximumCallDelay)
                             {
-                                throw Exception::Error;
+                                this.validationResultUpdated(checkResult);
+                                error("@FinanceToolbox:ECVIESVATRateLimitReached");
+                                return;
                             }
 
                             sleep(callDelay);

@@ -67,6 +67,7 @@ public class FTBXECVIESParameters extends common
 
         this.VIESAPIURLStatus   = FTBXECVIESAPIConstants::VIESAPIURLStatusDefault;
         this.VIESAPIURLVatCheck = FTBXECVIESAPIConstants::VIESAPIURLVatCheck;
+        this.APICallDelay       = FTBXECVIESAPIConstants::VIESInterfaceSingleDefaultCallDelay;
     }
 
 ]]></Source>
@@ -197,6 +198,9 @@ public class FTBXECVIESParameters extends common
 				<AxTableFieldGroupField>
 					<DataField>SaveAPIMessages</DataField>
 				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>APICallDelay</DataField>
+				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
 	</FieldGroups>
@@ -212,14 +216,14 @@ public class FTBXECVIESParameters extends common
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>VIESAPIURLStatus</Name>
-			<ExtendedDataType>URL</ExtendedDataType>
+			<ExtendedDataType>FTBXECVIESURL</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Label>@FinanceToolbox:ECVIESAPICountryStatus</Label>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>VIESAPIURLVatCheck</Name>
-			<ExtendedDataType>URL</ExtendedDataType>
+			<ExtendedDataType>FTBXECVIESURL</ExtendedDataType>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Label>@FinanceToolbox:ECVIESVATNumberStatusLabel</Label>
 		</AxTableField>
@@ -264,6 +268,14 @@ public class FTBXECVIESParameters extends common
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 			<Label>@FinanceToolbox:ECVIESAPIMessageSaveLabel</Label>
 			<EnumType>NoYes</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt">
+			<Name>APICallDelay</Name>
+			<ExtendedDataType>DurationInMilliseconds</ExtendedDataType>
+			<HelpText>@FinanceToolbox:ECVIESAPICallDelayHelp</HelpText>
+			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
+			<Label>@FinanceToolbox:ECVIESAPICallDelayLabel</Label>
 		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
