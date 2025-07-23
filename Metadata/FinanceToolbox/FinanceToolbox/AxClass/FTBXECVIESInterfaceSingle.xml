@@ -251,7 +251,9 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 				<Source><![CDATA[
     public void invokeValidation()
     {        
-        callDelay                   = minOne(parameters.APICallDelay ? parameters.APICallDelay : FTBXECVIESAPIConstants::VIESInterfaceSingleDefaultCallDelay);
+        setPrefix("@FinanceToolbox:ECVIESAPIValidateServiceLabel");
+
+        callDelay                   = max(parameters.APICallDelay, 0);
         unavailableMemberStatues    = new Set(Types::String);
 
         this.initLegalEntity();
@@ -271,28 +273,30 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
                     if (checkResult.getNumberStatus() == FTBXECVIESVATNumberStatus::VIESNotAvailable)
                     {
                         unavailableMemberStatues.add(checkResult.vatCountry());
+                        warning(strFmt("@FinanceToolbox:ECVIESVATNumberEntityBecameUnavailable", checkResult.vatCountry()));
                     }
                     else
                     {
-                        while (checkResult.getNumberStatus() == FTBXECVIESVATNumberStatus::VIESMaxRequests)
+                        if (callDelay)
                         {
-                            sleep(FTBXECVIESAPIConstants::VIESInterfaceSingleCallDelayHit);
-
-                            callDelay += FTBXECVIESAPIConstants::VIESInterfaceSingleIncrementCallDelay;
-
-                            if (callDelay > FTBXECVIESAPIConstants::VIESInterfaceSingleMaximumCallDelay)
+                            while (checkResult.getNumberStatus() == FTBXECVIESVATNumberStatus::VIESMaxRequests)
                             {
-                                this.validationResultUpdated(checkResult);
-                                error("@FinanceToolbox:ECVIESVATRateLimitReached");
-                                return;
+                                if (callDelay > FTBXECVIESAPIConstants::VIESInterfaceSingleMaximumCallDelay)
+                                {
+                                    break;
+                                }
+
+                                sleep(FTBXECVIESAPIConstants::VIESInterfaceSingleCallDelayHit);
+
+                                callDelay += FTBXECVIESAPIConstants::VIESInterfaceSingleIncrementCallDelay;
+                                sleep(callDelay);
+                                this.callApi(checkResult);
                             }
 
                             sleep(callDelay);
-                            this.callApi(checkResult);
                         }
                     }
 
-                    sleep(callDelay);
                 }
                 else
                 {
@@ -301,6 +305,16 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
                         '',
                         FTBXECVIESVATNumberStatus::VIESNotAvailable,
                         '');
+                }
+
+                switch (checkResult.getNumberStatus())
+                {
+                    case (FTBXECVIESVATNumberStatus::VIESMaxRequests):
+                        warning(strFmt("@FinanceToolbox:ECVIESVATNumberMaxNumRequestError", checkResult.vatNumTested()));
+                        break;
+                    case (FTBXECVIESVATNumberStatus::VIESError):
+                        warning(strFmt("@FinanceToolbox:ECVIESAPIUnspecifiedError", checkResult.vatNumTested()));
+                        break; 
                 }
                 
                 this.validationResultUpdated(checkResult);

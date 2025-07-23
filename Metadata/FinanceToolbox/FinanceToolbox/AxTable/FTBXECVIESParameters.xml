@@ -67,7 +67,6 @@ public class FTBXECVIESParameters extends common
 
         this.VIESAPIURLStatus   = FTBXECVIESAPIConstants::VIESAPIURLStatusDefault;
         this.VIESAPIURLVatCheck = FTBXECVIESAPIConstants::VIESAPIURLVatCheck;
-        this.APICallDelay       = FTBXECVIESAPIConstants::VIESInterfaceSingleDefaultCallDelay;
     }
 
 ]]></Source>

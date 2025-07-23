@@ -18,11 +18,6 @@
 			<Value>2</Value>
 		</AxEnumValue>
 		<AxEnumValue>
-			<Name>Cancelled</Name>
-			<Label>@FinanceToolbox:VIESCancelled</Label>
-			<Value>6</Value>
-		</AxEnumValue>
-		<AxEnumValue>
 			<Name>VIESError</Name>
 			<Label>@FinanceToolbox:ECVIESVATNumberStatusVIESError</Label>
 			<Value>3</Value>
