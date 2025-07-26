@@ -16,6 +16,9 @@
 				<AxTableFieldGroupField>
 					<DataField>FTBXECVIESVATNumberStatusDate</DataField>
 				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FTBXECVIESVATNumberLifecycle</DataField>
+				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
 	</FieldGroups>
@@ -47,6 +50,11 @@
 			<FeatureClass>FTBXECVIESFeature</FeatureClass>
 			<IgnoreEDTRelation>Yes</IgnoreEDTRelation>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>FTBXECVIESVATNumberLifecycle</Name>
+			<EnumType>FTBXECVIESVATNumberLifecycle</EnumType>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes>
@@ -56,6 +64,9 @@
 			<Fields>
 				<AxTableIndexField>
 					<DataField>FTBXECVIESVATNumberStatusDate</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>FTBXECVIESVATNumberLifecycle</DataField>
 				</AxTableIndexField>
 			</Fields>
 		</AxTableIndex>

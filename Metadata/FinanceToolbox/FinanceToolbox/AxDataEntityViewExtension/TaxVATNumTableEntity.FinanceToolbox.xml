@@ -14,6 +14,9 @@
 				<AxTableFieldGroupField>
 					<DataField>FTBXECVIESVATNumberStatus</DataField>
 				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FTBXECVIESVATNumberLifecycle</DataField>
+				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
 	</FieldGroups>
@@ -33,6 +36,12 @@
 			<AllowEdit>Yes</AllowEdit>
 			<AllowEditOnCreate>Yes</AllowEditOnCreate>
 			<DataField>FTBXECVIESVatNumberStatusDate</DataField>
+			<DataSource>TaxVATNumTable</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>FTBXECVIESVATNumberLifecycle</Name>
+			<DataField>FTBXECVIESVATNumberLifecycle</DataField>
 			<DataSource>TaxVATNumTable</DataSource>
 		</AxDataEntityViewField>
 	</Fields>

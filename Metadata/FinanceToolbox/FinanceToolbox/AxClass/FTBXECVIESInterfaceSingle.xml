@@ -11,8 +11,11 @@ using System.Net.Http.Headers;
 /// </summary>
 internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 {
+
     EUSalesListTax  vatCountryLegalEntity;
     VATNum          vatNumLegalEntity;
+    int             callDelay;
+    Set             unavailableMemberStatues;
 
 }
 ]]></Declaration>
@@ -71,6 +74,8 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
         str _request,
         System.Net.Http.HttpResponseMessage _responseMessage)
     {
+        boolean requestParsed;
+
         if (_responseMessage.Content)
         {
             str response = _responseMessage.Content.ReadAsStringAsync()
@@ -86,16 +91,23 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 
             if (statusContract)
             {
-                _checkResult.setResultValues(
-                    statusContract.parmName(),
-                    statusContract.parmAddress(),
-                    statusContract.parmValid() ? FTBXECVIESVATNumberStatus::Valid : FTBXECVIESVATNumberStatus::Invalid,
-                    '',
-                    saveAPIMessages ? _request : '',
-                    saveAPIMessages ? response : '',
-                    statusContract.parmRequestIdentifier());
+                if (statusContract.parmRequestIdentifier() || statusContract.parmVatNumber())
+                {
+                    _checkResult.setResultValues(
+                        statusContract.parmName(),
+                        statusContract.parmAddress(),
+                        statusContract.parmValid() ? FTBXECVIESVATNumberStatus::Valid : FTBXECVIESVATNumberStatus::Invalid,
+                        '',
+                        saveAPIMessages ? _request : '',
+                        saveAPIMessages ? response : '',
+                        statusContract.parmRequestIdentifier());
+
+                    requestParsed = true;
+                }
             }
-            else
+
+
+            if (!requestParsed)
             {
                 this.processResponseError(_checkResult, _request, response);
             }
@@ -121,6 +133,7 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
         str _request,
         str _response)
     {
+        boolean foundError;
         FTBXECVIESAPIErrorResponsesContract errorContract =
             FormJsonSerializer::deserializeObjectStrict(
                 classNum(FTBXECVIESAPIErrorResponsesContract),
@@ -130,31 +143,41 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
         {
             if (errorContract.parmErrorWrappers().elements() > 0)
             {
-                var errorWrapper = errorContract
-                    .parmErrorWrappers()
-                    .getEnumerator()
-                    .current();
+                FTBXECVIESVATNumberStatus vatNumStatus = FTBXECVIESVATNumberStatus::VIESError;
 
-                _checkResult.setResultValues(
-                    '',
-                    '',
-                    FTBXECVIESVATNumberStatus::VIESError,
-                    strFmt('%1\n%2', errorWrapper.parmError(), errorWrapper.parmMessage()),
-                    saveAPIMessages ? _request : '',
-                    saveAPIMessages ? _response : '');
-            }
-            else
-            {
-                _checkResult.setResultValues(
-                    '',
-                    '',
-                    FTBXECVIESVATNumberStatus::VIESError,
-                    "@FinanceToolbox:ECVIESGenericWebServiceInvalidResponse",
-                    saveAPIMessages ? _request : '',
-                    saveAPIMessages ? _response : '');
+                Enumerator errorEnumerator = errorContract
+                    .parmErrorWrappers()
+                    .getEnumerator();
+
+                if (errorEnumerator.moveNext())
+                {
+                    FTBXECVIESAPIErrorWrapperContract errorWrapper = errorEnumerator.current();
+
+                    switch (errorWrapper.parmError())
+                    {
+                        case FTBXECVIESAPIConstants::VIESErrorMaxConcurrentRequests: 
+                            vatNumStatus = FTBXECVIESVATNumberStatus::VIESMaxRequests;
+                            break;
+                        case FTBXECVIESAPIConstants::VIESErrorMemberStateUnavailable:
+                            vatNumStatus = FTBXECVIESVATNumberStatus::VIESNotAvailable;
+                            break;
+                    }
+
+                    _checkResult.setResultValues(
+                        '',
+                        '',
+                        vatNumStatus,
+                        strFmt('%1\n%2', errorWrapper.parmError(), errorWrapper.parmMessage()),
+                        saveAPIMessages ? _request : '',
+                        saveAPIMessages ? _response : '');
+
+                    foundError = true;
+                }
+
             }
         }
-        else
+
+        if (!foundError)
         {
             _checkResult.setResultValues(
                 '',
@@ -179,10 +202,60 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 ]]></Source>
 			</Method>
 			<Method>
+				<Name>callApi</Name>
+				<Source><![CDATA[
+    private void callApi(FTBXECVIESCheckResult _checkResult)
+    {
+        var httpRequestMessage  = new HttpRequestMessage(
+            new HttpMethod('post'),
+            parameters.VIESAPIURLVatCheck);
+
+        str request = FormJsonSerializer::serializeClass(
+            FTBXECVIESAPICheckVatNumberRequestContract::construct()
+            .setCountryCode(_checkResult.vatCountry())
+            .setVatNumber(_checkResult.vatNumTested())
+            .setRequesterMemberStateCode(vatCountryLegalEntity)
+            .setRequesterNumber(vatNumLegalEntity));
+
+        httpRequestMessage.Content = new StringContent(
+            request,
+            System.Text.Encoding::UTF8,
+            'application/json');
+
+        System.Net.Http.HttpResponseMessage responseMessage = httpClient.SendAsync(httpRequestMessage)
+            .ConfigureAwait(false)
+            .GetAwaiter()
+            .GetResult();
+
+        if (responseMessage)
+        {
+            this.processResponseMessage(
+                _checkResult,
+                request,
+                responseMessage);
+        }
+        else
+        {
+            _checkResult.setResultValues(
+                '',
+                '',
+                FTBXECVIESVATNumberStatus::VIESError,
+                "@FinanceToolbox:ECVIESGenericWebServiceInvalidResponse");
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
 				<Name>invokeValidation</Name>
 				<Source><![CDATA[
     public void invokeValidation()
     {        
+        setPrefix("@FinanceToolbox:ECVIESAPIValidateServiceLabel");
+
+        callDelay                   = max(parameters.APICallDelay, 0);
+        unavailableMemberStatues    = new Set(Types::String);
+
         this.initLegalEntity();
 
         SetEnumerator enumerator = vatValidationResults.getEnumerator();
@@ -193,44 +266,37 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
 
             if (checkResult.vatCountry() && checkResult.vatNum())
             {
-                if (this.isMemberStateAvailable(checkResult.vatCountry()))
-                {
-                    var httpRequestMessage  = new HttpRequestMessage(
-                        new HttpMethod('post'),
-                        parameters.VIESAPIURLVatCheck);
+                if (!unavailableMemberStatues.in(checkResult.vatCountry()) && this.isMemberStateAvailable(checkResult.vatCountry()))
+                {     
+                    this.callApi(checkResult);
 
-                    str request = FormJsonSerializer::serializeClass(
-                        FTBXECVIESAPICheckVatNumberRequestContract::construct()
-                        .setCountryCode(checkResult.vatCountry())
-                        .setVatNumber(checkResult.vatNumTested())
-                        .setRequesterMemberStateCode(vatCountryLegalEntity)
-                        .setRequesterNumber(vatNumLegalEntity));
-
-                    httpRequestMessage.Content = new StringContent(
-                        request,
-                        System.Text.Encoding::UTF8,
-                        'application/json');
-
-                    System.Net.Http.HttpResponseMessage responseMessage = httpClient.SendAsync(httpRequestMessage)
-                        .ConfigureAwait(false)
-                        .GetAwaiter()
-                        .GetResult();
-
-                    if (responseMessage)
+                    if (checkResult.getNumberStatus() == FTBXECVIESVATNumberStatus::VIESNotAvailable)
                     {
-                        this.processResponseMessage(
-                            checkResult, 
-                            request,
-                            responseMessage);
+                        unavailableMemberStatues.add(checkResult.vatCountry());
+                        warning(strFmt("@FinanceToolbox:ECVIESVATNumberEntityBecameUnavailable", checkResult.vatCountry()));
                     }
                     else
                     {
-                        checkResult.setResultValues(
-                            '',
-                            '',
-                            FTBXECVIESVATNumberStatus::VIESError,
-                            "@FinanceToolbox:ECVIESGenericWebServiceInvalidResponse");
+                        if (callDelay)
+                        {
+                            while (checkResult.getNumberStatus() == FTBXECVIESVATNumberStatus::VIESMaxRequests)
+                            {
+                                if (callDelay > FTBXECVIESAPIConstants::VIESInterfaceSingleMaximumCallDelay)
+                                {
+                                    break;
+                                }
+
+                                sleep(FTBXECVIESAPIConstants::VIESInterfaceSingleCallDelayHit);
+
+                                callDelay += FTBXECVIESAPIConstants::VIESInterfaceSingleIncrementCallDelay;
+                                sleep(callDelay);
+                                this.callApi(checkResult);
+                            }
+
+                            sleep(callDelay);
+                        }
                     }
+
                 }
                 else
                 {
@@ -239,6 +305,16 @@ internal final class FTBXECVIESInterfaceSingle extends FTBXECVIESInterfaceBase
                         '',
                         FTBXECVIESVATNumberStatus::VIESNotAvailable,
                         '');
+                }
+
+                switch (checkResult.getNumberStatus())
+                {
+                    case (FTBXECVIESVATNumberStatus::VIESMaxRequests):
+                        warning(strFmt("@FinanceToolbox:ECVIESVATNumberMaxNumRequestError", checkResult.vatNumTested()));
+                        break;
+                    case (FTBXECVIESVATNumberStatus::VIESError):
+                        warning(strFmt("@FinanceToolbox:ECVIESAPIUnspecifiedError", checkResult.vatNumTested()));
+                        break; 
                 }
                 
                 this.validationResultUpdated(checkResult);

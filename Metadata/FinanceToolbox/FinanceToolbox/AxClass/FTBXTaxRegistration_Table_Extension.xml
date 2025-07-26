@@ -18,7 +18,8 @@ public final class FTBXTaxRegistration_Table_Extension
     /// <summary>
     /// Updates VIES status of Tax registration number record
     /// </summary>
-    public void ftbxUpdateVIESStatus()
+    /// <param name = "_showErrorMemberStateEnabled">Show error in case of member state not active</param>
+    public void ftbxUpdateVIESStatus(boolean _showErrorMemberStateEnabled = true)
     {
         var applicabilityRule   = TaxRegistrationTypeApplicabilityRule::find(this.TaxRegistrationTypeApplicabilityRule);
         var legislationType     = TaxRegistrationLegislationTypes::findByTaxRegistrationTypeAppRule(applicabilityRule.RecId);
@@ -26,25 +27,41 @@ public final class FTBXTaxRegistration_Table_Extension
         if (legislationType.TaxRegistrationTypesList == TaxRegistrationTypesList::TAXID)
         {
             TaxCountryRegionParameters taxCountryRegionParameters = TaxCountryRegionParameters::find(applicabilityRule.CountryRegionId);
-
-            if (taxCountryRegionParameters && FTBXECVIESAvailableMemberStates::isMemberStateAvailable(taxCountryRegionParameters.SalesTaxCode))
+            
+            if (FTBXECVIESAvailableMemberStates::isMemberStateEnabled(taxCountryRegionParameters.SalesTaxCode))
             {
                 FTBXECVIESInterfaceBase viesInterface = FTBXECVIESInterfaceBase::construct();
-
                 viesInterface.addCountryVATNumber(
                     taxCountryRegionParameters.CountryRegionId,
                     taxCountryRegionParameters.SalesTaxCode,
                     this.RegistrationNumber);
 
+
                 viesInterface.invokeValidation();
 
-                this.FTBXECVIESVatNumberCheckId     = '';
-                this.FTBXECVIESVATNumberStatus      = viesInterface.latestResult.getNumberStatus();
-                this.FTBXECVIESVATNumberStatusDate  = DateTimeUtil::getSystemDateTime();
+                if (viesInterface.latestResult.getNumberStatus() == FTBXECVIESVATNumberStatus::Valid
+                || FTBXECVIESVATNumberStatus::Invalid)
+                {
+                    this.FTBXECVIESVatNumberCheckId     = '';
+                    this.FTBXECVIESVATNumberStatus      = viesInterface.latestResult.getNumberStatus();
+                    this.FTBXECVIESVATNumberStatusDate  = DateTimeUtil::getSystemDateTime();
 
-                info(strFmt("@FinanceToolbox:ECVIESInfoStatus", this.FTBXECVIESVATNumberStatus));
-                info(strFmt("@FinanceToolbox:ECVIESInfoEntityName", viesInterface.latestResult.entityName()));
-                info(strFmt("@FinanceToolbox:ECVIESInfoEntityAddressing", viesInterface.latestResult.entityAddressing()));
+                    info(strFmt("@FinanceToolbox:ECVIESInfoStatus", this.FTBXECVIESVATNumberStatus));
+
+                    if (viesInterface.latestResult.entityName() != '')
+                    {
+                        info(strFmt("@FinanceToolbox:ECVIESInfoEntityName", viesInterface.latestResult.entityName()));
+                        info(strFmt("@FinanceToolbox:ECVIESInfoEntityAddressing", viesInterface.latestResult.entityAddressing()));
+                    }
+                }
+                else
+                {
+                    error(strFmt("@FinanceToolbox:ECVIESInfoStatus", this.FTBXECVIESVATNumberStatus));
+                }
+            }
+            else
+            {
+                error("@FinanceToolbox:ECVIESVATNumberLegalEntityNotEnabled");
             }
         }
     }
@@ -58,7 +75,7 @@ public final class FTBXTaxRegistration_Table_Extension
     {
         if (FTBXECVIESParameters::find().ValidateOnNumberCreation)
         {
-            this.ftbxUpdateVIESStatus();
+            this.ftbxUpdateVIESStatus(false);
         }
 
         next insert();
@@ -74,7 +91,11 @@ public final class FTBXTaxRegistration_Table_Extension
         if (this.RegistrationNumber != this.orig().RegistrationNumber
             && FTBXECVIESParameters::find().ValidateOnNumberCreation)
         {
-            this.ftbxUpdateVIESStatus();
+            this.FTBXECVIESVatNumberCheckId     = '';
+            this.FTBXECVIESVATNumberStatus      = FTBXECVIESVATNumberStatus::NotChecked;
+            this.FTBXECVIESVATNumberStatusDate  = DateTimeUtil::minValue();
+
+            this.ftbxUpdateVIESStatus(false);
         }
 
         next update();

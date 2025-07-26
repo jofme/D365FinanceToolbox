@@ -114,7 +114,13 @@ public class FTBXECVIESTaxRegNumQuery extends QueryRun
 					<Field>RegistrationNumber</Field>
 				</AxQuerySimpleDataSourceField>
 			</Fields>
-			<Ranges />
+			<Ranges>
+				<AxQuerySimpleDataSourceRange>
+					<Name>FTBXECVIESVATNumberLifecycle</Name>
+					<Field>FTBXECVIESVATNumberLifecycle</Field>
+					<Value>Active</Value>
+				</AxQuerySimpleDataSourceRange>
+			</Ranges>
 			<GroupBy />
 			<Having />
 			<OrderBy />

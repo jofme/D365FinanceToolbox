@@ -160,6 +160,11 @@
       <Name>FTBXECVIESAPIMessage</Name>
       <Link>EDT Strings\FTBXECVIESAPIMessage</Link>
     </Content>
+    <Content Include="AxEdt\FTBXECVIESURL">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESURL</Name>
+      <Link>EDT Strings\FTBXECVIESURL</Link>
+    </Content>
     <Content Include="AxEdt\FTBXECVIESVATNumberCheckAPIRequestIdentifier">
       <SubType>Content</SubType>
       <Name>FTBXECVIESVATNumberCheckAPIRequestIdentifier</Name>
@@ -189,6 +194,11 @@
       <SubType>Content</SubType>
       <Name>FTBXECVIESAPIMatchStatus</Name>
       <Link>Base Enums\FTBXECVIESAPIMatchStatus</Link>
+    </Content>
+    <Content Include="AxEnum\FTBXECVIESVATNumberLifecycle">
+      <SubType>Content</SubType>
+      <Name>FTBXECVIESVATNumberLifecycle</Name>
+      <Link>Base Enums\FTBXECVIESVATNumberLifecycle</Link>
     </Content>
     <Content Include="AxEnum\FTBXECVIESVATNumberStatus">
       <SubType>Content</SubType>
@@ -420,6 +430,7 @@
     <Folder Include="EDT Enums\" />
     <Folder Include="EDT Strings\" />
     <Folder Include="EDT Utc Date Times\" />
+    <Folder Include="Extended Data Types\" />
     <Folder Include="Form Extensions\" />
     <Folder Include="Forms\" />
     <Folder Include="Label Files\" />

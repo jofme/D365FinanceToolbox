@@ -400,6 +400,7 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 													<AxFormControl xmlns=""
 														i:type="AxFormComboBoxControl">
 														<Name>FTBXECVIESVATNumberCheckResults_Status</Name>
+														<EnableFormRef>No</EnableFormRef>
 														<Type>ComboBox</Type>
 														<FormControlExtension
 															i:nil="true" />
@@ -410,6 +411,7 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 													<AxFormControl xmlns=""
 														i:type="AxFormStringControl">
 														<Name>FTBXECVIESVATNumberCheckResults_RequestIdentifier</Name>
+														<EnableFormRef>No</EnableFormRef>
 														<Type>String</Type>
 														<FormControlExtension
 															i:nil="true" />
@@ -419,6 +421,7 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 													<AxFormControl xmlns=""
 														i:type="AxFormStringControl">
 														<Name>FTBXECVIESVATNumberCheckResults_CountryRegionId</Name>
+														<EnableFormRef>No</EnableFormRef>
 														<Type>String</Type>
 														<FormControlExtension
 															i:nil="true" />
@@ -428,6 +431,7 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 													<AxFormControl xmlns=""
 														i:type="AxFormStringControl">
 														<Name>FTBXECVIESVATNumberCheckResults_VATNumSystem</Name>
+														<EnableFormRef>No</EnableFormRef>
 														<Type>String</Type>
 														<FormControlExtension
 															i:nil="true" />
@@ -437,6 +441,7 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 													<AxFormControl xmlns=""
 														i:type="AxFormStringControl">
 														<Name>FTBXECVIESVATNumberCheckResults_ISOCode</Name>
+														<EnableFormRef>No</EnableFormRef>
 														<Type>String</Type>
 														<FormControlExtension
 															i:nil="true" />
@@ -446,6 +451,7 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 													<AxFormControl xmlns=""
 														i:type="AxFormStringControl">
 														<Name>FTBXECVIESVATNumberCheckResults_VATNumTested</Name>
+														<EnableFormRef>No</EnableFormRef>
 														<Type>String</Type>
 														<FormControlExtension
 															i:nil="true" />
@@ -455,6 +461,7 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 													<AxFormControl xmlns=""
 														i:type="AxFormDateTimeControl">
 														<Name>FTBXECVIESVATNumberCheckResults_StatusDate</Name>
+														<EnableFormRef>No</EnableFormRef>
 														<Type>DateTime</Type>
 														<FormControlExtension
 															i:nil="true" />
@@ -464,6 +471,7 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 													<AxFormControl xmlns=""
 														i:type="AxFormStringControl">
 														<Name>FTBXECVIESVATNumberCheckResults_CompanyName</Name>
+														<EnableFormRef>No</EnableFormRef>
 														<Type>String</Type>
 														<FormControlExtension
 															i:nil="true" />
@@ -473,6 +481,7 @@ public class FTBXECVIESVATNumberCheckTable extends FormRun
 													<AxFormControl xmlns=""
 														i:type="AxFormStringControl">
 														<Name>FTBXECVIESVATNumberCheckResults_Address</Name>
+														<EnableFormRef>No</EnableFormRef>
 														<Type>String</Type>
 														<FormControlExtension
 															i:nil="true" />
