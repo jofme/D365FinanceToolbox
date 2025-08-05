@@ -10,7 +10,14 @@ internal final class FTBXECVIESAPIConstants
 {
     public static const str VIESAPIURLVatCheck      = 'https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number';
     public static const str VIESAPIURLStatusDefault = 'https://ec.europa.eu/taxation_customs/vies/rest-api/check-status';
-    
+
+    public static const str VIESErrorMaxConcurrentRequests  = 'MS_MAX_CONCURRENT_REQ';
+    public static const str VIESErrorMemberStateUnavailable = 'MS_UNAVAILABLE';
+
+    public static const int VIESInterfaceSingleDefaultCallDelay      = 200;
+    public static const int VIESInterfaceSingleMaximumCallDelay      = 2000;
+    public static const int VIESInterfaceSingleIncrementCallDelay    = 300;
+    public static const int VIESInterfaceSingleCallDelayHit          = 2000;
 }
 ]]></Declaration>
 		<Methods />

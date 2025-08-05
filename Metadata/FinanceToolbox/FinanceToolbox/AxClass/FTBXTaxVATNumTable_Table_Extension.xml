@@ -20,27 +20,44 @@ final class FTBXTaxVATNumTable_Table_Extension
     /// <summary>
     /// Updates VIES status of VAT number record
     /// </summary>
-    public void ftbxUpdateVIESStatus()
+    /// <param name = "_showErrorMemberStateEnabled">Show error in case of member state not active</param>
+    public void ftbxUpdateVIESStatus(boolean _showErrorMemberStateEnabled = true)
     {
         TaxCountryRegionParameters taxCountryRegionParameters = TaxCountryRegionParameters::find(this.CountryRegionId);
 
-        if (taxCountryRegionParameters && FTBXECVIESAvailableMemberStates::isMemberStateAvailable(taxCountryRegionParameters.SalesTaxCode))
-        {   
+        if (FTBXECVIESAvailableMemberStates::isMemberStateEnabled(taxCountryRegionParameters.SalesTaxCode))
+        {
             FTBXECVIESInterfaceBase viesInterface = FTBXECVIESInterfaceBase::construct();
             viesInterface.addCountryVATNumber(
-                taxCountryRegionParameters.CountryRegionId, 
-                taxCountryRegionParameters.SalesTaxCode, 
+                taxCountryRegionParameters.CountryRegionId,
+                taxCountryRegionParameters.SalesTaxCode,
                 this.VATNum);
 
             viesInterface.invokeValidation();
 
-            this.FTBXECVIESVatNumberCheckId     = '';
-            this.FTBXECVIESVATNumberStatus      = viesInterface.latestResult.getNumberStatus();
-            this.FTBXECVIESVATNumberStatusDate  = DateTimeUtil::getSystemDateTime();
+            if (viesInterface.latestResult.getNumberStatus() == FTBXECVIESVATNumberStatus::Valid
+                || FTBXECVIESVATNumberStatus::Invalid)
+            {
+                this.FTBXECVIESVatNumberCheckId     = '';
+                this.FTBXECVIESVATNumberStatus      = viesInterface.latestResult.getNumberStatus();
+                this.FTBXECVIESVATNumberStatusDate  = DateTimeUtil::getSystemDateTime();
 
-            info(strFmt("@FinanceToolbox:ECVIESInfoStatus", this.FTBXECVIESVATNumberStatus));
-            info(strFmt("@FinanceToolbox:ECVIESInfoEntityName", viesInterface.latestResult.entityName()));
-            info(strFmt("@FinanceToolbox:ECVIESInfoEntityAddressing", viesInterface.latestResult.entityAddressing()));
+                info(strFmt("@FinanceToolbox:ECVIESInfoStatus", this.FTBXECVIESVATNumberStatus));
+
+                if (viesInterface.latestResult.entityName() != '')
+                {
+                    info(strFmt("@FinanceToolbox:ECVIESInfoEntityName", viesInterface.latestResult.entityName()));
+                    info(strFmt("@FinanceToolbox:ECVIESInfoEntityAddressing", viesInterface.latestResult.entityAddressing()));
+                }
+            }
+            else
+            {
+                error(strFmt("@FinanceToolbox:ECVIESInfoStatus", this.FTBXECVIESVATNumberStatus));
+            }
+        }
+        else if (_showErrorMemberStateEnabled)
+        {
+            error("@FinanceToolbox:ECVIESVATNumberLegalEntityNotEnabled");
         }
     }
 
@@ -79,7 +96,7 @@ final class FTBXTaxVATNumTable_Table_Extension
     {
         if (FTBXECVIESParameters::find().ValidateOnNumberCreation)
         {
-            this.ftbxUpdateVIESStatus();
+            this.ftbxUpdateVIESStatus(false);
         }
 
         next insert();

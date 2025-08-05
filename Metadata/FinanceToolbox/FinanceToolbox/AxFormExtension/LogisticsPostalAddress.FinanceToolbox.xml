@@ -40,6 +40,16 @@
 						<DataField>FTBXECVIESVATNumberStatusDate</DataField>
 						<DataSource>TaxRegistration</DataSource>
 					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormComboBoxControl">
+						<Name>FTBXECVIESStatus_FTBXECVIESVATNumberLifecycle</Name>
+						<Type>ComboBox</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FTBXECVIESVATNumberLifecycle</DataField>
+						<DataSource>TaxRegistration</DataSource>
+						<Items />
+					</AxFormControl>
 				</Controls>
 				<DataGroup>FTBXECVIESStatus</DataGroup>
 				<DataSource>TaxRegistration</DataSource>

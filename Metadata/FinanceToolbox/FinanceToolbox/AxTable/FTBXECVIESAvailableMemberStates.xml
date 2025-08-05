@@ -73,6 +73,33 @@ public class FTBXECVIESAvailableMemberStates extends common
 
 ]]></Source>
 			</Method>
+			<Method>
+				<Name>isMemberStateEnabled</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Is the member state enabled for VIES validation
+    /// </summary>
+    /// <param name = "_isoCode">ISO code of the member state</param>
+    /// <returns>True if the member state is enabled, otherwise false</returns>
+    public static boolean isMemberStateEnabled(LogisticsAddressCountryRegionISOCode _isoCode)
+    {
+        boolean ret;
+
+        if (_isoCode)
+        {
+            FTBXECVIESAvailableMemberStates availableMemberStates;
+
+            select firstonly EnableVIES from availableMemberStates
+                where availableMemberStates.ISOCode == _isoCode;
+
+            ret = availableMemberStates.EnableVIES;
+        }
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
 		</Methods>
 	</SourceCode>
 	<DeveloperDocumentation>@FinanceToolbox:ECVIESAvailableMemberStatesDevDoc</DeveloperDocumentation>

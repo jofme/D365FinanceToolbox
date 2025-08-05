@@ -27,5 +27,10 @@
 			<Label>@SYS322850</Label>
 			<Value>4</Value>
 		</AxEnumValue>
+		<AxEnumValue>
+			<Name>VIESMaxRequests</Name>
+			<Label>@FinanceToolbox:VIESMaxRequests</Label>
+			<Value>5</Value>
+		</AxEnumValue>
 	</EnumValues>
 </AxEnum>
