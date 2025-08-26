@@ -1,8 +1,7 @@
 {
   "type": "FSCM",
   "packageName": "D365FinanceToolbox",
-  "buildVersion": "10.0.44",
+  "buildVersion": "10.0.45",
   "ciBranches": "main,release",
-  "useLocalNuGetStorage": true,
   "deploymentScheduler": false
 }
