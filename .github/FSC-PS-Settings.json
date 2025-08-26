@@ -2,5 +2,5 @@
   "templateUrl": "https://github.com/fscpscollaborative/fscps",
   "templateBranch": "main",
   "metadataPath": "Metadata",
-  "versionStrategy": "latest"
+  "versionStrategy": "GA"
 }
